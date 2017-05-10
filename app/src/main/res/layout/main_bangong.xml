@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="340dp"
+        android:layout_height="340dp"
+        android:layout_below="@+id/top"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/layout_white">
+
+        <ImageView
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:background="@color/gery_90" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_centerVertical="true"
+            android:background="@color/gery_90" />
+        <LinearLayout
+            android:id="@+id/l1"
+            android:layout_width="match_parent"
+            android:layout_height="170dp">
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+
+                <RadioButton
+                    style="@style/MyRadioButton"
+                    android:id="@+id/contract_input"
+                    android:drawableTop="@mipmap/contract_input"
+                    android:text="订单录入"
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+                <RadioButton
+                    android:id="@+id/contract_edit"
+                    style="@style/MyRadioButton"
+                    android:drawableTop="@mipmap/contract_edit"
+                    android:text="订单审核"
+                    />
+            </RelativeLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_below="@id/l1"
+            android:layout_width="match_parent"
+            android:layout_height="170dp">
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+
+                <RadioButton
+                    android:id="@+id/contract_history"
+                    style="@style/MyRadioButton"
+                    android:drawableTop="@mipmap/contract_history"
+                    android:text="历史订单"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+                <RadioButton
+                    android:id="@+id/all_contract"
+                    style="@style/MyRadioButton"
+                    android:drawableTop="@mipmap/all_contract"
+                    android:text="综合订单"
+                    />
+            </RelativeLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="34dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp">
+
+        <TextView
+            android:id="@+id/contract_num"
+            style="@style/ContractAudit_textview"
+            android:layout_marginLeft="16dp"
+            android:text="20170414001" />
+
+        <TextView
+            android:id="@+id/company_name"
+            android:text="大风厂公司"
+            android:layout_centerInParent="true"
+            style="@style/ContractAudit_textview" />
+        <TextView
+            android:id="@+id/apply_date"
+            android:text="2017-04-14"
+            style="@style/ContractAudit_textview"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp"
+
+            />
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@mipmap/right_arrow"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+           />
+    </RelativeLayout>
+
+</LinearLayout>

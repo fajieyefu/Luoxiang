@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <fajieyefu.com.luoxiang.layout.TitleLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </fajieyefu.com.luoxiang.layout.TitleLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/layout_white">
+
+        <TextView
+            android:id="@+id/n1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="16dp"
+            android:gravity="center"
+            android:text="客户选择"
+            android:textColor="#4d4d4d"
+            android:textSize="20sp" />
+<fajieyefu.com.luoxiang.layout.MySpinner
+    android:id="@+id/pick_custom"
+    android:layout_toRightOf="@+id/n1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+</fajieyefu.com.luoxiang.layout.MySpinner>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/layout_white">
+
+        <TextView
+            android:id="@+id/n2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:text="标准选择"
+            android:textColor="#4d4d4d"
+            android:textSize="20sp" />
+        <fajieyefu.com.luoxiang.layout.MySpinner
+            android:id="@+id/pick_biaozhun"
+            android:layout_toRightOf="@id/n2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </fajieyefu.com.luoxiang.layout.MySpinner>
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/next"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_below="@+id/password"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/btn_red"
+        android:text="@string/next"
+        android:textColor="@color/white"
+        android:textSize="16dp" />
+</LinearLayout>
+
+
