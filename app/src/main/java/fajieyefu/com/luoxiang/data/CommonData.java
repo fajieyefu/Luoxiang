@@ -10,8 +10,9 @@ public class CommonData {
 
     public final static String modifyURL=URL2+"/modify";
     public final static String loginURL=URL2+"/login";
-    public static final String HISTORYCONTRACTURL ="/" ;
+    public static final String HISTORYCONTRACTURL ="/getHistory" ;
     public static String contractInputURL=URL2+"/getAllStandard";
-
+    
     public static String OrderAplyListURL=URL2+"/getOrderAplyList";
+    public static String StandardDetails=URL2+"/getClassesByStandard";
 }

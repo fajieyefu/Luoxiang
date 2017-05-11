@@ -18,13 +18,14 @@ import butterknife.OnClick;
 import de.greenrobot.dao.query.Query;
 import de.greenrobot.dao.query.QueryBuilder;
 import fajieyefu.com.luoxiang.R;
+import fajieyefu.com.luoxiang.bean.InventoryBean;
 import fajieyefu.com.luoxiang.bean.ObtainBean;
 import fajieyefu.com.luoxiang.bean.ReponseBean;
 import fajieyefu.com.luoxiang.bean.UserInfo;
 import fajieyefu.com.luoxiang.dao.DaoBean;
 import fajieyefu.com.luoxiang.data.CommonData;
 import fajieyefu.com.luoxiang.db.DaoSession;
-import fajieyefu.com.luoxiang.db.UserInfoDao;
+import fajieyefu.com.luoxiang.dao.UserInfoDao;
 import fajieyefu.com.luoxiang.layout.MySpinner;
 import fajieyefu.com.luoxiang.layout.TitleLayout;
 import fajieyefu.com.luoxiang.util.DaoManager;
@@ -116,7 +117,7 @@ public class ContractInputPage1 extends BaseActivity {
             e.printStackTrace();
         }
         OkHttpUtils.postString()
-                .url("")
+                .url(CommonData.StandardDetails)
                 .content(jsonObject.toString())
                 .mediaType(MediaType.parse("application/json;charset=utf-8"))
                 .build()
@@ -155,6 +156,8 @@ public class ContractInputPage1 extends BaseActivity {
         @Override
         public void onResponse(ReponseBean response, int id) {
             if (response.getCode() == 0) {
+                List<InventoryBean> inventory=response.getData().inventory;
+
 
             }
         }

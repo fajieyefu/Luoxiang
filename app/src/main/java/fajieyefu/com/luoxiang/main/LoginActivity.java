@@ -24,7 +24,7 @@ import fajieyefu.com.luoxiang.bean.ReponseBean;
 import fajieyefu.com.luoxiang.bean.UserInfo;
 import fajieyefu.com.luoxiang.data.CommonData;
 import fajieyefu.com.luoxiang.db.DaoSession;
-import fajieyefu.com.luoxiang.db.UserInfoDao;
+import fajieyefu.com.luoxiang.dao.UserInfoDao;
 import fajieyefu.com.luoxiang.util.DaoManager;
 import fajieyefu.com.luoxiang.util.MyCallback;
 import okhttp3.Call;

@@ -4,7 +4,6 @@ import de.greenrobot.dao.query.Query;
 import de.greenrobot.dao.query.QueryBuilder;
 import fajieyefu.com.luoxiang.bean.UserInfo;
 import fajieyefu.com.luoxiang.db.DaoSession;
-import fajieyefu.com.luoxiang.db.UserInfoDao;
 import fajieyefu.com.luoxiang.util.DaoManager;
 
 /**

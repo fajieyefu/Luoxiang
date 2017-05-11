@@ -38,5 +38,6 @@ public class ReponseBean {
             public List<ObtainBean> standards;
             public List<ObtainBean> customers;
             public ArrayList<ContractBean> contracts;
+            public List<InventoryClass> inventory;
     }
 }
