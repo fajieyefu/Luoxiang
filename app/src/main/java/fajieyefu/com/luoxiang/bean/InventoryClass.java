@@ -13,8 +13,11 @@ public class InventoryClass {
     private String cInvCCode;
     private String cInvCName;
     private String standardId;
-    private List<Inventory> inventoryDetails;
+    private String standardMoney;
 
+
+
+    private List<Inventory> inventoryDetails;
     public List<Inventory> getInventoryDetails() {
         return inventoryDetails;
     }
@@ -30,11 +33,12 @@ public class InventoryClass {
         this.id = id;
     }
 
-    public InventoryClass(Long id, String cInvCCode, String cInvCName, String standardId) {
+    public InventoryClass(Long id, String cInvCCode, String cInvCName, String standardId, String standardMoney) {
         this.id = id;
         this.cInvCCode = cInvCCode;
         this.cInvCName = cInvCName;
         this.standardId = standardId;
+        this.standardMoney = standardMoney;
     }
 
     public Long getId() {
@@ -67,6 +71,14 @@ public class InventoryClass {
 
     public void setStandardId(String standardId) {
         this.standardId = standardId;
+    }
+
+    public String getStandardMoney() {
+        return standardMoney;
+    }
+
+    public void setStandardMoney(String standardMoney) {
+        this.standardMoney = standardMoney;
     }
 
 }

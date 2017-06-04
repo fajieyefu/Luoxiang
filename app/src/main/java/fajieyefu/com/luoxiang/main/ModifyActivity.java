@@ -76,7 +76,7 @@ public class ModifyActivity extends BaseActivity {
                 .mediaType(MediaType.parse("application/json;charset=utf-8"))
                 .build()
                 .execute(new ResponseCallBack());
-        toolUtil.dismissProgressDialog();
+
 
     }
     public UserInfo getInfoById(long id) {
@@ -88,12 +88,13 @@ public class ModifyActivity extends BaseActivity {
     private class ResponseCallBack extends MyCallback {
         @Override
         public void onError(Call call, Exception e, int id) {
+            toolUtil.dismissProgressDialog();
             Toast.makeText(ModifyActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onResponse(ReponseBean response, int id) {
-            Toast.makeText(ModifyActivity.this, response.getMsg(), Toast.LENGTH_SHORT).show();
+            toolUtil.dismissProgressDialog();
             if (response.getCode()==0){
                 Toast.makeText(ModifyActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
                 finish();

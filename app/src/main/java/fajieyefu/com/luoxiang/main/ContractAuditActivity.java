@@ -1,8 +1,11 @@
 package fajieyefu.com.luoxiang.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -18,11 +21,11 @@ import butterknife.ButterKnife;
 import fajieyefu.com.luoxiang.R;
 import fajieyefu.com.luoxiang.adapter.ContractAdapter;
 import fajieyefu.com.luoxiang.bean.ContractBean;
-import fajieyefu.com.luoxiang.bean.ReponseBean;
+import fajieyefu.com.luoxiang.bean.ResponseBean2;
 import fajieyefu.com.luoxiang.dao.DaoBean;
 import fajieyefu.com.luoxiang.data.CommonData;
 import fajieyefu.com.luoxiang.layout.TitleLayout;
-import fajieyefu.com.luoxiang.util.MyCallback;
+import fajieyefu.com.luoxiang.util.MyCallback2;
 import fajieyefu.com.luoxiang.util.ToolUtil;
 import fajieyefu.com.luoxiang.widget.XListView;
 import okhttp3.Call;
@@ -40,9 +43,10 @@ public class ContractAuditActivity extends BaseActivity implements XListView.IXL
     private String username;
     private String password;
     private int pagesCount =1;
-    private ArrayList<ContractBean> contracts = new ArrayList<>();
+    private List<ContractBean> contracts = new ArrayList<>();
     private ContractAdapter contractAdapter;
     private int type=0; //0上拉刷新、或者1下拉加载
+    private ToolUtil toolUtil;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -80,12 +84,24 @@ public class ContractAuditActivity extends BaseActivity implements XListView.IXL
         applyLv.setAutoLoadEnable(true);
         applyLv.setXListViewListener(this);
         applyLv.setRefreshTime(ToolUtil.getTime());
-        contractAdapter = new ContractAdapter(contracts,this);
+        contractAdapter = new ContractAdapter(contracts,ContractAuditActivity.this);
         applyLv.setAdapter(contractAdapter);
+        applyLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent  = new Intent(ContractAuditActivity.this,ContractAuditDetailsActivity.class);
+                intent.putExtra("orderId",contracts.get(position).getOrderId());
+                startActivity(intent);
+
+            }
+        });
+        toolUtil = new ToolUtil();
+        toolUtil.showProgressDialog(this,"请稍等","正在加载数据...");
+
     }
 
     /**
-     * 上拉刷新的逻辑
+     * 下拉刷新的逻辑
      */
     @Override
     public void onRefresh() {
@@ -96,7 +112,7 @@ public class ContractAuditActivity extends BaseActivity implements XListView.IXL
     }
 
     /**
-     * 下拉加载的逻辑
+     * 上拉加载的逻辑
      */
     @Override
     public void onLoadMore() {
@@ -110,23 +126,27 @@ public class ContractAuditActivity extends BaseActivity implements XListView.IXL
         applyLv.stopLoadMore();
         applyLv.setRefreshTime(ToolUtil.getTime());
     }
-    private class ResponseCallBack extends MyCallback {
+    private class ResponseCallBack extends MyCallback2 {
+
         @Override
         public void onError(Call call, Exception e, int id) {
+            toolUtil.dismissProgressDialog();
             Toast.makeText(ContractAuditActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
         @Override
-        public void onResponse(ReponseBean response, int id) {
-                if (response.getCode()==0){
-                    if (type==0){
-                        contracts = response.getData().contracts;
-                    }else{
-                        contracts.addAll(response.getData().contracts);
-                    }
-                }else{
-                    Toast.makeText(ContractAuditActivity.this, response.getMsg(), Toast.LENGTH_SHORT).show();
+        public void onResponse(ResponseBean2 response, int id) {
+            toolUtil.dismissProgressDialog();
+            if (response.getCode()==0){
+                contracts.clear();
+                if (response.getData()!=null){
+                    contracts.addAll(response.getData());
                 }
+                contractAdapter.notifyDataSetChanged();
+            }
+            else{
+                Toast.makeText(ContractAuditActivity.this, response.getMsg(), Toast.LENGTH_SHORT).show();
+            }
             StopLoad();
         }
     }

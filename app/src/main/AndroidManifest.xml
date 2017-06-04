@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="fajieyefu.com.luoxiang">
-    <!--android:theme="@style/AppTheme"-->
-    <!--android:theme="@android:style/Theme.NoTitleBar"-->
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name=".application.MyApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -25,7 +23,10 @@
         <activity android:name=".main.HistoryActivity"/>
         <activity android:name=".main.ModifyActivity"/>
         <activity android:name=".main.ContractInputPage1"/>
-
+        <activity android:name=".main.ContractInputActivity"/>
+        <activity android:name=".main.HistorySelectedActivity"/>
+        <activity android:name=".main.ContractAuditDetailsActivity"/>
+        <activity android:name=".main.HistoryDetailsActivity"/>
     </application>
 
 </manifest>

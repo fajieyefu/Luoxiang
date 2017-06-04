@@ -3,21 +3,24 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:textSize="25sp"
+        android:textSize="18sp"
         android:text="请选择类型"
         android:textColor="@color/Myorange"
-        android:gravity="center_vertical"
+        android:gravity="center"
         android:paddingLeft="10dp"/>
-
-    <ImageView
+    <EditText
+        android:id="@+id/edit_text"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/Myorange"/>
+        android:layout_height="40dp"
+        android:background="@drawable/edit_input"
+        android:padding="5dp"/>
 
     <ListView
         android:id="@+id/spinner_list"

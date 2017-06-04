@@ -19,7 +19,14 @@ import java.util.regex.Pattern;
 public class ToolUtil {
 	private ProgressDialog progressDialog;
 	private Context mContext;
-
+	public void showProgressDialog(Context context) {
+		progressDialog = new ProgressDialog(context);
+		progressDialog.setTitle("请稍后");
+		progressDialog.setMessage("正在加载数据...");
+		progressDialog.setCanceledOnTouchOutside(false);
+		progressDialog.setCancelable(false);
+		progressDialog.show();
+	}
 	/**
 	 * 显示 ProgressDialog
 	 *
@@ -31,6 +38,8 @@ public class ToolUtil {
 		progressDialog = new ProgressDialog(context);
 		progressDialog.setTitle(title);
 		progressDialog.setMessage(content);
+		progressDialog.setCanceledOnTouchOutside(false);
+		progressDialog.setCancelable(false);
 		progressDialog.show();
 	}
 

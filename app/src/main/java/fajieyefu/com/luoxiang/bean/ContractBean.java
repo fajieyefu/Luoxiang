@@ -10,10 +10,19 @@ public class ContractBean {
     private int statues;
     private String userId;
     private String orderName;
-    private Long standardMoney;
+    private double standardMoney;
     private String standardName;
     private String cDCCode;
     private int orderId;
+    private String orderNumber;
+
+    public String getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(String orderNumber) {
+        this.orderNumber = orderNumber;
+    }
 
     public int getStandardId() {
         return standardId;
@@ -55,11 +64,11 @@ public class ContractBean {
         this.orderName = orderName;
     }
 
-    public Long getStandardMoney() {
+    public double getStandardMoney() {
         return standardMoney;
     }
 
-    public void setStandardMoney(Long standardMoney) {
+    public void setStandardMoney(double standardMoney) {
         this.standardMoney = standardMoney;
     }
 

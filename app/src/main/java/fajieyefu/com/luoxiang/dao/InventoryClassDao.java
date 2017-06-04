@@ -28,6 +28,7 @@ public class InventoryClassDao extends AbstractDao<InventoryClass, Long> {
         public final static Property CInvCCode = new Property(1, String.class, "cInvCCode", false, "C_INV_CCODE");
         public final static Property CInvCName = new Property(2, String.class, "cInvCName", false, "C_INV_CNAME");
         public final static Property StandardId = new Property(3, String.class, "standardId", false, "STANDARD_ID");
+        public final static Property StandardMoney = new Property(4, String.class, "standardMoney", false, "STANDARD_MONEY");
     };
 
 
@@ -46,7 +47,8 @@ public class InventoryClassDao extends AbstractDao<InventoryClass, Long> {
                 "'_id' INTEGER PRIMARY KEY ," + // 0: id
                 "'C_INV_CCODE' TEXT," + // 1: cInvCCode
                 "'C_INV_CNAME' TEXT," + // 2: cInvCName
-                "'STANDARD_ID' TEXT);"); // 3: standardId
+                "'STANDARD_ID' TEXT," + // 3: standardId
+                "'STANDARD_MONEY' TEXT);"); // 4: standardMoney
     }
 
     /** Drops the underlying database table. */
@@ -79,6 +81,11 @@ public class InventoryClassDao extends AbstractDao<InventoryClass, Long> {
         if (standardId != null) {
             stmt.bindString(4, standardId);
         }
+ 
+        String standardMoney = entity.getStandardMoney();
+        if (standardMoney != null) {
+            stmt.bindString(5, standardMoney);
+        }
     }
 
     /** @inheritdoc */
@@ -94,7 +101,8 @@ public class InventoryClassDao extends AbstractDao<InventoryClass, Long> {
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // cInvCCode
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // cInvCName
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3) // standardId
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // standardId
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4) // standardMoney
         );
         return entity;
     }
@@ -106,6 +114,7 @@ public class InventoryClassDao extends AbstractDao<InventoryClass, Long> {
         entity.setCInvCCode(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setCInvCName(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setStandardId(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setStandardMoney(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
      }
     
     /** @inheritdoc */

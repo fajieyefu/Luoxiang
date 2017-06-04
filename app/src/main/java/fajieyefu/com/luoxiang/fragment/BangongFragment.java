@@ -15,9 +15,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import fajieyefu.com.luoxiang.R;
+import fajieyefu.com.luoxiang.main.ContractAnlysisActivity;
 import fajieyefu.com.luoxiang.main.ContractAuditActivity;
 import fajieyefu.com.luoxiang.main.ContractInputPage1;
 import fajieyefu.com.luoxiang.main.HistoryActivity;
+import fajieyefu.com.luoxiang.main.HistorySelectedActivity;
 
 /**
  * Created by Administrator on 2017/4/14.
@@ -67,10 +69,12 @@ public class BangongFragment extends Fragment {
                 startActivity(intent);
                 break;
             case R.id.contract_history:
-                intent.setClass(context, HistoryActivity.class);
+                intent.setClass(context, HistorySelectedActivity.class);
                 startActivity(intent);
                 break;
             case R.id.all_contract:
+                intent.setClass(context,ContractAnlysisActivity.class);
+                startActivity(intent);
                 break;
         }
     }

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingRight="30dp"
+    android:paddingLeft="30dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
+    >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="参考数值"
+            android:textSize="32sp"
+            android:gravity="center"
+            android:textColor="@color/black"/>
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="您选的配置价格为(元)："
+            style="@style/tv_18sp_black"
+            />
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            style="@style/tv_12sp_MyOrange"
+            android:textSize="36sp"
+            android:gravity="center"
+            android:text="12223"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="您选的配置重量为(kg)："
+            style="@style/tv_18sp_black"
+            />
+        <TextView
+            android:id="@+id/weight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/tv_12sp_MyOrange"
+            android:textSize="32sp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="12223"/>
+
+
+</LinearLayout>

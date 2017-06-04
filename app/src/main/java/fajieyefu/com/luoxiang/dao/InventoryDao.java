@@ -25,12 +25,18 @@ public class InventoryDao extends AbstractDao<Inventory, Long> {
     */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property CInvCode = new Property(1, String.class, "cInvCode", false, "C_INV_CODE");
-        public final static Property CInvName = new Property(2, String.class, "cInvName", false, "C_INV_NAME");
-        public final static Property DeMoney = new Property(3, String.class, "deMoney", false, "DE_MONEY");
-        public final static Property RealMoney = new Property(4, String.class, "realMoney", false, "REAL_MONEY");
-        public final static Property Counts = new Property(5, String.class, "counts", false, "COUNTS");
-        public final static Property Weight = new Property(6, String.class, "weight", false, "WEIGHT");
+        public final static Property CInvCCode = new Property(1, String.class, "cInvCCode", false, "C_INV_CCODE");
+        public final static Property CInvCode = new Property(2, String.class, "cInvCode", false, "C_INV_CODE");
+        public final static Property CInvName = new Property(3, String.class, "cInvName", false, "C_INV_NAME");
+        public final static Property DeMoney = new Property(4, String.class, "deMoney", false, "DE_MONEY");
+        public final static Property RealMoney = new Property(5, String.class, "realMoney", false, "REAL_MONEY");
+        public final static Property Counts = new Property(6, String.class, "counts", false, "COUNTS");
+        public final static Property Weight = new Property(7, String.class, "weight", false, "WEIGHT");
+        public final static Property ClassId = new Property(8, String.class, "classId", false, "CLASS_ID");
+        public final static Property StandardId = new Property(9, String.class, "standardId", false, "STANDARD_ID");
+        public final static Property IsCurrent = new Property(10, Integer.class, "isCurrent", false, "IS_CURRENT");
+        public final static Property CInvStd = new Property(11, String.class, "cInvStd", false, "C_INV_STD");
+        public final static Property U8code = new Property(12, String.class, "u8code", false, "U8CODE");
     };
 
 
@@ -47,12 +53,18 @@ public class InventoryDao extends AbstractDao<Inventory, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "'INVENTORY' (" + //
                 "'_id' INTEGER PRIMARY KEY ," + // 0: id
-                "'C_INV_CODE' TEXT," + // 1: cInvCode
-                "'C_INV_NAME' TEXT," + // 2: cInvName
-                "'DE_MONEY' TEXT," + // 3: deMoney
-                "'REAL_MONEY' TEXT," + // 4: realMoney
-                "'COUNTS' TEXT," + // 5: counts
-                "'WEIGHT' TEXT);"); // 6: weight
+                "'C_INV_CCODE' TEXT," + // 1: cInvCCode
+                "'C_INV_CODE' TEXT," + // 2: cInvCode
+                "'C_INV_NAME' TEXT," + // 3: cInvName
+                "'DE_MONEY' TEXT," + // 4: deMoney
+                "'REAL_MONEY' TEXT," + // 5: realMoney
+                "'COUNTS' TEXT," + // 6: counts
+                "'WEIGHT' TEXT," + // 7: weight
+                "'CLASS_ID' TEXT," + // 8: classId
+                "'STANDARD_ID' TEXT," + // 9: standardId
+                "'IS_CURRENT' INTEGER," + // 10: isCurrent
+                "'C_INV_STD' TEXT," + // 11: cInvStd
+                "'U8CODE' TEXT);"); // 12: u8code
     }
 
     /** Drops the underlying database table. */
@@ -71,34 +83,64 @@ public class InventoryDao extends AbstractDao<Inventory, Long> {
             stmt.bindLong(1, id);
         }
  
+        String cInvCCode = entity.getCInvCCode();
+        if (cInvCCode != null) {
+            stmt.bindString(2, cInvCCode);
+        }
+ 
         String cInvCode = entity.getCInvCode();
         if (cInvCode != null) {
-            stmt.bindString(2, cInvCode);
+            stmt.bindString(3, cInvCode);
         }
  
         String cInvName = entity.getCInvName();
         if (cInvName != null) {
-            stmt.bindString(3, cInvName);
+            stmt.bindString(4, cInvName);
         }
  
         String deMoney = entity.getDeMoney();
         if (deMoney != null) {
-            stmt.bindString(4, deMoney);
+            stmt.bindString(5, deMoney);
         }
  
         String realMoney = entity.getRealMoney();
         if (realMoney != null) {
-            stmt.bindString(5, realMoney);
+            stmt.bindString(6, realMoney);
         }
  
         String counts = entity.getCounts();
         if (counts != null) {
-            stmt.bindString(6, counts);
+            stmt.bindString(7, counts);
         }
  
         String weight = entity.getWeight();
         if (weight != null) {
-            stmt.bindString(7, weight);
+            stmt.bindString(8, weight);
+        }
+ 
+        String classId = entity.getClassId();
+        if (classId != null) {
+            stmt.bindString(9, classId);
+        }
+ 
+        String standardId = entity.getStandardId();
+        if (standardId != null) {
+            stmt.bindString(10, standardId);
+        }
+ 
+        Integer isCurrent = entity.getIsCurrent();
+        if (isCurrent != null) {
+            stmt.bindLong(11, isCurrent);
+        }
+ 
+        String cInvStd = entity.getCInvStd();
+        if (cInvStd != null) {
+            stmt.bindString(12, cInvStd);
+        }
+ 
+        String u8code = entity.getU8code();
+        if (u8code != null) {
+            stmt.bindString(13, u8code);
         }
     }
 
@@ -113,12 +155,18 @@ public class InventoryDao extends AbstractDao<Inventory, Long> {
     public Inventory readEntity(Cursor cursor, int offset) {
         Inventory entity = new Inventory( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // cInvCode
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // cInvName
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // deMoney
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // realMoney
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // counts
-            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6) // weight
+            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // cInvCCode
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // cInvCode
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // cInvName
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // deMoney
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // realMoney
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // counts
+            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // weight
+            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // classId
+            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // standardId
+            cursor.isNull(offset + 10) ? null : cursor.getInt(offset + 10), // isCurrent
+            cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // cInvStd
+            cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12) // u8code
         );
         return entity;
     }
@@ -127,12 +175,18 @@ public class InventoryDao extends AbstractDao<Inventory, Long> {
     @Override
     public void readEntity(Cursor cursor, Inventory entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setCInvCode(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setCInvName(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setDeMoney(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
-        entity.setRealMoney(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setCounts(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
-        entity.setWeight(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
+        entity.setCInvCCode(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
+        entity.setCInvCode(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setCInvName(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setDeMoney(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setRealMoney(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setCounts(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
+        entity.setWeight(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
+        entity.setClassId(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
+        entity.setStandardId(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
+        entity.setIsCurrent(cursor.isNull(offset + 10) ? null : cursor.getInt(offset + 10));
+        entity.setCInvStd(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
+        entity.setU8code(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
      }
     
     /** @inheritdoc */

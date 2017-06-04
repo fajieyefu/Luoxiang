@@ -1,7 +1,9 @@
 package fajieyefu.com.luoxiang.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -10,6 +12,7 @@ import com.zhy.http.okhttp.OkHttpUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.List;
 
 import butterknife.BindView;
@@ -18,7 +21,8 @@ import butterknife.OnClick;
 import de.greenrobot.dao.query.Query;
 import de.greenrobot.dao.query.QueryBuilder;
 import fajieyefu.com.luoxiang.R;
-import fajieyefu.com.luoxiang.bean.InventoryBean;
+import fajieyefu.com.luoxiang.bean.Inventory;
+import fajieyefu.com.luoxiang.bean.InventoryClass;
 import fajieyefu.com.luoxiang.bean.ObtainBean;
 import fajieyefu.com.luoxiang.bean.ReponseBean;
 import fajieyefu.com.luoxiang.bean.UserInfo;
@@ -38,7 +42,7 @@ import okhttp3.MediaType;
  * Created by Administrator on 2017-05-05.
  */
 
-public class ContractInputPage1 extends BaseActivity {
+public class ContractInputPage1 extends BaseActivity  {
 
 
     @BindView(R.id.pick_custom)
@@ -80,8 +84,8 @@ public class ContractInputPage1 extends BaseActivity {
         try {
             jsonObject.put("username", userInfo.getUsername());
             jsonObject.put("password", userInfo.getPassword());
-        } catch (JSONException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+//            e.printStackTrace();
         }
 
 
@@ -113,9 +117,11 @@ public class ContractInputPage1 extends BaseActivity {
             jsonObject.put("cCusCode", cCusCode);
             jsonObject.put("username", username);
             jsonObject.put("password", password);
+            Log.i("content", jsonObject.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        toolUtil.showProgressDialog(this, "请稍后", "正在获取数据...");
         OkHttpUtils.postString()
                 .url(CommonData.StandardDetails)
                 .content(jsonObject.toString())
@@ -128,19 +134,20 @@ public class ContractInputPage1 extends BaseActivity {
     private class ResponCallBack extends MyCallback {
         @Override
         public void onError(Call call, Exception e, int id) {
-            Toast.makeText(ContractInputPage1.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             toolUtil.dismissProgressDialog();
+            Toast.makeText(ContractInputPage1.this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onResponse(ReponseBean response, int id) {
+            toolUtil.dismissProgressDialog();
             if (response.getCode() == 0) {
                 List<ObtainBean> customers = response.getData().customers;
                 List<ObtainBean> standards = response.getData().standards;
                 pickBiaozhun.setData(standards);
                 pickCustom.setData(customers);
-                toolUtil.dismissProgressDialog();
-
+            }else{
+                Toast.makeText(ContractInputPage1.this, response.getMsg(), Toast.LENGTH_SHORT).show();
             }
 
 
@@ -150,16 +157,36 @@ public class ContractInputPage1 extends BaseActivity {
     private class ResponCallBack2 extends MyCallback {
         @Override
         public void onError(Call call, Exception e, int id) {
-
+            toolUtil.dismissProgressDialog();
+            Toast.makeText(ContractInputPage1.this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onResponse(ReponseBean response, int id) {
+            toolUtil.dismissProgressDialog();
             if (response.getCode() == 0) {
-                List<InventoryBean> inventory=response.getData().inventory;
+                List<InventoryClass> inventoryClass=response.getData().inventory;
+                DaoBean.deleteInventoryClassAll();
+                DaoBean.insertInventoryClassList(inventoryClass);
+                DaoBean.deleteInventoryAll();
+                for (int i = 0; i <inventoryClass.size() ; i++) {
+                    List<Inventory> inventory = inventoryClass.get(i).getInventoryDetails();
+                    if (inventory!=null){
+                        DaoBean.insertInventoryList(inventory);
+                    }
+                }
 
+                Intent intent = new Intent(ContractInputPage1.this,ContractInputActivity.class);
+                intent.putExtra("customer", response.getData().customer);
+                startActivity(intent);
+                finish();
+
+            }else{
+
+                Toast.makeText(ContractInputPage1.this, response.getMsg(), Toast.LENGTH_SHORT).show();
 
             }
+
         }
     }
 }

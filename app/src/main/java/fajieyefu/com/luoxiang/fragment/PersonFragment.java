@@ -64,6 +64,7 @@ public class PersonFragment extends Fragment {
                 startActivity(intent);
                 break;
             case R.id.exit:
+                System.exit(0);
                 break;
         }
     }

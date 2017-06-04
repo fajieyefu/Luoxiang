@@ -7,12 +7,20 @@
         android:layout_width="match_parent"
         android:layout_height="42dp"
         android:orientation="horizontal"
-        android:paddingLeft="34dp">
+        >
 
+        <ImageView
+            android:id="@+id/dot"
+            style="@style/DotStyle"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/dot_0"
+            android:layout_gravity="center_vertical"/>
         <TextView
             android:id="@+id/contractId"
             android:layout_width="0dp"
             android:layout_weight="1"
+            android:layout_marginLeft="8dp"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:textSize="15sp"

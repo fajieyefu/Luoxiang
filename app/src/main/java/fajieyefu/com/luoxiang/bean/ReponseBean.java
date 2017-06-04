@@ -37,7 +37,9 @@ public class ReponseBean {
     public static class T {
             public List<ObtainBean> standards;
             public List<ObtainBean> customers;
+            public ObtainBean customer;
             public ArrayList<ContractBean> contracts;
             public List<InventoryClass> inventory;
+            public List<ContractDetail> order;
     }
 }

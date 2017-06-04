@@ -5,7 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -14,16 +17,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import fajieyefu.com.luoxiang.R;
 import fajieyefu.com.luoxiang.bean.ContractBean;
-import fajieyefu.com.luoxiang.main.HistoryActivity;
 
 /**
  * Created by Administrator on 2017-05-08.
  */
-public class ContractAdapter extends BaseAdapter {
+public class HistoryAdapter extends BaseAdapter {
     private List<ContractBean> data;
     private Context context;
 
-    public ContractAdapter(List<ContractBean> data, Context context) {
+    public HistoryAdapter(List<ContractBean> data, Context context) {
         this.data = data;
         this.context = context;
     }
@@ -46,15 +48,26 @@ public class ContractAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ContractBean contractBean = data.get(position);
-        ViewHolder viewHolder =null;
-        if (convertView==null){
-            convertView = LayoutInflater.from(context).inflate(R.layout.contract_item, null);
+        ViewHolder viewHolder ;
+        if (convertView == null) {
+            convertView = LayoutInflater.from(context).inflate(R.layout.history_contract_item, null);
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
-        }else{
-            viewHolder= (ViewHolder) convertView.getTag();
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.contractId.setText(contractBean.getOrderNumber());
+        switch (contractBean.getStatues()){
+            case 1:
+                viewHolder.dot.setBackground(context.getResources().getDrawable(R.drawable.dot_0));
+                break;
+            case 2:
+                viewHolder.dot.setBackground(context.getResources().getDrawable(R.drawable.dot_1));
+                break;
+            case 3:
+                viewHolder.dot.setBackground(context.getResources().getDrawable(R.drawable.dot_2));
+                break;
+        }
+        viewHolder.contractId.setText(contractBean.getcDCCode());
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         viewHolder.applyDate.setText(sdf.format(contractBean.getCreatetime()));
         viewHolder.customer.setText(contractBean.getOrderName());
@@ -62,6 +75,8 @@ public class ContractAdapter extends BaseAdapter {
     }
 
     static class ViewHolder {
+        @BindView(R.id.dot)
+        ImageView dot;
         @BindView(R.id.contractId)
         TextView contractId;
         @BindView(R.id.customer)
@@ -73,4 +88,6 @@ public class ContractAdapter extends BaseAdapter {
             ButterKnife.bind(this, view);
         }
     }
+
+
 }

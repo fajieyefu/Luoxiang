@@ -2,18 +2,36 @@ package fajieyefu.com.luoxiang.bean;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Administrator on 2017-05-07.
  */
-public class ObtainBean {
+public class ObtainBean implements Serializable{
     @SerializedName(value = "code", alternate = {"standardId","cCusCode"})
     private String code ;
     @SerializedName(value = "name", alternate = {"standardName","cCusName"})
     private String name;
     private String cCusHand;
+    private String cCusAddress;
+    private String cCusLPerson;
 
+    public String getcCusAddress() {
+        return cCusAddress;
+    }
+
+    public void setcCusAddress(String cCusAddress) {
+        this.cCusAddress = cCusAddress;
+    }
+
+    public String getcCusLPerson() {
+        return cCusLPerson;
+    }
+
+    public void setcCusLPerson(String cCusLPerson) {
+        this.cCusLPerson = cCusLPerson;
+    }
 
     public String getCode() {
         return code;

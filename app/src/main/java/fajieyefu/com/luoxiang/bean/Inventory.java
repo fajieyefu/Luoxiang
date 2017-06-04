@@ -7,12 +7,18 @@ package fajieyefu.com.luoxiang.bean;
 public class Inventory {
 
     private Long id;
+    private String cInvCCode;
     private String cInvCode;
     private String cInvName;
     private String deMoney;
     private String realMoney;
     private String counts;
     private String weight;
+    private String classId;
+    private String standardId;
+    private Integer isCurrent;
+    private String cInvStd;
+    private String u8code;
 
     public Inventory() {
     }
@@ -21,14 +27,20 @@ public class Inventory {
         this.id = id;
     }
 
-    public Inventory(Long id, String cInvCode, String cInvName, String deMoney, String realMoney, String counts, String weight) {
+    public Inventory(Long id, String cInvCCode, String cInvCode, String cInvName, String deMoney, String realMoney, String counts, String weight, String classId, String standardId, Integer isCurrent, String cInvStd, String u8code) {
         this.id = id;
+        this.cInvCCode = cInvCCode;
         this.cInvCode = cInvCode;
         this.cInvName = cInvName;
         this.deMoney = deMoney;
         this.realMoney = realMoney;
         this.counts = counts;
         this.weight = weight;
+        this.classId = classId;
+        this.standardId = standardId;
+        this.isCurrent = isCurrent;
+        this.cInvStd = cInvStd;
+        this.u8code = u8code;
     }
 
     public Long getId() {
@@ -37,6 +49,14 @@ public class Inventory {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getCInvCCode() {
+        return cInvCCode;
+    }
+
+    public void setCInvCCode(String cInvCCode) {
+        this.cInvCCode = cInvCCode;
     }
 
     public String getCInvCode() {
@@ -85,6 +105,46 @@ public class Inventory {
 
     public void setWeight(String weight) {
         this.weight = weight;
+    }
+
+    public String getClassId() {
+        return classId;
+    }
+
+    public void setClassId(String classId) {
+        this.classId = classId;
+    }
+
+    public String getStandardId() {
+        return standardId;
+    }
+
+    public void setStandardId(String standardId) {
+        this.standardId = standardId;
+    }
+
+    public Integer getIsCurrent() {
+        return isCurrent;
+    }
+
+    public void setIsCurrent(Integer isCurrent) {
+        this.isCurrent = isCurrent;
+    }
+
+    public String getCInvStd() {
+        return cInvStd;
+    }
+
+    public void setCInvStd(String cInvStd) {
+        this.cInvStd = cInvStd;
+    }
+
+    public String getU8code() {
+        return u8code;
+    }
+
+    public void setU8code(String u8code) {
+        this.u8code = u8code;
     }
 
 }

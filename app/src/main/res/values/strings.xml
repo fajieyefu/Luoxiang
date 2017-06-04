@@ -1,14 +1,19 @@
 <resources>
-    <string name="app_name">Luoxiang</string>
+    <string name="app_name">锣响汽车</string>
     <string name="login">登陆</string>
     <string name="tongguo">已通过</string>
     <string name="refuse">未通过</string>
     <string name="auditting">审核中</string>
     <string name="next">下一步</string>
-    <string name="header_hint_refresh_normal">Pull to refresh</string>
-    <string name="header_hint_refresh_ready">Release to refresh</string>
-    <string name="header_hint_refresh_loading">Refreshing&#8230;</string>
-    <string name="header_hint_refresh_time">Time：</string>
-    <string name="footer_hint_load_normal">Load more</string>
-    <string name="footer_hint_load_ready">Release to load more</string>
+    <string name="header_hint_refresh_normal">下拉刷新</string>
+    <string name="header_hint_refresh_ready">释放刷新</string>
+    <string name="header_hint_refresh_loading">正在加载...</string>
+    <string name="header_hint_refresh_time">时间：</string>
+    <string name="footer_hint_load_normal">加载更多</string>
+    <string name="footer_hint_load_ready">释放加载更多</string>
+    <string name="fukuanfangshi">付款方式：买受人在签订本订单后交付定金，余款在提车前全部结清。</string>
+    <string name="jiaohuofangshi">交货方式：若提车方式为客户自提，车辆在生产完成后我公司负责通知买受人，如果买受人
+    在七日之内不付款提车，我公司有权作调剂处理，交车日期另行协商。超过一个月不提车视为违约，我公司有权对标的物作任何处理，不再退还定金。</string>
+    <string name="gengxinchelianhg">如更新、维修的车辆，我公司生产的大梁等部件可能与您的原车件有所不同，恕不另行通知。</string>
+    <string name="weiyuezeren" >违约责任：以《合同法》协商解决。</string>
 </resources>

@@ -18,11 +18,14 @@ import fajieyefu.com.luoxiang.R;
 public class TitleLayout extends LinearLayout {
     TextView titleText;
     Button back;
+    Button more;
     public TitleLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.title, this);
         titleText= (TextView) findViewById(R.id.titleText);
         back= (Button) findViewById(R.id.back);
+        more = (Button) findViewById(R.id.more);
+        more.setVisibility(INVISIBLE);
         back.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

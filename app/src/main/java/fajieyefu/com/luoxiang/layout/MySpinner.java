@@ -2,6 +2,9 @@ package fajieyefu.com.luoxiang.layout;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -31,6 +35,8 @@ public class MySpinner extends LinearLayout {
     private Context context;
     private String selected_code;
     private String selected_name;
+    private EditText editText;
+    private List<ObtainBean>  editData = new ArrayList<>();
 
 
 
@@ -53,16 +59,19 @@ public class MySpinner extends LinearLayout {
     private class MyOnClickListener implements OnClickListener {
         @Override
         public void onClick(View v) {
-
-             final Dialog dialog = new Dialog(context);
-            spinnerAdapter = new SpinnerAdapter(data,context);
+            editData.clear();
+            editData.addAll(data);
+            final Dialog dialog = new Dialog(context);
+            spinnerAdapter = new SpinnerAdapter(editData,context);
             View view =LayoutInflater.from(context).inflate(R.layout.spinner_dialog_layout,null);
             ListView  lv = (ListView) view.findViewById(R.id.spinner_list);
+            editText = (EditText) view.findViewById(R.id.edit_text);
+            editText.addTextChangedListener(watcher);
             lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    selected_name= data.get(position).getName();
-                    selected_code=data.get(position).getCode();
+                    selected_name= editData.get(position).getName();
+                    selected_code=editData.get(position).getCode();
                     spinnerText.setText(selected_name);
                     Log.i("点击选项",selected_name);
                     dialog.dismiss();
@@ -74,5 +83,33 @@ public class MySpinner extends LinearLayout {
             dialog.show();
 
         }
+        private TextWatcher watcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                editData.clear();
+                if (!TextUtils.isEmpty(editText.getText())){
+
+                    for (ObtainBean bean : data){
+                        if (bean.getName().contains(editText.getText().toString())){
+                            editData.add(bean);
+                        }
+                    }
+                }else {
+                    editData.addAll(data);
+                }
+
+                spinnerAdapter.notifyDataSetChanged();
+            }
+        };
     }
 }

@@ -24,16 +24,23 @@ public class ExampleDaoGenerator {
 		inventoryClass.addIdProperty();
 		inventoryClass.addStringProperty("cInvCCode");//存货分类编码
 		inventoryClass.addStringProperty("cInvCName");//存货分类名称
-		inventoryClass.addStringProperty("standardId");//标准
+		inventoryClass.addStringProperty("standardId");//标准编号
+		inventoryClass.addStringProperty("standardMoney");//标准价格
 		//物料编码表
 		Entity inventory = schema.addEntity("Inventory");
 		inventory.addIdProperty();
+		inventory.addStringProperty("cInvCCode");//存货分类编码
 		inventory.addStringProperty("cInvCode");//存货编码
 		inventory.addStringProperty("cInvName");//存货名称
 		inventory.addStringProperty("deMoney");//差价
-		inventory.addStringProperty("realMoney");//标准价
+		inventory.addStringProperty("realMoney");//实际价
 		inventory.addStringProperty("counts");//数量
 		inventory.addStringProperty("weight");//重量
+		inventory.addStringProperty("classId");//物料编号
+		inventory.addStringProperty("standardId");//所属标准编号
+		inventory.addIntProperty("isCurrent");//默认选择项 1 默认选择，0非默认选择
+		inventory.addStringProperty("cInvStd");//产品型号
+		inventory.addStringProperty("u8code");//U8中的编码，不需要处理
 
 	}
 	public static void main(String[] args)throws Exception{

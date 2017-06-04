@@ -84,6 +84,7 @@ public class MainActivity extends BaseActivity {
                 } else {
 
                     transaction.show(personFragment);
+                    transaction.hide(bangongFragment);
                 }
                 break;
         }
