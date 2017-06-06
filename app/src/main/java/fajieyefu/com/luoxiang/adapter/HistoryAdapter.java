@@ -67,10 +67,9 @@ public class HistoryAdapter extends BaseAdapter {
                 viewHolder.dot.setBackground(context.getResources().getDrawable(R.drawable.dot_2));
                 break;
         }
-        viewHolder.contractId.setText(contractBean.getcDCCode());
+        viewHolder.contractId.setText(contractBean.getOrderNumber());
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         viewHolder.applyDate.setText(sdf.format(contractBean.getCreatetime()));
-        viewHolder.customer.setText(contractBean.getOrderName());
         return convertView;
     }
 
@@ -79,8 +78,6 @@ public class HistoryAdapter extends BaseAdapter {
         ImageView dot;
         @BindView(R.id.contractId)
         TextView contractId;
-        @BindView(R.id.customer)
-        TextView customer;
         @BindView(R.id.apply_date)
         TextView applyDate;
 

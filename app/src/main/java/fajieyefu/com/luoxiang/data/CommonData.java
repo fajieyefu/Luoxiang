@@ -19,4 +19,5 @@ public class CommonData {
     public static String historyContract=URL2+"/getOrdersList";//历史订单接口地址
     public static String contractDetails = URL2+"/getOrderDetail";//合同详情接口
     public static String CommitAuditRuslt=URL2+"/saveOrder";
+    public static String UpdateApkURL=URL2+"/getAppVersion";//应用程序更新
 }

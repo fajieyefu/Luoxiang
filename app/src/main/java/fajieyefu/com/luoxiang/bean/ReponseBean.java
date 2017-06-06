@@ -41,5 +41,8 @@ public class ReponseBean {
             public ArrayList<ContractBean> contracts;
             public List<InventoryClass> inventory;
             public List<ContractDetail> order;
+            public List<ContractDetail> contractList;
+            public int counts;
+            public UpdateBean version;
     }
 }

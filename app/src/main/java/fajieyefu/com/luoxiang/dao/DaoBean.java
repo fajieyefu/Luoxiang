@@ -7,6 +7,7 @@ import java.util.List;
 
 import de.greenrobot.dao.query.Query;
 import de.greenrobot.dao.query.QueryBuilder;
+import fajieyefu.com.luoxiang.bean.AuditCount;
 import fajieyefu.com.luoxiang.bean.Inventory;
 import fajieyefu.com.luoxiang.bean.InventoryClass;
 import fajieyefu.com.luoxiang.bean.UserInfo;
@@ -192,5 +193,13 @@ public class DaoBean {
         }
         return list2;
     }
+    public static AuditCount getAuditCountByUserName(String username){
 
+        DaoSession daoSession = DaoManager.getInstance().getDaoSession();
+        AuditCountDao auditCountDao = daoSession.getAuditCountDao();
+        QueryBuilder<AuditCount> queryBuilder = auditCountDao.queryBuilder().where(UserInfoDao.Properties.Username.eq(username));
+        Query query = queryBuilder.build();
+        return (AuditCount) query.unique();
+
+    }
 }

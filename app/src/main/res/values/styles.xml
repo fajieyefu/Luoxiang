@@ -55,6 +55,13 @@
         <item name="android:gravity">center_vertical</item>
         <item name="android:layout_marginLeft">5dp</item>
     </style>
+    <style name="myHorizontalProgress" parent="android:Widget.ProgressBar.Horizontal">
+        <item name="android:indeterminateOnly">false</item>
+        //这里删除android：这代码，因为这里是调用自己项目里面drawable里面的文件，而不是条用系统里面的文件
+        <item name="android:progressDrawable">@drawable/progress_bar</item>
+        <item name="android:minHeight">20dip</item>
+        <item name="android:maxHeight">20dip</item>
+    </style>
 
 
 </resources>

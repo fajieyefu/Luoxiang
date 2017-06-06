@@ -2,6 +2,7 @@ package fajieyefu.com.luoxiang.util;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
@@ -17,96 +18,118 @@ import java.util.regex.Pattern;
  * Created by qiancheng on 2016/11/24.
  */
 public class ToolUtil {
-	private ProgressDialog progressDialog;
-	private Context mContext;
-	public void showProgressDialog(Context context) {
-		progressDialog = new ProgressDialog(context);
-		progressDialog.setTitle("请稍后");
-		progressDialog.setMessage("正在加载数据...");
-		progressDialog.setCanceledOnTouchOutside(false);
-		progressDialog.setCancelable(false);
-		progressDialog.show();
-	}
-	/**
-	 * 显示 ProgressDialog
-	 *
-	 * @param context
-	 * @param title
-	 * @param content
-	 */
-	public void showProgressDialog(Context context, String title, String content) {
-		progressDialog = new ProgressDialog(context);
-		progressDialog.setTitle(title);
-		progressDialog.setMessage(content);
-		progressDialog.setCanceledOnTouchOutside(false);
-		progressDialog.setCancelable(false);
-		progressDialog.show();
-	}
+    private ProgressDialog progressDialog;
+    private Context mContext;
+    private int[] hm;
 
-	/**
-	 * 关闭 ProgressDialog
-	 */
-	public void dismissProgressDialog() {
-		if (progressDialog != null) {
-			progressDialog.dismiss();
-		}
-	}
+    public void showProgressDialog(Context context) {
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setTitle("请稍后");
+        progressDialog.setMessage("正在加载数据...");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+    }
 
-	/**
-	 * 动态测量listview的高度，解决ScrollView和ListView嵌套的出现的问题
-	 *
-	 * @param listView
-	 */
-	public static void setListViewHeightBasedOnChildren(ListView listView) {
-		if (listView == null) return;
-		ListAdapter listAdapter = listView.getAdapter();
-		if (listAdapter == null) {
-			// pre-condition
-			return;
-		}
-		if (listAdapter.getCount() == 0) {
-			return;
-		}
-		int totalHeight = 0;
-		for (int i = 0; i < listAdapter.getCount(); i++) {
-			View listItem = listAdapter.getView(i, null, listView);
-			listItem.measure(0, 0);
-			totalHeight += listItem.getMeasuredHeight();
-		}
-		ViewGroup.LayoutParams params = listView.getLayoutParams();
-		params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-		listView.setLayoutParams(params);
-	}
+    public int[] getScreenHW(Context context) {
+        if (hm != null) {
+            return hm;
+        } else {
 
-	public static int dp2px(Context context, float dp) {
-		final float scale = context.getResources().getDisplayMetrics().density;
-		return (int) (dp * scale + 0.5f);
-	}
+            int screenHeight;
+            int screenWidth;
+            DisplayMetrics dm = context.getResources().getDisplayMetrics();
+            screenHeight = dm.heightPixels;
+            screenWidth = dm.widthPixels;
+            hm = new int[2];
+            hm[0] = screenWidth;
+            hm[1] = screenHeight;
+            return hm;
+        }
 
-	public static int px2dp(Context context, float px) {
-		final float scale = context.getResources().getDisplayMetrics().density;
-		return (int) (px / scale + 0.5f);
-	}
+    }
 
-	/**
-	 * 判断是否为手机号
-	 * @param mobiles
-	 * @return
-	 */
+    /**
+     * 显示 ProgressDialog
+     *
+     * @param context
+     * @param title
+     * @param content
+     */
+    public void showProgressDialog(Context context, String title, String content) {
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setTitle(title);
+        progressDialog.setMessage(content);
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+    }
 
-	public static boolean isMobileNO(String mobiles) {
+    /**
+     * 关闭 ProgressDialog
+     */
+    public void dismissProgressDialog() {
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+        }
+    }
 
-		Pattern p = Pattern.compile("^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$");
+    /**
+     * 动态测量listview的高度，解决ScrollView和ListView嵌套的出现的问题
+     *
+     * @param listView
+     */
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        if (listView == null) return;
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            // pre-condition
+            return;
+        }
+        if (listAdapter.getCount() == 0) {
+            return;
+        }
+        int totalHeight = 0;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            listItem.measure(0, 0);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
+    }
 
-		Matcher m = p.matcher(mobiles);
+    public static int dp2px(Context context, float dp) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dp * scale + 0.5f);
+    }
 
-		return m.matches();
+    public static int px2dp(Context context, float px) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (px / scale + 0.5f);
+    }
 
-	}
-	public static String getTime() {
-		return new SimpleDateFormat("MM-dd HH:mm", Locale.CHINA).format(new Date());
-	}
+    /**
+     * 判断是否为手机号
+     *
+     * @param mobiles
+     * @return
+     */
 
+    public static boolean isMobileNO(String mobiles) {
+
+        Pattern p = Pattern.compile("^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$");
+
+        Matcher m = p.matcher(mobiles);
+
+        return m.matches();
+
+    }
+
+    public static String getTime() {
+        return new SimpleDateFormat("MM-dd HH:mm", Locale.CHINA).format(new Date());
+    }
 
 
 }

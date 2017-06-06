@@ -155,4 +155,9 @@
     <color name="transparent">#00000000</color>
     <color name="background">#F7F4F0</color>
     <color name="title_color">#333333</color>
+    <color name="btn_dialog_negative_normal">#ff0000</color>
+    <color name="btn_dialog_negative_pressed">#bf0000</color>
+    <color name="btn_dialog_positive_normal">#368bff</color>
+    <color name="btn_dialog_positive_pressed">#0067f3</color>
+    <color name="subjective_green">#12c979</color>
 </resources>

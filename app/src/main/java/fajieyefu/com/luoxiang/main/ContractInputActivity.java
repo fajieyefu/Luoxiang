@@ -25,7 +25,6 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.Callback;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -87,6 +86,8 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
     EditText amt;
     @BindView(R.id.remark)
     EditText remark;
+    @BindView(R.id.color)
+    EditText color;
     private InventoryClassAdapter inventoryClassAdapter;
     private List<InventoryClass> inventorys = new ArrayList<>();
     private Button more;
@@ -99,6 +100,8 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
     private ObtainBean customer_bean;
     private ToolUtil toolUtil;
     private UserInfo userInfo;
+    private String standardId;
+    private String orderNumber;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -109,6 +112,7 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
         inventorys = DaoBean.loadAllInventoryClass();
         inventoryClassAdapter = new InventoryClassAdapter(this, inventorys);
         inventoryLv.setAdapter(inventoryClassAdapter);
+        standardId = DaoBean.getInventoryClassById(1).getStandardId();
 
 
     }
@@ -119,6 +123,7 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
         title.setTitleText("合同信息录入");
         Intent intent = getIntent();
         customer_bean = (ObtainBean) intent.getSerializableExtra("customer");
+        orderNumber=intent.getStringExtra("orderNumber");
         customer.setText(customer_bean.getName());
         mobile.setText(customer_bean.getcCusHand());
         address.setText(customer_bean.getcCusAddress());
@@ -130,10 +135,9 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
             public void onClick(View v) {
                 Dialog dialog = new Dialog(ContractInputActivity.this);
                 View view = LayoutInflater.from(ContractInputActivity.this).inflate(R.layout.more_layout, null);
-                TextView save = (TextView) view.findViewById(R.id.save);
                 TextView commit = (TextView) view.findViewById(R.id.commit);
                 TextView modify = (TextView) view.findViewById(R.id.modify);
-                save.setOnClickListener(ContractInputActivity.this);
+                modify.setVisibility(View.INVISIBLE);
                 commit.setOnClickListener(ContractInputActivity.this);
                 modify.setOnClickListener(ContractInputActivity.this);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -189,16 +193,16 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
         int standarMoney = Integer.parseInt(DaoBean.getInventoryClassById(1).getStandardMoney());
         List<Inventory> inventories = DaoBean.loadInventoryByCurrent();
         int actualPrice = standarMoney;
-        int actualWeight=0;
+        double actualWeight = 0;
         for (Inventory inventory : inventories) {
             actualPrice = actualPrice + Integer.parseInt(inventory.getDeMoney());
         }
-        inventories =DaoBean.loadInventoryByCurrentAndShiJia();
-        for (Inventory inventory:inventories){
-            actualPrice=actualPrice+Integer.parseInt(inventory.getRealMoney())*Integer.parseInt(inventory.getCounts());
-            actualWeight=actualWeight+Integer.parseInt(inventory.getWeight());
+        inventories = DaoBean.loadInventoryByCurrentAndShiJia();
+        for (Inventory inventory : inventories) {
+            actualPrice = actualPrice + Integer.parseInt(inventory.getRealMoney()) * Integer.parseInt(inventory.getCounts());
+            actualWeight = actualWeight + Double.parseDouble(inventory.getWeight());
         }
-
+        weight.setText(actualWeight + "");
         price.setText(actualPrice + "");
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -220,10 +224,6 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 switch (v.getId()) {
-                    case R.id.save:
-                        Toast.makeText(ContractInputActivity.this, "save", Toast.LENGTH_SHORT).show();
-                        commitData("save");
-                        break;
                     case R.id.modify:
                         Toast.makeText(ContractInputActivity.this, "modify", Toast.LENGTH_SHORT).show();
                         commitData("modify");
@@ -247,12 +247,12 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
         JSONArray config_info = new JSONArray();
         Gson gson = new GsonBuilder().create();
         try {
-            switch (msg){
+            switch (msg) {
                 case "save":
-                    basic_info.put("apply_type","A");
+                    basic_info.put("apply_type", "A");
                     break;
                 case "commit":
-                    basic_info.put("apply_type","B");
+                    basic_info.put("apply_type", "B");
                     break;
             }
             basic_info.put("cCusCode", customer_bean.getCode());
@@ -261,18 +261,21 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
             basic_info.put("deposit", deposit.getText().toString());
             basic_info.put("amt", amt.getText().toString());
             basic_info.put("remark", remark.getText().toString());
+            basic_info.put("color", color.getText().toString());
+            basic_info.put("standardId",standardId);
+            basic_info.put("orderNumber",orderNumber);
             json.put("basic_info", basic_info);
-            for (Inventory inventory :inventories){
-                config_info.put(new JSONObject(gson.toJson(inventory,Inventory.class)));
+            for (Inventory inventory : inventories) {
+                config_info.put(new JSONObject(gson.toJson(inventory, Inventory.class)));
             }
-            json.put("config_info",config_info);
-            json.put("username",userInfo.getUsername());
-            json.put("password",userInfo.getPassword());
+            json.put("config_info", config_info);
+            json.put("username", userInfo.getUsername());
+            json.put("password", userInfo.getPassword());
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.i("data",json.toString());
+        Log.i("data", json.toString());
 
         OkHttpUtils.postString()
                 .url(CommonData.CommitAuditRuslt)
@@ -312,9 +315,9 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
         @Override
         public void onResponse(ReponseBean response, int id) {
             toolUtil.dismissProgressDialog();
-            if (response.getCode()==0){
+            if (response.getCode() == 0) {
                 Toast.makeText(ContractInputActivity.this, "操作成功！", Toast.LENGTH_SHORT).show();
-            }else{
+            } else {
                 Toast.makeText(ContractInputActivity.this, response.getMsg(), Toast.LENGTH_SHORT).show();
             }
         }

@@ -41,6 +41,12 @@ public class ExampleDaoGenerator {
 		inventory.addIntProperty("isCurrent");//默认选择项 1 默认选择，0非默认选择
 		inventory.addStringProperty("cInvStd");//产品型号
 		inventory.addStringProperty("u8code");//U8中的编码，不需要处理
+		//记录审批的次数
+		Entity auditCount = schema.addEntity("AuditCount") ;
+		auditCount.addIdProperty();
+		auditCount.addIntProperty("counts");
+		auditCount.addStringProperty("username");
+
 
 	}
 	public static void main(String[] args)throws Exception{

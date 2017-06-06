@@ -90,7 +90,9 @@ public class ContractAuditActivity extends BaseActivity implements XListView.IXL
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent  = new Intent(ContractAuditActivity.this,ContractAuditDetailsActivity.class);
-                intent.putExtra("orderId",contracts.get(position).getOrderId());
+                Toast.makeText(ContractAuditActivity.this, position+"", Toast.LENGTH_SHORT).show();
+                System.out.println(contracts.get(position-1).getOrderId());
+                intent.putExtra("orderId",contracts.get(position-1).getOrderId());
                 startActivity(intent);
 
             }

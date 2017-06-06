@@ -15,6 +15,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import fajieyefu.com.luoxiang.R;
+import fajieyefu.com.luoxiang.bean.UserInfo;
+import fajieyefu.com.luoxiang.dao.DaoBean;
 import fajieyefu.com.luoxiang.main.BaseActivity;
 import fajieyefu.com.luoxiang.main.ModifyActivity;
 
@@ -35,6 +37,7 @@ public class PersonFragment extends Fragment {
     TextView exit;
     Unbinder unbinder;
     private Context context;
+    private UserInfo userInfo;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -47,6 +50,8 @@ public class PersonFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         context= getActivity();
+        userInfo = DaoBean.getUseInfoById(1);
+        name.setText(userInfo.getUsername());
     }
 
     @Override

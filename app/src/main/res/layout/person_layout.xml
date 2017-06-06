@@ -29,7 +29,6 @@
         android:layout_below="@id/name"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
-        android:text="销售部"
         android:textColor="#4d4d4d"
         android:textSize="20sp" />
 
@@ -40,7 +39,6 @@
         android:layout_below="@id/department"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
-        android:text="工号：20170415001"
         android:textColor="#000000"
         android:textSize="20sp" />
     <TextView

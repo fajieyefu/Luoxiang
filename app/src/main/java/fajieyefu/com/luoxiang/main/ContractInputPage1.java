@@ -42,7 +42,7 @@ import okhttp3.MediaType;
  * Created by Administrator on 2017-05-05.
  */
 
-public class ContractInputPage1 extends BaseActivity  {
+public class ContractInputPage1 extends BaseActivity {
 
 
     @BindView(R.id.pick_custom)
@@ -146,7 +146,7 @@ public class ContractInputPage1 extends BaseActivity  {
                 List<ObtainBean> standards = response.getData().standards;
                 pickBiaozhun.setData(standards);
                 pickCustom.setData(customers);
-            }else{
+            } else {
                 Toast.makeText(ContractInputPage1.this, response.getMsg(), Toast.LENGTH_SHORT).show();
             }
 
@@ -165,23 +165,23 @@ public class ContractInputPage1 extends BaseActivity  {
         public void onResponse(ReponseBean response, int id) {
             toolUtil.dismissProgressDialog();
             if (response.getCode() == 0) {
-                List<InventoryClass> inventoryClass=response.getData().inventory;
+                List<InventoryClass> inventoryClass = response.getData().inventory;
                 DaoBean.deleteInventoryClassAll();
                 DaoBean.insertInventoryClassList(inventoryClass);
                 DaoBean.deleteInventoryAll();
-                for (int i = 0; i <inventoryClass.size() ; i++) {
+                for (int i = 0; i < inventoryClass.size(); i++) {
                     List<Inventory> inventory = inventoryClass.get(i).getInventoryDetails();
-                    if (inventory!=null){
+                    if (inventory != null) {
                         DaoBean.insertInventoryList(inventory);
                     }
                 }
 
-                Intent intent = new Intent(ContractInputPage1.this,ContractInputActivity.class);
+                Intent intent = new Intent(ContractInputPage1.this, ContractInputActivity.class);
                 intent.putExtra("customer", response.getData().customer);
                 startActivity(intent);
                 finish();
 
-            }else{
+            } else {
 
                 Toast.makeText(ContractInputPage1.this, response.getMsg(), Toast.LENGTH_SHORT).show();
 

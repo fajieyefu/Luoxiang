@@ -60,8 +60,8 @@ public class LoginActivity extends BaseActivity {
         userInfoDao = daoSession.getUserInfoDao();
          userInfo = getInfoById(1);
         if (userInfo!=null){
+            username.setText(userInfo.getUsername());
             if (userInfo.getRembPsw()==true){
-                username.setText(userInfo.getUsername());
                 password.setText(userInfo.getPassword());
             }
         }
@@ -106,17 +106,14 @@ public class LoginActivity extends BaseActivity {
                 userInfo= new UserInfo();
                 userInfo.setId((long)1);
                 userInfo.setUsername(username.getText().toString());
-                userInfo.setRembPsw(true);
+                userInfo.setPassword(password.getText().toString());
                 if (checkbox.isChecked()){
-                    userInfo.setPassword(password.getText().toString());
+                    userInfo.setRembPsw(true);
                 }else{
-                    userInfo.setPassword(null);
+                    userInfo.setRembPsw(false);
                 }
-                if (getInfoById(1)==null){
-                    userInfoDao.insert(userInfo);
-                }else{
-                    userInfoDao.update(userInfo);
-                }
+                userInfoDao.deleteAll();
+                userInfoDao.insert(userInfo);
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();

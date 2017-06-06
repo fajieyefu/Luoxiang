@@ -5,7 +5,7 @@
     >
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="42dp"
+        android:layout_height="48dp"
         android:orientation="horizontal"
         >
 
@@ -22,25 +22,18 @@
             android:layout_weight="1"
             android:layout_marginLeft="8dp"
             android:layout_height="match_parent"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:textSize="15sp"
+
             android:textColor="@color/black"
             />
-        <TextView
-            android:id="@+id/customer"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:textSize="15sp"
-            android:textColor="@color/black"
-            />
+
         <TextView
             android:id="@+id/apply_date"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:textSize="15sp"
             android:textColor="@color/black"
             />
