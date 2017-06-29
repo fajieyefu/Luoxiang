@@ -16,4 +16,12 @@
     在七日之内不付款提车，我公司有权作调剂处理，交车日期另行协商。超过一个月不提车视为违约，我公司有权对标的物作任何处理，不再退还定金。</string>
     <string name="gengxinchelianhg">如更新、维修的车辆，我公司生产的大梁等部件可能与您的原车件有所不同，恕不另行通知。</string>
     <string name="weiyuezeren" >违约责任：以《合同法》协商解决。</string>
+    <string name="tuihui">退回</string>
+    <string name="dsh">待审核</string>
+    <string name="dpc">待排产</string>
+    <string name="dtc">待提车</string>
+    <string name="wc">已完成</string>
+    <string name="stockCar">查看库存车</string>
+    <string name="kucunche">该库存车配置信息为以下信息\n提示：库存车的车身部分已经生产完成，只能对行走机构进行选配</string>
+    <string name="addCustomer">维护客户</string>
 </resources>

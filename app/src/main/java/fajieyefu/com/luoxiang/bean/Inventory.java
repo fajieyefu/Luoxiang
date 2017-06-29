@@ -19,6 +19,7 @@ public class Inventory {
     private Integer isCurrent;
     private String cInvStd;
     private String u8code;
+    private Integer styleflag;
 
     public Inventory() {
     }
@@ -27,7 +28,7 @@ public class Inventory {
         this.id = id;
     }
 
-    public Inventory(Long id, String cInvCCode, String cInvCode, String cInvName, String deMoney, String realMoney, String counts, String weight, String classId, String standardId, Integer isCurrent, String cInvStd, String u8code) {
+    public Inventory(Long id, String cInvCCode, String cInvCode, String cInvName, String deMoney, String realMoney, String counts, String weight, String classId, String standardId, Integer isCurrent, String cInvStd, String u8code, Integer styleflag) {
         this.id = id;
         this.cInvCCode = cInvCCode;
         this.cInvCode = cInvCode;
@@ -41,6 +42,7 @@ public class Inventory {
         this.isCurrent = isCurrent;
         this.cInvStd = cInvStd;
         this.u8code = u8code;
+        this.styleflag = styleflag;
     }
 
     public Long getId() {
@@ -145,6 +147,14 @@ public class Inventory {
 
     public void setU8code(String u8code) {
         this.u8code = u8code;
+    }
+
+    public Integer getStyleflag() {
+        return styleflag;
+    }
+
+    public void setStyleflag(Integer styleflag) {
+        this.styleflag = styleflag;
     }
 
 }

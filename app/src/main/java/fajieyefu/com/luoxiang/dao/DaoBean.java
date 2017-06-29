@@ -45,6 +45,19 @@ public class DaoBean {
         QueryBuilder<Inventory> queryBuilder= inventoryDao.queryBuilder().where(InventoryDao.Properties.CInvCode.like(code+"%"));
         return queryBuilder.list();
     }
+    /**
+     * 查询选中的某个值
+     * @param code
+     * @return
+     */
+    public static Inventory getSelectedInventoryLikeCCode(String code){
+        DaoSession daoSession =DaoManager.getInstance().getDaoSession();
+        InventoryDao inventoryDao = daoSession.getInventoryDao();
+        QueryBuilder<Inventory> queryBuilder= inventoryDao.queryBuilder().where(InventoryDao.Properties.CInvCode.like(code+"%") );
+        queryBuilder.where(InventoryDao.Properties.IsCurrent.eq(1));
+        Query<Inventory> query =queryBuilder.build();
+        return query.unique();
+    }
 
     /**
      *通過物料编号获取物料
@@ -200,6 +213,20 @@ public class DaoBean {
         QueryBuilder<AuditCount> queryBuilder = auditCountDao.queryBuilder().where(UserInfoDao.Properties.Username.eq(username));
         Query query = queryBuilder.build();
         return (AuditCount) query.unique();
+
+    }
+/*
+清除某个配置的默认选项 ,即此配置不选择
+ */
+
+    public static void onSelectInventory(List<Inventory> data){
+        DaoSession daoSession = DaoManager.getInstance().getDaoSession();
+        InventoryDao inventoryDao= daoSession.getInventoryDao();
+        for (Inventory inventory :data){
+            inventory.setIsCurrent(0);
+            inventoryDao.update(inventory);
+        }
+
 
     }
 }

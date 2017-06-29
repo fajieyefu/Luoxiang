@@ -79,7 +79,7 @@ public class MySpinner extends LinearLayout {
             });
             lv.setAdapter(spinnerAdapter);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setContentView(view,new ViewGroup.LayoutParams(600, 800) );
+            dialog.setContentView(view,new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 800) );
             dialog.show();
 
         }

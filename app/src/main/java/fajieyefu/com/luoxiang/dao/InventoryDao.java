@@ -37,6 +37,7 @@ public class InventoryDao extends AbstractDao<Inventory, Long> {
         public final static Property IsCurrent = new Property(10, Integer.class, "isCurrent", false, "IS_CURRENT");
         public final static Property CInvStd = new Property(11, String.class, "cInvStd", false, "C_INV_STD");
         public final static Property U8code = new Property(12, String.class, "u8code", false, "U8CODE");
+        public final static Property Styleflag = new Property(13, Integer.class, "styleflag", false, "STYLEFLAG");
     };
 
 
@@ -64,7 +65,8 @@ public class InventoryDao extends AbstractDao<Inventory, Long> {
                 "'STANDARD_ID' TEXT," + // 9: standardId
                 "'IS_CURRENT' INTEGER," + // 10: isCurrent
                 "'C_INV_STD' TEXT," + // 11: cInvStd
-                "'U8CODE' TEXT);"); // 12: u8code
+                "'U8CODE' TEXT," + // 12: u8code
+                "'STYLEFLAG' INTEGER);"); // 13: styleflag
     }
 
     /** Drops the underlying database table. */
@@ -142,6 +144,11 @@ public class InventoryDao extends AbstractDao<Inventory, Long> {
         if (u8code != null) {
             stmt.bindString(13, u8code);
         }
+ 
+        Integer styleflag = entity.getStyleflag();
+        if (styleflag != null) {
+            stmt.bindLong(14, styleflag);
+        }
     }
 
     /** @inheritdoc */
@@ -166,7 +173,8 @@ public class InventoryDao extends AbstractDao<Inventory, Long> {
             cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // standardId
             cursor.isNull(offset + 10) ? null : cursor.getInt(offset + 10), // isCurrent
             cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // cInvStd
-            cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12) // u8code
+            cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // u8code
+            cursor.isNull(offset + 13) ? null : cursor.getInt(offset + 13) // styleflag
         );
         return entity;
     }
@@ -187,6 +195,7 @@ public class InventoryDao extends AbstractDao<Inventory, Long> {
         entity.setIsCurrent(cursor.isNull(offset + 10) ? null : cursor.getInt(offset + 10));
         entity.setCInvStd(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
         entity.setU8code(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
+        entity.setStyleflag(cursor.isNull(offset + 13) ? null : cursor.getInt(offset + 13));
      }
     
     /** @inheritdoc */

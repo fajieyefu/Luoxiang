@@ -15,6 +15,33 @@ public class ContractBean {
     private String cDCCode;
     private int orderId;
     private String orderNumber;
+    private int dpc;
+    private int ddtc;
+    private int wc;
+
+    public int getDpc() {
+        return dpc;
+    }
+
+    public void setDpc(int dpc) {
+        this.dpc = dpc;
+    }
+
+    public int getDdtc() {
+        return ddtc;
+    }
+
+    public void setDdtc(int ddtc) {
+        this.ddtc = ddtc;
+    }
+
+    public int getWc() {
+        return wc;
+    }
+
+    public void setWc(int wc) {
+        this.wc = wc;
+    }
 
     public String getOrderNumber() {
         return orderNumber;

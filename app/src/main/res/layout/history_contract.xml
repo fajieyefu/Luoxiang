@@ -14,7 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:background="@color/white">
-
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -28,6 +27,21 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:gravity="center"
+                android:text="@string/dsh" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+            <ImageView
+                style="@style/DotStyle"
+                android:background="@drawable/dot_1" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:gravity="center"
                 android:text="@string/tongguo" />
         </LinearLayout>
         <LinearLayout
@@ -35,17 +49,15 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center">
-
             <ImageView
                 style="@style/DotStyle"
-                android:background="@drawable/dot_1" />
-
+                android:background="@drawable/dot_2" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:gravity="center"
-                android:text="@string/auditting" />
+                android:text="@string/tuihui" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="0dp"
@@ -55,14 +67,48 @@
 
             <ImageView
                 style="@style/DotStyle"
-                android:background="@drawable/dot_2" />
+                android:background="@drawable/dot_3" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:gravity="center"
-                android:text="@string/refuse" />
+                android:text="@string/dpc" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <ImageView
+                style="@style/DotStyle"
+                android:background="@drawable/dot_4" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:gravity="center"
+                android:text="@string/dtc" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <ImageView
+                style="@style/DotStyle"
+                android:background="@drawable/dot_5" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:gravity="center"
+                android:text="@string/wc" />
         </LinearLayout>
 
     </LinearLayout>

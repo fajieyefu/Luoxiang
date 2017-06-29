@@ -22,6 +22,7 @@ import fajieyefu.com.luoxiang.adapter.HistoryAdapter;
 import fajieyefu.com.luoxiang.bean.ContractBean;
 import fajieyefu.com.luoxiang.bean.ResponseBean2;
 import fajieyefu.com.luoxiang.dao.DaoBean;
+import fajieyefu.com.luoxiang.data.CommonData;
 import fajieyefu.com.luoxiang.layout.TitleLayout;
 import fajieyefu.com.luoxiang.util.MyCallback2;
 import fajieyefu.com.luoxiang.util.ToolUtil;
@@ -43,7 +44,7 @@ public class HistoryActivity extends BaseActivity implements XListView.IXListVie
     private HistoryAdapter contractAdapter;
     private int type=0; //0上拉刷新、或者1下拉加载
     private ToolUtil toolUtil =new ToolUtil();
-    private String url ;
+    private int flag ;
 
 
     @Override
@@ -57,8 +58,6 @@ public class HistoryActivity extends BaseActivity implements XListView.IXListVie
     }
 
     private void initView() {
-
-        title.setTitleText("历史订单");
         historyLv.setPullRefreshEnable(true);
         historyLv.setPullLoadEnable(true);
         historyLv.setAutoLoadEnable(true);
@@ -69,20 +68,29 @@ public class HistoryActivity extends BaseActivity implements XListView.IXListVie
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent  = new Intent(HistoryActivity.this,HistoryDetailsActivity.class);
                 intent.putExtra("orderId",contracts.get(position-1).getOrderId());
+                intent.putExtra("dpc",contracts.get(position-1).getDpc());
+                intent.putExtra("dtc",contracts.get(position-1).getDdtc());
+                intent.putExtra("wc",contracts.get(position-1).getWc());
                 startActivity(intent);
             }
         });
         contractAdapter = new HistoryAdapter(contracts,this);
         historyLv.setAdapter(contractAdapter);
         Intent intent = getIntent();
-        url = intent.getStringExtra("url");
+        flag = intent.getIntExtra("flag",0);
+        if (flag==0){
+            title.setTitleText("待处理订单");
+        }else{
+            title.setTitleText("历史订单");
+
+        }
         toolUtil.showProgressDialog(this,"请稍等","正在加载数据...");
 
 
     }
 
     /**
-     * 加载数据
+     * 初始化数据
      */
     private void loadData() {
 
@@ -95,7 +103,7 @@ public class HistoryActivity extends BaseActivity implements XListView.IXListVie
             e.printStackTrace();
         }
         OkHttpUtils.postString()
-                .url(url)
+                .url(CommonData.historyContract)
                 .content(jsonObject.toString())
                 .mediaType(MediaType.parse("application/json;charset=utf-8"))
                 .build()
@@ -112,9 +120,9 @@ public class HistoryActivity extends BaseActivity implements XListView.IXListVie
 
     @Override
     public void onLoadMore() {
-        type=1;
-        pagesCount++;
-        loadData();
+//        type=1;
+//        pagesCount++;
+//        loadData();
     }
     private void StopLoad() {
         historyLv.stopRefresh();
@@ -134,7 +142,18 @@ public class HistoryActivity extends BaseActivity implements XListView.IXListVie
 
             if (response.getCode()==0){
                 if (response.getData()!=null){
-                    contracts.addAll(response.getData());
+                    if (flag==1){
+                        for (ContractBean contractBean:response.getData()){
+                            if (contractBean.getWc()==1){
+                                contracts.add(contractBean);
+                            }
+                        }
+                    }else{
+                        contracts.addAll(response.getData());
+                        for (ContractBean contractBean:contracts){
+                            System.out.println("contractBean:"+contractBean.getOrderNumber());
+                        }
+                    }
                 }
             }else{
                 Toast.makeText(HistoryActivity.this, response.getMsg(), Toast.LENGTH_SHORT).show();
@@ -144,5 +163,11 @@ public class HistoryActivity extends BaseActivity implements XListView.IXListVie
             toolUtil.dismissProgressDialog();
 
         }
+    }
+
+    @Override
+    protected void onRestart() {
+        onRefresh();
+        super.onRestart();
     }
 }

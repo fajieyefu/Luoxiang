@@ -35,12 +35,14 @@ public class ExampleDaoGenerator {
 		inventory.addStringProperty("deMoney");//差价
 		inventory.addStringProperty("realMoney");//实际价
 		inventory.addStringProperty("counts");//数量
-		inventory.addStringProperty("weight");//重量
+		inventory.addFloatProperty("weight");//重量
 		inventory.addStringProperty("classId");//物料编号
 		inventory.addStringProperty("standardId");//所属标准编号
 		inventory.addIntProperty("isCurrent");//默认选择项 1 默认选择，0非默认选择
 		inventory.addStringProperty("cInvStd");//产品型号
 		inventory.addStringProperty("u8code");//U8中的编码，不需要处理
+		inventory.addIntProperty("styleflag");//所属bom表示
+
 		//记录审批的次数
 		Entity auditCount = schema.addEntity("AuditCount") ;
 		auditCount.addIdProperty();

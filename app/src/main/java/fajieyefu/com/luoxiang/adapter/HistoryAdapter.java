@@ -24,6 +24,8 @@ import fajieyefu.com.luoxiang.bean.ContractBean;
 public class HistoryAdapter extends BaseAdapter {
     private List<ContractBean> data;
     private Context context;
+    private ContractBean contractBean;
+    private ViewHolder viewHolder;
 
     public HistoryAdapter(List<ContractBean> data, Context context) {
         this.data = data;
@@ -47,8 +49,7 @@ public class HistoryAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ContractBean contractBean = data.get(position);
-        ViewHolder viewHolder ;
+        contractBean = data.get(position);
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.history_contract_item, null);
             viewHolder = new ViewHolder(convertView);
@@ -56,21 +57,56 @@ public class HistoryAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        switch (contractBean.getStatues()){
+        switch (contractBean.getWc()) {
             case 1:
-                viewHolder.dot.setBackground(context.getResources().getDrawable(R.drawable.dot_0));
+                viewHolder.dot.setBackground(context.getResources().getDrawable(R.drawable.dot_5));
                 break;
-            case 2:
-                viewHolder.dot.setBackground(context.getResources().getDrawable(R.drawable.dot_1));
+            case 0:
+                isDTC();
                 break;
-            case 3:
-                viewHolder.dot.setBackground(context.getResources().getDrawable(R.drawable.dot_2));
-                break;
+
         }
         viewHolder.contractId.setText(contractBean.getOrderNumber());
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         viewHolder.applyDate.setText(sdf.format(contractBean.getCreatetime()));
         return convertView;
+    }
+
+    private void isDDPC() {
+        switch (contractBean.getDpc()) {
+            case 0:
+                isRefuse();
+                break;
+            case 1:
+                viewHolder.dot.setBackground(context.getResources().getDrawable(R.drawable.dot_3));
+
+                break;
+        }
+    }
+
+    private void isRefuse() {
+        switch (contractBean.getStatues()) {
+            case 2:
+                viewHolder.dot.setBackground(context.getResources().getDrawable(R.drawable.dot_2));
+                break;
+            case 1:
+                viewHolder.dot.setBackground(context.getResources().getDrawable(R.drawable.dot_1));
+                break;
+            case 0:
+                viewHolder.dot.setBackground(context.getResources().getDrawable(R.drawable.dot_0));
+                break;
+        }
+    }
+
+    private void isDTC() {
+        switch (contractBean.getDdtc()) {
+            case 0:
+                isDDPC();
+                break;
+            case 1:
+                viewHolder.dot.setBackground(context.getResources().getDrawable(R.drawable.dot_4));
+                break;
+        }
     }
 
     static class ViewHolder {

@@ -57,6 +57,9 @@ public class ContractAuditActivity extends BaseActivity implements XListView.IXL
         loadData();
     }
 
+    /**
+     * 初始化数据
+     */
     private void loadData() {
         username = DaoBean.getUseInfoById(1).getUsername();
         password = DaoBean.getUseInfoById(1).getPassword();
@@ -77,6 +80,9 @@ public class ContractAuditActivity extends BaseActivity implements XListView.IXL
                 .execute(new ResponseCallBack());
     }
 
+    /**
+     * 初始化视图
+     */
     private void initView() {
         title.setTitleText("订单审核");
         applyLv.setPullRefreshEnable(true);
@@ -128,6 +134,10 @@ public class ContractAuditActivity extends BaseActivity implements XListView.IXL
         applyLv.stopLoadMore();
         applyLv.setRefreshTime(ToolUtil.getTime());
     }
+
+    /**
+     * 返回加载初始化的结果
+     */
     private class ResponseCallBack extends MyCallback2 {
 
         @Override
@@ -148,8 +158,15 @@ public class ContractAuditActivity extends BaseActivity implements XListView.IXL
             }
             else{
                 Toast.makeText(ContractAuditActivity.this, response.getMsg(), Toast.LENGTH_SHORT).show();
+                finish();
             }
             StopLoad();
         }
+    }
+
+    @Override
+    protected void onRestart() {
+        onRefresh();
+        super.onRestart();
     }
 }

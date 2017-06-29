@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -12,7 +13,6 @@ import com.zhy.http.okhttp.OkHttpUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 import java.util.List;
 
 import butterknife.BindView;
@@ -27,9 +27,9 @@ import fajieyefu.com.luoxiang.bean.ObtainBean;
 import fajieyefu.com.luoxiang.bean.ReponseBean;
 import fajieyefu.com.luoxiang.bean.UserInfo;
 import fajieyefu.com.luoxiang.dao.DaoBean;
+import fajieyefu.com.luoxiang.dao.UserInfoDao;
 import fajieyefu.com.luoxiang.data.CommonData;
 import fajieyefu.com.luoxiang.db.DaoSession;
-import fajieyefu.com.luoxiang.dao.UserInfoDao;
 import fajieyefu.com.luoxiang.layout.MySpinner;
 import fajieyefu.com.luoxiang.layout.TitleLayout;
 import fajieyefu.com.luoxiang.util.DaoManager;
@@ -53,6 +53,10 @@ public class ContractInputPage1 extends BaseActivity {
     Button next;
     @BindView(R.id.title)
     TitleLayout title;
+    @BindView(R.id.stockCar)
+    Button stockCar;
+    @BindView(R.id.addCustomer)
+    Button addCustomer;
     private DaoSession daoSession;
     private UserInfoDao userInfoDao;
     private UserInfo userInfo;
@@ -105,8 +109,26 @@ public class ContractInputPage1 extends BaseActivity {
 
     }
 
-    @OnClick(R.id.next)
-    public void onViewClicked() {
+    @OnClick({R.id.next, R.id.stockCar,R.id.addCustomer})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.next:
+                getStandardsData();
+                break;
+            case R.id.stockCar:
+                Intent intent = new Intent(this, StockCarListActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+            case  R.id.addCustomer:
+                Intent intent2 = new Intent(this,AddCustomerActivity.class);
+                startActivity(intent2);
+                finish();
+                break;
+        }
+    }
+
+    private void getStandardsData() {
         String standardId = pickBiaozhun.getSelected_code();
         String cCusCode = pickCustom.getSelected_code();
         String username = DaoBean.getUseInfoById(1).getUsername();
@@ -121,6 +143,7 @@ public class ContractInputPage1 extends BaseActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        Log.i("content", jsonObject.toString());
         toolUtil.showProgressDialog(this, "请稍后", "正在获取数据...");
         OkHttpUtils.postString()
                 .url(CommonData.StandardDetails)

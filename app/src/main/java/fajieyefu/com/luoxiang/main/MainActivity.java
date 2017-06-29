@@ -3,6 +3,7 @@ package fajieyefu.com.luoxiang.main;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -13,6 +14,8 @@ import android.widget.RadioButton;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,6 +23,7 @@ import butterknife.OnClick;
 import fajieyefu.com.luoxiang.R;
 import fajieyefu.com.luoxiang.fragment.BangongFragment;
 import fajieyefu.com.luoxiang.fragment.PersonFragment;
+import fajieyefu.com.luoxiang.service.UpdateCheckNews;
 
 public class MainActivity extends BaseActivity {
 
@@ -43,6 +47,19 @@ public class MainActivity extends BaseActivity {
         if (savedInstanceState == null) {
             setDefaultFragment();
         }
+        startService();
+    }
+
+    private void startService() {
+        //开启任务监听喝水动态
+        TimerTask task = new TimerTask() {
+            public void run() {
+                Intent intent = new Intent(MainActivity.this, UpdateCheckNews.class);
+                startService(intent);
+            }
+        };
+        Timer timer = new Timer();
+        timer.schedule(task, 5000);
     }
 
     private void setDefaultFragment() {

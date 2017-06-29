@@ -48,6 +48,9 @@ public class InventoryClassAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         InventoryClass inventoryClass = data.get(position);
+        if (inventoryClass.getCInvCCode().startsWith("14")){
+            return null;
+        }
         ViewHolder viewHolder = null;
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.inventory_item, null);

@@ -1,13 +1,15 @@
 package fajieyefu.com.luoxiang.data;
 
+import java.net.URL;
+
 /**
  * Created by Administrator on 2017/4/30.
  */
 
 public class CommonData {
 //    public final static String URL2="http://192.168.1.105:8080/clzxszpt/mobile";
-    public final static String URL2="http://192.168.1.111:8083/mobile";
-
+    public final static String URL2="http://192.168.124.124:9891/mobile";
+//    public final static String URL2="http://221.2.89.146:8000/mobile";
     public final static String modifyURL=URL2+"/modify";
     public final static String loginURL=URL2+"/login";
     public static final String HISTORYCONTRACTURL ="/getHistory" ;//历史订单接口
@@ -15,9 +17,15 @@ public class CommonData {
     
     public static String OrderAplyListURL=URL2+"/getOrderAplyList";//审批订单列表
     public static String StandardDetails=URL2+"/getClassesByStandard";//标准详情接口
-    public static String inProcessContract="";//待处理订单接口地址
-    public static String historyContract=URL2+"/getOrdersList";//历史订单接口地址
+    public static String inProcessContract="getOrderHisAplyList";//待处理订单接口地址
+    public static String historyContract=URL2+"/getOrderHisAplyList";//历史订单接口地址
     public static String contractDetails = URL2+"/getOrderDetail";//合同详情接口
-    public static String CommitAuditRuslt=URL2+"/saveOrder";
+    public static String CommitAuditRuslt=URL2+"/aplyOrder";
     public static String UpdateApkURL=URL2+"/getAppVersion";//应用程序更新
+    public static String getCountsByAddressURL = URL2+"/getCountsByAddress";//获取地区订单数量
+    public static String CommitContract=URL2+"/saveOrder";
+    public static String CommitStockContract=URL2+"/saveStockOrder";
+    public static String getStockList=URL2+"/getStockCarInfo";
+    public static String addCustomerUrl=URL2+"/addCustomerInfo";//维护客户信息
+
 }

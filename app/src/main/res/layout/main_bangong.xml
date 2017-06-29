@@ -75,7 +75,7 @@
                     android:id="@+id/all_contract"
                     style="@style/MyRadioButton"
                     android:drawableTop="@mipmap/all_contract"
-                    android:text="综合订单"
+                    android:text="图标分析"
                     />
             </RelativeLayout>
         </LinearLayout>

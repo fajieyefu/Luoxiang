@@ -25,13 +25,13 @@
             android:text="客户选择"
             android:textColor="#4d4d4d"
             android:textSize="20sp" />
-<fajieyefu.com.luoxiang.layout.MySpinner
-    android:id="@+id/pick_custom"
-    android:layout_toRightOf="@+id/n1"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+        <fajieyefu.com.luoxiang.layout.MySpinner
+            android:id="@+id/pick_custom"
+            android:layout_toRightOf="@+id/n1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-</fajieyefu.com.luoxiang.layout.MySpinner>
+        </fajieyefu.com.luoxiang.layout.MySpinner>
     </RelativeLayout>
 
     <RelativeLayout
@@ -70,6 +70,33 @@
         android:layout_marginTop="30dp"
         android:background="@drawable/btn_red"
         android:text="@string/next"
+        android:textColor="@color/white"
+        android:textSize="16dp" />
+    <Button
+        android:id="@+id/stockCar"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_below="@+id/password"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/btn_red"
+        android:text="@string/stockCar"
+        android:textColor="@color/white"
+        android:textSize="16dp" />
+    <Button
+        android:visibility="gone"
+        android:id="@+id/addCustomer"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_below="@+id/password"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/btn_red"
+        android:text="@string/addCustomer"
         android:textColor="@color/white"
         android:textSize="16dp" />
 </LinearLayout>
