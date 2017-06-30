@@ -194,9 +194,10 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
                 TextView commit = (TextView) view.findViewById(R.id.commit);
                 TextView modify = (TextView) view.findViewById(R.id.modify);
                 Button preview = (Button) view.findViewById(R.id.preview);
-                preview.setVisibility(View.VISIBLE);
+//                preview.setVisibility(View.VISIBLE);
                 modify.setVisibility(View.INVISIBLE);
                 commit.setVisibility(View.VISIBLE);
+                preview.setOnClickListener(ContractInputActivity.this);
                 commit.setOnClickListener(ContractInputActivity.this);
                 modify.setOnClickListener(ContractInputActivity.this);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -225,7 +226,6 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
     private void initSpinner() {
         List<Inventory> qianyincheInventorys = DaoBean.getInventoryLikeCCode("14");
         if (qianyincheInventorys != null) {
-
             qianyinche.setData(qianyincheInventorys);
         }
         list = Arrays.asList(new String[]{"自提", "配送"});
@@ -294,34 +294,46 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void onClick(final View v) {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setMessage("你确定进行本次操作吗？");
-        dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
 
-            }
-        });
-        dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (v.getId()) {
-                    case R.id.modify:
-                        commitData("modify");
-                        break;
-                    case R.id.commit:
-                        commitData("commit");
-                        break;
-                }
-            }
-        });
-        dialog.show();
+                AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+                dialog.setMessage("你确定进行本次操作吗？");
+                dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (v.getId()) {
+                            case R.id.modify:
+                                commitData("modify");
+                                break;
+                            case R.id.commit:
+                                commitData("commit");
+                                break;
+                            case R.id.preview:
+                                Intent intent2 = new Intent(ContractInputActivity.this,ContractPreviewActivity.class);
+
+                                startActivity(intent2);
+                                finish();
+                                break;
+                        }
+                    }
+                });
+                dialog.show();
+
+
+
+
     }
 
     private void commitData(String msg) {
         if (dialog != null) {
             dialog.dismiss();
         }
+        getDataFromDB();
         List<Inventory> inventories = DaoBean.loadInventoryByCurrent();
         JSONObject json = new JSONObject();
         JSONObject basic_info = new JSONObject();
@@ -518,6 +530,9 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
                 .build()
                 .execute(new ResponCallBack());
 
+    }
+
+    private void getDataFromDB() {
     }
 
     private DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() {
