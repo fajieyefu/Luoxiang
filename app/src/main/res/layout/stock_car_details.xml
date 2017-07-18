@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <fajieyefu.com.luoxiang.layout.TitleLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+    </fajieyefu.com.luoxiang.layout.TitleLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:text="@string/kucunche"
+        android:gravity="center"/>
+    <fajieyefu.com.luoxiang.layout.LinearLayoutForListView
+        android:id="@+id/contract_details"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    </fajieyefu.com.luoxiang.layout.LinearLayoutForListView>
+
+
+</LinearLayout>

@@ -7,20 +7,21 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,7 +50,7 @@ import fajieyefu.com.luoxiang.bean.ReponseBean;
 import fajieyefu.com.luoxiang.bean.UserInfo;
 import fajieyefu.com.luoxiang.dao.DaoBean;
 import fajieyefu.com.luoxiang.data.CommonData;
-import fajieyefu.com.luoxiang.layout.LinearLayoutForListView;
+import fajieyefu.com.luoxiang.layout.MySpinnerForFree;
 import fajieyefu.com.luoxiang.layout.MySpinnerForInventry;
 import fajieyefu.com.luoxiang.layout.TitleLayout;
 import fajieyefu.com.luoxiang.util.MyCallback;
@@ -62,12 +63,10 @@ import okhttp3.MediaType;
  */
 
 public class ContractInputActivity extends BaseActivity implements View.OnClickListener {
-    @BindView(R.id.inventory_lv)
-    LinearLayoutForListView inventoryLv;
+
+
     @BindView(R.id.title)
     TitleLayout title;
-    @BindView(R.id.caculator)
-    Button caculator;
     @BindView(R.id.customer)
     TextView customer;
     @BindView(R.id.mobile)
@@ -76,52 +75,128 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
     TextView contactsMan;
     @BindView(R.id.address)
     TextView address;
-    @BindView(R.id.applyDate)
-    TextView applyDate;
-    @BindView(R.id.select_info)
-    LinearLayout selectInfo;
-    @BindView(R.id.obtain_type)
-    Spinner obtainType;
-    @BindView(R.id.deposit)
-    EditText deposit;
-    @BindView(R.id.parent)
-    ScrollView parent;
-    @BindView(R.id.amt)
-    EditText amt;
+    @BindView(R.id.customer_info)
+    LinearLayout customerInfo;
+    @BindView(R.id.qianyinche)
+    MySpinnerForInventry qianyinche;
+    @BindView(R.id.powerType)
+    MySpinnerForFree powerType;
+    @BindView(R.id.ql)
+    LinearLayout ql;
+    @BindView(R.id.carStyle)
+    MySpinnerForFree carStyle;
+    @BindView(R.id.len)
+    MySpinnerForFree len;
+    @BindView(R.id.wid)
+    MySpinnerForFree wid;
+    @BindView(R.id.hit)
+    MySpinnerForFree hit;
+    @BindView(R.id.chexxiang_color)
+    EditText chexxiangColor;
+    @BindView(R.id.daliang_color)
+    EditText daliangColor;
+    @BindView(R.id.num)
+    EditText num;
+    @BindView(R.id.price)
+    EditText price;
+    @BindView(R.id.up)
+    MySpinnerForInventry up;
+    @BindView(R.id.down)
+    MySpinnerForInventry down;
+    @BindView(R.id.mid)
+    MySpinnerForInventry mid;
+    @BindView(R.id.lidigao)
+    EditText lidigao;
+    @BindView(R.id.hzbj)
+    EditText hzbj;
+    @BindView(R.id.qianxuan)
+    EditText qianxuan;
+    @BindView(R.id.zhongxinju)
+    EditText zhongxinju;
+    @BindView(R.id.qianyinxiao)
+    MySpinnerForInventry qianyinxiao;
+    @BindView(R.id.qianyinzuo)
+    MySpinnerForFree qianyinzuo;
+    @BindView(R.id.banhuang)
+    MySpinnerForInventry banhuang;
+    @BindView(R.id.bianliang)
+    MySpinnerForInventry bianliang;
+    @BindView(R.id.wcheng1)
+    MySpinnerForInventry wcheng1;
+    @BindView(R.id.wcheng2)
+    EditText wcheng2;
+    @BindView(R.id.fangshuicao)
+    MySpinnerForFree fangshuicao;
+    @BindView(R.id.diban)
+    MySpinnerForInventry diban;
+    @BindView(R.id.liangbaojiao)
+    EditText liangbaojiao;
+    @BindView(R.id.fangguan)
+    MySpinnerForInventry fangguan;
+    @BindView(R.id.celanban)
+    MySpinnerForInventry celanban;
+    @BindView(R.id.celanban_mark)
+    EditText celanbanMark;
+    @BindView(R.id.houmen)
+    MySpinnerForInventry houmen;
+    @BindView(R.id.houmen_mark)
+    EditText houmenMark;
+    @BindView(R.id.penggan)
+    MySpinnerForInventry penggan;
+    @BindView(R.id.pati)
+    MySpinnerForFree pati;
+    @BindView(R.id.xiaokuang)
+    MySpinnerForInventry xiaokuang;
+    @BindView(R.id.jinshengqi_num)
+    EditText jinshengqiNum;
+    @BindView(R.id.jinshenqi_mark)
+    EditText jinshenqiMark;
+    @BindView(R.id.gjx_left)
+    MySpinnerForInventry gjxLeft;
+    @BindView(R.id.gjx_right)
+    MySpinnerForInventry gjxRight;
+    @BindView(R.id.btzj)
+    MySpinnerForFree btzj;
+    @BindView(R.id.btsjq)
+    MySpinnerForFree btsjq;
+    @BindView(R.id.abs)
+    MySpinnerForInventry abs;
+    @BindView(R.id.shuibaokong)
+    EditText shuibaokong;
+    @BindView(R.id.gangquan)
+    MySpinnerForInventry gangquan;
+    @BindView(R.id.gangquan_num)
+    EditText gangquanNum;
+    @BindView(R.id.luntai)
+    MySpinnerForInventry luntai;
+    @BindView(R.id.luntai_num)
+    EditText luntaiNum;
+    @BindView(R.id.chezhou)
+    MySpinnerForInventry chezhou;
     @BindView(R.id.remark)
     EditText remark;
-    @BindView(R.id.color)
-    EditText color;
+    @BindView(R.id.deposit)
+    EditText deposit;
+    @BindView(R.id.amt)
+    EditText amt;
+    @BindView(R.id.applyDate)
+    TextView applyDate;
+    @BindView(R.id.obtain_type)
+    MySpinnerForFree obtainType;
+    @BindView(R.id.select_info)
+    LinearLayout selectInfo;
+    @BindView(R.id.caculator)
+    Button caculator;
+    @BindView(R.id.parent)
+    ScrollView parent;
+    @BindView(R.id.wcheng_num)
+    EditText wchengNum;
+    @BindView(R.id.amt_dx)
+    EditText amtDx;
     @BindView(R.id.dingjin)
     CheckBox dingjin;
     @BindView(R.id.yunfei)
     CheckBox yunfei;
-    @BindView(R.id.standardOr)
-    CheckBox standardOr;
-    @BindView(R.id.price)
-    EditText price;
-    @BindView(R.id.carsCount)
-    EditText carsCount;
-    @BindView(R.id.powerType)
-    Spinner powerType;
-    @BindView(R.id.model)
-    Spinner model;
-    @BindView(R.id.height)
-    Spinner height;
-    @BindView(R.id.shuibaokong)
-    EditText shuibaokong;
-    @BindView(R.id.liangbaojiao)
-    EditText liangbaojiao;
-    @BindView(R.id.qianyinche)
-    MySpinnerForInventry qianyinche;
-    @BindView(R.id.orderNum)
-    EditText orderNum;
-    @BindView(R.id.pati)
-    Spinner pati;
-    @BindView(R.id.penggan)
-    Spinner penggan;
-    @BindView(R.id.beitaizhijia)
-    Spinner beitaizhijia;
     private InventoryClassAdapter inventoryClassAdapter;
     private List<InventoryClass> inventorys = new ArrayList<>();
     private Button more;
@@ -129,20 +204,16 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
     private int mMonth;
     private int mDay;
     private DatePickerDialog datePicker;
-    private ArrayAdapter<String> adapter;
-    private ArrayAdapter<String> adapter_powerType;
-    private ArrayAdapter<String> adapter_model;
-    private ArrayAdapter<String> adapter_height;
-    private ArrayAdapter<String> adapter_pati;
-    private ArrayAdapter<String> adapter_penggan;
-    private ArrayAdapter<String> adapter_beitaizhijia;
-    private ArrayAdapter<String> adapter_fangshuicao;
-    private List<String> list;
+    private List<String> list_obtaintype;
     private List<String> list_powerType;
+    private List<String> list_qyz;
+    private List<String> list_len;
+    private List<String> list_wid;
+    private List<String> list_hgt;
+    private List<String> list_fsc;
+
     private List<String> list_model;
-    private List<String> list_height;
     private List<String> list_pati;
-    private List<String> list_penggan;
     private List<String> list_beitaizhijia;
     private ObtainBean customer_bean;
     private ToolUtil toolUtil;
@@ -152,21 +223,70 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
     private Dialog dialog;
     private String orderId;
     private int commitType;
-    private  Button preview;
+    private Button preview;
+
+    TextView qyc_text;
+    TextView len_text;
+    TextView hgt_text;
+    TextView wid_text;
+    TextView car_style_text;
+    TextView luntaiSpinnerText;
+    TextView gqSpinnerText;
+    TextView wchengSpinnerText;
+    JSONObject basic_info = new JSONObject();
+    JSONArray config_info = new JSONArray();
+    private Button back;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.contract_input_details);
         ButterKnife.bind(this);
+        toolUtil = new ToolUtil();
+        toolUtil.showProgressDialog(this);
         initView();
-        inventorys = DaoBean.loadAllInventoryClass();
-//        for (InventoryClass ic : inventorys) {
-//            Log.i("", ic.getCInvCCode());
-//        }
-        inventoryClassAdapter = new InventoryClassAdapter(this, inventorys);
-        inventoryLv.setAdapter(inventoryClassAdapter);
+        addTextChangeListener();
+        initFreeSpinner();
+        initSpinner();
+        toolUtil.dismissProgressDialog();
+
+
+//        inventorys = DaoBean.loadAllInventoryClass();
+//        inventoryClassAdapter = new InventoryClassAdapter(this, inventorys);
+//        inventoryLv.setAdapter(inventoryClassAdapter);
         standardId = DaoBean.getInventoryClassById(1).getStandardId();
+
+
+    }
+
+
+    private void addTextChangeListener() {
+        qyc_text = (TextView) qianyinche.findViewById(R.id.spinner_text);
+        qyc_text.addTextChangedListener(watcher2);
+        hgt_text = (TextView) hit.findViewById(R.id.spinner_text);
+        hgt_text.addTextChangedListener(watcher2);
+        wid_text = (TextView) wid.findViewById(R.id.spinner_text);
+        wid_text.addTextChangedListener(watcher2);
+        car_style_text = (TextView) carStyle.findViewById(R.id.spinner_text);
+        car_style_text.addTextChangedListener(watcher2);
+        /**
+         * 数量发生改变监听事件
+         */
+        wchengNum.addTextChangedListener(watcher);
+        jinshengqiNum.addTextChangedListener(watcher);
+        gangquanNum.addTextChangedListener(watcher);
+        luntaiNum.addTextChangedListener(watcher);
+        /**
+         * 轮胎、钢圈、w称,紧绳器数量发生改变
+         */
+
+        luntaiSpinnerText = (TextView) luntai.findViewById(R.id.spinner_text);
+        luntaiSpinnerText.addTextChangedListener(watcher);
+        gqSpinnerText = (TextView) gangquan.findViewById(R.id.spinner_text);
+        gqSpinnerText.addTextChangedListener(watcher);
+        wchengSpinnerText = (TextView) wcheng1.findViewById(R.id.spinner_text);
+        wchengSpinnerText.addTextChangedListener(watcher);
+        jinshengqiNum.addTextChangedListener(watcher);
 
 
     }
@@ -175,6 +295,13 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
     private void initView() {
         userInfo = DaoBean.getUseInfoById(1);
         title.setTitleText("合同信息录入");
+        back= (Button) title.findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isExit();
+            }
+        });
         Intent intent = getIntent();
         customer_bean = (ObtainBean) intent.getSerializableExtra("customer");
         commitType = intent.getIntExtra("commitType", 0);
@@ -192,14 +319,11 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
                 dialog = new Dialog(ContractInputActivity.this);
                 View view = LayoutInflater.from(ContractInputActivity.this).inflate(R.layout.more_layout, null);
                 TextView commit = (TextView) view.findViewById(R.id.commit);
-                TextView modify = (TextView) view.findViewById(R.id.modify);
                 Button preview = (Button) view.findViewById(R.id.preview);
-//                preview.setVisibility(View.VISIBLE);
-                modify.setVisibility(View.INVISIBLE);
                 commit.setVisibility(View.VISIBLE);
+                preview.setVisibility(View.VISIBLE);
                 preview.setOnClickListener(ContractInputActivity.this);
                 commit.setOnClickListener(ContractInputActivity.this);
-                modify.setOnClickListener(ContractInputActivity.this);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(view);
                 dialog.setContentView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -219,50 +343,146 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
                 datePicker.show();
             }
         });
-        initSpinner();
+
 
     }
 
+    /**
+     * 加载下拉的从数据库读取的选项
+     */
     private void initSpinner() {
+        //上
+        List<Inventory> upInventorys = DaoBean.getInventoryLikeCCode("1508");
+        if (upInventorys != null && upInventorys.size() != 0) {
+            up.setData(upInventorys);
+        }
+        //下
+        List<Inventory> downInventorys = DaoBean.getInventoryLikeCCode("1509");
+        if (downInventorys != null && downInventorys.size() != 0) {
+            down.setData(downInventorys);
+        }
+        //立板
+        List<Inventory> midInventorys = DaoBean.getInventoryLikeCCode("1510");
+        if (midInventorys != null && midInventorys.size() != 0) {
+            mid.setData(midInventorys);
+        }
+
+
+        //牵引销
+        List<Inventory> qianyinzuoInventorys = DaoBean.getInventoryLikeCCode("0410");
+        if (qianyinzuoInventorys != null && qianyinzuoInventorys.size() != 0) {
+            qianyinxiao.setData(qianyinzuoInventorys);
+        }
+        //板簧
+        List<Inventory> banhuangInventorys = DaoBean.getInventoryLikeCCode("0412");
+        if (banhuangInventorys != null && banhuangInventorys.size() != 0) {
+            banhuang.setData(banhuangInventorys);
+        }
+        //边梁
+        List<Inventory> bianliangInventorys = DaoBean.getInventoryLikeCCode("0307");
+        if (bianliangInventorys != null && bianliangInventorys.size() != 0) {
+            bianliang.setData(bianliangInventorys);
+        }
+        //底板
+        List<Inventory> dibanInventorys = DaoBean.getInventoryLikeCCode("1505");
+        if (dibanInventorys != null && dibanInventorys.size() != 0) {
+            diban.setData(dibanInventorys);
+        }
+        //侧挡板
+        List<Inventory> cdbInventorys = DaoBean.getInventoryLikeCCode("020105");
+        if (cdbInventorys != null && cdbInventorys.size() != 0) {
+            celanban.setData(cdbInventorys);
+        }
+        //后门
+        List<Inventory> houmenInventorys = DaoBean.getInventoryLikeCCode("020106");
+        if (houmenInventorys != null && houmenInventorys.size() != 0) {
+            houmen.setData(houmenInventorys);
+        }
+        //工具箱左
+        List<Inventory> gjxzInventorys = DaoBean.getInventoryLikeCCode("1503");
+        if (gjxzInventorys != null && gjxzInventorys.size() != 0) {
+            gjxLeft.setData(gjxzInventorys);
+        }
+        //工具箱右
+        List<Inventory> gjxyInventorys = DaoBean.getInventoryLikeCCode("1504");
+        if (gjxyInventorys != null && gjxyInventorys.size() != 0) {
+            gjxRight.setData(gjxyInventorys);
+        }
+        //ABS
+        List<Inventory> absInventorys = DaoBean.getInventoryLikeCCode("0411");
+        if (absInventorys != null && absInventorys.size() != 0) {
+            abs.setData(absInventorys);
+        }
+        //钢圈
+        List<Inventory> gangquanInventorys = DaoBean.getInventoryLikeCCode("0405");
+        if (gangquanInventorys != null && gangquanInventorys.size() != 0) {
+            gangquan.setData(gangquanInventorys);
+        }
+        //轮胎
+        List<Inventory> luntaiInventorys = DaoBean.getInventoryLikeCCode("0404");
+        if (luntaiInventorys != null && luntaiInventorys.size() != 0) {
+            luntai.setData(luntaiInventorys);
+        }
+        //车轴
+        List<Inventory> axisInventorys = DaoBean.getInventoryLikeCCode("0404");
+        if (axisInventorys != null && axisInventorys.size() != 0) {
+            chezhou.setData(axisInventorys);
+        }
+        //蓬杆
+        List<Inventory> pengganInventorys = DaoBean.getInventoryLikeCCode("1502");
+        if (pengganInventorys != null && pengganInventorys.size() != 0) {
+            penggan.setData(pengganInventorys);
+        }
+        //篷布框
+        List<Inventory> pbkInventorys = DaoBean.getInventoryLikeCCode("1507");
+        if (pbkInventorys != null && pbkInventorys.size() != 0) {
+            xiaokuang.setData(pbkInventorys);
+        }
+        //W称
+        List<Inventory> WCInventorys = DaoBean.getInventoryLikeCCode("0308");
+        if (WCInventorys != null && WCInventorys.size() != 0) {
+            wcheng1.setData(WCInventorys);
+        }
+        //牵引车
         List<Inventory> qianyincheInventorys = DaoBean.getInventoryLikeCCode("14");
-        if (qianyincheInventorys != null) {
+        if (qianyincheInventorys != null && qianyincheInventorys.size() != 0) {
             qianyinche.setData(qianyincheInventorys);
         }
-        list = Arrays.asList(new String[]{"自提", "配送"});
-        list_height = Arrays.asList(new String[]{"1.2", "1.4", "1.5", "1.6", "1.7", "1.8", "1.9", "2.0", "2.1", "2.2"});
-        list_model = Arrays.asList(new String[]{"鹅", "直"});
-        list_powerType = Arrays.asList(new String[]{"汽", "油"});
-        list_pati = Arrays.asList(new String[]{"左", "右", "左右", "竖"});
-        list_penggan = Arrays.asList(new String[]{"6", "10", "12"});
-        list_beitaizhijia = Arrays.asList(new String[]{"左后", "右后", "后2","左中","右中"});
-
-
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, list);
-        adapter_powerType = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, list_powerType);
-        adapter_height = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, list_height);
-        adapter_model = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, list_model);
-        adapter_pati = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, list_pati);
-        adapter_penggan = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, list_penggan);
-        adapter_beitaizhijia = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, list_beitaizhijia);
-
-        adapter_powerType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        adapter_height.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        adapter_model.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        adapter_pati.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        adapter_penggan.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        adapter_beitaizhijia.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        obtainType.setAdapter(adapter);
-        model.setAdapter(adapter_model);
-        powerType.setAdapter(adapter_powerType);
-        height.setAdapter(adapter_height);
-        penggan.setAdapter(adapter_penggan);
-        pati.setAdapter(adapter_pati);
-        beitaizhijia.setAdapter(adapter_beitaizhijia);
 
     }
 
+    /**
+     * 加载下拉选项框的固定的选项
+     */
+    private void initFreeSpinner() {
+        /**
+         * 获取下拉选项框固定值
+         */
+        list_powerType = Arrays.asList(getResources().getStringArray(R.array.power_type));
+        list_len = Arrays.asList(getResources().getStringArray(R.array.len));
+        list_wid = Arrays.asList(getResources().getStringArray(R.array.wid));
+        list_hgt = Arrays.asList(getResources().getStringArray(R.array.hgt));
+        list_qyz = Arrays.asList(getResources().getStringArray(R.array.qyz));
+        list_obtaintype = Arrays.asList(getResources().getStringArray(R.array.obtaintype));
+        list_fsc = Arrays.asList(getResources().getStringArray(R.array.fangshuicao));
+        list_pati = Arrays.asList(getResources().getStringArray(R.array.pati));
+        list_beitaizhijia = Arrays.asList(getResources().getStringArray(R.array.beitaizhijia));
+        list_model = Arrays.asList(getResources().getStringArray(R.array.model));
+        /**
+         * spinner设置参数
+         */
+        powerType.setData(list_powerType);
+        len.setData(list_len);
+        wid.setData(list_wid);
+        hit.setData(list_hgt);
+        qianyinzuo.setData(list_qyz);
+        obtainType.setData(list_obtaintype);
+        fangshuicao.setData(list_fsc);
+        pati.setData(list_pati);
+        btzj.setData(list_beitaizhijia);
+        carStyle.setData(list_model);
+
+    }
 
     @OnClick(R.id.caculator)
     public void onViewClicked() {
@@ -295,245 +515,98 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
     @Override
     public void onClick(final View v) {
 
-                AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-                dialog.setMessage("你确定进行本次操作吗？");
-                dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setMessage("你确定进行本次操作吗？");
+        dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
 
-                    }
-                });
-                dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (v.getId()) {
-                            case R.id.modify:
-                                commitData("modify");
-                                break;
-                            case R.id.commit:
-                                commitData("commit");
-                                break;
-                            case R.id.preview:
-                                Intent intent2 = new Intent(ContractInputActivity.this,ContractPreviewActivity.class);
-
-                                startActivity(intent2);
-                                finish();
-                                break;
+            }
+        });
+        dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (v.getId()) {
+                    case R.id.commit:
+                        commitData("commit");
+                        break;
+                    case R.id.preview:
+                        Intent intent2 = new Intent(ContractInputActivity.this, ContractPreviewActivity.class);
+                        if (!createBaseJsonData()) {
+                            return;
                         }
-                    }
-                });
-                dialog.show();
+                        String data = basic_info.toString();
+                        intent2.putExtra("data", data);
+                        startActivity(intent2);
+                        break;
 
 
+                }
+            }
+        });
+        dialog.show();
 
 
     }
 
+
+    /**
+     * 提交数据
+     *
+     * @param msg
+     */
     private void commitData(String msg) {
+        config_info = new JSONArray();
         if (dialog != null) {
             dialog.dismiss();
         }
-        getDataFromDB();
+        //判断必填项是否填写
+        if (!createBaseJsonData()) {
+            return;
+        }
+        userInfo = DaoBean.getUseInfoById(1);
+
         List<Inventory> inventories = DaoBean.loadInventoryByCurrent();
-        JSONObject json = new JSONObject();
-        JSONObject basic_info = new JSONObject();
-        JSONArray config_info = new JSONArray();
+        JSONObject content = new JSONObject();
         Gson gson = new GsonBuilder().create();
         try {
+            for (Inventory inventoryTemp : inventories) {
+                config_info.put(new JSONObject(gson.toJson(inventoryTemp, Inventory.class)));
+            }
+            content.put("config_info", config_info);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
             switch (msg) {
-                case "save":
-                    basic_info.put("apply_type", "A");
-                    break;
                 case "commit":
                     basic_info.put("apply_type", "0");
                     break;
             }
-            if (dingjin.isChecked()) {
-                basic_info.put("dingjin_flag", 1);
-                if (TextUtils.isEmpty(deposit.getText().toString())){
-                    Toast.makeText(this, "请输入定金", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                int dingjin_money = Integer.parseInt(deposit.getText().toString());
-                int amt_money = Integer.parseInt(amt.getText().toString());
-                float dingjin_rate = dingjin_money / (float) amt_money;
-                if (amt_money != 0) {
-                    basic_info.put("dingjin_rate", dingjin_rate);
-                } else {
-                    Toast.makeText(this, "金额不能为0", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-            } else {
-                basic_info.put("dingjin_flag", 0);
-            }
-            if (yunfei.isChecked()) {
-                basic_info.put("yunfei_flag", 1);
-            } else {
-                basic_info.put("yunfei_flag", 0);
-            }
-            if (standardOr.isChecked()) {
-                basic_info.put("standard", 1);
-            } else {
-                if (TextUtils.isEmpty(remark.getText().toString())) {
-                    Toast.makeText(this, "请输入备注信息！", Toast.LENGTH_SHORT).show();
-                    return;
-                } else {
-
-                    basic_info.put("standard", 0);
-                }
-            }
             basic_info.put("cCusCode", customer_bean.getCode());
-            if (TextUtils.isEmpty(amt.getText().toString())){
-                Toast.makeText(this, "请输入总金额", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (TextUtils.isEmpty(carsCount.getText().toString())) {
-                Toast.makeText(this, "请输入数量", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (TextUtils.isEmpty(shuibaokong.getText().toString())) {
-                Toast.makeText(this, "请输入水包空", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (TextUtils.isEmpty(liangbaojiao.getText().toString())) {
-                Toast.makeText(this, "请输入量包角", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (TextUtils.isEmpty(penggan.getSelectedItem().toString())) {
-                Toast.makeText(this, "请输入蓬杆数量", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (TextUtils.isEmpty(price.getText().toString())) {
-                Toast.makeText(this, "请输入单价", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (TextUtils.isEmpty(applyDate.getText().toString())) {
-                Toast.makeText(this, "请输入提车日期", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (TextUtils.isEmpty(obtainType.getSelectedItem().toString())) {
-                Toast.makeText(this, "请选择提车方式", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (TextUtils.isEmpty(beitaizhijia.getSelectedItem().toString())) {
-                Toast.makeText(this, "请选择备胎支架", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            if (TextUtils.isEmpty(pati.getSelectedItem().toString())) {
-                Toast.makeText(this, "请选择爬梯数量", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (TextUtils.isEmpty(model.getSelectedItem().toString())) {
-                Toast.makeText(this, "请选择型号", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (TextUtils.isEmpty(height.getSelectedItem().toString())) {
-                Toast.makeText(this, "请选择高度", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (TextUtils.isEmpty(powerType.getSelectedItem().toString())) {
-                Toast.makeText(this, "请选择动力类型", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (TextUtils.isEmpty(amt.getText().toString())) {
-                Toast.makeText(this, "请输入车款", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (TextUtils.isEmpty(color.getText().toString())) {
-                Toast.makeText(this, "请输入颜色", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (TextUtils.isEmpty(deposit.getText().toString())) {
-                basic_info.put("deposit", "0");
-            } else {
-                basic_info.put("deposit", deposit.getText().toString());
-            }
-            if (TextUtils.isEmpty(orderNum.getText().toString())) {
-                Toast.makeText(this, "请输入订单号", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            basic_info.put("beitaizhijia", beitaizhijia.getSelectedItem().toString());
-            basic_info.put("penggan", penggan.getSelectedItem().toString());
-            basic_info.put("pati", pati.getSelectedItem().toString());
-            basic_info.put("carsCount", carsCount.getText().toString());
-            basic_info.put("price", price.getText().toString());
-            basic_info.put("apply_date", applyDate.getText().toString());
-            basic_info.put("obtain_type", obtainType.getSelectedItem().toString());
-            basic_info.put("amt", amt.getText().toString());
-            basic_info.put("remark", remark.getText().toString());
-            basic_info.put("color", color.getText().toString());
             basic_info.put("standardId", standardId);
-            basic_info.put("orderNumber", orderNumber);
-            basic_info.put("orderNumber", orderNum.getText().toString());//库存车编码
-            basic_info.put("orderId", orderId);
-            basic_info.put("height", height.getSelectedItem().toString());
-            basic_info.put("powerType", powerType.getSelectedItem().toString());
-            basic_info.put("model", model.getSelectedItem().toString());
-            basic_info.put("shuibaokong", shuibaokong.getText().toString());
-            basic_info.put("liangbaojiao", liangbaojiao.getText().toString());
-            /**
-             * 中间信息为侧栏板，后门，底板
-             */
-            Inventory inven = DaoBean.getSelectedInventoryLikeCCode("020105");
-            if (inven == null) {
-                basic_info.put("celanban", "");
-
-            } else {
-                basic_info.put("celanban", inven.getCInvName() + inven.getCInvStd());
-
-            }
-            inven = DaoBean.getSelectedInventoryLikeCCode("020106");
-            if (inven == null) {
-                basic_info.put("houmen", "");
-
-            } else {
-                basic_info.put("houmen", inven.getCInvName() + inven.getCInvStd());
-
-            }
-            inven = DaoBean.getSelectedInventoryLikeCCode("0301");
-            if (inven == null) {
-                basic_info.put("diban", "");
-
-            } else {
-                basic_info.put("diban", inven.getCInvName() + inven.getCInvStd());
-
-            }
-            /**
-             *
-             */
-
-
-            json.put("basic_info", basic_info);
-            for (Inventory inventory : inventories) {
-                config_info.put(new JSONObject(gson.toJson(inventory, Inventory.class)));
-            }
-            json.put("config_info", config_info);
-            json.put("username", userInfo.getUsername());
-            json.put("password", userInfo.getPassword());
-
+            content.put("basic_info", basic_info);
+            content.put("username", userInfo.getUsername());
+            content.put("password", userInfo.getPassword());
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.i("data", json.toString());
+
         toolUtil = new ToolUtil();
         toolUtil.showProgressDialog(this);
-        Log.i("传入数据", json.toString());
+        Log.i("传入数据", content.toString());
+
 
         OkHttpUtils.postString()
                 .url(CommonData.CommitContract)
-                .content(json.toString())
+                .content(content.toString())
                 .mediaType(MediaType.parse("application/json;charset=utf-8"))
                 .build()
                 .execute(new ResponCallBack());
 
     }
 
-    private void getDataFromDB() {
-    }
 
     private DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() {
 
@@ -572,4 +645,240 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
             }
         }
     }
+
+    private TextWatcher watcher2 = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            List<Inventory> inventories = DaoBean.loadInventoryByCurrent();
+            for (Inventory inentory : inventories) {
+                if (inentory.getCInvCCode().equals("14")) {
+                    lidigao.setText(inentory.getCInvStd());
+                    break;
+                }
+
+            }
+            //判断挂车样式为直或者鹅
+            String ze;
+            if (carStyle.getText().contains("直")) {
+                ze = "Z";
+            } else {
+                ze = "E";
+            }
+            List<Inventory> cedangbanInventorys2 = DaoBean.getInventoryLikeCCode("020105", hit.getText(), ze);
+            celanban.setData(cedangbanInventorys2);
+            List<Inventory> houmenInventorys2 = DaoBean.getInventoryLikeCCode("020106", hit.getText(), ze);
+            houmen.setData(houmenInventorys2);
+            List<Inventory> wchengInventorys2 = DaoBean.getInventoryLikeCCode("0308", Integer.parseInt(wid.getText()) - 20 + "", ze);
+            wcheng1.setData(wchengInventorys2);
+
+        }
+    };
+    private TextWatcher watcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            int wchengCounts = getEditNum(wchengNum);
+            int jsqCounts = getEditNum(jinshengqiNum);
+            int gqCounts = getEditNum(gangquanNum);
+            int ltCounts = getEditNum(luntaiNum);
+            DaoBean.updateCounts("0308", wchengCounts);
+            DaoBean.updateCounts("0413", jsqCounts);
+            DaoBean.updateCounts("0405", gqCounts);
+            DaoBean.updateCounts("0404", ltCounts);
+        }
+    };
+
+
+    /**
+     * 获取所有输入项的值
+     *
+     * @return
+     */
+    public boolean createBaseJsonData() {
+        basic_info = new JSONObject();
+        if (!TextUtils.isEmpty(judgeEdit())) {
+            Toast.makeText(this, judgeEdit(), Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        try {
+            basic_info.put("qianyinche", qianyinche.getText());
+            basic_info.put("powerType", powerType.getText());
+            basic_info.put("model", carStyle.getText());
+            basic_info.put("car_long", len.getText());
+            basic_info.put("car_width", wid.getText());
+            basic_info.put("car_height", hit.getText());
+            basic_info.put("color", chexxiangColor.getText());//
+            basic_info.put("liang_color", daliangColor.getText());
+            basic_info.put("booknum", num.getText().toString());
+            basic_info.put("singleprice", price.getText().toString());
+            basic_info.put("up", up.getText());
+            basic_info.put("down", down.getText());
+            basic_info.put("mid", mid.getText());
+            basic_info.put("lidigao", lidigao.getText().toString());
+            basic_info.put("houxuan", hzbj.getText().toString());
+            basic_info.put("qianxuan", qianxuan.getText().toString());
+            basic_info.put("zhongxinju", zhongxinju.getText().toString());
+            basic_info.put("qianyinxiao", qianyinxiao.getText());
+            basic_info.put("qianyinzuo", qianyinzuo.getText());
+            basic_info.put("banhuang", banhuang.getText());
+            basic_info.put("bianliang", bianliang.getText());
+            basic_info.put("wcheng_type", wcheng1.getText());
+            basic_info.put("wcheng_num", wchengNum.getText().toString());
+            basic_info.put("wcheng_mark", wcheng2.getText().toString());
+            basic_info.put("fangshuicao", fangshuicao.getText());
+            basic_info.put("diban", diban.getText());
+            basic_info.put("liangbaojiao", liangbaojiao.getText().toString());
+            basic_info.put("fangguan", fangguan.getText());
+            basic_info.put("celanban", celanban.getText());
+            basic_info.put("celanban_mark", celanbanMark.getText());
+            basic_info.put("houmen", houmen.getText());
+            basic_info.put("houmen_mark", houmenMark.getText());
+            basic_info.put("penggan", penggan.getText());
+            basic_info.put("pati", pati.getText());
+            basic_info.put("xiaokuang", xiaokuang.getText());
+            basic_info.put("jinshengqi", jinshengqiNum.getText());
+            basic_info.put("jinshengqi_mark", jinshenqiMark.getText());
+            basic_info.put("box_left", gjxLeft.getText());
+            basic_info.put("box_right", gjxRight.getText());
+            basic_info.put("btzj", btzj.getText());
+            basic_info.put("btsjq", btsjq.getText());
+            basic_info.put("abs", abs.getText());
+            basic_info.put("shuibaokong", shuibaokong.getText());
+            basic_info.put("gangquan", gangquan.getText());
+            basic_info.put("gangquan_num", gangquanNum.getText().toString());
+            basic_info.put("luntai", luntai.getText());
+            basic_info.put("luntai_num", luntaiNum.getText().toString());
+            basic_info.put("chezhou", chezhou.getText());
+            basic_info.put("remark", remark.getText().toString());
+            basic_info.put("ordermoney", amt.getText().toString());
+            basic_info.put("ordermoney_dx", amtDx.getText().toString());
+            basic_info.put("payedmoney", deposit.getText().toString());
+            basic_info.put("leaveTime", applyDate.getText().toString());
+            basic_info.put("carstyle", obtainType.getText());
+            basic_info.put("pcflag", 0);
+            if (dingjin.isChecked()){
+                basic_info.put("bmustbook", 1);
+            }else{
+                basic_info.put("bmustbook", 0);
+            }
+            if (yunfei.isChecked()){
+                basic_info.put("cDefine1", 1);
+            }else {
+                basic_info.put("cDefine1", 0);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
+    private String judgeEdit() {
+        String toastInfo = "";
+        if (TextUtils.isEmpty(chexxiangColor.getText().toString())) {
+            toastInfo = "请填写车厢颜色！";
+            return toastInfo;
+        }
+        if (TextUtils.isEmpty(daliangColor.getText().toString())) {
+            toastInfo = "请填写大梁颜色！";
+            return toastInfo;
+        }
+        if (TextUtils.isEmpty(num.getText().toString())) {
+            toastInfo = "请填写订单数量！";
+            return toastInfo;
+        }
+        if (TextUtils.isEmpty(price.getText().toString())) {
+            toastInfo = "请填写单价！";
+            return toastInfo;
+        }
+        if (TextUtils.isEmpty(lidigao.getText().toString())) {
+            toastInfo = "请填写离地高！";
+            return toastInfo;
+        }
+        if (TextUtils.isEmpty(wchengNum.getText().toString())) {
+            toastInfo = "请填写W称数量！";
+            return toastInfo;
+        }
+        if (TextUtils.isEmpty(jinshengqiNum.getText().toString())) {
+            toastInfo = "请填写紧绳器数量！";
+            return toastInfo;
+        }if (TextUtils.isEmpty(amtDx.getText().toString())) {
+            toastInfo = "请填写总金额（大写）！";
+            return toastInfo;
+        }
+        if (TextUtils.isEmpty(deposit.getText().toString())) {
+            toastInfo = "请填写定金！";
+            return toastInfo;
+        }
+        if (TextUtils.isEmpty(amt.getText().toString())) {
+            toastInfo = "请填写总金额！";
+            return toastInfo;
+        }if (TextUtils.isEmpty(applyDate.getText().toString())) {
+            toastInfo = "请填写提车日期！";
+            return toastInfo;
+        }
+        return toastInfo;
+    }
+
+    public int getEditNum(EditText editText) {
+        if (TextUtils.isEmpty(editText.getText().toString())) {
+            return 0;
+        } else {
+            return Integer.parseInt(editText.getText().toString());
+        }
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {//点击的是返回键
+            if (event.getAction() == KeyEvent.ACTION_UP && event.getRepeatCount() == 0) {
+                isExit();
+            }
+            return false;
+        }
+        return super.dispatchKeyEvent(event);
+    }
+
+    private void isExit() {
+
+            //按键的抬起事件
+                AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+                dialog.setMessage("你确定要退出操作吗？");
+                dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ContractInputActivity.this.finish();
+                    }
+                });
+                dialog.show();
+
+            }
+
+
 }

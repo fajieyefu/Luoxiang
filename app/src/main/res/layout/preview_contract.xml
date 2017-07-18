@@ -1,0 +1,608 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <fajieyefu.com.luoxiang.layout.TitleLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </fajieyefu.com.luoxiang.layout.TitleLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+            android:paddingBottom="5dp"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center_vertical">
+                <TextView
+                    android:text="牵引车："
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/qianyinche"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+
+                <TextView
+                    android:id="@+id/powerType"
+                    android:textColor="@color/black"
+                    android:text=""
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:text="客户:"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+                <TextView
+                    android:id="@+id/customer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text=""/>
+
+                <TextView
+                    android:text="电话:"
+                    android:layout_width="wrap_content"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:layout_height="wrap_content"
+                     />
+
+                <TextView
+                    android:id="@+id/phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text=""/>
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:text="一、订购标的的数量及价格"
+                android:textSize="12sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/layout_black">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    >
+                    <TextView
+                        style="@style/previewContract"
+                        android:text="挂车样式"/>
+                    <TextView
+                        style="@style/previewContract"
+                        android:text="规格型号"/>
+                    <TextView
+                        style="@style/previewContract"
+                        android:text="颜色"/>
+                    <TextView
+                        style="@style/previewContract"
+                        android:layout_weight="0.5"
+                        android:text="数量"/>
+                    <TextView
+                        style="@style/previewContract"
+                        android:text="总价"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    >
+                    <TextView
+                        style="@style/previewContract_black"
+                        android:id="@+id/carStyle"
+                        android:text=""/>
+                    <TextView
+                        android:id="@+id/model"
+                        style="@style/previewContract_black"
+                        android:text=""/>
+                    <TextView
+                        android:id="@+id/color"
+                        style="@style/previewContract_black"
+                        android:text=""/>
+                    <TextView
+                        android:id="@+id/booknum"
+                        style="@style/previewContract_black"
+                        android:layout_weight="0.5"
+                        android:text=""/>
+
+                    <TextView
+                        style="@style/previewContract_black"
+                        android:text=""
+                        android:id="@+id/price" />
+                </LinearLayout>
+            </LinearLayout>
+            <TextView
+                android:layout_marginTop="6dp"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:text="二、上述车辆买受人选装以下配置（单位为mm）"
+                android:textSize="12sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/layout_black">
+
+                <TextView
+                    style="@style/previewContract_h"
+                    android:text="车架"
+                     />
+                <TextView
+                    android:id="@+id/chejia"
+                    style="@style/previewContract_black_h"
+                    android:text=""
+                    />
+                <ImageView
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/black"
+                    />
+                <TextView
+
+                    style="@style/previewContract_h"
+                    android:text="栏板样式"
+                    />
+                <TextView
+                    android:id="@+id/lanban"
+                    style="@style/previewContract_black_h"
+                    android:text=""
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/layout_black">
+
+                <TextView
+                    style="@style/previewContract_h"
+                    android:text="牵引车"
+                    />
+                <TextView
+                    android:id="@+id/lidigao"
+                    style="@style/previewContract_black_h"
+                    android:text=""
+                    />
+                <ImageView
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/black"
+                    />
+                <TextView
+
+                    style="@style/previewContract_h"
+                    android:text="后门样式"
+                    />
+
+                <TextView
+                    android:id="@+id/houmen"
+                    style="@style/previewContract_black_h"
+                    android:text=""
+                     />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/layout_black">
+
+                <TextView
+                    style="@style/previewContract_h"
+                    android:text="挂车"
+                    />
+                <TextView
+                    android:id="@+id/qianxuan"
+                    style="@style/previewContract_black_h"
+                    android:text=""
+                    />
+                <ImageView
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/black"
+                    />
+                <TextView
+
+                    style="@style/previewContract_h"
+                    android:text="蓬杆"
+                    />
+                <TextView
+                    android:id="@+id/penggan"
+                    style="@style/previewContract_black_h"
+                    android:text=""
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/layout_black">
+
+                <TextView
+                    style="@style/previewContract_h"
+                    android:text="牵引销"
+                    />
+
+                <TextView
+
+                    style="@style/previewContract_black_h"
+                    android:text=""
+                    android:id="@+id/qianyinxiao" />
+
+                <ImageView
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/black"
+                    />
+                <TextView
+
+                    style="@style/previewContract_h"
+                    android:text="紧绳器"
+                    />
+
+                <TextView
+                    style="@style/previewContract_black_h"
+                    android:text=""
+                    android:id="@+id/jinshengqi" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/layout_black">
+
+                <TextView
+                    style="@style/previewContract_h"
+                    android:text="板簧"
+                    />
+
+                <TextView
+                    style="@style/previewContract_black_h"
+                    android:text=""
+                    android:id="@+id/banhuang" />
+
+                <ImageView
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/black"
+                    />
+                <TextView
+                    style="@style/previewContract_h"
+                    android:text="工具箱"
+                    />
+
+                <TextView
+                    style="@style/previewContract_black_h"
+                    android:text=""
+                    android:id="@+id/gongjuxiang"
+                     />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/layout_black">
+
+                <TextView
+                    style="@style/previewContract_h"
+                    android:text="贯穿梁"
+                    />
+
+                <TextView
+                    style="@style/previewContract_black_h"
+                    android:text=""
+                    android:id="@+id/wcheng" />
+
+                <ImageView
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/black"
+                    />
+                <TextView
+
+                    style="@style/previewContract_h"
+                    android:text="备胎支架"
+                    />
+
+                <TextView
+                    android:id="@+id/btzj"
+                    style="@style/previewContract_black_h"
+                    android:text=""
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/layout_black">
+
+                <TextView
+                    style="@style/previewContract_h"
+                    android:text="边梁"
+                    />
+
+                <TextView
+                    style="@style/previewContract_black_h"
+                    android:id="@+id/bianliang"
+                    android:text=""
+                    />
+
+                <ImageView
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/black"
+                    />
+                <TextView
+
+                    style="@style/previewContract_h"
+                    android:text="备胎升降器"
+                    />
+
+                <TextView
+                    android:id="@+id/btsjq"
+                    style="@style/previewContract_black_h"
+                    android:text=""
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/layout_black">
+
+                <TextView
+                    style="@style/previewContract_h"
+                    android:text="防水槽"
+                    />
+
+                <TextView
+                    android:id="@+id/fangshuicao"
+                    style="@style/previewContract_black_h"
+                    android:text=""
+                    />
+
+                <ImageView
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/black"
+                    />
+                <TextView
+
+                    style="@style/previewContract_h"
+                    android:text="ABS"
+                    />
+
+                <TextView
+                    android:id="@+id/abs"
+                    style="@style/previewContract_black_h"
+                    android:text=""
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/layout_black">
+
+                <TextView
+                    style="@style/previewContract_h"
+                    android:text="车厢尺寸"
+                    />
+
+                <TextView
+                    android:id="@+id/chexiangchicun"
+                    style="@style/previewContract_black_h"
+                    android:text=""
+                    />
+
+                <ImageView
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/black"
+                    />
+                <TextView
+
+                    style="@style/previewContract_h"
+                    android:text="钢圈"
+                    />
+
+                <TextView
+                    android:id="@+id/gangquan"
+                    style="@style/previewContract_black_h"
+                    android:text=""
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/layout_black">
+
+                <TextView
+                    style="@style/previewContract_h"
+                    android:text="车厢底板"
+                    />
+
+                <TextView
+                    android:id="@+id/diban"
+                    style="@style/previewContract_black_h"
+                    android:text=""
+                    />
+
+                <ImageView
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/black"
+                    />
+                <TextView
+
+                    style="@style/previewContract_h"
+                    android:text="轮胎"
+                    />
+
+                <TextView
+                    android:id="@+id/luntai"
+                    style="@style/previewContract_black_h"
+                    android:text=""
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/layout_black">
+
+                <TextView
+                    style="@style/previewContract_h"
+                    android:text="车轴"
+                    />
+
+                <TextView
+                    android:id="@+id/chezhou"
+                    style="@style/previewContract_black_h"
+                    android:text=""
+                    />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@drawable/layout_black">
+
+                <TextView
+                    style="@style/previewContract_h"
+                    android:text="其他选装项目"
+                     />
+
+                <TextView
+                    android:id="@+id/mark"
+                    style="@style/previewContract_black_h"
+                    android:text="" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@drawable/layout_black">
+
+                <TextView
+                    style="@style/previewContract_h"
+                    android:text="备注"
+                    />
+
+                <TextView
+                    style="@style/previewContract_black_h"
+                    android:text="" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:background="@drawable/edit_input"
+                android:orientation="vertical"
+                android:padding="5dp"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    >
+                    <TextView
+                        style="@style/tv_16sp_black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="定        金：" />
+
+                    <TextView
+                        android:maxLines="1"
+                        android:id="@+id/deposit"
+                        style="@style/tv_12sp_MyOrange"
+                        android:layout_width="0dp"
+                        android:layout_height="28dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:padding="5dp" />
+
+                    <TextView
+                        style="@style/tv_16sp_black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="总 金 额：" />
+
+                    <TextView
+                        android:id="@+id/amt"
+                        style="@style/tv_12sp_MyOrange"
+                        android:layout_width="0dp"
+                        android:layout_height="28dp"
+                        android:layout_weight="1"
+                        android:padding="5dp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp">
+
+                    <TextView
+                        style="@style/tv_16sp_black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="总金额（大写）：" />
+
+                    <TextView
+                        android:id="@+id/amt_dx"
+                        style="@style/tv_12sp_MyOrange"
+                        android:layout_width="0dp"
+                        android:layout_height="28dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:padding="5dp" />
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp">
+
+                    <TextView
+                        style="@style/tv_16sp_black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="提车日期：" />
+
+                    <TextView
+                        style="@style/tv_12sp_MyOrange"
+                        android:layout_width="0dp"
+                        android:layout_height="28dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:padding="5dp"
+                        android:id="@+id/applyDate" />
+
+                    <TextView
+                        style="@style/tv_16sp_black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="提车方式：" />
+
+                    <TextView
+                        style="@style/tv_12sp_MyOrange"
+                        android:layout_width="0dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1"
+                        android:padding="5dp"
+                        android:id="@+id/obtain_type"/>
+                </LinearLayout>
+            </LinearLayout>
+
+
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+
+</LinearLayout>

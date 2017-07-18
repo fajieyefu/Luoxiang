@@ -45,6 +45,7 @@
         <activity android:name=".main.CustomerSelectActivity"/>
         <activity android:name=".main.StockContractInputActivity"/>
         <activity android:name=".main.AddCustomerActivity"/>
+        <activity android:name=".main.ContractPreviewActivity"/>
     </application>
 
 </manifest>

@@ -20,6 +20,7 @@
         android:background="@drawable/edittext_white"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:singleLine="true"
         android:paddingLeft="40dp"/>
     <ImageView
         android:layout_width="wrap_content"
@@ -43,6 +44,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:inputType="numberPassword"
+        android:singleLine="true"
         android:paddingLeft="40dp"/>
     <ImageView
         android:layout_width="wrap_content"

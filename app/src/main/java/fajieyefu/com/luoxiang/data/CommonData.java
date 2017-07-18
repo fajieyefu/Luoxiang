@@ -7,7 +7,7 @@ import java.net.URL;
  */
 
 public class CommonData {
-    public final static String URL2="http://221.2.89.146:8000/mobile";
+    public final static String URL2="http://192.168.31.188:8080/mobile";
 //    public final static String URL2="http://221.2.89.146:8000/mobile";
     public final static String modifyURL=URL2+"/modify";
     public final static String loginURL=URL2+"/login";
@@ -16,7 +16,6 @@ public class CommonData {
     
     public static String OrderAplyListURL=URL2+"/getOrderAplyList";//审批订单列表
     public static String StandardDetails=URL2+"/getClassesByStandard";//标准详情接口
-    public static String inProcessContract="getOrderHisAplyList";//待处理订单接口地址
     public static String historyContract=URL2+"/getOrderHisAplyList";//历史订单接口地址
     public static String contractDetails = URL2+"/getOrderDetail";//合同详情接口
     public static String CommitAuditRuslt=URL2+"/aplyOrder";
@@ -26,5 +25,14 @@ public class CommonData {
     public static String CommitStockContract=URL2+"/saveStockOrder";
     public static String getStockList=URL2+"/getStockCarInfo";
     public static String addCustomerUrl=URL2+"/addCustomerInfo";//维护客户信息
+
+
+
+
+
+
+    public  static final  String PRO_FAIL="FAIL";//处理失败
+    public  static final  String PRO_SUCCESS="SUCCESS";//成功
+
 
 }

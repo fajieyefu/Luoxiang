@@ -24,4 +24,68 @@
     <string name="stockCar">查看库存车</string>
     <string name="kucunche">该库存车配置信息为以下信息\n提示：库存车的车身部分已经生产完成，只能对行走机构进行选配</string>
     <string name="addCustomer">维护客户</string>
+    <string name="beizhu">车厢尺寸按客户要求制作、查车、过户、挂牌等与本公司无关！（为保证客户订购车辆生产的准确性及交货日期，在车辆订购完毕后24小时内如有配置变更请及时通知，超期不予变更或由客户承担相应费用。）</string>
+    <string name="s1">本合同范围内车款总价值为人民币¥</string>
+
+    <string-array name="power_type">
+        <item>油</item>
+        <item>气</item>
+    </string-array>
+    <string-array name="len">
+        <item>13000</item>
+        <item>12500</item>
+        <item>12000</item>
+        <item>11500</item>
+        <item>11000</item>
+        <item>10500</item>
+    </string-array>
+    <string-array name="wid">
+        <item>2550</item>
+        <item>2500</item>
+    </string-array>
+    <string-array name="qyz">
+        <item>自备</item>
+        <item>厂配</item>
+    </string-array>
+    <string-array name="obtaintype">
+        <item>自提</item>
+        <item>配送</item>
+    </string-array>
+    <string-array name="pati">
+        <item>左</item>
+        <item>右</item>
+        <item>左右</item>
+        <item>竖</item>
+    </string-array>
+    <string-array name="beitaizhijia">
+        <item>左后</item>
+        <item>右后</item>
+        <item>左中</item>
+        <item>右中</item>
+        <item>后二</item>
+    </string-array>
+    <string-array name="fangshuicao">
+        <item>内</item>
+        <item>外</item>
+    </string-array>
+    <string-array name="model">
+        <item>16直梁</item>
+        <item>16鹅颈</item>
+        <item>17直梁</item>
+        <item>17鹅颈</item>
+    </string-array>
+    <string-array name="hgt">
+        <item>600</item>
+        <item>800</item>
+        <item>1000</item>
+        <item>1400</item>
+        <item>1500</item>
+        <item>1600</item>
+        <item>1700</item>
+        <item>1800</item>
+        <item>1900</item>
+        <item>2000</item>
+        <item>2100</item>
+        <item>2200</item>
+    </string-array>
 </resources>

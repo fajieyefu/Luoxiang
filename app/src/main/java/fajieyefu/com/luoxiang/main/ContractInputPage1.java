@@ -89,7 +89,7 @@ public class ContractInputPage1 extends BaseActivity {
             jsonObject.put("username", userInfo.getUsername());
             jsonObject.put("password", userInfo.getPassword());
         } catch (Exception e) {
-//            e.printStackTrace();
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
 

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:padding="1dp"
+    >
+    <LinearLayout
+        android:background="@drawable/layout_white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/inventoryClassName"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="栏板样式:"
+            android:textSize="16sp"
+            android:textColor="@color/grey"
+            android:gravity="center_vertical"
+            />
+        <fajieyefu.com.luoxiang.layout.MySpinnerForInventry
+            android:id="@+id/inventory_spinner"
+            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </fajieyefu.com.luoxiang.layout.MySpinnerForInventry>
+
+    </LinearLayout>
+
+</LinearLayout>
