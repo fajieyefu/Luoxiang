@@ -293,6 +293,7 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
 
     @SuppressWarnings("ResourceType")
     private void initView() {
+
         userInfo = DaoBean.getUseInfoById(1);
         title.setTitleText("合同信息录入");
         back= (Button) title.findViewById(R.id.back);
