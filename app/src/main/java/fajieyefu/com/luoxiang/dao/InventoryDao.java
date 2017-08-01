@@ -31,13 +31,14 @@ public class InventoryDao extends AbstractDao<Inventory, Long> {
         public final static Property DeMoney = new Property(4, String.class, "deMoney", false, "DE_MONEY");
         public final static Property RealMoney = new Property(5, String.class, "realMoney", false, "REAL_MONEY");
         public final static Property Counts = new Property(6, String.class, "counts", false, "COUNTS");
-        public final static Property Weight = new Property(7, String.class, "weight", false, "WEIGHT");
+        public final static Property Weight = new Property(7, Float.class, "weight", false, "WEIGHT");
         public final static Property ClassId = new Property(8, String.class, "classId", false, "CLASS_ID");
         public final static Property StandardId = new Property(9, String.class, "standardId", false, "STANDARD_ID");
         public final static Property IsCurrent = new Property(10, Integer.class, "isCurrent", false, "IS_CURRENT");
         public final static Property CInvStd = new Property(11, String.class, "cInvStd", false, "C_INV_STD");
         public final static Property U8code = new Property(12, String.class, "u8code", false, "U8CODE");
         public final static Property Styleflag = new Property(13, Integer.class, "styleflag", false, "STYLEFLAG");
+        public final static Property ISupplyType = new Property(14, Integer.class, "iSupplyType", false, "I_SUPPLY_TYPE");
     };
 
 
@@ -60,13 +61,14 @@ public class InventoryDao extends AbstractDao<Inventory, Long> {
                 "'DE_MONEY' TEXT," + // 4: deMoney
                 "'REAL_MONEY' TEXT," + // 5: realMoney
                 "'COUNTS' TEXT," + // 6: counts
-                "'WEIGHT' TEXT," + // 7: weight
+                "'WEIGHT' REAL," + // 7: weight
                 "'CLASS_ID' TEXT," + // 8: classId
                 "'STANDARD_ID' TEXT," + // 9: standardId
                 "'IS_CURRENT' INTEGER," + // 10: isCurrent
                 "'C_INV_STD' TEXT," + // 11: cInvStd
                 "'U8CODE' TEXT," + // 12: u8code
-                "'STYLEFLAG' INTEGER);"); // 13: styleflag
+                "'STYLEFLAG' INTEGER," + // 13: styleflag
+                "'I_SUPPLY_TYPE' INTEGER);"); // 14: iSupplyType
     }
 
     /** Drops the underlying database table. */
@@ -115,9 +117,9 @@ public class InventoryDao extends AbstractDao<Inventory, Long> {
             stmt.bindString(7, counts);
         }
  
-        String weight = entity.getWeight();
+        Float weight = entity.getWeight();
         if (weight != null) {
-            stmt.bindString(8, weight);
+            stmt.bindDouble(8, weight);
         }
  
         String classId = entity.getClassId();
@@ -149,6 +151,11 @@ public class InventoryDao extends AbstractDao<Inventory, Long> {
         if (styleflag != null) {
             stmt.bindLong(14, styleflag);
         }
+ 
+        Integer iSupplyType = entity.getISupplyType();
+        if (iSupplyType != null) {
+            stmt.bindLong(15, iSupplyType);
+        }
     }
 
     /** @inheritdoc */
@@ -168,13 +175,14 @@ public class InventoryDao extends AbstractDao<Inventory, Long> {
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // deMoney
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // realMoney
             cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // counts
-            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // weight
+            cursor.isNull(offset + 7) ? null : cursor.getFloat(offset + 7), // weight
             cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // classId
             cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // standardId
             cursor.isNull(offset + 10) ? null : cursor.getInt(offset + 10), // isCurrent
             cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // cInvStd
             cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // u8code
-            cursor.isNull(offset + 13) ? null : cursor.getInt(offset + 13) // styleflag
+            cursor.isNull(offset + 13) ? null : cursor.getInt(offset + 13), // styleflag
+            cursor.isNull(offset + 14) ? null : cursor.getInt(offset + 14) // iSupplyType
         );
         return entity;
     }
@@ -189,13 +197,14 @@ public class InventoryDao extends AbstractDao<Inventory, Long> {
         entity.setDeMoney(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
         entity.setRealMoney(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
         entity.setCounts(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
-        entity.setWeight(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
+        entity.setWeight(cursor.isNull(offset + 7) ? null : cursor.getFloat(offset + 7));
         entity.setClassId(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
         entity.setStandardId(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
         entity.setIsCurrent(cursor.isNull(offset + 10) ? null : cursor.getInt(offset + 10));
         entity.setCInvStd(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
         entity.setU8code(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
         entity.setStyleflag(cursor.isNull(offset + 13) ? null : cursor.getInt(offset + 13));
+        entity.setISupplyType(cursor.isNull(offset + 14) ? null : cursor.getInt(offset + 14));
      }
     
     /** @inheritdoc */

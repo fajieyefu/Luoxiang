@@ -7,13 +7,13 @@ import java.net.URL;
  */
 
 public class CommonData {
-    public final static String URL2="http://192.168.31.188:8080/mobile";
+    public final static String URL2="http://192.168.31.111:9891/mobile";
 //    public final static String URL2="http://221.2.89.146:8000/mobile";
     public final static String modifyURL=URL2+"/modify";
     public final static String loginURL=URL2+"/login";
     public static final String HISTORYCONTRACTURL ="/getHistory" ;//历史订单接口
+    public static final String DELETECONTRACT = URL2+"/deleteContract";//刪除合同
     public static String contractInputURL=URL2+"/getAllStandard";//标准、客户列表接口
-    
     public static String OrderAplyListURL=URL2+"/getOrderAplyList";//审批订单列表
     public static String StandardDetails=URL2+"/getClassesByStandard";//标准详情接口
     public static String historyContract=URL2+"/getOrderHisAplyList";//历史订单接口地址
@@ -25,6 +25,7 @@ public class CommonData {
     public static String CommitStockContract=URL2+"/saveStockOrder";
     public static String getStockList=URL2+"/getStockCarInfo";
     public static String addCustomerUrl=URL2+"/addCustomerInfo";//维护客户信息
+    public static String commitContractChange=URL2+"/contractChange";//维护客户信息
 
 
 

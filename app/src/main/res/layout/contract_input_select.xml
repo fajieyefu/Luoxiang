@@ -86,7 +86,6 @@
         android:textColor="@color/white"
         android:textSize="16dp" />
     <Button
-        android:visibility="gone"
         android:id="@+id/addCustomer"
         android:layout_width="match_parent"
         android:layout_height="45dp"

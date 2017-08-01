@@ -13,6 +13,7 @@ import com.zhy.http.okhttp.OkHttpUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.List;
 
 import butterknife.BindView;
@@ -73,6 +74,7 @@ public class ContractInputPage1 extends BaseActivity {
 
     private void initView() {
         title.setTitleText("选择标准类型和客户");
+        stockCar.setVisibility(View.GONE);
     }
 
     /**
@@ -193,14 +195,19 @@ public class ContractInputPage1 extends BaseActivity {
                 DaoBean.insertInventoryClassList(inventoryClass);
                 DaoBean.deleteInventoryAll();
                 for (int i = 0; i < inventoryClass.size(); i++) {
+
                     List<Inventory> inventory = inventoryClass.get(i).getInventoryDetails();
                     if (inventory != null) {
+                        for (Inventory inventory1 :inventory){
+                            Log.i("供货类型",inventory1.getWeight()+"");
+                        }
                         DaoBean.insertInventoryList(inventory);
                     }
                 }
 
                 Intent intent = new Intent(ContractInputPage1.this, ContractInputActivity.class);
                 intent.putExtra("customer", response.getData().customer);
+                intent.putExtra("area", (Serializable) response.getData().area);
                 startActivity(intent);
                 finish();
 

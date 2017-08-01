@@ -106,6 +106,26 @@
                         android:layout_weight="1"
                         android:text="" />
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical">
+                    <TextView
+                        android:text="所属大区:"
+                        style="@style/tv_16sp_black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        />
+                    <fajieyefu.com.luoxiang.layout.MySpinnerForFree
+                        android:id="@+id/area"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:text=""/>
+
+
+                </LinearLayout>
 
             </LinearLayout>
             <LinearLayout
@@ -293,7 +313,6 @@
                                 android:textSize="12sp"
                                 android:id="@+id/num"
                                 android:maxLines="1"
-                                android:inputType="number"
                                 android:hint="数量"/>
                             <ImageView
                                 android:layout_width="2dp"
@@ -651,11 +670,12 @@
                             android:text="方管："
                             android:gravity="center"
                             />
-                        <fajieyefu.com.luoxiang.layout.MySpinnerForInventry
+                        <TextView
                             android:id="@+id/fangguan"
+                            android:gravity="center"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
-                        </fajieyefu.com.luoxiang.layout.MySpinnerForInventry>
+                        </TextView>
 
                     </LinearLayout>
 
@@ -725,7 +745,7 @@
                             android:layout_height="0dp"
                             android:layout_weight="1"
                             android:textSize="12sp"
-                            android:hint="侧栏板备注"/>
+                            android:hint="后门备注"/>
                     </LinearLayout>
 
 
@@ -1158,6 +1178,25 @@
                         android:padding="5dp"
                         android:id="@+id/obtain_type"/>
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:layout_gravity="center_vertical">
+
+                    <TextView
+                        style="@style/tv_16sp_black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="订单是否加急：" />
+
+                    <CheckBox
+                        android:id="@+id/urgent"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                </LinearLayout>
+
 
 
 

@@ -1,6 +1,5 @@
 package fajieyefu.com.luoxiang.bean;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,5 +45,6 @@ public class ReponseBean {
             public UpdateBean version;
             public List<AnalysisAddressBean> orders;
             public List<ContractBean> stockList;
+            public List<Area> area;
     }
 }

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -65,16 +66,19 @@ public class BangongFragment extends Fragment {
                 startActivity(intent);
                 break;
             case R.id.contract_edit:
-                intent.setClass(context, ContractAuditActivity.class);
-                startActivity(intent);
+                Toast.makeText(context, "请在电脑端审批", Toast.LENGTH_SHORT).show();
+//                intent.setClass(context, ContractAuditActivity.class);
+//                startActivity(intent);
                 break;
             case R.id.contract_history:
                 intent.setClass(context, HistorySelectedActivity.class);
                 startActivity(intent);
                 break;
             case R.id.all_contract:
-                intent.setClass(context,ContractAnlysisActivity.class);
-                startActivity(intent);
+//                intent.setClass(context,ContractAnlysisActivity.class);
+//                startActivity(intent);
+                Toast.makeText(context, "整改中，近期开放", Toast.LENGTH_SHORT).show();
+
                 break;
         }
     }

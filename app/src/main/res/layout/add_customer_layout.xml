@@ -25,6 +25,7 @@
                 style="@style/tv_16sp_black"
                 />
             <EditText
+                android:paddingLeft="3dp"
                 android:id="@+id/customer"
                 android:layout_width="0dp"
                 android:layout_height="32dp"
@@ -44,30 +45,12 @@
                 android:text="联系方式:"
                 style="@style/tv_16sp_black"/>
             <EditText
+                android:paddingLeft="3dp"
                 android:id="@+id/mobile"
                 android:layout_width="0dp"
                 android:layout_height="32dp"
                 android:layout_weight="1"
                 android:inputType="number"
-                style="@style/tv_12sp_MyOrange"
-                android:background="@drawable/edit_input"
-                />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center_vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="客户地址:"
-                style="@style/tv_16sp_black"
-                />
-            <EditText
-                android:id="@+id/customerAddress"
-                android:layout_width="0dp"
-                android:layout_height="32dp"
-                android:layout_weight="1"
                 style="@style/tv_12sp_MyOrange"
                 android:background="@drawable/edit_input"
                 />
@@ -83,6 +66,8 @@
                 android:text="联 系 人:"
                 style="@style/tv_16sp_black"/>
             <EditText
+                android:maxLines="1"
+                android:paddingLeft="3dp"
                 android:id="@+id/person"
                 android:layout_width="0dp"
                 android:layout_height="32dp"
@@ -91,6 +76,28 @@
                 android:background="@drawable/edit_input"
                 />
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="客户地址:"
+                style="@style/tv_16sp_black"
+                />
+            <EditText
+                android:maxLines="1"
+                android:paddingLeft="3dp"
+                android:id="@+id/customerAddress"
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_weight="1"
+                style="@style/tv_12sp_MyOrange"
+                android:background="@drawable/edit_input"
+                />
+        </LinearLayout>
+
         <Button
             android:id="@+id/addCustomer"
             android:layout_width="match_parent"

@@ -105,7 +105,7 @@
     </style>
     <style name="contratInputLayout_h">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_height">55dp</item>
         <item name="android:background">@drawable/layout_grey</item>
         <item name="android:paddingLeft">2dp</item>
         <item name="android:paddingRight">2dp</item>

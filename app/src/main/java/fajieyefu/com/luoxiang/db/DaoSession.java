@@ -24,7 +24,7 @@ import fajieyefu.com.luoxiang.dao.AuditCountDao;
 /**
  * {@inheritDoc}
  * 
- * @see AbstractDaoSession
+ * @see de.greenrobot.dao.AbstractDaoSession
  */
 public class DaoSession extends AbstractDaoSession {
 

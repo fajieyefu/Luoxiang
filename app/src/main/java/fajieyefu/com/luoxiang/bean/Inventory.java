@@ -13,13 +13,14 @@ public class Inventory {
     private String deMoney;
     private String realMoney;
     private String counts;
-    private String weight;
+    private Float weight;
     private String classId;
     private String standardId;
     private Integer isCurrent;
     private String cInvStd;
     private String u8code;
     private Integer styleflag;
+    private Integer iSupplyType;
 
     public Inventory() {
     }
@@ -28,7 +29,7 @@ public class Inventory {
         this.id = id;
     }
 
-    public Inventory(Long id, String cInvCCode, String cInvCode, String cInvName, String deMoney, String realMoney, String counts, String weight, String classId, String standardId, Integer isCurrent, String cInvStd, String u8code, Integer styleflag) {
+    public Inventory(Long id, String cInvCCode, String cInvCode, String cInvName, String deMoney, String realMoney, String counts, Float weight, String classId, String standardId, Integer isCurrent, String cInvStd, String u8code, Integer styleflag, Integer iSupplyType) {
         this.id = id;
         this.cInvCCode = cInvCCode;
         this.cInvCode = cInvCode;
@@ -43,6 +44,7 @@ public class Inventory {
         this.cInvStd = cInvStd;
         this.u8code = u8code;
         this.styleflag = styleflag;
+        this.iSupplyType = iSupplyType;
     }
 
     public Long getId() {
@@ -101,11 +103,11 @@ public class Inventory {
         this.counts = counts;
     }
 
-    public String getWeight() {
+    public Float getWeight() {
         return weight;
     }
 
-    public void setWeight(String weight) {
+    public void setWeight(Float weight) {
         this.weight = weight;
     }
 
@@ -155,6 +157,14 @@ public class Inventory {
 
     public void setStyleflag(Integer styleflag) {
         this.styleflag = styleflag;
+    }
+
+    public Integer getISupplyType() {
+        return iSupplyType;
+    }
+
+    public void setISupplyType(Integer iSupplyType) {
+        this.iSupplyType = iSupplyType;
     }
 
 }

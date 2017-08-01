@@ -66,8 +66,8 @@ public class DaoBean {
 
             } else if (code.equals("020106")) {
                 for (Inventory inventory : list) {
-                    String[] temp = inventory.getCInvStd().split("\\*");
-                    if (temp[temp.length - 1].equals(text)) {
+                    String temp = inventory.getCInvStd();
+                    if (temp.equals(text)) {
                         result.add(inventory);
                     }
                 }
@@ -78,6 +78,47 @@ public class DaoBean {
                     if (temp[temp.length - 1].equals(text) ) {
                         result.add(inventory);
                     }
+                }
+            }
+            else if (code.equals("1505")) {
+                for (Inventory inventory : list) {
+                    if (inventory.getCInvStd().equals(text) ) {
+                        result.add(inventory);
+                    }
+                }
+            }else if (code.equals("020104")) {
+                for (Inventory inventory : list) {
+                    String[] temp = inventory.getCInvStd().split("\\-");
+                    if (temp[1].equals(text) && inventory.getCInvStd().startsWith(ze)) {
+                        result.add(inventory);
+                    }
+                }
+            }else if (code.equals("020107")) {
+                for (Inventory inventory : list) {
+                    try{
+                        String[] temp = inventory.getCInvStd().split("\\-");
+                        if (temp[1].equals(text) && inventory.getCInvStd().startsWith(ze)) {
+                            result.add(inventory);
+                        }
+                    }catch (Exception e){
+
+                    }
+
+                }
+            }
+            else if (code.equals("1511")) {
+                for (Inventory inventory : list) {
+                    try{
+                        String temp = inventory.getCInvName();
+                        if (text.contains("下打")&&temp.contains("下打") && temp.startsWith(ze)) {
+                            result.add(inventory);
+                        }else if (!text.contains("下打")&&temp.contains("对开")&& temp.startsWith(ze)){
+                            result.add(inventory);
+                        }
+                    }catch (Exception e){
+
+                    }
+
                 }
             }
             for (Inventory inventory : list) {
@@ -251,6 +292,13 @@ public class DaoBean {
         List<Inventory> list = queryBuilder.list();
         return list;
     }
+    public static List<Inventory> loadAllInventory() {
+        DaoSession daoSession = DaoManager.getInstance().getDaoSession();
+        InventoryDao inventoryDao = daoSession.getInventoryDao();
+        QueryBuilder<Inventory> queryBuilder = inventoryDao.queryBuilder();
+        List<Inventory> list = queryBuilder.list();
+        return list;
+    }
 
     public static List<Inventory> loadInventoryByCurrentAndShiJia() {
         DaoSession daoSession = DaoManager.getInstance().getDaoSession();
@@ -294,10 +342,11 @@ public class DaoBean {
         DaoSession daoSession = DaoManager.getInstance().getDaoSession();
         InventoryDao inventoryDao = daoSession.getInventoryDao();
         QueryBuilder<Inventory> queryBuilder = inventoryDao.queryBuilder().where(InventoryDao.Properties.CInvCCode.eq(cInvCCode), InventoryDao.Properties.IsCurrent.eq(1));
-        Inventory inventory = queryBuilder.unique();
-        if (inventory!=null){
-            inventory.setCounts(counts + "");
-            inventoryDao.update(inventory);
+        //避免因为后台设置默认值时多选造成数值不唯一
+        List<Inventory> list = queryBuilder.list();
+        if (list.size()!=0){
+            list.get(0).setCounts(counts + "");
+            inventoryDao.update(list.get(0));
         }
 
     }

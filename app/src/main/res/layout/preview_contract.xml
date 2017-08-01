@@ -7,6 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </fajieyefu.com.luoxiang.layout.TitleLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -38,7 +39,25 @@
                     android:text=""
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
+                <TextView
+                    android:text="电话:"
+                    android:layout_width="wrap_content"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:layout_height="wrap_content"
+                    />
 
+                <TextView
+                    android:id="@+id/phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text=""/>
+                </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center_vertical">
                 <TextView
                     android:text="客户:"
                     android:paddingLeft="5dp"
@@ -53,20 +72,7 @@
                     android:textColor="@color/black"
                     android:text=""/>
 
-                <TextView
-                    android:text="电话:"
-                    android:layout_width="wrap_content"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:layout_height="wrap_content"
-                     />
 
-                <TextView
-                    android:id="@+id/phone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:text=""/>
             </LinearLayout>
             <TextView
                 android:layout_width="match_parent"
@@ -110,6 +116,7 @@
                     <TextView
                         android:id="@+id/model"
                         style="@style/previewContract_black"
+                        android:textSize="12sp"
                         android:text=""/>
                     <TextView
                         android:id="@+id/color"
@@ -509,6 +516,35 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="38dp"
+                    android:layout_gravity="center_vertical">
+
+                    <TextView
+                        style="@style/tv_16sp_black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="是否定金：" />
+
+                    <CheckBox
+                        android:id="@+id/dingjin"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        style="@style/tv_16sp_black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="包含运费：" />
+
+                    <CheckBox
+                        android:id="@+id/yunfei"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
                     >
                     <TextView
                         style="@style/tv_16sp_black"
@@ -594,6 +630,112 @@
                         android:padding="5dp"
                         android:id="@+id/obtain_type"/>
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:layout_gravity="center_vertical">
+
+                    <TextView
+                        style="@style/tv_16sp_black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="订单是否加急：" />
+
+                    <CheckBox
+                        android:id="@+id/urgent"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:id="@+id/shenpixinxi"
+                android:layout_width="match_parent"
+                android:background="@drawable/edit_input"
+                android:orientation="vertical"
+                android:padding="5dp"
+                android:visibility="gone"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp"
+                    android:gravity="center_vertical"
+                    android:text="审批信息"
+                    style="@style/tv_16sp_black"
+                    android:textSize="20sp"
+                    android:layout_marginBottom="10dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    >
+                    <TextView
+                        style="@style/tv_16sp_black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="申请时间：" />
+
+                    <TextView
+                        android:maxLines="1"
+                        android:id="@+id/createTime"
+                        style="@style/tv_12sp_MyOrange"
+                        android:layout_width="0dp"
+                        android:layout_height="28dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:padding="5dp" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    >
+                    <TextView
+                        style="@style/tv_16sp_black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="审批状态：" />
+
+                    <TextView
+                        android:maxLines="1"
+                        android:id="@+id/audit_result"
+                        style="@style/tv_12sp_MyOrange"
+                        android:layout_width="0dp"
+                        android:layout_height="28dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:padding="5dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp">
+
+                    <TextView
+                        style="@style/tv_16sp_black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="审批意见:"
+                        android:textSize="16sp"
+                        android:layout_gravity="start"
+                        />
+
+                    <EditText
+                        android:id="@+id/audit_msg"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="start"
+                        android:paddingLeft="5dp"
+                        android:background="@drawable/edit_input"/>
+                </LinearLayout>
+
+
             </LinearLayout>
 
 
@@ -602,7 +744,6 @@
 
         </LinearLayout>
     </ScrollView>
-
 
 
 </LinearLayout>
