@@ -75,9 +75,9 @@ public class BangongFragment extends Fragment {
                 startActivity(intent);
                 break;
             case R.id.all_contract:
-//                intent.setClass(context,ContractAnlysisActivity.class);
-//                startActivity(intent);
-                Toast.makeText(context, "整改中，近期开放", Toast.LENGTH_SHORT).show();
+                intent.setClass(context,ContractAnlysisActivity.class);
+                startActivity(intent);
+//                Toast.makeText(context, "整改中，近期开放", Toast.LENGTH_SHORT).show();
 
                 break;
         }

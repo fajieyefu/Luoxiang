@@ -60,6 +60,7 @@ public class HistoryAdapter extends BaseAdapter {
         switch (contractBean.getWc()) {
             case 1:
                 viewHolder.dot.setBackground(context.getResources().getDrawable(R.drawable.dot_5));
+                viewHolder.nqFlag.setText("完成");
                 break;
             case 0:
                 isDTC();
@@ -69,6 +70,8 @@ public class HistoryAdapter extends BaseAdapter {
         viewHolder.contractId.setText(contractBean.getOrderNumber());
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         viewHolder.applyDate.setText(sdf.format(contractBean.getCreatetime()));
+
+        viewHolder.customer.setText(contractBean.getcCusName());
         return convertView;
     }
 
@@ -79,21 +82,24 @@ public class HistoryAdapter extends BaseAdapter {
                 break;
             case 1:
                 viewHolder.dot.setBackground(context.getResources().getDrawable(R.drawable.dot_3));
-
+                viewHolder.nqFlag.setText("等待排产");
                 break;
         }
     }
 
     private void isRefuse() {
-        switch (contractBean.getStatues()) {
+        switch (contractBean.getNq_flag()) {
             case 2:
                 viewHolder.dot.setBackground(context.getResources().getDrawable(R.drawable.dot_2));
+                viewHolder.nqFlag.setText("退回修改");
                 break;
             case 1:
                 viewHolder.dot.setBackground(context.getResources().getDrawable(R.drawable.dot_1));
+                viewHolder.nqFlag.setText("审核通过");
                 break;
             case 0:
                 viewHolder.dot.setBackground(context.getResources().getDrawable(R.drawable.dot_0));
+                viewHolder.nqFlag.setText("待审核");
                 break;
         }
     }
@@ -105,6 +111,7 @@ public class HistoryAdapter extends BaseAdapter {
                 break;
             case 1:
                 viewHolder.dot.setBackground(context.getResources().getDrawable(R.drawable.dot_4));
+                viewHolder.nqFlag.setText("等待提车");
                 break;
         }
     }
@@ -116,6 +123,10 @@ public class HistoryAdapter extends BaseAdapter {
         TextView contractId;
         @BindView(R.id.apply_date)
         TextView applyDate;
+        @BindView(R.id.nq_flag)
+        TextView nqFlag;
+        @BindView(R.id.customer)
+        TextView customer;
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);

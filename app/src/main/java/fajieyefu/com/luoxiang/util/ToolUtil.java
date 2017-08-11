@@ -1,5 +1,6 @@
 package fajieyefu.com.luoxiang.util;
 
+import android.app.Application;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.DisplayMetrics;
@@ -14,16 +15,20 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import fajieyefu.com.luoxiang.application.MyApplication;
+
 /**
  * Created by qiancheng on 2016/11/24.
  */
 public class ToolUtil {
-    private ProgressDialog progressDialog;
+    private  ProgressDialog progressDialog;
     private Context mContext;
     private int[] hm;
 
     public void showProgressDialog(Context context) {
-        progressDialog = new ProgressDialog(context);
+        if (progressDialog == null) {
+            progressDialog = new ProgressDialog(context);
+        }
         progressDialog.setTitle("请稍后");
         progressDialog.setMessage("正在加载数据...");
         progressDialog.setCanceledOnTouchOutside(false);
@@ -57,7 +62,9 @@ public class ToolUtil {
      * @param content
      */
     public void showProgressDialog(Context context, String title, String content) {
-        progressDialog = new ProgressDialog(context);
+        if (progressDialog == null) {
+            progressDialog = new ProgressDialog(context);
+        }
         progressDialog.setTitle(title);
         progressDialog.setMessage(content);
         progressDialog.setCanceledOnTouchOutside(false);

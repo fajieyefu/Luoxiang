@@ -114,9 +114,14 @@
     </LinearLayout>
 
     <fajieyefu.com.luoxiang.widget.XListView
+        android:background="@color/lightgrey"
         android:id="@+id/history_lv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
+        android:divider="@null"
+        >
 
     </fajieyefu.com.luoxiang.widget.XListView>
 

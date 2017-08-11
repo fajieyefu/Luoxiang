@@ -18,6 +18,24 @@ public class ContractBean {
     private int dpc;
     private int ddtc;
     private int wc;
+    private int nq_flag;
+    private String cCusName;
+
+    public String getcCusName() {
+        return cCusName;
+    }
+
+    public void setcCusName(String cCusName) {
+        this.cCusName = cCusName;
+    }
+
+    public int getNq_flag() {
+        return nq_flag;
+    }
+
+    public void setNq_flag(int nq_flag) {
+        this.nq_flag = nq_flag;
+    }
 
     public int getDpc() {
         return dpc;

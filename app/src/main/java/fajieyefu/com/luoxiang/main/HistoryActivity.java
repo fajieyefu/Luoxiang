@@ -67,7 +67,8 @@ public class HistoryActivity extends BaseActivity implements XListView.IXListVie
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent  = new Intent(HistoryActivity.this,HistoryDetailsActivity.class);
-                intent.putExtra("orderId",contracts.get(position-1).getOrderId());
+                int orderId = contracts.get(position-1).getOrderId();
+                intent.putExtra("orderId",orderId);
                 intent.putExtra("dpc",contracts.get(position-1).getDpc());
                 intent.putExtra("dtc",contracts.get(position-1).getDdtc());
                 intent.putExtra("wc",contracts.get(position-1).getWc());

@@ -110,15 +110,23 @@ public class DaoBean {
                 for (Inventory inventory : list) {
                     try{
                         String temp = inventory.getCInvName();
-                        if (text.contains("下打")&&temp.contains("下打") && temp.startsWith(ze)) {
+                        if (text.contains("下打")&&temp.contains("下打") && temp.contains(ze)) {
                             result.add(inventory);
-                        }else if (!text.contains("下打")&&temp.contains("对开")&& temp.startsWith(ze)){
+                        }else if (!text.contains("下打")&&temp.contains("对开")&& temp.contains(ze)){
                             result.add(inventory);
                         }
                     }catch (Exception e){
 
                     }
 
+                }
+            }
+            else if (code.equals("1506")){
+                for (Inventory inventory:list){
+                    String temp = inventory.getCInvName();
+                    if (temp.contains(text)){
+                        result.add(inventory);
+                    }
                 }
             }
             for (Inventory inventory : list) {

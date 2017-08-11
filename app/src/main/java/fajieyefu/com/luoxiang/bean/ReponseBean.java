@@ -46,5 +46,6 @@ public class ReponseBean {
             public List<AnalysisAddressBean> orders;
             public List<ContractBean> stockList;
             public List<Area> area;
+            public List<ContractChange> orderChange;
     }
 }

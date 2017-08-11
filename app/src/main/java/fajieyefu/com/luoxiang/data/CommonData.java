@@ -7,8 +7,8 @@ import java.net.URL;
  */
 
 public class CommonData {
-    public final static String URL2="http://192.168.31.111:9891/mobile";
-//    public final static String URL2="http://221.2.89.146:8000/mobile";
+    public final static String URL2="http://luoxiang.tunnel.echomod.cn/mobile";
+//    public final static String URL2="http://192.168.191.1:9891/mobile";
     public final static String modifyURL=URL2+"/modify";
     public final static String loginURL=URL2+"/login";
     public static final String HISTORYCONTRACTURL ="/getHistory" ;//历史订单接口

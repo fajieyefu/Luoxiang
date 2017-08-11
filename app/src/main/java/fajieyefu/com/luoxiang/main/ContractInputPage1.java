@@ -155,7 +155,9 @@ public class ContractInputPage1 extends BaseActivity {
                 .execute(new ResponCallBack2());
     }
 
-
+    /**
+     * 加载客户信息和标准车型信息回调
+     */
     private class ResponCallBack extends MyCallback {
         @Override
         public void onError(Call call, Exception e, int id) {
@@ -179,6 +181,9 @@ public class ContractInputPage1 extends BaseActivity {
         }
     }
 
+    /**
+     * 加载选定客户和标准的详情信息
+     */
     private class ResponCallBack2 extends MyCallback {
         @Override
         public void onError(Call call, Exception e, int id) {
@@ -188,7 +193,7 @@ public class ContractInputPage1 extends BaseActivity {
 
         @Override
         public void onResponse(ReponseBean response, int id) {
-            toolUtil.dismissProgressDialog();
+//            toolUtil.dismissProgressDialog();
             if (response.getCode() == 0) {
                 List<InventoryClass> inventoryClass = response.getData().inventory;
                 DaoBean.deleteInventoryClassAll();
@@ -216,6 +221,7 @@ public class ContractInputPage1 extends BaseActivity {
                 Toast.makeText(ContractInputPage1.this, response.getMsg(), Toast.LENGTH_SHORT).show();
 
             }
+
 
         }
     }
