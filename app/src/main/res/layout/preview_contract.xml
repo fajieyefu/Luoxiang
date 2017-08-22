@@ -633,7 +633,7 @@
                             style="@style/tv_16sp_black"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:text="提车日期：" />
+                            android:text="预计提车日期：" />
 
                         <TextView
                             android:id="@+id/applyDate"
@@ -777,7 +777,8 @@
             <fajieyefu.com.luoxiang.layout.LinearLayoutForListView
                 android:id="@+id/contract_change_lv"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
             </fajieyefu.com.luoxiang.layout.LinearLayoutForListView>
         </LinearLayout>

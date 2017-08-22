@@ -38,7 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="28dp"
                 android:background="@drawable/edit_input"
-                android:inputType="number"
+                android:inputType="numberSigned"
                 android:maxLines="1"
                 android:padding="5dp" />
         </LinearLayout>

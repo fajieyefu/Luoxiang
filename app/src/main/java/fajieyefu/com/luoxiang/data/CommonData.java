@@ -25,9 +25,7 @@ public class CommonData {
     public static String CommitStockContract=URL2+"/saveStockOrder";
     public static String getStockList=URL2+"/getStockCarInfo";
     public static String addCustomerUrl=URL2+"/addCustomerInfo";//维护客户信息
-    public static String commitContractChange=URL2+"/contractChange";//维护客户信息
-
-
+    public static String commitContractChange=URL2+"/contractChange";//增加合同变更
 
 
 
@@ -36,4 +34,5 @@ public class CommonData {
     public  static final  String PRO_SUCCESS="SUCCESS";//成功
 
 
+    public static final String LOAD_AREA=URL2+"/getAreaList";//加载区域
 }

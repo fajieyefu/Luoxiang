@@ -1,6 +1,7 @@
 package fajieyefu.com.luoxiang.main;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -73,7 +74,7 @@ public class ContractInputPage1 extends BaseActivity {
     }
 
     private void initView() {
-        title.setTitleText("选择标准类型和客户");
+        title.setTitleText(this.getResources().getString(R.string.selectStand));
         stockCar.setVisibility(View.GONE);
     }
 
@@ -82,7 +83,7 @@ public class ContractInputPage1 extends BaseActivity {
      */
     private void loadData() {
         toolUtil = new ToolUtil();
-        toolUtil.showProgressDialog(this, "请稍后", "正在加载数据...");
+        toolUtil.showProgressDialog(this, this.getResources().getString(R.string.waitting), this.getResources().getString(R.string.loading));
         daoSession = DaoManager.getInstance().getDaoSession();
         userInfoDao = daoSession.getUserInfoDao();
         userInfo = getInfoById(1);
@@ -146,7 +147,7 @@ public class ContractInputPage1 extends BaseActivity {
             e.printStackTrace();
         }
         Log.i("content", jsonObject.toString());
-        toolUtil.showProgressDialog(this, "请稍后", "正在获取数据...");
+        toolUtil.showProgressDialog(this, this.getResources().getString(R.string.waitting), this.getResources().getString(R.string.loading));
         OkHttpUtils.postString()
                 .url(CommonData.StandardDetails)
                 .content(jsonObject.toString())
@@ -188,7 +189,7 @@ public class ContractInputPage1 extends BaseActivity {
         @Override
         public void onError(Call call, Exception e, int id) {
             toolUtil.dismissProgressDialog();
-            Toast.makeText(ContractInputPage1.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(ContractInputPage1.this, ContractInputPage1.this.getResources().getString(R.string.abnormal), Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -217,6 +218,7 @@ public class ContractInputPage1 extends BaseActivity {
                 finish();
 
             } else {
+                toolUtil.dismissProgressDialog();
 
                 Toast.makeText(ContractInputPage1.this, response.getMsg(), Toast.LENGTH_SHORT).show();
 

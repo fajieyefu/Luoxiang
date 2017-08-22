@@ -154,9 +154,9 @@ public class UpdateCheckNews extends Service {
         PendingIntent contentIntent = PendingIntent.getActivity(UpdateCheckNews.this, 1, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-        builder.setTicker("消息提示");
-        builder.setContentTitle("锣响汽车");
-        builder.setContentText("您有新的订单消息");
+        builder.setTicker(getString(R.string.newAction));
+        builder.setContentTitle(getString(R.string.luoxiangqiche));
+        builder.setContentText(getString(R.string.newsOrderAudited));
         builder.setSmallIcon(R.mipmap.logo);
         builder.setContentIntent(contentIntent);
         Notification notification = builder.build();

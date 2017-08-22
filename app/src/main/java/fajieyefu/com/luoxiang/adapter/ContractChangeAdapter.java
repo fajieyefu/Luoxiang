@@ -63,24 +63,24 @@ public class ContractChangeAdapter extends BaseAdapter {
         viewHolder.amtDx.setText(contractChange.getAmt_dx()+"");
         switch (contractChange.getNq_flag()){
             case 0:
-                viewHolder.nqFlag.setText("待审核");
+                viewHolder.nqFlag.setText(context.getResources().getString(R.string.dsh));
                 break;
             case 1:
-                viewHolder.nqFlag.setText("通过");
+                viewHolder.nqFlag.setText(context.getResources().getString(R.string.tongguo));
                 break;
             case 2:
-                viewHolder.nqFlag.setText("退回");
+                viewHolder.nqFlag.setText(context.getResources().getString(R.string.tuihui));
                 break;
         }
         switch (contractChange.getPro_flag()){
             case 0:
-                viewHolder.proFlag.setText("待审核");
+                viewHolder.proFlag.setText(context.getResources().getString(R.string.dsh));
                 break;
             case 1:
-                viewHolder.proFlag.setText("通过");
+                viewHolder.proFlag.setText(context.getResources().getString(R.string.tongguo));
                 break;
             case 2:
-                viewHolder.proFlag.setText("退回");
+                viewHolder.proFlag.setText(context.getResources().getString(R.string.tuihui));
                 break;
         }
 

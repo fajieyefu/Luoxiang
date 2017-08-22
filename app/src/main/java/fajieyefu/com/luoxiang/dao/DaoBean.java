@@ -158,7 +158,11 @@ public class DaoBean {
         QueryBuilder<Inventory> queryBuilder = inventoryDao.queryBuilder().where(InventoryDao.Properties.CInvCode.like(code + "%"));
         queryBuilder.where(InventoryDao.Properties.IsCurrent.eq(1));
         Query<Inventory> query = queryBuilder.build();
-        return query.unique();
+        List<Inventory> datas = query.list();
+        if(datas.size()==0){
+            return  null;
+        }
+        return datas.get(0);
     }
 
     /**

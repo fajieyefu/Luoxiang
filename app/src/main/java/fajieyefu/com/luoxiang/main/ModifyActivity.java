@@ -51,14 +51,14 @@ public class ModifyActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.modify_layout);
         ButterKnife.bind(this);
-        title.setTitleText("修改密码");
+        title.setTitleText(getString(R.string.modifyPassword));
 
     }
 
     @OnClick(R.id.confirm)
     public void onViewClicked() {
         toolUtil = new ToolUtil();
-        toolUtil.showProgressDialog(this,"请稍后","正在修改密码...");
+        toolUtil.showProgressDialog(this,getString(R.string.waitting),getString(R.string.loading));
         daoSession = DaoManager.getInstance().getDaoSession();
         userInfoDao = daoSession.getUserInfoDao();
 
@@ -96,7 +96,7 @@ public class ModifyActivity extends BaseActivity {
         public void onResponse(ReponseBean response, int id) {
             toolUtil.dismissProgressDialog();
             if (response.getCode()==0){
-                Toast.makeText(ModifyActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ModifyActivity.this, R.string.success, Toast.LENGTH_SHORT).show();
                 finish();
             }
 

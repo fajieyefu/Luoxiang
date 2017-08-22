@@ -66,7 +66,7 @@ public class BangongFragment extends Fragment {
                 startActivity(intent);
                 break;
             case R.id.contract_edit:
-                Toast.makeText(context, "请在电脑端审批", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, context.getResources().getString(R.string.audit_in_computer), Toast.LENGTH_SHORT).show();
 //                intent.setClass(context, ContractAuditActivity.class);
 //                startActivity(intent);
                 break;

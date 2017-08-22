@@ -357,6 +357,8 @@
                                 android:layout_weight="1"
                                 android:hint="数量"
                                 android:maxLines="1"
+                                android:text="1"
+                                android:inputType="number"
                                 android:textColor="@color/black"
                                 android:textSize="12sp" />
 
@@ -623,7 +625,9 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:inputType="number"
-                                android:maxLines="1"></EditText>
+                                android:textSize="12sp"
+                                android:maxLines="1">
+                            </EditText>
 
                         </LinearLayout>
 
@@ -706,11 +710,12 @@
                             android:gravity="center"
                             android:text="方管：" />
 
-                        <TextView
+                        <EditText
                             android:id="@+id/fangguan"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:gravity="center"></TextView>
+                            android:gravity="center"
+                            android:textSize="12sp"></EditText>
 
                     </LinearLayout>
 
@@ -1176,7 +1181,7 @@
                         style="@style/tv_16sp_black"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="提车日期：" />
+                        android:text="预计提车日期:" />
 
                     <TextView
                         android:id="@+id/applyDate"

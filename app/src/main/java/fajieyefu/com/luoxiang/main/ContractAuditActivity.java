@@ -84,7 +84,7 @@ public class ContractAuditActivity extends BaseActivity implements XListView.IXL
      * 初始化视图
      */
     private void initView() {
-        title.setTitleText("订单审核");
+        title.setTitleText( this.getResources().getString(R.string.auditOrder));
         applyLv.setPullRefreshEnable(true);
         applyLv.setPullLoadEnable(true);
         applyLv.setAutoLoadEnable(true);
@@ -104,7 +104,7 @@ public class ContractAuditActivity extends BaseActivity implements XListView.IXL
             }
         });
         toolUtil = new ToolUtil();
-        toolUtil.showProgressDialog(this,"请稍等","正在加载数据...");
+        toolUtil.showProgressDialog(this, this.getResources().getString(R.string.waitting),this.getResources().getString(R.string.loading));
 
     }
 

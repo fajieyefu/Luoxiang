@@ -26,6 +26,88 @@
     <string name="addCustomer">维护客户</string>
     <string name="beizhu">车厢尺寸按客户要求制作、查车、过户、挂牌等与本公司无关！（为保证客户订购车辆生产的准确性及交货日期，在车辆订购完毕后24小时内如有配置变更请及时通知，超期不予变更或由客户承担相应费用。）</string>
     <string name="s1">本合同范围内车款总价值为人民币¥</string>
+    <string name="selectStand">选择标准类型和客户</string>
+    <string name="complete">完成</string>
+    <string name="ddpc">等待排产</string>
+    <string name="back_audit">退回修改</string>
+    <string name="ok">通过</string>
+    <string name="wait_audit">等待审核</string>
+    <string name="audit_in_computer">请在电脑端审核</string>
+    <string name="noSelected">不选</string>
+    <string name="auditCustmoerName">请填写客户名称</string>
+    <string name="auditCustmoerPhone">请填写客户电话</string>
+    <string name="auditCustmoerAddress">请填写客户地址</string>
+    <string name="auditCustmoerPerson">请填写客户联系人</string>
+    <string name="auditCustmoercName">请填写客户所属地区</string>
+    <string name="success">操作成功</string>
+    <string name="abnormal">服务器异常</string>
+    <string name="analysisByAddress">按地区分析月订单</string>
+    <string name="test">测试</string>
+    <string name="address">地区</string>
+    <string name="orderCounts">订单量</string>
+    <string name="auditOrder">订单审核</string>
+    <string name="waitting">请稍后......</string>
+    <string name="loading">正在加载数据...</string>
+    <string name="sureOperate">你确定进行本次操作吗？</string>
+    <string name="cancel">取消</string>
+    <string name="confirm">确定</string>
+    <string name="z">直</string>
+    <string name="e">鹅</string>
+    <string name="orderInput">合同信息录入</string>
+    <string name="ej">鹅颈</string>
+    <string name="zl">直梁</string>
+    <string name="tianzhige">田字格</string>
+    <string name="fentiduikai">分体对开</string>
+    <string name="liantiduikai">连体对开</string>
+    <string name="neizhi">内置</string>
+    <string name="waizhi">外置</string>
+    <string name="duikai">对开</string>
+    <string name="xaida">下打</string>
+    <string name="auditcolor">请填写车身颜色！</string>
+    <string name="auditdlcolor">\"请填写大梁颜色！\"</string>
+    <string name="auditOrderCount">\"请填写订单数量！\"</string>
+    <string name="auditdlprice">\"请填写单价！\"</string>
+    <string name="auditdlidigao">\"请填写离地高！\"</string>
+    <string name="auditdlWchengNum">\"请填写W称数量！\"</string>
+    <string name="auditdljinshengqi">\"请填写紧绳器数量！\"</string>
+    <string name="auditdlamtDx">\"请填写总金额（大写）！\"</string>
+    <string name="auditdlamt">\"请填写总金额！\"</string>
+    <string name="auditdldingjin">\"请填写定金！\"</string>
+    <string name="auditdleaveTime">\"请填写提车日期！\"</string>
+    <string name="newCar">新车</string>
+    <string name="zhihuan">置换</string>
+    <string name="isExit">\"你确定要退出操作吗？\"</string>
+    <string name="contractpreview">合同预览</string>
+    <string name="up">上</string>
+    <string name="down">下</string>
+    <string name="mid">立板</string>
+    <string name="daichulidingdan">待处理订单</string>
+    <string name="lidigao">离地高:</string>
+    <string name="houxuan">\n后传半径:</string>
+    <string name="qianxuan">前悬:</string>
+    <string name="zhongxinju">\n中心距:</string>
+    <string name="qianyinzuo">牵引座:</string>
+    <string name="liangbaojiao">量包角:</string>
+    <string name="fangguan">\n方管:</string>
+    <string name="paiti">根,爬梯:</string>
+    <string name="xiaokuang">" 小框:"</string>
+    <string name="counts">数量:</string>
+    <string name="shuibaokong">,水包空:</string>
+    <string name="ge">个</string>
+    <string name="historyOrder">历史订单</string>
+    <string name="historyDetals">历史订单详情</string>
+    <string name="auditChangeContent">请填写变更内容</string>
+    <string name="auditChangeAmt">请填写变更金额</string>
+    <string name="auditChangeAmtDx">请填写变更大写金额</string>
+    <string name="auditChangeInfo">请填写合同变更信息</string>
+    <string name="historyTyepSelect">历史订单类型选择</string>
+    <string name="modifyPassword">修改密码</string>
+    <string name="downFail">下载失败</string>
+    <string name="nofile">没有找到打开此类文件的程序</string>
+    <string name="newAction">消息提示</string>
+    <string name="luoxiangqiche">锣响汽车</string>
+    <string name="newsOrderAudited">您有新的订单消息</string>
+    <string name="waitingAuditResult">等待申请结果</string>
 
     <string-array name="power_type">
         <item>油</item>
@@ -52,6 +134,7 @@
         <item>配送</item>
     </string-array>
     <string-array name="pati">
+        <item>无</item>
         <item>左</item>
         <item>右</item>
         <item>左右</item>
@@ -59,6 +142,7 @@
         <item>活</item>
     </string-array>
     <string-array name="beitaizhijia">
+        <item>无</item>
         <item>左后</item>
         <item>右后</item>
         <item>左中</item>

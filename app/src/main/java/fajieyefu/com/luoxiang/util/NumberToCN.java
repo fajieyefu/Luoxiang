@@ -1,5 +1,9 @@
 package fajieyefu.com.luoxiang.util;
 import java.math.BigDecimal;
+import java.util.Arrays;
+
+import fajieyefu.com.luoxiang.R;
+import fajieyefu.com.luoxiang.application.MyApplication;
 
 /**
  * 数字转换为汉语中人民币的大写<br>
@@ -10,7 +14,8 @@ public class NumberToCN {
     /**
      * 汉语中数字大写
      */
-    private static final String[] CN_UPPER_NUMBER = { "零", "壹", "贰", "叁", "肆",
+    private static final String[] CN_UPPER_NUMBER  =
+    { "零", "壹", "贰", "叁", "肆",
             "伍", "陆", "柒", "捌", "玖" };
     /**
      * 汉语中货币单位大写，这样的设计类似于占位符

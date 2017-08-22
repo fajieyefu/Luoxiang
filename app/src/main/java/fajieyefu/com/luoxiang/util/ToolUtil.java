@@ -15,6 +15,7 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import fajieyefu.com.luoxiang.R;
 import fajieyefu.com.luoxiang.application.MyApplication;
 
 /**
@@ -29,14 +30,14 @@ public class ToolUtil {
         if (progressDialog == null) {
             progressDialog = new ProgressDialog(context);
         }
-        progressDialog.setTitle("请稍后");
-        progressDialog.setMessage("正在加载数据...");
+        progressDialog.setTitle(context.getString(R.string.waitting));
+        progressDialog.setMessage(context.getString(R.string.loading));
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.setCancelable(false);
         progressDialog.show();
     }
 
-    public int[] getScreenHW(Context context) {
+    public int[] getScreenWH(Context context) {
         if (hm != null) {
             return hm;
         } else {
@@ -54,6 +55,23 @@ public class ToolUtil {
 
     }
 
+    public int[] getScreenWHDP(Context context) {
+        if (hm != null) {
+            return hm;
+        } else {
+
+            int screenHeight;
+            int screenWidth;
+            DisplayMetrics dm = context.getResources().getDisplayMetrics();
+            screenHeight = dm.heightPixels;
+            screenWidth = dm.widthPixels;
+            hm = new int[2];
+            hm[0] = px2dp(context,screenWidth);
+            hm[1] = px2dp(context,screenHeight);
+            return hm;
+        }
+
+    }
     /**
      * 显示 ProgressDialog
      *

@@ -60,7 +60,7 @@ public class HistoryAdapter extends BaseAdapter {
         switch (contractBean.getWc()) {
             case 1:
                 viewHolder.dot.setBackground(context.getResources().getDrawable(R.drawable.dot_5));
-                viewHolder.nqFlag.setText("完成");
+                viewHolder.nqFlag.setText(context.getResources().getString(R.string.complete));
                 break;
             case 0:
                 isDTC();
@@ -69,7 +69,7 @@ public class HistoryAdapter extends BaseAdapter {
         }
         viewHolder.contractId.setText(contractBean.getOrderNumber());
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        viewHolder.applyDate.setText(sdf.format(contractBean.getCreatetime()));
+        viewHolder.applyDate.setText(sdf.format(contractBean.getOrdercreatetime()));
 
         viewHolder.customer.setText(contractBean.getcCusName());
         return convertView;
@@ -82,7 +82,7 @@ public class HistoryAdapter extends BaseAdapter {
                 break;
             case 1:
                 viewHolder.dot.setBackground(context.getResources().getDrawable(R.drawable.dot_3));
-                viewHolder.nqFlag.setText("等待排产");
+                viewHolder.nqFlag.setText(context.getResources().getString(R.string.ddpc));
                 break;
         }
     }
@@ -91,15 +91,15 @@ public class HistoryAdapter extends BaseAdapter {
         switch (contractBean.getNq_flag()) {
             case 2:
                 viewHolder.dot.setBackground(context.getResources().getDrawable(R.drawable.dot_2));
-                viewHolder.nqFlag.setText("退回修改");
+                viewHolder.nqFlag.setText(context.getResources().getString(R.string.back_audit));
                 break;
             case 1:
                 viewHolder.dot.setBackground(context.getResources().getDrawable(R.drawable.dot_1));
-                viewHolder.nqFlag.setText("审核通过");
+                viewHolder.nqFlag.setText(context.getResources().getString(R.string.ok));
                 break;
             case 0:
                 viewHolder.dot.setBackground(context.getResources().getDrawable(R.drawable.dot_0));
-                viewHolder.nqFlag.setText("待审核");
+                viewHolder.nqFlag.setText(context.getResources().getString(R.string.wait_audit));
                 break;
         }
     }
@@ -111,7 +111,7 @@ public class HistoryAdapter extends BaseAdapter {
                 break;
             case 1:
                 viewHolder.dot.setBackground(context.getResources().getDrawable(R.drawable.dot_4));
-                viewHolder.nqFlag.setText("等待提车");
+                viewHolder.nqFlag.setText(context.getResources().getString(R.string.dtc));
                 break;
         }
     }

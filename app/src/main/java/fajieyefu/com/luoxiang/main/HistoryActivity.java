@@ -80,12 +80,12 @@ public class HistoryActivity extends BaseActivity implements XListView.IXListVie
         Intent intent = getIntent();
         flag = intent.getIntExtra("flag",0);
         if (flag==0){
-            title.setTitleText("待处理订单");
+            title.setTitleText(getString(R.string.daichulidingdan));
         }else{
-            title.setTitleText("历史订单");
+            title.setTitleText(getString(R.string.historyOrder));
 
         }
-        toolUtil.showProgressDialog(this,"请稍等","正在加载数据...");
+        toolUtil.showProgressDialog(this,getString(R.string.waitting),getString(R.string.loading));
 
 
     }

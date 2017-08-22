@@ -20,6 +20,15 @@ public class ContractBean {
     private int wc;
     private int nq_flag;
     private String cCusName;
+    private long ordercreatetime;
+
+    public long getOrdercreatetime() {
+        return ordercreatetime;
+    }
+
+    public void setOrdercreatetime(long ordercreatetime) {
+        this.ordercreatetime = ordercreatetime;
+    }
 
     public String getcCusName() {
         return cCusName;
