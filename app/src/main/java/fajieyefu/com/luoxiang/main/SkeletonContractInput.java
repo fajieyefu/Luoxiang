@@ -2,17 +2,18 @@ package fajieyefu.com.luoxiang.main;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.view.Window;
+
+import fajieyefu.com.luoxiang.R;
 
 /**
- * Created by Administrator on 2017/4/15.
+ * Created by Administrator on 2017-09-06.
  */
 
-public class BaseActivity extends AppCompatActivity {
+public class SkeletonContractInput extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
+        setContentView(R.layout.skeleton_input_layout);
+
     }
 }

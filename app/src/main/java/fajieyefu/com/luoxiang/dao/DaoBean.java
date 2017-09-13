@@ -1,8 +1,10 @@
 package fajieyefu.com.luoxiang.dao;
 
 import android.database.sqlite.SQLiteException;
+import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import de.greenrobot.dao.query.Query;
@@ -49,86 +51,97 @@ public class DaoBean {
     }
 
     //批量查询关联
-    public static List<Inventory> getInventoryLikeCCode(String code, String text, String ze) {
+    public static List<Inventory> getInventoryLikeCCode(String code, String text, String ze,String width,String height) {
         DaoSession daoSession = DaoManager.getInstance().getDaoSession();
         InventoryDao inventoryDao = daoSession.getInventoryDao();
         QueryBuilder<Inventory> queryBuilder = inventoryDao.queryBuilder().where(InventoryDao.Properties.CInvCode.like(code + "%"));
         List<Inventory> list = queryBuilder.list();
         List<Inventory> result = new ArrayList<>();
         if (list.size() != 0) {
-            if (code.equals("020105")) {
-                for (Inventory inventory : list) {
-                    String[] temp = inventory.getCInvStd().split("\\*");
-                    if (temp[temp.length - 1].equals(text) && inventory.getCInvStd().startsWith(ze)) {
-                        result.add(inventory);
+            switch (code) {
+                case "1508":case "1509":case "1510":case "0410":
+                case "1514":case "1512":case "1502":case "1507":
+                case "1503":case "1504":case "0411":case "0404":
+                case "0405":case "1513":
+                    for (Inventory inventory : list) {
+                        if (inventory.getCInvName().equals(text)) {
+                            result.add(inventory);
+                        }
                     }
-                }
-
-            } else if (code.equals("020106")) {
-                for (Inventory inventory : list) {
-                    String temp = inventory.getCInvStd();
-                    if (temp.equals(text)) {
-                        result.add(inventory);
+                    break;
+                case "0308":
+                    for (Inventory inventory : list) {
+                        String[] temp = inventory.getCInvStd().split("\\*");
+                        if (temp[temp.length - 1].equals(Integer.parseInt(width)-20+"")&&inventory.getCInvName().equals(text)) {
+                            result.add(inventory);
+                        }
                     }
-                }
-
-            } else if (code.equals("0308")) {
-                for (Inventory inventory : list) {
-                    String[] temp = inventory.getCInvStd().split("\\*");
-                    if (temp[temp.length - 1].equals(text) ) {
-                        result.add(inventory);
+                    break;
+                case "1505":
+                    for (Inventory inventory : list) {
+                        if (inventory.getCInvStd().equals(width)&&inventory.getCInvName().equals(text)) {
+                            result.add(inventory);
+                        }
                     }
-                }
-            }
-            else if (code.equals("1505")) {
-                for (Inventory inventory : list) {
-                    if (inventory.getCInvStd().equals(text) ) {
-                        result.add(inventory);
+                    break;
+                case "020105":
+                    for (Inventory inventory : list) {
+                        String[] temp = inventory.getCInvStd().split("\\*");
+                        if (temp[temp.length - 1].equals(height) && inventory.getCInvStd().startsWith(ze)&& inventory.getCInvName().equals(text)) {
+                            result.add(inventory);
+                        }
                     }
-                }
-            }else if (code.equals("020104")) {
-                for (Inventory inventory : list) {
-                    String[] temp = inventory.getCInvStd().split("\\-");
-                    if (temp[1].equals(text) && inventory.getCInvStd().startsWith(ze)) {
-                        result.add(inventory);
+                    break;
+                case "020106":
+                    for (Inventory inventory : list) {
+                        if (inventory.getCInvStd().equals(height) && inventory.getCInvName().equals(text)) {
+                            result.add(inventory);
+                        }
                     }
-                }
-            }else if (code.equals("020107")) {
-                for (Inventory inventory : list) {
-                    try{
+                    break;
+                case "020107":
+                    for (Inventory inventory : list) {
+                        if (inventory.getCInvStd().equals(height) ) {
+                            result.add(inventory);
+                        }
+                    }
+                    break;
+                case "020104":
+                    for (Inventory inventory : list) {
                         String[] temp = inventory.getCInvStd().split("\\-");
-                        if (temp[1].equals(text) && inventory.getCInvStd().startsWith(ze)) {
-                            result.add(inventory);
+                        if (temp.length>1){
+                            if (temp[1].equals(height)&&inventory.getCInvStd().startsWith(ze)) {
+                                result.add(inventory);
+                            }
                         }
-                    }catch (Exception e){
 
                     }
+                    break;
+                case "1511":
+                    for (Inventory inventory : list) {
+                        try {
+                            String temp = inventory.getCInvName();
+                            if (text.contains("下打") && temp.contains("下打") && temp.contains(ze)) {
+                                result.add(inventory);
+                            } else if (!text.contains("下打") && temp.contains("对开") && temp.contains(ze)) {
+                                result.add(inventory);
+                            }
+                        } catch (Exception e) {
 
-                }
-            }
-            else if (code.equals("1511")) {
-                for (Inventory inventory : list) {
-                    try{
+                        }
+
+                    }
+                    break;
+                case "1506":
+                    for (Inventory inventory : list) {
                         String temp = inventory.getCInvName();
-                        if (text.contains("下打")&&temp.contains("下打") && temp.contains(ze)) {
-                            result.add(inventory);
-                        }else if (!text.contains("下打")&&temp.contains("对开")&& temp.contains(ze)){
+                        if (temp.contains(text)) {
                             result.add(inventory);
                         }
-                    }catch (Exception e){
-
                     }
+                    break;
+            }
 
-                }
-            }
-            else if (code.equals("1506")){
-                for (Inventory inventory:list){
-                    String temp = inventory.getCInvName();
-                    if (temp.contains(text)){
-                        result.add(inventory);
-                    }
-                }
-            }
             for (Inventory inventory : list) {
                 inventory.setIsCurrent(0);
                 inventoryDao.update(inventory);
@@ -159,8 +172,8 @@ public class DaoBean {
         queryBuilder.where(InventoryDao.Properties.IsCurrent.eq(1));
         Query<Inventory> query = queryBuilder.build();
         List<Inventory> datas = query.list();
-        if(datas.size()==0){
-            return  null;
+        if (datas.size() == 0) {
+            return null;
         }
         return datas.get(0);
     }
@@ -287,6 +300,9 @@ public class DaoBean {
         QueryBuilder<Inventory> queryBuilder = inventoryDao.queryBuilder().where(InventoryDao.Properties.CInvCCode.eq(cInvCCode), InventoryDao.Properties.IsCurrent.eq(1));
         List<Inventory> list = queryBuilder.list();
         for (Inventory inventory : list) {
+            Log.i(inventory.getCInvCCode(), "數量:" + inventory.getCounts());
+        }
+        for (Inventory inventory : list) {
             inventory.setIsCurrent(0);
             inventoryDao.update(inventory);
         }
@@ -304,6 +320,7 @@ public class DaoBean {
         List<Inventory> list = queryBuilder.list();
         return list;
     }
+
     public static List<Inventory> loadAllInventory() {
         DaoSession daoSession = DaoManager.getInstance().getDaoSession();
         InventoryDao inventoryDao = daoSession.getInventoryDao();
@@ -356,10 +373,25 @@ public class DaoBean {
         QueryBuilder<Inventory> queryBuilder = inventoryDao.queryBuilder().where(InventoryDao.Properties.CInvCCode.eq(cInvCCode), InventoryDao.Properties.IsCurrent.eq(1));
         //避免因为后台设置默认值时多选造成数值不唯一
         List<Inventory> list = queryBuilder.list();
-        if (list.size()!=0){
+        if (list.size() != 0) {
             list.get(0).setCounts(counts + "");
             inventoryDao.update(list.get(0));
         }
 
+    }
+
+    public static List<String> getInventoryNameByCCode(String code) {
+        DaoSession daoSession = DaoManager.getInstance().getDaoSession();
+        InventoryDao inventoryDao = daoSession.getInventoryDao();
+        QueryBuilder<Inventory> queryBuilder = inventoryDao.queryBuilder().where(InventoryDao.Properties.CInvCode.like(code + "%"));
+        List<Inventory> list = queryBuilder.list();
+        List<String> result = new ArrayList<>();
+        for (Inventory inventory : list) {
+            if (!result.contains(inventory.getCInvName())) {
+                result.add(inventory.getCInvName());
+            }
+        }
+        Collections.sort(result);
+        return result;
     }
 }

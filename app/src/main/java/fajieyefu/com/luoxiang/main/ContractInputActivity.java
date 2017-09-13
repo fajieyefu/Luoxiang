@@ -5,7 +5,9 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.BoolRes;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -18,6 +20,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -53,7 +56,8 @@ import fajieyefu.com.luoxiang.bean.UserInfo;
 import fajieyefu.com.luoxiang.dao.DaoBean;
 import fajieyefu.com.luoxiang.data.CommonData;
 import fajieyefu.com.luoxiang.layout.MySpinnerForFree;
-import fajieyefu.com.luoxiang.layout.MySpinnerForInventry;
+import fajieyefu.com.luoxiang.layout.MySpinnerForFree;
+import fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory;
 import fajieyefu.com.luoxiang.layout.TitleLayout;
 import fajieyefu.com.luoxiang.util.MyCallback;
 import fajieyefu.com.luoxiang.util.NumberToCN;
@@ -80,8 +84,6 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
     TextView address;
     @BindView(R.id.customer_info)
     LinearLayout customerInfo;
-    @BindView(R.id.qianyinche)
-    MySpinnerForInventry qianyinche;
     @BindView(R.id.powerType)
     MySpinnerForFree powerType;
     @BindView(R.id.ql)
@@ -103,11 +105,11 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
     @BindView(R.id.price)
     EditText price;
     @BindView(R.id.up)
-    MySpinnerForInventry up;
+    MySpinnerForFreeInventory up;
     @BindView(R.id.down)
-    MySpinnerForInventry down;
+    MySpinnerForFreeInventory down;
     @BindView(R.id.mid)
-    MySpinnerForInventry mid;
+    MySpinnerForFreeInventory mid;
     @BindView(R.id.lidigao)
     EditText lidigao;
     @BindView(R.id.hzbj)
@@ -117,64 +119,64 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
     @BindView(R.id.zhongxinju)
     EditText zhongxinju;
     @BindView(R.id.qianyinxiao)
-    MySpinnerForInventry qianyinxiao;
+    MySpinnerForFreeInventory qianyinxiao;
     @BindView(R.id.qianyinzuo)
     MySpinnerForFree qianyinzuo;
     @BindView(R.id.banhuang)
-    MySpinnerForInventry banhuang;
+    MySpinnerForFreeInventory banhuang;
     @BindView(R.id.bianliang)
-    MySpinnerForInventry bianliang;
+    MySpinnerForFreeInventory bianliang;
     @BindView(R.id.wcheng1)
-    MySpinnerForInventry wcheng1;
+    MySpinnerForFreeInventory wcheng1;
     @BindView(R.id.wcheng2)
     EditText wcheng2;
     @BindView(R.id.fangshuicao)
     MySpinnerForFree fangshuicao;
     @BindView(R.id.diban)
-    MySpinnerForInventry diban;
+    MySpinnerForFreeInventory diban;
     @BindView(R.id.liangbaojiao)
     EditText liangbaojiao;
 
     @BindView(R.id.celanban)
-    MySpinnerForInventry celanban;
+    MySpinnerForFreeInventory celanban;
     @BindView(R.id.celanban_mark)
     EditText celanbanMark;
     @BindView(R.id.houmen)
-    MySpinnerForInventry houmen;
+    MySpinnerForFreeInventory houmen;
     @BindView(R.id.houmen_mark)
     EditText houmenMark;
     @BindView(R.id.penggan)
-    MySpinnerForInventry penggan;
+    MySpinnerForFreeInventory penggan;
     @BindView(R.id.pati)
     MySpinnerForFree pati;
     @BindView(R.id.xiaokuang)
-    MySpinnerForInventry xiaokuang;
+    MySpinnerForFreeInventory xiaokuang;
     @BindView(R.id.jinshengqi_num)
     EditText jinshengqiNum;
     @BindView(R.id.jinshenqi_mark)
     EditText jinshenqiMark;
     @BindView(R.id.gjx_left)
-    MySpinnerForInventry gjxLeft;
+    MySpinnerForFreeInventory gjxLeft;
     @BindView(R.id.gjx_right)
-    MySpinnerForInventry gjxRight;
+    MySpinnerForFreeInventory gjxRight;
     @BindView(R.id.btzj)
     MySpinnerForFree btzj;
     @BindView(R.id.btsjq)
     MySpinnerForFree btsjq;
     @BindView(R.id.abs)
-    MySpinnerForInventry abs;
+    MySpinnerForFreeInventory abs;
     @BindView(R.id.shuibaokong)
     EditText shuibaokong;
     @BindView(R.id.gangquan)
-    MySpinnerForInventry gangquan;
+    MySpinnerForFreeInventory gangquan;
     @BindView(R.id.gangquan_num)
     EditText gangquanNum;
     @BindView(R.id.luntai)
-    MySpinnerForInventry luntai;
+    MySpinnerForFreeInventory luntai;
     @BindView(R.id.luntai_num)
     EditText luntaiNum;
     @BindView(R.id.chezhou)
-    MySpinnerForInventry chezhou;
+    MySpinnerForFreeInventory chezhou;
     @BindView(R.id.remark)
     EditText remark;
     @BindView(R.id.deposit)
@@ -208,8 +210,32 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
     CheckBox isNew;
     @BindView(R.id.fangguan)
     EditText fangguan;
-    private InventoryClassAdapter inventoryClassAdapter;
-    private List<InventoryClass> inventorys = new ArrayList<>();
+    @BindView(R.id.orderNumber)
+    EditText orderNumberEdit;
+    @BindView(R.id.endCustomerName)
+    EditText endCustomerName;
+    @BindView(R.id.endCustomerPhone)
+    EditText endCustomerPhone;
+    @BindView(R.id.qianyinche)
+    EditText qianyinche;
+    @BindView(R.id.textView)
+    TextView textView;
+    @BindView(R.id.huangyouzui)
+    EditText huangyouzui;
+    @BindView(R.id.houzhuan_layout)
+    LinearLayout houzhuanLayout;
+    @BindView(R.id.huangyouzui_layout)
+    LinearLayout huangyouzuiLayout;
+    @BindView(R.id.outlinesize)
+    EditText outlinesize;
+    @BindView(R.id.outlinesizelayout)
+    LinearLayout outlinesizelayout;
+    @BindView(R.id.others)
+    TextView others;
+    @BindView(R.id.oldPrice)
+    EditText oldPrice;
+    @BindView(R.id.oldPriceLayout)
+    LinearLayout oldPriceLayout;
     private Button more;
     private int mYear;
     private int mMonth;
@@ -227,6 +253,24 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
     private List<String> list_beitaizhijia;
     private List<String> list_btsjq;
     private List<String> list_area;
+    private List<String> list_celanban;
+    private List<String> list_houmen;
+    private List<String> list_wcheng;
+    private List<String> list_diban;
+    private List<String> list_up;
+    private List<String> list_down;
+    private List<String> list_mid;
+    private List<String> list_qianyinxiao;
+    private List<String> list_banhuang;
+    private List<String> list_bianliang;
+    private List<String> list_boxLeft;
+    private List<String> list_boxRight;
+    private List<String> list_abs;
+    private List<String> list_gangquan;
+    private List<String> list_luntai;
+    private List<String> list_axis;
+    private List<String> list_penggan;
+    private List<String> list_xiaokuang;
     private ObtainBean customer_bean;
     private ToolUtil toolUtil;
     private UserInfo userInfo;
@@ -235,18 +279,7 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
     private Dialog dialog;
     private int orderId;
     private int commitType;
-    private Button preview;
-    TextView celanban_text;
-    TextView bianliang_text;
-    TextView qyc_text;
-    TextView len_text;
-    TextView hgt_text;
-    TextView wid_text;
-    TextView car_style_text;
-    TextView luntaiSpinnerText;
-    TextView gqSpinnerText;
-    TextView btsjqSpinnerText;
-    TextView wchengSpinnerText;
+
     JSONObject basic_info = new JSONObject();
     JSONArray config_info = new JSONArray();
     private Button back;
@@ -256,6 +289,7 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
     private String eText;
     private String zlText;
     private String ejText;
+    private String ordinaryContent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -266,13 +300,8 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
         toolUtil.showProgressDialog(this);
         initView();
         addTextChangeListener();
-        initSpinner();
         initFreeSpinner();
         toolUtil.dismissProgressDialog();
-
-//  inventorys = DaoBean.loadAllInventoryClass();
-//  inventoryClassAdapter = new InventoryClassAdapter(this, inventorys);
-//  inventoryLv.setAdapter(inventoryClassAdapter);
         standardId = DaoBean.getInventoryClassById(1).getStandardId();
 
 
@@ -280,51 +309,17 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
 
 
     private void addTextChangeListener() {
-        /**
-         * 牵引车，高度，宽度，挂车样式，边梁，
-         */
-        qyc_text = (TextView) qianyinche.findViewById(R.id.spinner_text);
-        qyc_text.addTextChangedListener(watcher_qianyinche);
-        hgt_text = (TextView) hit.findViewById(R.id.spinner_text);
-        hgt_text.addTextChangedListener(watcher_hgt);
-        wid_text = (TextView) wid.findViewById(R.id.spinner_text);
-        wid_text.addTextChangedListener(watcher_width);
-        car_style_text = (TextView) carStyle.findViewById(R.id.spinner_text);
-        car_style_text.addTextChangedListener(watcher2);
-//        bianliang_text = (TextView) bianliang.findViewById(R.id.spinner_text);
-//        bianliang_text.addTextChangedListener(watcher_bianliang);
-
-        //大小写转换
+        isNew.setOnCheckedChangeListener(isNewCheckListener);
         amt.addTextChangedListener(watcher);
-//        /**
-//         * 数量发生改变监听事件
-//         */
-//        wchengNum.addTextChangedListener(watcher);
-//        jinshengqiNum.addTextChangedListener(watcher);
-//        gangquanNum.addTextChangedListener(watcher);
-//        luntaiNum.addTextChangedListener(watcher);
-
-//          轮胎、钢圈、w称,紧绳器,备胎升降器数量发生改变
-
-
-//        luntaiSpinnerText = (TextView) luntai.findViewById(R.id.spinner_text);
-//        luntaiSpinnerText.addTextChangedListener(watcher);
-//        gqSpinnerText = (TextView) gangquan.findViewById(R.id.spinner_text);
-//        gqSpinnerText.addTextChangedListener(watcher);
-//        wchengSpinnerText = (TextView) wcheng1.findViewById(R.id.spinner_text);
-//        wchengSpinnerText.addTextChangedListener(watcher);
-//        jinshengqiNum.addTextChangedListener(watcher);
-//        btsjqSpinnerText = (TextView) btsjq.findViewById(R.id.spinner_text);
-//        btsjqSpinnerText.addTextChangedListener(watcher);
     }
 
     @SuppressWarnings("ResourceType")
     private void initView() {
-        zText= this.getResources().getString(R.string.z);
-        eText= this.getResources().getString(R.string.e);
-        zlText= this.getResources().getString(R.string.zl);
-        ejText= this.getResources().getString(R.string.ej);
-        
+        zText = this.getResources().getString(R.string.z);
+        eText = this.getResources().getString(R.string.e);
+        zlText = this.getResources().getString(R.string.zl);
+        ejText = this.getResources().getString(R.string.ej);
+
         userInfo = DaoBean.getUseInfoById(1);
         title.setTitleText(this.getResources().getString(R.string.orderInput));
         back = (Button) title.findViewById(R.id.back);
@@ -340,6 +335,7 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
         commitType = intent.getIntExtra("commitType", 0);
         orderNumber = intent.getStringExtra("orderNumber");
         orderId = intent.getIntExtra("orderId", 0);
+        ordinaryContent = intent.getStringExtra("ordinaryContent");
         customer.setText(customer_bean.getName());
         mobile.setText(customer_bean.getcCusHand());
         address.setText(customer_bean.getcCusAddress());
@@ -381,116 +377,69 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
     }
 
     /**
-     * 加载下拉的从数据库读取的选项
-     */
-    private void initSpinner() {
-        //上
-        List<Inventory> upInventorys = DaoBean.getInventoryLikeCCode("1508");
-        if (upInventorys != null && upInventorys.size() != 0) {
-            up.setData(upInventorys);
-        }
-        //下
-        List<Inventory> downInventorys = DaoBean.getInventoryLikeCCode("1509");
-        if (downInventorys != null && downInventorys.size() != 0) {
-            down.setData(downInventorys);
-        }
-        //立板
-        List<Inventory> midInventorys = DaoBean.getInventoryLikeCCode("1510");
-        if (midInventorys != null && midInventorys.size() != 0) {
-            mid.setData(midInventorys);
-        }
-
-
-        //牵引销
-        List<Inventory> qianyinzuoInventorys = DaoBean.getInventoryLikeCCode("0410");
-        if (qianyinzuoInventorys != null && qianyinzuoInventorys.size() != 0) {
-            qianyinxiao.setData(qianyinzuoInventorys);
-        }
-        //板簧
-        List<Inventory> banhuangInventorys = DaoBean.getInventoryLikeCCode("1514");
-        if (banhuangInventorys != null && banhuangInventorys.size() != 0) {
-            banhuang.setData(banhuangInventorys);
-        }
-        //边梁
-        List<Inventory> bianliangInventorys = DaoBean.getInventoryLikeCCode("1512");
-        if (bianliangInventorys != null && bianliangInventorys.size() != 0) {
-            bianliang.setData(bianliangInventorys);
-        }
-        //底板
-        List<Inventory> dibanInventorys = DaoBean.getInventoryLikeCCode("1505");
-        if (dibanInventorys != null && dibanInventorys.size() != 0) {
-            diban.setData(dibanInventorys);
-        }
-        //侧挡板
-        List<Inventory> cdbInventorys = DaoBean.getInventoryLikeCCode("020105");
-        if (cdbInventorys != null && cdbInventorys.size() != 0) {
-            celanban.setData(cdbInventorys);
-        }
-        //后门
-        List<Inventory> houmenInventorys = DaoBean.getInventoryLikeCCode("020106");
-        if (houmenInventorys != null && houmenInventorys.size() != 0) {
-            houmen.setData(houmenInventorys);
-        }
-        //工具箱左
-        List<Inventory> gjxzInventorys = DaoBean.getInventoryLikeCCode("1503");
-        if (gjxzInventorys != null && gjxzInventorys.size() != 0) {
-            gjxLeft.setData(gjxzInventorys);
-        }
-        //工具箱右
-        List<Inventory> gjxyInventorys = DaoBean.getInventoryLikeCCode("1504");
-        if (gjxyInventorys != null && gjxyInventorys.size() != 0) {
-            gjxRight.setData(gjxyInventorys);
-        }
-        //ABS
-        List<Inventory> absInventorys = DaoBean.getInventoryLikeCCode("0411");
-        if (absInventorys != null && absInventorys.size() != 0) {
-            abs.setData(absInventorys);
-        }
-        //钢圈
-        List<Inventory> gangquanInventorys = DaoBean.getInventoryLikeCCode("0405");
-        if (gangquanInventorys != null && gangquanInventorys.size() != 0) {
-            gangquan.setData(gangquanInventorys);
-        }
-        //轮胎
-        List<Inventory> luntaiInventorys = DaoBean.getInventoryLikeCCode("0404");
-        if (luntaiInventorys != null && luntaiInventorys.size() != 0) {
-            luntai.setData(luntaiInventorys);
-        }
-        //车轴
-        List<Inventory> axisInventorys = DaoBean.getInventoryLikeCCode("1513");
-        if (axisInventorys != null && axisInventorys.size() != 0) {
-            chezhou.setData(axisInventorys);
-        }
-        //蓬杆
-        List<Inventory> pengganInventorys = DaoBean.getInventoryLikeCCode("1502");
-        if (pengganInventorys != null && pengganInventorys.size() != 0) {
-            penggan.setData(pengganInventorys);
-        }
-        //篷布框
-        List<Inventory> pbkInventorys = DaoBean.getInventoryLikeCCode("1507");
-        if (pbkInventorys != null && pbkInventorys.size() != 0) {
-            xiaokuang.setData(pbkInventorys);
-        }
-        //W称
-        List<Inventory> WCInventorys = DaoBean.getInventoryLikeCCode("0308");
-        if (WCInventorys != null && WCInventorys.size() != 0) {
-            wcheng1.setData(WCInventorys);
-        }
-        //牵引车
-        List<Inventory> qianyincheInventorys = DaoBean.getInventoryLikeCCode("14");
-        if (qianyincheInventorys != null && qianyincheInventorys.size() != 0) {
-            qianyinche.setData(qianyincheInventorys);
-        }
-
-    }
-
-    /**
      * 加载下拉选项框的固定的选项
      */
     private void initFreeSpinner() {
         /**
          * 获取下拉选项框固定值
          */
+        //上
+        list_up= DaoBean.getInventoryNameByCCode("1508");
+        up.setData(list_up);
+        //下
+        list_down = DaoBean.getInventoryNameByCCode("1509");
+        down.setData(list_down);
+        //立板
+        list_mid = DaoBean.getInventoryNameByCCode("1510");
+        mid.setData(list_mid);
+        //侧栏板
+        list_celanban= DaoBean.getInventoryNameByCCode("020105");
+        celanban.setData(list_celanban);
+       //后门
+        list_houmen= DaoBean.getInventoryNameByCCode("020106");
+        houmen.setData(list_houmen);
+        //w称
+        list_wcheng = DaoBean.getInventoryNameByCCode("0308");
+        wcheng1.setData(list_wcheng);
+        //底板
+        list_diban = DaoBean.getInventoryNameByCCode("1505");
+        diban.setData(list_diban);
+        //牵引销
+        list_qianyinxiao =DaoBean.getInventoryNameByCCode("0410");
+        qianyinxiao.setData(list_qianyinxiao);
+        //板簧
+        list_banhuang =DaoBean.getInventoryNameByCCode("1514");
+        banhuang.setData(list_banhuang);
+        //边梁
+        list_bianliang =DaoBean.getInventoryNameByCCode("1512");
+        bianliang.setData(list_bianliang);
+
+        //工具箱左
+        list_boxLeft =DaoBean.getInventoryNameByCCode("1503");
+        gjxLeft.setData(list_boxLeft);
+        //工具箱右
+        list_boxRight =DaoBean.getInventoryNameByCCode("1504");
+        gjxRight.setData(list_boxRight);
+        //ABS
+        list_abs =DaoBean.getInventoryNameByCCode("0411");
+       abs.setData(list_abs);
+        //钢圈
+        list_gangquan =DaoBean.getInventoryNameByCCode("0405");
+        gangquan.setData(list_gangquan);
+        //轮胎
+        list_luntai =DaoBean.getInventoryNameByCCode("0404");
+        luntai.setData(list_luntai);
+        //车轴
+        list_axis =DaoBean.getInventoryNameByCCode("1513");
+        chezhou.setData(list_axis);
+        //蓬杆
+        list_penggan =DaoBean.getInventoryNameByCCode("1502");
+        penggan.setData(list_penggan);
+        //篷布框
+        list_xiaokuang =DaoBean.getInventoryNameByCCode("1507");
+        xiaokuang.setData(list_xiaokuang);
+
+
         list_powerType = Arrays.asList(getResources().getStringArray(R.array.power_type));
         list_len = Arrays.asList(getResources().getStringArray(R.array.len));
         list_wid = Arrays.asList(getResources().getStringArray(R.array.wid));
@@ -521,13 +470,110 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
         carStyle.setData(list_model);
         btsjq.setData(list_btsjq);
         area.setData(list_area);
+        if (orderId!=0){
+            JSONArray ordinaryJson=null;
+             JSONObject json=null;
+            try {
+                 ordinaryJson = new JSONArray(ordinaryContent);
+                 json = (JSONObject) ordinaryJson.get(0);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            endCustomerPhone.setText(json.optString("endCustomerPhone").trim());
+            endCustomerName.setText(json.optString("endCustomerName").trim());
+            area.setText(json.optString("cDCName").trim());
+            if (json.optInt("isNew")==0){
+                isNew.setChecked(false);
+            }
+            qianyinche.setText(json.optString("qianyinche").trim());
+            powerType.setText(json.optString("powerType").trim());
+            carStyle.setText(json.optString("model").trim());
+            up.setText(json.optString("up").trim());
+            down.setText(json.optString("down").trim());
+            mid.setText(json.optString("mid").trim());
+            outlinesize.setText(json.optString("outlinesize").trim());
+            chexxiangColor.setText(json.optString("color").trim());
+            daliangColor.setText(json.optString("liang_color").trim());
+            num.setText(json.optString("booknum").trim());
+            if (!TextUtils.isEmpty(json.optString("singleprice"))){
+                price.setText((int)( Float.parseFloat(json.optString("singleprice".trim())))+"");
+            }
+            len.setText(json.optString("car_long").trim());
+            wid.setText(json.optString("car_width").trim());
+            hit.setText(json.optString("car_height").trim());
+            lidigao.setText(json.optString("lidigao").trim());
+            hzbj.setText(json.optString("houxuan").trim());
+            huangyouzui.setText(json.optString("butterMouthHeight").trim());
+            qianxuan.setText(json.optString("qianxuan").trim());
+            zhongxinju.setText(json.optString("zhongxinju").trim());
+            qianyinxiao.setText(json.optString("qianyinxiao").trim());
+            qianyinzuo.setText(json.optString("qianyinzuo").trim());
+            banhuang.setText(json.optString("banhuang").trim());
+            bianliang.setText(json.optString("bianliang").trim());
+            wcheng1.setText(json.optString("wcheng_type").trim());
+            wchengNum.setText(json.optString("wcheng_num").trim());
+            wcheng2.setText(json.optString("wcheng_mark").trim());
+            fangshuicao.setText(json.optString("fangshuicao").trim());
+            diban.setText(json.optString("diban").trim());
+            liangbaojiao.setText(json.optString("liangbaojiao").trim());
+            fangguan.setText(json.optString("fangguan").trim());
+            celanban.setText(json.optString("celanban").trim());
+            celanbanMark.setText(json.optString("celanban_mark").trim());
+            houmen.setText(json.optString("houmen").trim());
+            houmenMark.setText(json.optString("houmen_mark").trim());
+            penggan.setText(json.optString("penggan").trim());
+            pati.setText(json.optString("pati").trim());
+            xiaokuang.setText(json.optString("xiaokuang").trim());
+            jinshengqiNum.setText(json.optString("jinshengqi").trim());
+            jinshenqiMark.setText(json.optString("jinshengqi_mark").trim());
+            gjxLeft.setText(json.optString("box_left").trim());
+            gjxRight.setText(json.optString("box_right").trim());
+            btzj.setText(json.optString("btzj").trim());
+            btsjq.setText(json.optString("btsjq").trim());
+            abs.setText(json.optString("abs").trim());
+            shuibaokong.setText(json.optString("shuibaokong").trim());
+            gangquan.setText(json.optString("gangquan").trim());
+            gangquanNum.setText(json.optString("gangquan_num").trim());
+            luntai.setText(json.optString("luntai").trim());
+            luntaiNum.setText(json.optString("luntai_num").trim());
+            chezhou.setText(json.optString("chezhou").trim());
+            remark.setText(json.optString("marks").trim());
+            if (json.optInt("bmustbook")==0){
+                dingjin.setChecked(false);
+            }
+            if (json.optInt("cDefine1")==1){
+                yunfei.setChecked(true);
+            }
+            if (!TextUtils.isEmpty(json.optString("payedmoney"))){
+                deposit.setText((int)Float.parseFloat(json.optString("payedmoney").trim())+"");
+            }
+            if (!TextUtils.isEmpty(json.optString("orderMoney"))){
+                amt.setText((int)Float.parseFloat(json.optString("orderMoney").trim())+"");
+            }
 
+            amtDx.setText(json.optString("ordermoney_dx").trim());
+            applyDate.setText(json.optString("leaveTime").trim());
+            obtainType.setText(json.optString("carstyle").trim());
+            if (!TextUtils.isEmpty(json.optString("oldPrice"))){
+                oldPrice.setText((int) Float.parseFloat(json.optString("oldPrice").trim())+"");
+            }
+            if (json.optInt("urgent_flag")==1){
+                urgent.setChecked(true);
+            }
+
+
+
+
+
+        }
     }
 
     @OnClick(R.id.caculator)
     public void onViewClicked() {
         isNewCar();
-        dealWithData();
+        if (!dealWithData()){
+            return;
+        }
         monitorEditNum();
         Dialog dialog = new Dialog(this);
         View view = LayoutInflater.from(this).inflate(R.layout.price_weight_layout, null);
@@ -537,10 +583,12 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
         List<Inventory> inventories = DaoBean.loadInventoryByCurrent();
         int actualPrice = standarMoney;
         double actualWeight = 0;
-        //计算重量
+
         for (Inventory inventory : inventories) {
             actualPrice = actualPrice + Integer.parseInt(inventory.getDeMoney());
+            //计算重量
             if (inventory.getWeight() != null) {
+                Log.i(inventory.getCInvName(), inventory.getWeight() + "");
                 actualWeight = actualWeight + inventory.getWeight() * (Integer.parseInt(inventory.getCounts()));
             }
         }
@@ -613,15 +661,17 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
         userInfo = DaoBean.getUseInfoById(1);
 
         List<Inventory> inventories = DaoBean.loadInventoryByCurrent();
+
         JSONObject content = new JSONObject();
         Gson gson = new GsonBuilder().create();
         try {
             for (Inventory inventoryTemp : inventories) {
+                if (Integer.parseInt(inventoryTemp.getCounts()) == 0) {
+                    continue;
+                }
                 config_info.put(new JSONObject(gson.toJson(inventoryTemp, Inventory.class)));
                 String incstd = inventoryTemp.getCInvStd();
-                Log.i(inventoryTemp.getCInvName(), incstd == null ? "nn" : incstd);
-                Log.i("數量", inventoryTemp.getCounts());
-                Log.i("重量", inventoryTemp.getWeight() + "");
+                System.out.println(inventoryTemp.getCInvName()+"规格型号:"+(incstd == null ? "无规格型号" : incstd)+"数量:"+inventoryTemp.getCounts());
             }
             content.put("config_info", config_info);
         } catch (JSONException e) {
@@ -635,7 +685,9 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
             }
             basic_info.put("cCusCode", customer_bean.getCode());
             basic_info.put("standardId", standardId);
-            basic_info.put("orderNumber", orderNumber);
+            if (!TextUtils.isEmpty(orderNumber)) {
+                basic_info.put("orderNumber", orderNumber);
+            }
             if (orderId != 0) {
                 basic_info.put("orderId", orderId);
             }
@@ -647,9 +699,10 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
             e.printStackTrace();
         }
 
+        Log.i("传入数据", content.toString());
+
         toolUtil = new ToolUtil();
         toolUtil.showProgressDialog(this);
-        Log.i("传入数据", content.toString());
 
 
         OkHttpUtils.postString()
@@ -661,7 +714,7 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
 
     }
 
-    private void dealWithData() {
+    private boolean dealWithData() {
         String ze;
         String ze_text;
         if (carStyle.getText().contains(zText)) {
@@ -674,18 +727,136 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
         } else {
             ze_text = ejText;
         }
-        List<Inventory> lmjInventorys2 = DaoBean.getInventoryLikeCCode("020104", hit.getText(), ze);
+        String width = wid.getText();
+        String height = hit.getText();
+        //确定车架上
+        if (DaoBean.getInventoryLikeCCode("1508",up.getText(),ze,width,height).size()!=1&&!up.getText().equals("不选")){
+            Toast.makeText(this, "车架（上）有错误，请联系管理员", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        //确定车架下
+        if (DaoBean.getInventoryLikeCCode("1509",down.getText(),ze,width,height).size()!=1&&!down.getText().equals("不选")){
+            Toast.makeText(this, "车架（下）有错误，请联系管理员", Toast.LENGTH_SHORT).show();
+            return false;
+
+        }
+        //确定车架立
+        if (DaoBean.getInventoryLikeCCode("1510",mid.getText(),ze,width,height).size()!=1&&!mid.getText().equals("不选")){
+            Toast.makeText(this, "车架（立）有错误，请联系管理员", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        //确定牵引销
+        if(DaoBean.getInventoryLikeCCode("0410",qianyinxiao.getText(),ze,width,height).size()!=1&&!qianyinxiao.getText().equals("不选")){
+            Toast.makeText(this, "牵引销有错误，请联系管理员", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        //确定板簧
+        if (DaoBean.getInventoryLikeCCode("1514",banhuang.getText(),ze,width,height).size()!=1&&!banhuang.getText().equals("不选")){
+            Toast.makeText(this, "板簧有错误，请联系管理员", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        //确定边梁
+        if (DaoBean.getInventoryLikeCCode("1512",bianliang.getText(),ze,width,height).size()!=1&&!bianliang.getText().equals("不选")){
+            Toast.makeText(this, "边梁有错误，请联系管理员", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        //确定W称
+        int wcheng_size = DaoBean.getInventoryLikeCCode("0308",wcheng1.getText(),ze,width,height).size();
+        if (!wcheng1.getText().equals("不选")&&wcheng_size!=1){
+            if (wcheng_size==0){
+                Toast.makeText(this, "此宽度下没有该W称样式", Toast.LENGTH_SHORT).show();
+            }else{
+
+                Toast.makeText(this, "W称有错误，请联系管理员", Toast.LENGTH_SHORT).show();
+            }
+            return false;
+        }
+
+        //确定底板
+        int diban_size = DaoBean.getInventoryLikeCCode("1505",diban.getText(),ze,width,height).size();
+        if (!diban.getText().equals("不选")&&diban_size!=1){
+            if (diban_size==0){
+                Toast.makeText(this, "此宽度下没有该底板样式", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(this, "底板有错误，请联系管理员", Toast.LENGTH_SHORT).show();
+            }
+            return false;
+        }
+        //确定侧栏板
+        int celanban_size = DaoBean.getInventoryLikeCCode("020105",celanban.getText(),ze,width,height).size();
+        if (!celanban.getText().equals("不选")&&celanban_size!=1){
+            if (celanban_size==0){
+                Toast.makeText(this, "此高度下没有该侧栏板样式", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(this, "侧栏板数据有错误，请联系管理员", Toast.LENGTH_SHORT).show();
+            }
+            return false;
+        }
+        //确定后门
+        int houmen_size = DaoBean.getInventoryLikeCCode("020106",houmen.getText(),ze,width,height).size();
+        if (!houmen.getText().equals("不选")&&houmen_size!=1){
+            if (houmen_size==0){
+                Toast.makeText(this, "此高度下没有该后门样式", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(this, "后门数据有错误，请联系管理员", Toast.LENGTH_SHORT).show();
+            }
+            return false;
+        }
+        //确定蓬杆
+        if (DaoBean.getInventoryLikeCCode("1502",penggan.getText(),ze,width,height).size()!=1&&!penggan.getText().equals("不选")){
+            Toast.makeText(this, "蓬杆数据有错误，请联系管理员", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        //确定小框
+        if (DaoBean.getInventoryLikeCCode("1507",xiaokuang.getText(),ze,width,height).size()!=1&&!xiaokuang.getText().equals("不选")){
+            Toast.makeText(this, "小框数据有错误，请联系管理员", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        //确定左工具箱
+        if (DaoBean.getInventoryLikeCCode("1503",gjxLeft.getText(),ze,width,height).size()!=1&&!gjxLeft.getText().equals("不选")){
+            Toast.makeText(this, "左工具箱数据有错误，请联系管理员", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        //确定右工具箱
+        if (DaoBean.getInventoryLikeCCode("1504",gjxRight.getText(),ze,width,height).size()!=1&&!gjxRight.getText().equals("不选")){
+            Toast.makeText(this, "右工具箱数据有错误，请联系管理员", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        //ABS
+        if (DaoBean.getInventoryLikeCCode("0411",abs.getText(),ze,width,height).size()!=1&&!abs.getText().equals("不选")){
+            Toast.makeText(this, "ABS数据有错误，请联系管理员", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        //确定钢圈
+        if (DaoBean.getInventoryLikeCCode("0405",gangquan.getText(),ze,width,height).size()!=1&&!gangquan.getText().equals("不选")){
+            Toast.makeText(this, "钢圈数据有错误，请联系管理员", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        //确定轮胎
+        if (DaoBean.getInventoryLikeCCode("0404",luntai.getText(),ze,width,height).size()!=1&&!luntai.getText().equals("不选")){
+            Toast.makeText(this, "轮胎数据有错误，请联系管理员", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        //确定车轴
+        if (DaoBean.getInventoryLikeCCode("1513",chezhou.getText(),ze,width,height).size()!=1&&!chezhou.getText().equals("不选")){
+            Toast.makeText(this, "车轴数据有错误，请联系管理员", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        List<Inventory> lmjInventorys2 = DaoBean.getInventoryLikeCCode("020104", hit.getText(), ze,width,height);
         if (lmjInventorys2 != null && lmjInventorys2.size() != 0) {
         }
 
-        List<Inventory> zzInventorys2 = DaoBean.getInventoryLikeCCode("020107", hit.getText(), ze);
+        List<Inventory> zzInventorys2 = DaoBean.getInventoryLikeCCode("020107", hit.getText(), ze,width,height);
         Inventory inventoryZhanzhu = getZhanZhuInventory(zzInventorys2);
         if (inventoryZhanzhu != null) {
             DaoBean.upNoSelected(inventoryZhanzhu.getCInvCCode(), inventoryZhanzhu.getCInvCode());
         }
-        List<Inventory> diPanInventorys2 = DaoBean.getInventoryLikeCCode("1511", celanban.getText(), ze_text);
+        List<Inventory> diPanInventorys2 = DaoBean.getInventoryLikeCCode("1511", celanban.getText(), ze_text,width,height);
         if (diPanInventorys2 != null && diPanInventorys2.size() != 0) {
         }
+        return true;
 
     }
 
@@ -729,92 +900,7 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
     }
 
     //监听牵引车
-    private TextWatcher watcher_qianyinche = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            Inventory qianyinche_cur = DaoBean.getSelectedInventoryLikeCCode("14");
-            if (qianyinche_cur != null) {
-                lidigao.setText(qianyinche_cur.getCInvStd());
-            }
-
-        }
-    };
-    //监听高度变化
-    private TextWatcher watcher_hgt = new TextWatcher() {
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-
-            //判断挂车样式为直或者鹅
-            String ze;
-            if (carStyle.getText().contains(zText)) {
-                ze = "Z";
-            } else {
-                ze = "E";
-            }
-            //根据高度、直梁（鹅颈）取出侧栏板样式
-            List<Inventory> cedangbanInventorys2 = DaoBean.getInventoryLikeCCode("020105", hit.getText(), ze);
-            celanban.setData(cedangbanInventorys2);
-            //根据高度、直梁（鹅颈）取出后门样式
-            List<Inventory> houmenInventorys2 = DaoBean.getInventoryLikeCCode("020106", hit.getText(), ze);
-            houmen.setData(houmenInventorys2);
-
-        }
-    };
-
-    private TextWatcher watcher_width = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-
-            //判断挂车样式为直或者鹅
-            String ze;
-            if (carStyle.getText().contains(zText)) {
-                ze = "Z";
-            } else {
-                ze = "E";
-            }
-            liangbaojiao.setText(wid.getText());
-            //根据宽度，直梁（鹅颈）取出W称样式
-            List<Inventory> wchengInventorys2 = DaoBean.getInventoryLikeCCode("0308", Integer.parseInt(wid.getText()) - 20 + "", ze);
-            wcheng1.setData(wchengInventorys2);
-            //根据宽度，直梁（鹅颈）取出底板样式
-            List<Inventory> dibanInventorys2 = DaoBean.getInventoryLikeCCode("1505", Integer.parseInt(wid.getText()) + "", ze);
-            diban.setData(dibanInventorys2);
-
-        }
-    };
-//    //监听边梁
-//    private TextWatcher watcher_bianliang = new TextWatcher() {
+//    private TextWatcher watcher_qianyinche = new TextWatcher() {
 //        @Override
 //        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 //
@@ -827,83 +913,48 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
 //
 //        @Override
 //        public void afterTextChanged(Editable s) {
-//            //边梁
-//            Inventory hgt_cur = DaoBean.getSelectedInventoryLikeCCode("1512");
-//            if (hgt_cur!=null){
-//                fangguan.setText(hgt_cur.getCInvStd());
+//            Inventory qianyinche_cur = DaoBean.getSelectedInventoryLikeCCode("14");
+//            if (qianyinche_cur != null) {
+//                lidigao.setText(qianyinche_cur.getCInvStd());
 //            }
 //
 //        }
 //    };
-
-    private TextWatcher watcher2 = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-
-          /*  List<Inventory> inventories = DaoBean.loadInventoryByCurrent();
-            if (inventories != null) {
-                for (Inventory inentory : inventories) {
-                    if (inentory.getCInvCCode() != null && inentory.getCInvCCode().equals("14")) {
-                        lidigao.setText(inentory.getCInvStd());
-                        break;
-                    }
-                }
-                for (Inventory inentory : inventories) {
-                    if (inentory.getCInvCCode() != null && inentory.getCInvCCode().equals("1512")) {
-                        fangguan.setText(inentory.getCInvStd());
-                        break;
-                    }
-
-                }
-            }*/
-
-
-            //判断挂车样式为直或者鹅
-            String ze;
-            if (carStyle.getText().contains(zText)) {
-                ze = "Z";
-            } else {
-                ze = "E";
-            }
-            liangbaojiao.setText(wid.getText());
-            //根据高度、直梁（鹅颈）取出侧栏板样式
-            List<Inventory> cedangbanInventorys2 = DaoBean.getInventoryLikeCCode("020105", hit.getText(), ze);
-            celanban.setData(cedangbanInventorys2);
-
-            /*//根据高度、直梁（鹅颈）取出后门样式
-            List<Inventory> houmenInventorys2 = DaoBean.getInventoryLikeCCode("020106", hit.getText(), ze);
-            houmen.setData(houmenInventorys2);*/
-
-           /* //根据宽度，直梁（鹅颈）取出W称样式
-            List<Inventory> wchengInventorys2 = DaoBean.getInventoryLikeCCode("0308", Integer.parseInt(wid.getText()) - 20 + "", ze);
-            wcheng1.setData(wchengInventorys2);
-            //根据宽度，直梁（鹅颈）取出底板样式
-            List<Inventory> dibanInventorys2 = DaoBean.getInventoryLikeCCode("1505", Integer.parseInt(wid.getText()) + "", ze);
-            diban.setData(dibanInventorys2);*/
-            //根据高度、直梁（鹅颈）取出龙门架样式
-
-//            List<Inventory> lmjInventorys2 = DaoBean.getInventoryLikeCCode("020104", hit.getText(), ze);
-
-//            List<Inventory> zzInventorys2 = DaoBean.getInventoryLikeCCode("020107", hit.getText(), ze);
-//            Inventory inventoryZhanzhu =getZhanZhuInventory(zzInventorys2);
-//            if (inventoryZhanzhu!=null){
-//                DaoBean.upNoSelected(inventoryZhwhcenganzhu.getCInvCCode(), inventoryZhanzhu.getCInvCode());
-//                Log.i("匹配站住",inventoryZhanzhu.getCInvName());
+    //监听高度变化
+//    private TextWatcher watcher_hgt = new TextWatcher() {
+//
+//        @Override
+//        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//        }
+//
+//        @Override
+//        public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//        }
+//
+//        @Override
+//        public void afterTextChanged(Editable s) {
+//
+//            //判断挂车样式为直或者鹅
+//            String ze;
+//            if (carStyle.getText().contains(zText)) {
+//                ze = "Z";
+//            } else {
+//                ze = "E";
 //            }
-//            List<Inventory> diPanInventorys2 = DaoBean.getInventoryLikeCCode("1511", celanban.getText(), ze);
+//            //根据高度、直梁（鹅颈）取出侧栏板样式
+//            List<Inventory> cedangbanInventorys2 = DaoBean.getInventoryLikeCCode("020105", hit.getText(), ze);
+//            celanban.setData(cedangbanInventorys2);
+//            //根据高度、直梁（鹅颈）取出后门样式
+//            List<Inventory> houmenInventorys2 = DaoBean.getInventoryLikeCCode("020106", hit.getText(), ze);
+//            houmen.setData(houmenInventorys2);
+//
+//        }
+//    };
 
-        }
-    };
+
+
     private TextWatcher watcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -923,6 +974,26 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
             }
             BigDecimal money = new BigDecimal(moneyStr);
             amtDx.setText(NumberToCN.number2CNMontrayUnit(money));
+        }
+    };
+    private CompoundButton.OnCheckedChangeListener isNewCheckListener = new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if (isChecked) {
+                huangyouzuiLayout.setVisibility(View.GONE);
+                outlinesizelayout.setVisibility(View.GONE);
+                houzhuanLayout.setVisibility(View.VISIBLE);
+                oldPriceLayout.setVisibility(View.GONE);
+                others.setVisibility(View.VISIBLE);
+
+
+            } else {
+                outlinesizelayout.setVisibility(View.VISIBLE);
+                huangyouzuiLayout.setVisibility(View.VISIBLE);
+                houzhuanLayout.setVisibility(View.GONE);
+                oldPriceLayout.setVisibility(View.VISIBLE);
+                others.setVisibility(View.GONE);
+            }
         }
     };
 
@@ -965,22 +1036,6 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
         return lmjInventoryResult;
     }
 
-//    private TextWatcher watcher = new TextWatcher() {
-//        @Override
-//        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//        }
-//
-//        @Override
-//        public void onTextChanged(CharSequence s, int start, int before, int count) {
-//
-//        }
-//
-//        @Override
-//        public void afterTextChanged(Editable s) {
-//
-//        }
-//    };
 
     /**
      * 监听数量变化
@@ -1000,10 +1055,9 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
             DaoBean.updateCounts("0308", wchengCounts - 9);
         } else if (carStyle.getText().contains(eText) && celanbanString.contains(ContractInputActivity.this.getResources().getString(R.string.xaida))) {
             DaoBean.updateCounts("0308", wchengCounts - 11);
-        }else{
-            DaoBean.updateCounts("0308", wchengCounts-10);
+        } else {
+            DaoBean.updateCounts("0308", wchengCounts - 10);
         }
-
 
         DaoBean.updateCounts("0413", jsqCounts);
         DaoBean.updateCounts("0405", gqCounts);
@@ -1019,22 +1073,32 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
      * @return
      */
     public boolean createBaseJsonData() {
-        dealWithData();
-        monitorEditNum();
-        isNewCar();
-        basic_info = new JSONObject();
         if (!TextUtils.isEmpty(judgeEdit())) {
             Toast.makeText(this, judgeEdit(), Toast.LENGTH_SHORT).show();
             return false;
         }
+        if (!dealWithData()){
+            return  false;
+        }
+        monitorEditNum();
+        isNewCar();
+        basic_info = new JSONObject();
+
         try {
-            basic_info.put("qianyinche", qianyinche.getText());
+            basic_info.put("customer", customer_bean.getName());
+            basic_info.put("mobile", customer_bean.getcCusHand());
+            basic_info.put("address", customer_bean.getcCusAddress());
+            basic_info.put("contractsMan", customer_bean.getcCusLPerson());
+            basic_info.put("huangyouzui", huangyouzui.getText().toString());
+            basic_info.put("endCustomerName", endCustomerName.getText().toString());
+            basic_info.put("endCustomerPhone", endCustomerPhone.getText().toString());
+            basic_info.put("qianyinche", qianyinche.getText().toString());
             basic_info.put("powerType", powerType.getText());
             basic_info.put("model", carStyle.getText());
             basic_info.put("car_long", len.getText());
             basic_info.put("car_width", wid.getText());
             basic_info.put("car_height", hit.getText());
-            basic_info.put("color", chexxiangColor.getText());//
+            basic_info.put("color", chexxiangColor.getText());
             basic_info.put("liang_color", daliangColor.getText());
             basic_info.put("booknum", num.getText().toString());
             basic_info.put("singleprice", price.getText().toString());
@@ -1085,6 +1149,22 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
             basic_info.put("sc_flag", 0);//生产审核标志
             basic_info.put("nq_flag", 0);//内勤审核标志
             basic_info.put("cDCName", area.getText());
+            basic_info.put("orderNumber", orderNumberEdit.getText());
+            basic_info.put("butterMouthHeight", huangyouzui.getText().toString());
+            basic_info.put("outlinesize", outlinesize.getText().toString());
+            basic_info.put("oldPrice", oldPrice.getText().toString());
+
+            if (carStyle.getText().contains("直")) {
+                basic_info.put("classCode", "0101");
+
+            } else {
+                basic_info.put("classCode", "0102");
+            }
+            if (!TextUtils.isEmpty(orderNumberEdit.getText())) {
+                basic_info.put("order_type", 1);
+            } else {
+                basic_info.put("order_type", 0);
+            }
             for (Area ar : areaList) {
                 if (ar.getcDCName().equals(area.getText())) {
                     cDCCode = ar.getcDCCode();
@@ -1129,6 +1209,18 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
      */
     private String judgeEdit() {
         String toastInfo = "";
+        if (TextUtils.isEmpty(qianyinche.getText().toString())) {
+            toastInfo = ContractInputActivity.this.getResources().getString(R.string.qinyinche);
+            return toastInfo;
+        }
+        if (TextUtils.isEmpty(endCustomerName.getText().toString())) {
+            toastInfo = ContractInputActivity.this.getResources().getString(R.string.endCustomerName);
+            return toastInfo;
+        }
+        if (TextUtils.isEmpty(endCustomerPhone.getText().toString())) {
+            toastInfo = ContractInputActivity.this.getResources().getString(R.string.endCustomerPhone);
+            return toastInfo;
+        }
         if (TextUtils.isEmpty(chexxiangColor.getText().toString())) {
             toastInfo = ContractInputActivity.this.getResources().getString(R.string.auditcolor);
             return toastInfo;
@@ -1180,6 +1272,21 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
             toastInfo = ContractInputActivity.this.getResources().getString(R.string.auditdleaveTime);
             return toastInfo;
         }
+        if (TextUtils.isEmpty(outlinesize.getText().toString())) {
+            if (!isNew.isChecked()) {
+                toastInfo = ContractInputActivity.this.getResources().getString(R.string.outlinesize);
+            }
+        }
+        if (TextUtils.isEmpty(huangyouzui.getText().toString())) {
+            if (!isNew.isChecked()) {
+                toastInfo = ContractInputActivity.this.getResources().getString(R.string.huangyouzuiTips);
+            }
+        }
+        if (TextUtils.isEmpty(oldPrice.getText().toString())) {
+            if (!isNew.isChecked()) {
+                toastInfo = ContractInputActivity.this.getResources().getString(R.string.oldWeightTips);
+            }
+        }
 
         return toastInfo;
     }
@@ -1187,9 +1294,9 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
 
     private void isNewCar() {
         if (isNew.isChecked()) {
-            DaoBean.getInventoryLikeCCode("1506", this.getResources().getString(R.string.newCar), null);
+            DaoBean.getInventoryLikeCCode("1506", this.getResources().getString(R.string.newCar), null,null,null);
         } else {
-            DaoBean.getInventoryLikeCCode("1506", this.getResources().getString(R.string.zhihuan), null);
+            DaoBean.getInventoryLikeCCode("1506", this.getResources().getString(R.string.zhihuan), null,null,null);
         }
     }
 
@@ -1242,6 +1349,5 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
         dialog.show();
 
     }
-
 
 }

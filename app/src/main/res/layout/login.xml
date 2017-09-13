@@ -4,6 +4,11 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     android:background="@color/gery_90">
+    <TextView
+        android:id="@+id/test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
     <ImageView
         android:id="@+id/logo"
         android:layout_width="180dp"

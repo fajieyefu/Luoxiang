@@ -86,13 +86,13 @@
     <string name="houxuan">\n后传半径:</string>
     <string name="qianxuan">前悬:</string>
     <string name="zhongxinju">\n中心距:</string>
-    <string name="qianyinzuo">牵引座:</string>
+    <string name="qianyinzuo">\n牵引座:</string>
     <string name="liangbaojiao">量包角:</string>
     <string name="fangguan">\n方管:</string>
-    <string name="paiti">根,爬梯:</string>
-    <string name="xiaokuang">" 小框:"</string>
+    <string name="paiti">  爬梯:</string>
+    <string name="xiaokuang"> 小框:</string>
     <string name="counts">数量:</string>
-    <string name="shuibaokong">,水包空:</string>
+    <string name="shuibaokong">\n水包空:</string>
     <string name="ge">个</string>
     <string name="historyOrder">历史订单</string>
     <string name="historyDetals">历史订单详情</string>
@@ -108,6 +108,13 @@
     <string name="luoxiangqiche">锣响汽车</string>
     <string name="newsOrderAudited">您有新的订单消息</string>
     <string name="waitingAuditResult">等待申请结果</string>
+    <string name="endCustomerName">“请填写终端客户名称”</string>
+    <string name="endCustomerPhone">\"请填写终端客户联系方式\"</string>
+    <string name="qinyinche">请输入牵引车</string>
+    <string name="huangyouzui">黄油嘴到地面:</string>
+    <string name="outlinesize">请填写行车证外形尺寸</string>
+    <string name="huangyouzuiTips">请填写黄油嘴</string>
+    <string name="oldWeightTips">请填写旧车斗单价</string>
 
     <string-array name="power_type">
         <item>油</item>
@@ -153,6 +160,7 @@
     <string-array name="fangshuicao">
         <item>内</item>
         <item>外</item>
+        <item>无</item>
     </string-array>
     <string-array name="model">
         <item>16直梁</item>
@@ -178,5 +186,23 @@
         <item>2000</item>
         <item>2100</item>
         <item>2200</item>
+        <item>2400</item>
+        <item>无栏板</item>
+    </string-array>
+    <string-array name="houmen" >
+        <item>下打上两层分体侧开式后门</item>
+        <item>对开半封式后门</item>
+        <item>下打上田字格侧开式后门</item>
+        <item>对开全封式后门</item>
+        <item>下打上两层连体侧开式后门</item>
+        <item>三开门</item>
+    </string-array>
+
+    <string-array name="celanban">
+        <item>6节下打，上两层分体对开</item>
+        <item>6节下打，田字格对开</item>
+        <item>6节下打，上两层连体对开</item>
+        <item>一体对开，内置锁杆</item>
+        <item>一体对开，外置锁杆</item>
     </string-array>
 </resources>

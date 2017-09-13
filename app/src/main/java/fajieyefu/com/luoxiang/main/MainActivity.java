@@ -51,7 +51,6 @@ public class MainActivity extends BaseActivity {
     }
 
     private void startService() {
-        //开启任务监听喝水动态
         TimerTask task = new TimerTask() {
             public void run() {
                 Intent intent = new Intent(MainActivity.this, UpdateCheckNews.class);

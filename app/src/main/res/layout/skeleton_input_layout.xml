@@ -58,6 +58,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="" />
+
                     <TextView
                         style="@style/tv_16sp_black"
                         android:layout_width="wrap_content"
@@ -106,6 +107,7 @@
                         android:layout_weight="1"
                         android:text="" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -123,14 +125,14 @@
                         android:layout_width="0dp"
                         android:layout_height="30dp"
                         android:layout_weight="1"
+                        android:background="@drawable/edit_input"
                         android:gravity="center_vertical"
                         android:paddingLeft="2dp"
-                        android:background="@drawable/edit_input"
                         android:textColor="@color/black" />
 
 
-
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -149,10 +151,10 @@
                         android:layout_width="0dp"
                         android:layout_height="30dp"
                         android:layout_weight="1"
+                        android:background="@drawable/edit_input"
                         android:gravity="center_vertical"
                         android:paddingLeft="2dp"
                         android:text=""
-                        android:background="@drawable/edit_input"
                         android:textColor="@color/black" />
 
 
@@ -188,8 +190,8 @@
                         android:id="@+id/isNew"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:checked="true"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"
+                        android:checked="true" />
 
 
                 </LinearLayout>
@@ -214,7 +216,7 @@
 
                     <LinearLayout style="@style/contratInputLayoutContent">
 
-                        <!--<fajieyefu.com.luoxiang.layout.MySpinnerForFree
+                        <!--<fajieyefu.com.luoxiang.layout.MySpinnerForInventry
                             android:id="@+id/qianyinche"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
@@ -223,10 +225,10 @@
                         <EditText
                             android:id="@+id/qianyinche"
                             android:layout_width="0dp"
-                            android:textSize="16sp"
-                            android:layout_weight="1"
                             android:layout_height="match_parent"
-                            android:gravity="center_vertical"/>
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:textSize="16sp" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -296,7 +298,7 @@
 
                         <TextView
                             style="@style/contratInputLayoutTitle"
-                            android:text="*挂车样式：" />
+                            android:text="*车型：" />
 
                         <fajieyefu.com.luoxiang.layout.MySpinnerForFree
                             android:id="@+id/carStyle"
@@ -309,44 +311,21 @@
                         android:layout_weight="2">
 
                         <TextView
+                            android:id="@+id/textView"
                             style="@style/contratInputLayoutTitle"
-                            android:text="*规格型号："
-                            android:id="@+id/textView" />
+                            android:text="*产品型号：" />
 
                         <LinearLayout style="@style/contratInputLayoutContent">
 
-                            <fajieyefu.com.luoxiang.layout.MySpinnerForFree
-                                android:id="@+id/len"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:gravity="center" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:gravity="center"
-                                android:text="*" />
-
-                            <fajieyefu.com.luoxiang.layout.MySpinnerForFree
+                            <fajieyefu.com.luoxiang.layout.MySpinnerForInventry
                                 android:id="@+id/wid"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:gravity="center" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:gravity="center"
-                                android:text="*" />
 
-                            <fajieyefu.com.luoxiang.layout.MySpinnerForFree
-                                android:id="@+id/hit"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:gravity="center" />
                         </LinearLayout>
 
                     </LinearLayout>
@@ -417,10 +396,10 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:hint="数量"
-                                android:maxLines="1"
-                                android:text="1"
-                                android:singleLine="true"
                                 android:inputType="number"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:text="1"
                                 android:textColor="@color/black"
                                 android:textSize="12sp" />
 
@@ -435,9 +414,9 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:hint="单价"
-                                android:singleLine="true"
                                 android:inputType="number"
                                 android:maxLines="1"
+                                android:singleLine="true"
                                 android:textColor="@color/black"
                                 android:textSize="12sp" />
 
@@ -452,32 +431,9 @@
                     android:layout_marginTop="6dp"
                     android:text="二、上述车辆买受人选装以下配置（单位为mm）"
                     android:textSize="16sp" />
-                <LinearLayout
-                    android:id="@+id/outlinesizelayout"
-                    style="@style/contratInputLayout_h"
-                    android:visibility="gone">
-                    <TextView
-                        style="@style/contratInputLayoutTitle_h"
-                        android:text="*行车证\n外形尺寸" />
-
-                    <LinearLayout
-                        style="@style/contratInputLayoutContent"
-                        android:layout_height="match_parent">
-
-                        <EditText
-                            android:hint="请填写行车证外形尺寸"
-                            android:id="@+id/outlinesize"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:singleLine="true"
-                            android:gravity="center_vertical"
-                            />
-                    </LinearLayout>
-
-
-                </LinearLayout>
 
                 <LinearLayout style="@style/contratInputLayout_h">
+
                     <TextView
                         style="@style/contratInputLayoutTitle_h"
                         android:text="*车架" />
@@ -492,7 +448,7 @@
                             android:gravity="center"
                             android:text="上:" />
 
-                        <fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory
+                        <fajieyefu.com.luoxiang.layout.MySpinnerForInventry
                             android:id="@+id/up"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
@@ -505,7 +461,7 @@
                             android:gravity="center"
                             android:text="下:" />
 
-                        <fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory
+                        <fajieyefu.com.luoxiang.layout.MySpinnerForInventry
                             android:id="@+id/down"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
@@ -518,88 +474,12 @@
                             android:gravity="center"
                             android:text="立:" />
 
-                        <fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory
+                        <fajieyefu.com.luoxiang.layout.MySpinnerForInventry
                             android:id="@+id/mid"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center" />
-                    </LinearLayout>
-
-
-                </LinearLayout>
-
-                <LinearLayout style="@style/contratInputLayout_h">
-
-                    <TextView
-                        style="@style/contratInputLayoutTitle_h"
-                        android:text="牵引车" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:paddingLeft="2dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:text="*离地高：" />
-
-                        <EditText
-                            android:id="@+id/lidigao"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:inputType="number"
-                            android:singleLine="true"
-                            android:maxLines="1" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:visibility="visible"
-                        android:id="@+id/houzhuan_layout"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:paddingLeft="2dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:text="后转半径：" />
-
-                        <EditText
-                            android:id="@+id/hzbj"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:inputType="number"
-                            android:singleLine="true"
-                            android:maxLines="1" />
-
-                    </LinearLayout>
-                    <LinearLayout
-                        android:id="@+id/huangyouzui_layout"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:visibility="gone"
-                        android:layout_weight="1"
-                        android:paddingLeft="2dp">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:text="黄油嘴到\n地面高度：" />
-
-                        <EditText
-                            android:id="@+id/huangyouzui"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:inputType="number"
-                            android:singleLine="true"
-                            android:maxLines="1" />
                     </LinearLayout>
 
 
@@ -628,30 +508,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:inputType="number"
-                            android:singleLine="true"
-                            android:maxLines="1" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:paddingLeft="2dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:text="中心距：" />
-
-                        <EditText
-                            android:id="@+id/zhongxinju"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:inputType="number"
-                            android:singleLine="true"
-                            android:maxLines="1" />
+                            android:maxLines="1"
+                            android:singleLine="true" />
 
                     </LinearLayout>
 
@@ -664,53 +522,21 @@
                         style="@style/contratInputLayoutTitle_h"
                         android:text="*牵引销" />
 
-                    <fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory
+                    <fajieyefu.com.luoxiang.layout.MySpinnerForInventry
                         android:id="@+id/qianyinxiao"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory>
+                        android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForInventry>
 
-                    <TextView
-                        style="@style/contratInputLayoutTitle_h"
-                        android:text="*牵引座" />
-
-                    <fajieyefu.com.luoxiang.layout.MySpinnerForFree
-                        android:id="@+id/qianyinzuo"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForFree>
-                </LinearLayout>
-
-                <LinearLayout style="@style/contratInputLayout_h">
-
-                    <TextView
-                        style="@style/contratInputLayoutTitle_h"
-                        android:text="*板簧" />
-
-                    <fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory
-                        android:id="@+id/banhuang"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory>
-
-                    <TextView
-                        style="@style/contratInputLayoutTitle_h"
-                        android:text="*边梁" />
-
-                    <fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory
-                        android:id="@+id/bianliang"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory>
                 </LinearLayout>
 
                 <LinearLayout
                     style="@style/contratInputLayout_h"
-                    android:layout_height="80dp">
+                    android:layout_height="100dp">
 
                     <TextView
                         style="@style/contratInputLayoutTitle_h"
-                        android:text="*贯穿梁" />
+                        android:text="牵引车" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -722,68 +548,131 @@
                             android:layout_height="0dp"
                             android:layout_weight="1">
 
-                            <fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory
-                                android:id="@+id/wcheng1"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory>
-
-                            <TextView
-                                style="@style/contratInputLayoutTitle_h"
-                                android:text="数量" />
-
-                            <EditText
-                                android:id="@+id/wcheng_num"
+                            <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:inputType="number"
-                                android:textSize="12sp"
-                                android:singleLine="true"
-                                android:maxLines="1">
-                            </EditText>
+                                android:paddingLeft="2dp">
 
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:text="*离地高：" />
+
+                                <EditText
+                                    android:id="@+id/lidigao"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:inputType="number"
+                                    android:maxLines="1"
+                                    android:singleLine="true" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/houzhuan_layout"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:paddingLeft="2dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:text="后转半径：" />
+
+                                <EditText
+                                    android:id="@+id/hzbj"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:inputType="number"
+                                    android:maxLines="1"
+                                    android:singleLine="true" />
+
+                            </LinearLayout>
                         </LinearLayout>
-
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="2dp"
-                            android:background="@color/grey" />
-
-                        <EditText
-                            android:id="@+id/wcheng2"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:hint="贯穿梁备注"
-                            android:singleLine="true"
-                            android:textSize="12sp" />
+                            android:layout_weight="1">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:paddingLeft="2dp"
+                                >
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:text="前回转空间：" />
+
+                                <EditText
+                                    android:id="@+id/qianhuizhuan"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:inputType="number"
+                                    android:maxLines="1"
+                                    android:singleLine="true" />
+                            </LinearLayout>
+                        </LinearLayout>
                     </LinearLayout>
 
 
+
+
                 </LinearLayout>
+
 
                 <LinearLayout style="@style/contratInputLayout_h">
 
                     <TextView
                         style="@style/contratInputLayoutTitle_h"
-                        android:text="*防水槽" />
+                        android:text="*板簧" />
 
-                    <fajieyefu.com.luoxiang.layout.MySpinnerForFree
-                        android:id="@+id/fangshuicao"
+                    <fajieyefu.com.luoxiang.layout.MySpinnerForInventry
+                        android:id="@+id/banhuang"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForFree>
+                        android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForInventry>
 
                     <TextView
                         style="@style/contratInputLayoutTitle_h"
-                        android:text="*车厢底板" />
+                        android:text="*挡泥板" />
 
-                    <fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory
+                    <fajieyefu.com.luoxiang.layout.MySpinnerForInventry
+                        android:id="@+id/fender"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForInventry>
+                </LinearLayout>
+
+
+                <LinearLayout style="@style/contratInputLayout_h">
+
+                    <TextView
+                        style="@style/contratInputLayoutTitle_h"
+                        android:text="*继动阀" />
+
+                    <fajieyefu.com.luoxiang.layout.MySpinnerForInventry
+                        android:id="@+id/relayValve"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForInventry>
+
+                    <TextView
+                        style="@style/contratInputLayoutTitle_h"
+                        android:text="*储气筒" />
+
+                    <fajieyefu.com.luoxiang.layout.MySpinnerForInventry
                         android:id="@+id/diban"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory>
+                        android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForInventry>
                 </LinearLayout>
 
                 <LinearLayout style="@style/contratInputLayout_h">
@@ -809,8 +698,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:inputType="number"
-                            android:singleLine="true"
-                            android:maxLines="1" />
+                            android:maxLines="1"
+                            android:singleLine="true" />
 
                     </LinearLayout>
 
@@ -852,11 +741,11 @@
                         android:layout_height="match_parent"
                         android:orientation="vertical">
 
-                        <fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory
+                        <fajieyefu.com.luoxiang.layout.MySpinnerForInventry
                             android:id="@+id/celanban"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory>
+                            android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForInventry>
 
                         <ImageView
                             android:layout_width="match_parent"
@@ -869,8 +758,8 @@
                             android:layout_height="0dp"
                             android:layout_weight="1"
                             android:hint="侧栏板备注"
-                            android:singleLine="true"
                             android:maxLines="1"
+                            android:singleLine="true"
                             android:textSize="12sp" />
                     </LinearLayout>
 
@@ -890,11 +779,11 @@
                         android:layout_height="match_parent"
                         android:orientation="vertical">
 
-                        <fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory
+                        <fajieyefu.com.luoxiang.layout.MySpinnerForInventry
                             android:id="@+id/houmen"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory>
+                            android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForInventry>
 
                         <ImageView
                             android:layout_width="match_parent"
@@ -907,8 +796,8 @@
                             android:layout_height="0dp"
                             android:layout_weight="1"
                             android:hint="后门备注"
-                            android:singleLine="true"
                             android:maxLines="1"
+                            android:singleLine="true"
                             android:textSize="12sp" />
                     </LinearLayout>
 
@@ -922,11 +811,11 @@
                         android:layout_width="50dp"
                         android:text="*蓬杆" />
 
-                    <fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory
+                    <fajieyefu.com.luoxiang.layout.MySpinnerForInventry
                         android:id="@+id/penggan"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory>
+                        android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForInventry>
 
                     <TextView
                         style="@style/contratInputLayoutTitle_h"
@@ -944,11 +833,11 @@
                         android:layout_width="50dp"
                         android:text="*小框" />
 
-                    <fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory
+                    <fajieyefu.com.luoxiang.layout.MySpinnerForInventry
                         android:id="@+id/xiaokuang"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory>
+                        android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForInventry>
 
                 </LinearLayout>
 
@@ -1016,7 +905,7 @@
                             android:gravity="center"
                             android:text="左：" />
 
-                        <fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory
+                        <fajieyefu.com.luoxiang.layout.MySpinnerForInventry
                             android:id="@+id/gjx_left"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" />
@@ -1035,10 +924,10 @@
                             android:gravity="center"
                             android:text="右：" />
 
-                        <fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory
+                        <fajieyefu.com.luoxiang.layout.MySpinnerForInventry
                             android:id="@+id/gjx_right"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"></fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory>
+                            android:layout_height="match_parent"></fajieyefu.com.luoxiang.layout.MySpinnerForInventry>
 
                     </LinearLayout>
 
@@ -1074,11 +963,11 @@
                         style="@style/contratInputLayoutTitle_h"
                         android:text="*ABS" />
 
-                    <fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory
+                    <fajieyefu.com.luoxiang.layout.MySpinnerForInventry
                         android:id="@+id/abs"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory>
+                        android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForInventry>
 
 
                     <TextView
@@ -1090,8 +979,8 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:singleLine="true"
-                        android:maxLines="1"></EditText>
+                        android:maxLines="1"
+                        android:singleLine="true"></EditText>
                 </LinearLayout>
 
                 <LinearLayout style="@style/contratInputLayout_h">
@@ -1100,15 +989,15 @@
                         style="@style/contratInputLayoutTitle_h"
                         android:text="*钢圈" />
 
-                    <fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory
+                    <fajieyefu.com.luoxiang.layout.MySpinnerForInventry
                         android:id="@+id/gangquan"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory>
+                        android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForInventry>
 
                     <TextView
-                        android:layout_height="match_parent"
                         android:layout_width="100dp"
+                        android:layout_height="match_parent"
                         android:gravity="center"
                         android:text="数量(个):" />
 
@@ -1118,8 +1007,8 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:inputType="number"
-                        android:singleLine="true"
-                        android:maxLines="1"></EditText>
+                        android:maxLines="1"
+                        android:singleLine="true"></EditText>
                 </LinearLayout>
 
                 <LinearLayout style="@style/contratInputLayout_h">
@@ -1128,15 +1017,15 @@
                         style="@style/contratInputLayoutTitle_h"
                         android:text="*轮胎" />
 
-                    <fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory
+                    <fajieyefu.com.luoxiang.layout.MySpinnerForInventry
                         android:id="@+id/luntai"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory>
+                        android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForInventry>
 
                     <TextView
-                        android:layout_height="match_parent"
                         android:layout_width="100dp"
+                        android:layout_height="match_parent"
                         android:gravity="center"
                         android:text="数量(个)" />
 
@@ -1146,8 +1035,8 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:inputType="number"
-                        android:singleLine="true"
-                        android:maxLines="1"></EditText>
+                        android:maxLines="1"
+                        android:singleLine="true"></EditText>
                 </LinearLayout>
 
                 <LinearLayout
@@ -1159,11 +1048,11 @@
                         style="@style/contratInputLayoutTitle_h"
                         android:text="*车轴" />
 
-                    <fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory
+                    <fajieyefu.com.luoxiang.layout.MySpinnerForInventry
                         android:id="@+id/chezhou"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory>
+                        android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForInventry>
 
                 </LinearLayout>
 
@@ -1194,52 +1083,11 @@
                         android:text="备注" />
 
                     <TextView
-                        android:id="@+id/others"
-
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:padding="2dp"
                         android:text="@string/beizhu" />
-                    <LinearLayout
-                        android:id="@+id/oldPriceLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        android:orientation="vertical"
-                        >
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="2dp"
-                            android:text="不带前支腿、备胎升降器、刹车阀！" />
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:padding="2dp"
-                                android:text="旧车斗" />
-                            <EditText
-                                android:id="@+id/oldPrice"
-                                android:background="@drawable/edit_input"
-                                android:layout_width="80dp"
-                                android:singleLine="true"
-                                android:hint=""
-                                android:layout_height="wrap_content" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:padding="2dp"
-                                android:text="元/吨。去除200kg杂质" />
-                        </LinearLayout>
-
-
-
-
-                    </LinearLayout>
-
 
                 </LinearLayout>
 
@@ -1259,7 +1107,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:checked="true"/>
+                        android:checked="true" />
 
                     <TextView
                         style="@style/tv_16sp_black"
@@ -1389,30 +1237,25 @@
                     <CheckBox
                         android:id="@+id/urgent"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                         />
-                    <LinearLayout
-                        android:visibility="gone"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-                        <TextView
-                            style="@style/tv_16sp_black"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:text="订单号：" />
+                        android:layout_height="wrap_content" />
 
-                        <EditText
-                            android:id="@+id/orderNumber"
-                            style="@style/tv_12sp_MyOrange"
-                            android:layout_width="0dp"
-                            android:layout_height="28dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/edit_input"
-                            android:inputType="number"
-                            android:maxLines="1"
-                            android:padding="5dp" />
-                    </LinearLayout>
+                    <TextView
+                        style="@style/tv_16sp_black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="订单号：" />
+
+                    <EditText
+                        android:id="@+id/orderNumber"
+                        style="@style/tv_12sp_MyOrange"
+                        android:layout_width="0dp"
+                        android:layout_height="28dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_input"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:padding="5dp" />
 
                 </LinearLayout>
 

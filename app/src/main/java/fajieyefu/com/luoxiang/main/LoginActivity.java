@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -22,9 +23,9 @@ import de.greenrobot.dao.query.QueryBuilder;
 import fajieyefu.com.luoxiang.R;
 import fajieyefu.com.luoxiang.bean.ReponseBean;
 import fajieyefu.com.luoxiang.bean.UserInfo;
+import fajieyefu.com.luoxiang.dao.UserInfoDao;
 import fajieyefu.com.luoxiang.data.CommonData;
 import fajieyefu.com.luoxiang.db.DaoSession;
-import fajieyefu.com.luoxiang.dao.UserInfoDao;
 import fajieyefu.com.luoxiang.util.DaoManager;
 import fajieyefu.com.luoxiang.util.MyCallback;
 import okhttp3.Call;
@@ -43,6 +44,8 @@ public class LoginActivity extends BaseActivity {
     Button login;
     @BindView(R.id.checkbox)
     CheckBox checkbox;
+    @BindView(R.id.test)
+    TextView test;
     private DaoSession daoSession;
     private UserInfoDao userInfoDao;
     private UserInfo userInfo;
@@ -56,17 +59,19 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void initData() {
-        daoSession= DaoManager.getInstance().getDaoSession();
+        daoSession = DaoManager.getInstance().getDaoSession();
         userInfoDao = daoSession.getUserInfoDao();
-         userInfo = getInfoById(1);
-        if (userInfo!=null){
+        userInfo = getInfoById(1);
+        if ( userInfo!=null&&userInfo.getUsername() != null) {
             username.setText(userInfo.getUsername());
-            if (userInfo.getRembPsw()==true){
+            if (userInfo.getRembPsw() == true) {
                 password.setText(userInfo.getPassword());
+                checkbox.setChecked(true);
             }
         }
 
     }
+
     public UserInfo getInfoById(long id) {
         QueryBuilder<UserInfo> queryBuilder = userInfoDao.queryBuilder().where(UserInfoDao.Properties.Id.eq(id));
         Query query = queryBuilder.build();
@@ -102,14 +107,14 @@ public class LoginActivity extends BaseActivity {
 
         @Override
         public void onResponse(ReponseBean response, int id) {
-            if (response.getCode()==0){
-                userInfo= new UserInfo();
-                userInfo.setId((long)1);
+            if (response.getCode() == 0) {
+                userInfo = new UserInfo();
+                userInfo.setId((long) 1);
                 userInfo.setUsername(username.getText().toString());
                 userInfo.setPassword(password.getText().toString());
-                if (checkbox.isChecked()){
+                if (checkbox.isChecked()) {
                     userInfo.setRembPsw(true);
-                }else{
+                } else {
                     userInfo.setRembPsw(false);
                 }
                 userInfoDao.deleteAll();
@@ -118,7 +123,7 @@ public class LoginActivity extends BaseActivity {
                 startActivity(intent);
                 finish();
 
-            }else{
+            } else {
                 Toast.makeText(LoginActivity.this, response.getMsg(), Toast.LENGTH_SHORT).show();
             }
 

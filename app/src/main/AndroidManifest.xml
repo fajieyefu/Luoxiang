@@ -21,31 +21,49 @@
         android:theme="@style/AppTheme">
         <service android:name=".service.UpdateCheckNews"/>
         <receiver android:name=".receiver.AutoUpdateReceiver"/>
-        <activity android:name=".main.ShanpingActivity">
+        <activity android:name=".main.ShanpingActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".main.LoginActivity">
+        <activity android:name=".main.LoginActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".main.MainActivity" />
-        <activity android:name=".main.ContractAuditActivity" />
-        <activity android:name=".main.HistoryActivity"/>
-        <activity android:name=".main.ModifyActivity"/>
-        <activity android:name=".main.ContractInputPage1"/>
-        <activity android:name=".main.ContractInputActivity"/>
-        <activity android:name=".main.HistorySelectedActivity"/>
-        <activity android:name=".main.ContractAuditDetailsActivity"/>
-        <activity android:name=".main.HistoryDetailsActivity"/>
-        <activity android:name=".main.ContractAnlysisActivity"/>
-        <activity android:name=".main.StockCarListActivity"/>
-        <activity android:name=".main.StockCarDetailsActivity"/>
-        <activity android:name=".main.CustomerSelectActivity"/>
-        <activity android:name=".main.StockContractInputActivity"/>
-        <activity android:name=".main.AddCustomerActivity"/>
-        <activity android:name=".main.ContractPreviewActivity"/>
+        <activity android:name=".main.MainActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".main.ContractAuditActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".main.HistoryActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".main.ModifyActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".main.ContractInputPage1"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".main.ContractInputActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".main.HistorySelectedActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".main.ContractAuditDetailsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".main.HistoryDetailsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".main.ContractAnlysisActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".main.StockCarListActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".main.StockCarDetailsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".main.CustomerSelectActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".main.StockContractInputActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".main.AddCustomerActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".main.ContractPreviewActivity"
+            android:screenOrientation="portrait"/>
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.provider"
