@@ -11,7 +11,7 @@ import de.greenrobot.daogenerator.Schema;
  */
 
 public class ExampleDaoGenerator {
-	public static String OUT_DIR = "G:\\Yundiandao\\Luoxiang_kucun\\app\\src\\main\\java-gen";
+	public static String OUT_DIR = "G:\\Yundiandao\\luoxiang\\luoxiang\\app\\src\\main\\java-gen";
 	private static void addTaskDetails(Schema schema){
 		//用户信息类
 		Entity entity=schema.addEntity("UserInfo");
@@ -43,6 +43,7 @@ public class ExampleDaoGenerator {
 		inventory.addStringProperty("u8code");//U8中的编码，不需要处理
 		inventory.addIntProperty("styleflag");//所属bom表示
 		inventory.addIntProperty("iSupplyType");//供应类型
+		inventory.addStringProperty("cInvDefine1");//u8中自定义项站柱和挡板匹配
 		//记录审批的次数
 		Entity auditCount = schema.addEntity("AuditCount") ;
 		auditCount.addIdProperty();

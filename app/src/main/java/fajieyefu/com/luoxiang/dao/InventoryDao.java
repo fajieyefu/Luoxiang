@@ -39,6 +39,7 @@ public class InventoryDao extends AbstractDao<Inventory, Long> {
         public final static Property U8code = new Property(12, String.class, "u8code", false, "U8CODE");
         public final static Property Styleflag = new Property(13, Integer.class, "styleflag", false, "STYLEFLAG");
         public final static Property ISupplyType = new Property(14, Integer.class, "iSupplyType", false, "I_SUPPLY_TYPE");
+        public final static Property CInvDefine1 = new Property(15, String.class, "cInvDefine1", false, "C_INV_DEFINE1");
     };
 
 
@@ -68,7 +69,8 @@ public class InventoryDao extends AbstractDao<Inventory, Long> {
                 "'C_INV_STD' TEXT," + // 11: cInvStd
                 "'U8CODE' TEXT," + // 12: u8code
                 "'STYLEFLAG' INTEGER," + // 13: styleflag
-                "'I_SUPPLY_TYPE' INTEGER);"); // 14: iSupplyType
+                "'I_SUPPLY_TYPE' INTEGER," + // 14: iSupplyType
+                "'C_INV_DEFINE1' TEXT);"); // 15: cInvDefine1
     }
 
     /** Drops the underlying database table. */
@@ -156,6 +158,11 @@ public class InventoryDao extends AbstractDao<Inventory, Long> {
         if (iSupplyType != null) {
             stmt.bindLong(15, iSupplyType);
         }
+ 
+        String cInvDefine1 = entity.getCInvDefine1();
+        if (cInvDefine1 != null) {
+            stmt.bindString(16, cInvDefine1);
+        }
     }
 
     /** @inheritdoc */
@@ -182,7 +189,8 @@ public class InventoryDao extends AbstractDao<Inventory, Long> {
             cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // cInvStd
             cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // u8code
             cursor.isNull(offset + 13) ? null : cursor.getInt(offset + 13), // styleflag
-            cursor.isNull(offset + 14) ? null : cursor.getInt(offset + 14) // iSupplyType
+            cursor.isNull(offset + 14) ? null : cursor.getInt(offset + 14), // iSupplyType
+            cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15) // cInvDefine1
         );
         return entity;
     }
@@ -205,6 +213,7 @@ public class InventoryDao extends AbstractDao<Inventory, Long> {
         entity.setU8code(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
         entity.setStyleflag(cursor.isNull(offset + 13) ? null : cursor.getInt(offset + 13));
         entity.setISupplyType(cursor.isNull(offset + 14) ? null : cursor.getInt(offset + 14));
+        entity.setCInvDefine1(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
      }
     
     /** @inheritdoc */

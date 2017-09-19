@@ -64,6 +64,12 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".main.ContractPreviewActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".main.SkeletonContractInput"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".main.SkeletonPreviewActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".main.HistorySkeletonDetailsActivity"
+            android:screenOrientation="portrait"/>
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.provider"

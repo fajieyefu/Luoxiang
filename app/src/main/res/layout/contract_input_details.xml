@@ -1359,6 +1359,10 @@
                         android:layout_weight="1"
                         android:background="@drawable/edit_input"
                         android:padding="5dp" />
+                    </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp">
 
                     <TextView
                         style="@style/tv_16sp_black"

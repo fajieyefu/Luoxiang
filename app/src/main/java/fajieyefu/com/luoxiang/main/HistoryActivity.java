@@ -66,8 +66,13 @@ public class HistoryActivity extends BaseActivity implements XListView.IXListVie
         historyLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent  = new Intent(HistoryActivity.this,HistoryDetailsActivity.class);
                 int orderId = contracts.get(position-1).getOrderId();
+                Intent intent = new Intent();
+                if ( contracts.get(position-1).getIsSkeleton()==1){
+                    intent.setClass(HistoryActivity.this,SkeletonPreviewActivity.class);
+                }else{
+                    intent.setClass(HistoryActivity.this,HistoryDetailsActivity.class);
+                }
                 intent.putExtra("orderId",orderId);
                 intent.putExtra("dpc",contracts.get(position-1).getDpc());
                 intent.putExtra("dtc",contracts.get(position-1).getDdtc());

@@ -63,6 +63,7 @@ public class ContractInputPage1 extends BaseActivity {
     private UserInfoDao userInfoDao;
     private UserInfo userInfo;
     private ToolUtil toolUtil;
+    private String standardName;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -133,6 +134,7 @@ public class ContractInputPage1 extends BaseActivity {
 
     private void getStandardsData() {
         String standardId = pickBiaozhun.getSelected_code();
+        standardName=pickBiaozhun.getSelected_name();
         String cCusCode = pickCustom.getSelected_code();
         String username = DaoBean.getUseInfoById(1).getUsername();
         String password = DaoBean.getUseInfoById(1).getPassword();
@@ -211,7 +213,12 @@ public class ContractInputPage1 extends BaseActivity {
                     }
                 }
                 toolUtil.dismissProgressDialog();
-                Intent intent = new Intent(ContractInputPage1.this, ContractInputActivity.class);
+                Intent intent = new Intent();
+                if (standardName.contains("骨架车")){
+                    intent.setClass(ContractInputPage1.this,SkeletonContractInput.class);
+                }else{
+                    intent.setClass(ContractInputPage1.this,ContractInputActivity.class);
+                }
                 intent.putExtra("customer", response.getData().customer);
                 intent.putExtra("area", (Serializable) response.getData().area);
                 startActivity(intent);

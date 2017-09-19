@@ -62,6 +62,9 @@ public class MySpinner extends LinearLayout {
         public String getSelected_code(){
             return selected_code;
         }
+        public String getSelected_name(){
+        return spinnerText.getText().toString();
+    }
         private class MyOnClickListener implements OnClickListener {
             @Override
             public void onClick(View v) {

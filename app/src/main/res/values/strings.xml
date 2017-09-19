@@ -53,7 +53,7 @@
     <string name="confirm">确定</string>
     <string name="z">直</string>
     <string name="e">鹅</string>
-    <string name="orderInput">合同信息录入</string>
+    <string name="orderInput">栏板车合同录入</string>
     <string name="ej">鹅颈</string>
     <string name="zl">直梁</string>
     <string name="tianzhige">田字格</string>
@@ -205,4 +205,24 @@
         <item>一体对开，内置锁杆</item>
         <item>一体对开，外置锁杆</item>
     </string-array>
+    <string-array name="productListArray">
+        <item>20尺</item>
+        <item>40尺</item>
+        <item>45尺</item>
+        <item>48尺</item>
+    </string-array>
+    <string-array name="axisCounts">
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+    <string-array name="carStyleArray">
+        <item>直梁</item>
+        <item>大鹅颈</item>
+        <item>小鹅颈</item>
+    </string-array>
+    <string-array name="xiehuo" >
+        <item>有</item>
+        <item>无</item>
+    </string-array>
+
 </resources>

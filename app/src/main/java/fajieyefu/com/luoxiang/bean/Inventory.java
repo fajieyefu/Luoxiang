@@ -21,6 +21,7 @@ public class Inventory {
     private String u8code;
     private Integer styleflag;
     private Integer iSupplyType;
+    private String cInvDefine1;
 
     public Inventory() {
     }
@@ -29,7 +30,7 @@ public class Inventory {
         this.id = id;
     }
 
-    public Inventory(Long id, String cInvCCode, String cInvCode, String cInvName, String deMoney, String realMoney, String counts, Float weight, String classId, String standardId, Integer isCurrent, String cInvStd, String u8code, Integer styleflag, Integer iSupplyType) {
+    public Inventory(Long id, String cInvCCode, String cInvCode, String cInvName, String deMoney, String realMoney, String counts, Float weight, String classId, String standardId, Integer isCurrent, String cInvStd, String u8code, Integer styleflag, Integer iSupplyType, String cInvDefine1) {
         this.id = id;
         this.cInvCCode = cInvCCode;
         this.cInvCode = cInvCode;
@@ -45,6 +46,7 @@ public class Inventory {
         this.u8code = u8code;
         this.styleflag = styleflag;
         this.iSupplyType = iSupplyType;
+        this.cInvDefine1 = cInvDefine1;
     }
 
     public Long getId() {
@@ -165,6 +167,14 @@ public class Inventory {
 
     public void setISupplyType(Integer iSupplyType) {
         this.iSupplyType = iSupplyType;
+    }
+
+    public String getCInvDefine1() {
+        return cInvDefine1;
+    }
+
+    public void setCInvDefine1(String cInvDefine1) {
+        this.cInvDefine1 = cInvDefine1;
     }
 
 }

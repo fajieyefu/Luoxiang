@@ -21,6 +21,15 @@ public class ContractBean {
     private int nq_flag;
     private String cCusName;
     private long ordercreatetime;
+    private int isSkeleton;
+
+    public int getIsSkeleton() {
+        return isSkeleton;
+    }
+
+    public void setIsSkeleton(int isSkeleton) {
+        this.isSkeleton = isSkeleton;
+    }
 
     public long getOrdercreatetime() {
         return ordercreatetime;

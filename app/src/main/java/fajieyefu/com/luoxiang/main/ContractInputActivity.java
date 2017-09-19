@@ -339,7 +339,7 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
         customer.setText(customer_bean.getName());
         mobile.setText(customer_bean.getcCusHand());
         address.setText(customer_bean.getcCusAddress());
-        contactsMan.setText(customer_bean.getcCusLPerson());
+        contactsMan.setText(customer_bean.getcCusPerson());
         more = (Button) title.findViewById(R.id.more);
         more.setVisibility(View.VISIBLE);
         more.setOnClickListener(new View.OnClickListener() {
@@ -719,12 +719,9 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
         String ze_text;
         if (carStyle.getText().contains(zText)) {
             ze = "Z";
-        } else {
-            ze = "E";
-        }
-        if (ze.equals("Z")) {
             ze_text = zlText;
         } else {
+            ze = "E";
             ze_text = ejText;
         }
         String width = wid.getText();
@@ -844,18 +841,26 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
             Toast.makeText(this, "车轴数据有错误，请联系管理员", Toast.LENGTH_SHORT).show();
             return false;
         }
+        //确定底盘
+        if (DaoBean.getInventoryLikeCCode("1511",celanban.getText(),ze_text,width,height).size()!=1&&!celanban.getText().equals("不选")){
+            Toast.makeText(this, "底盘数据有错误，请联系管理员", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
         List<Inventory> lmjInventorys2 = DaoBean.getInventoryLikeCCode("020104", hit.getText(), ze,width,height);
         if (lmjInventorys2 != null && lmjInventorys2.size() != 0) {
         }
+        //确定站柱
+        if (DaoBean.getInventoryLikeCCode("020107",celanban.getText(),null,width,height).size()!=1&&!celanban.getText().equals("不选")){
+            Toast.makeText(this, "站柱数据有错误，请联系管理员", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        //确定站柱
+        if (DaoBean.getInventoryLikeCCode("020107",celanban.getText(),null,width,height).size()!=1&&!celanban.getText().equals("不选")){
+            Toast.makeText(this, "站柱数据有错误，请联系管理员", Toast.LENGTH_SHORT).show();
+            return false;
+        }
 
-        List<Inventory> zzInventorys2 = DaoBean.getInventoryLikeCCode("020107", hit.getText(), ze,width,height);
-        Inventory inventoryZhanzhu = getZhanZhuInventory(zzInventorys2);
-        if (inventoryZhanzhu != null) {
-            DaoBean.upNoSelected(inventoryZhanzhu.getCInvCCode(), inventoryZhanzhu.getCInvCode());
-        }
-        List<Inventory> diPanInventorys2 = DaoBean.getInventoryLikeCCode("1511", celanban.getText(), ze_text,width,height);
-        if (diPanInventorys2 != null && diPanInventorys2.size() != 0) {
-        }
         return true;
 
     }
@@ -1046,18 +1051,51 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
         int gqCounts = getEditNum(gangquanNum);
         int ltCounts = getEditNum(luntaiNum);
         String celanbanString = celanban.getText();
-
-        if (carStyle.getText().contains(zText) && celanbanString.contains(ContractInputActivity.this.getResources().getString(R.string.duikai))) {
-            DaoBean.updateCounts("0308", wchengCounts - 5);
-        } else if (carStyle.getText().contains(zText) && celanbanString.contains(ContractInputActivity.this.getResources().getString(R.string.xaida))) {
-            DaoBean.updateCounts("0308", wchengCounts - 10);
-        } else if (carStyle.getText().contains(eText) && celanbanString.contains(ContractInputActivity.this.getResources().getString(R.string.duikai))) {
-            DaoBean.updateCounts("0308", wchengCounts - 9);
-        } else if (carStyle.getText().contains(eText) && celanbanString.contains(ContractInputActivity.this.getResources().getString(R.string.xaida))) {
-            DaoBean.updateCounts("0308", wchengCounts - 11);
-        } else {
-            DaoBean.updateCounts("0308", wchengCounts - 10);
+        if (!celanbanString.equals("不选")){
+            if (wcheng1.getText().contains("W称")){
+                if (carStyle.getText().contains(zText) && celanbanString.contains(ContractInputActivity.this.getResources().getString(R.string.duikai))) {
+                    DaoBean.updateCounts("0308", wchengCounts - 5);
+                } else if (carStyle.getText().contains(zText) && celanbanString.contains(ContractInputActivity.this.getResources().getString(R.string.xaida))) {
+                    DaoBean.updateCounts("0308", wchengCounts - 7);
+                } else if (carStyle.getText().contains(eText) && celanbanString.contains(ContractInputActivity.this.getResources().getString(R.string.duikai))) {
+                    DaoBean.updateCounts("0308", wchengCounts - 9);
+                } else if (carStyle.getText().contains(eText) && celanbanString.contains(ContractInputActivity.this.getResources().getString(R.string.xaida))) {
+                    DaoBean.updateCounts("0308", wchengCounts - 12);
+                }
+            }else if (wcheng1.getText().contains("槽钢")){
+                if (carStyle.getText().contains(zText) && celanbanString.contains(ContractInputActivity.this.getResources().getString(R.string.duikai))) {
+                    DaoBean.updateCounts("0308", wchengCounts );
+                } else if (carStyle.getText().contains(zText) && celanbanString.contains(ContractInputActivity.this.getResources().getString(R.string.xaida))) {
+                    DaoBean.updateCounts("0308", wchengCounts );
+                } else if (carStyle.getText().contains(eText) && celanbanString.contains(ContractInputActivity.this.getResources().getString(R.string.duikai))) {
+                    DaoBean.updateCounts("0308", wchengCounts - 1);
+                } else if (carStyle.getText().contains(eText) && celanbanString.contains(ContractInputActivity.this.getResources().getString(R.string.xaida))) {
+                    DaoBean.updateCounts("0308", wchengCounts - 1);
+                }
+            }else if (wcheng1.getText().contains("工字")){
+                if (carStyle.getText().contains(zText) && celanbanString.contains(ContractInputActivity.this.getResources().getString(R.string.duikai))) {
+                    DaoBean.updateCounts("0308", wchengCounts - 3);
+                } else if (carStyle.getText().contains(zText) && celanbanString.contains(ContractInputActivity.this.getResources().getString(R.string.xaida))) {
+                    DaoBean.updateCounts("0308", wchengCounts - 3);
+                } else if (carStyle.getText().contains(eText) && celanbanString.contains(ContractInputActivity.this.getResources().getString(R.string.duikai))) {
+                    DaoBean.updateCounts("0308", wchengCounts - 7);
+                } else if (carStyle.getText().contains(eText) && celanbanString.contains(ContractInputActivity.this.getResources().getString(R.string.xaida))) {
+                    DaoBean.updateCounts("0308", wchengCounts - 7);
+                }
+            }
+        }else{
+            if (carStyle.getText().contains(zText) && celanbanString.contains(ContractInputActivity.this.getResources().getString(R.string.duikai))) {
+                DaoBean.updateCounts("0308", wchengCounts );
+            } else if (carStyle.getText().contains(zText) && celanbanString.contains(ContractInputActivity.this.getResources().getString(R.string.xaida))) {
+                DaoBean.updateCounts("0308", wchengCounts );
+            } else if (carStyle.getText().contains(eText) && celanbanString.contains(ContractInputActivity.this.getResources().getString(R.string.duikai))) {
+                DaoBean.updateCounts("0308", wchengCounts - 1);
+            } else if (carStyle.getText().contains(eText) && celanbanString.contains(ContractInputActivity.this.getResources().getString(R.string.xaida))) {
+                DaoBean.updateCounts("0308", wchengCounts - 1);
+            }
         }
+
+
 
         DaoBean.updateCounts("0413", jsqCounts);
         DaoBean.updateCounts("0405", gqCounts);

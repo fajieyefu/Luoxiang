@@ -7,7 +7,7 @@ import java.net.URL;
  */
 
 public class CommonData {
-//    public final static String URL2="http://192.168.124.116:9891/mobile";
+//    public final static String URL2="http://192.168.31.111:9891/mobile";
     public final static String URL2="http://221.2.89.146:9891/mobile";
     public final static String modifyURL=URL2+"/modify";
     public final static String loginURL=URL2+"/login";

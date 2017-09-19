@@ -7,7 +7,8 @@
     <fajieyefu.com.luoxiang.layout.TitleLayout
         android:id="@+id/title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></fajieyefu.com.luoxiang.layout.TitleLayout>
+        android:layout_height="wrap_content">
+    </fajieyefu.com.luoxiang.layout.TitleLayout>
 
     <ScrollView
         android:id="@+id/parent"
@@ -216,7 +217,7 @@
 
                     <LinearLayout style="@style/contratInputLayoutContent">
 
-                        <!--<fajieyefu.com.luoxiang.layout.MySpinnerForInventry
+                        <!--<fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory
                             android:id="@+id/qianyinche"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
@@ -308,7 +309,7 @@
                     <LinearLayout
                         style="@style/contratInputLayout2"
                         android:layout_marginLeft="5dp"
-                        android:layout_weight="2">
+                        android:layout_weight="1">
 
                         <TextView
                             android:id="@+id/textView"
@@ -318,8 +319,31 @@
                         <LinearLayout style="@style/contratInputLayoutContent">
 
 
-                            <fajieyefu.com.luoxiang.layout.MySpinnerForInventry
-                                android:id="@+id/wid"
+                            <fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory
+                                android:id="@+id/productType"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center" />
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        style="@style/contratInputLayout2"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            style="@style/contratInputLayoutTitle"
+                            android:text="*轴数：" />
+
+                        <LinearLayout style="@style/contratInputLayoutContent">
+
+
+                            <fajieyefu.com.luoxiang.layout.MySpinnerForFree
+                                android:id="@+id/axisCount"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -340,7 +364,7 @@
 
                         <TextView
                             style="@style/contratInputLayoutTitle"
-                            android:text="*颜色（车厢/大梁）：" />
+                            android:text="*颜色：" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -357,21 +381,13 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:hint="车厢"
+                                android:gravity="center"
                                 android:maxLines="1"
                                 android:singleLine="true"
                                 android:textColor="@color/black"
                                 android:textSize="12sp" />
 
-                            <EditText
-                                android:id="@+id/daliang_color"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:maxLines="1"
-                                android:text="桔红"
-                                android:textColor="@color/black"
-                                android:textSize="12sp" />
+
 
                         </LinearLayout>
 
@@ -448,7 +464,7 @@
                             android:gravity="center"
                             android:text="上:" />
 
-                        <fajieyefu.com.luoxiang.layout.MySpinnerForInventry
+                        <fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory
                             android:id="@+id/up"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
@@ -461,7 +477,7 @@
                             android:gravity="center"
                             android:text="下:" />
 
-                        <fajieyefu.com.luoxiang.layout.MySpinnerForInventry
+                        <fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory
                             android:id="@+id/down"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
@@ -474,7 +490,7 @@
                             android:gravity="center"
                             android:text="立:" />
 
-                        <fajieyefu.com.luoxiang.layout.MySpinnerForInventry
+                        <fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory
                             android:id="@+id/mid"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
@@ -522,11 +538,12 @@
                         style="@style/contratInputLayoutTitle_h"
                         android:text="*牵引销" />
 
-                    <fajieyefu.com.luoxiang.layout.MySpinnerForInventry
+                    <fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory
                         android:id="@+id/qianyinxiao"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForInventry>
+                        android:layout_weight="1">
+                    </fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory>
 
                 </LinearLayout>
 
@@ -634,21 +651,21 @@
                         style="@style/contratInputLayoutTitle_h"
                         android:text="*板簧" />
 
-                    <fajieyefu.com.luoxiang.layout.MySpinnerForInventry
+                    <fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory
                         android:id="@+id/banhuang"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForInventry>
+                        android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory>
 
                     <TextView
                         style="@style/contratInputLayoutTitle_h"
                         android:text="*挡泥板" />
 
-                    <fajieyefu.com.luoxiang.layout.MySpinnerForInventry
+                    <fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory
                         android:id="@+id/fender"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForInventry>
+                        android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory>
                 </LinearLayout>
 
 
@@ -658,74 +675,33 @@
                         style="@style/contratInputLayoutTitle_h"
                         android:text="*继动阀" />
 
-                    <fajieyefu.com.luoxiang.layout.MySpinnerForInventry
+                    <fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory
                         android:id="@+id/relayValve"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForInventry>
+                        android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory>
 
                     <TextView
                         style="@style/contratInputLayoutTitle_h"
                         android:text="*储气筒" />
 
-                    <fajieyefu.com.luoxiang.layout.MySpinnerForInventry
-                        android:id="@+id/diban"
+                    <fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory
+                        android:id="@+id/airCylinderType"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForInventry>
+                        android:layout_weight="1">
+                    </fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory>
                 </LinearLayout>
-
                 <LinearLayout style="@style/contratInputLayout_h">
 
                     <TextView
                         style="@style/contratInputLayoutTitle_h"
-                        android:text="*车厢尺寸" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:paddingLeft="2dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:text="量包角：" />
-
-                        <EditText
-                            android:id="@+id/liangbaojiao"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:inputType="number"
-                            android:maxLines="1"
-                            android:singleLine="true" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:paddingLeft="2dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:text="方管：" />
-
-                        <EditText
-                            android:id="@+id/fangguan"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:singleLine="true"
-                            android:textSize="12sp"></EditText>
-
-                    </LinearLayout>
-
-
+                        android:text="*制动气室" />
+                    <fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory
+                        android:id="@+id/brakeChamberType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory>
                 </LinearLayout>
 
                 <LinearLayout
@@ -734,18 +710,18 @@
 
                     <TextView
                         style="@style/contratInputLayoutTitle_h"
-                        android:text="*侧栏板样式" />
+                        android:text="*锁具" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical">
 
-                        <fajieyefu.com.luoxiang.layout.MySpinnerForInventry
-                            android:id="@+id/celanban"
+                        <fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory
+                            android:id="@+id/lockType"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForInventry>
+                            android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory>
 
                         <ImageView
                             android:layout_width="match_parent"
@@ -753,11 +729,11 @@
                             android:background="@color/grey" />
 
                         <EditText
-                            android:id="@+id/celanban_mark"
+                            android:id="@+id/lockType_mark"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="1"
-                            android:hint="侧栏板备注"
+                            android:hint="锁具备注"
                             android:maxLines="1"
                             android:singleLine="true"
                             android:textSize="12sp" />
@@ -768,34 +744,31 @@
 
                 <LinearLayout
                     style="@style/contratInputLayout_h"
-                    android:layout_height="80dp">
+                    >
 
                     <TextView
                         style="@style/contratInputLayoutTitle_h"
-                        android:text="*后门样式" />
+                        android:text="*卸货平台" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical">
 
-                        <fajieyefu.com.luoxiang.layout.MySpinnerForInventry
-                            android:id="@+id/houmen"
+                        <fajieyefu.com.luoxiang.layout.MySpinnerForFree
+                            android:id="@+id/Unloading_platform"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForInventry>
+                            android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForFree>
 
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="2dp"
-                            android:background="@color/grey" />
 
                         <EditText
-                            android:id="@+id/houmen_mark"
+                            android:visibility="gone"
+                            android:id="@+id/Unloading_platform_mark"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="1"
-                            android:hint="后门备注"
+                            android:hint="平台备注"
                             android:maxLines="1"
                             android:singleLine="true"
                             android:textSize="12sp" />
@@ -808,83 +781,12 @@
 
                     <TextView
                         style="@style/contratInputLayoutTitle_h"
-                        android:layout_width="50dp"
-                        android:text="*蓬杆" />
-
-                    <fajieyefu.com.luoxiang.layout.MySpinnerForInventry
-                        android:id="@+id/penggan"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForInventry>
-
-                    <TextView
-                        style="@style/contratInputLayoutTitle_h"
-                        android:layout_width="50dp"
-                        android:text="*爬梯" />
-
-                    <fajieyefu.com.luoxiang.layout.MySpinnerForFree
-                        android:id="@+id/pati"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForFree>
-
-                    <TextView
-                        style="@style/contratInputLayoutTitle_h"
-                        android:layout_width="50dp"
-                        android:text="*小框" />
-
-                    <fajieyefu.com.luoxiang.layout.MySpinnerForInventry
-                        android:id="@+id/xiaokuang"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForInventry>
-
-                </LinearLayout>
-
-                <LinearLayout style="@style/contratInputLayout_h">
-
-                    <TextView
-                        style="@style/contratInputLayoutTitle_h"
-                        android:text="*紧绳器" />
-
-                    <LinearLayout
+                        android:text="*悬挂" />
+                    <fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory
+                        android:id="@+id/suspensionType"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-
-                        <EditText
-                            android:id="@+id/jinshengqi_num"
-                            android:layout_width="100dp"
-                            android:layout_height="match_parent"
-                            android:hint="数量"
-                            android:inputType="number"
-                            android:maxLines="1"
-                            android:singleLine="true"
-                            android:textSize="12sp"></EditText>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:text="个" />
-
-                        <ImageView
-                            android:layout_width="2dp"
-                            android:layout_height="match_parent"
-                            android:background="@color/grey" />
-
-                        <EditText
-                            android:id="@+id/jinshenqi_mark"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:hint="紧绳器备注"
-                            android:maxLines="1"
-                            android:singleLine="true"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-
-
+                        android:layout_height="wrap_content">
+                    </fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory>
                 </LinearLayout>
 
                 <LinearLayout style="@style/contratInputLayout_h">
@@ -905,7 +807,7 @@
                             android:gravity="center"
                             android:text="左：" />
 
-                        <fajieyefu.com.luoxiang.layout.MySpinnerForInventry
+                        <fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory
                             android:id="@+id/gjx_left"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" />
@@ -924,10 +826,10 @@
                             android:gravity="center"
                             android:text="右：" />
 
-                        <fajieyefu.com.luoxiang.layout.MySpinnerForInventry
+                        <fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory
                             android:id="@+id/gjx_right"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"></fajieyefu.com.luoxiang.layout.MySpinnerForInventry>
+                            android:layout_height="match_parent"></fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory>
 
                     </LinearLayout>
 
@@ -956,6 +858,20 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForFree>
                 </LinearLayout>
+                <LinearLayout style="@style/contratInputLayout_h">
+
+                    <TextView
+                        style="@style/contratInputLayoutTitle_h"
+                        android:text="*支腿" />
+
+                    <fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory
+                        android:id="@+id/legType"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory>
+
+
+                </LinearLayout>
 
                 <LinearLayout style="@style/contratInputLayout_h">
 
@@ -963,24 +879,13 @@
                         style="@style/contratInputLayoutTitle_h"
                         android:text="*ABS" />
 
-                    <fajieyefu.com.luoxiang.layout.MySpinnerForInventry
+                    <fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory
                         android:id="@+id/abs"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForInventry>
+                        android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory>
 
 
-                    <TextView
-                        style="@style/contratInputLayoutTitle_h"
-                        android:text="*水包空" />
-
-                    <EditText
-                        android:id="@+id/shuibaokong"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:maxLines="1"
-                        android:singleLine="true"></EditText>
                 </LinearLayout>
 
                 <LinearLayout style="@style/contratInputLayout_h">
@@ -989,11 +894,11 @@
                         style="@style/contratInputLayoutTitle_h"
                         android:text="*钢圈" />
 
-                    <fajieyefu.com.luoxiang.layout.MySpinnerForInventry
+                    <fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory
                         android:id="@+id/gangquan"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForInventry>
+                        android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory>
 
                     <TextView
                         android:layout_width="100dp"
@@ -1017,11 +922,11 @@
                         style="@style/contratInputLayoutTitle_h"
                         android:text="*轮胎" />
 
-                    <fajieyefu.com.luoxiang.layout.MySpinnerForInventry
+                    <fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory
                         android:id="@+id/luntai"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForInventry>
+                        android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory>
 
                     <TextView
                         android:layout_width="100dp"
@@ -1048,11 +953,11 @@
                         style="@style/contratInputLayoutTitle_h"
                         android:text="*车轴" />
 
-                    <fajieyefu.com.luoxiang.layout.MySpinnerForInventry
+                    <fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory
                         android:id="@+id/chezhou"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForInventry>
+                        android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory>
 
                 </LinearLayout>
 
@@ -1063,7 +968,7 @@
                     <TextView
                         style="@style/contratInputLayoutTitle_h"
 
-                        android:text="其它选装项目" />
+                        android:text="选配" />
 
                     <EditText
                         android:id="@+id/remark"
@@ -1207,7 +1112,10 @@
                         android:layout_weight="1"
                         android:background="@drawable/edit_input"
                         android:padding="5dp" />
-
+                    </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp">
                     <TextView
                         style="@style/tv_16sp_black"
                         android:layout_width="wrap_content"
@@ -1224,7 +1132,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="38dp"
                     android:layout_gravity="center_vertical">
 
@@ -1238,8 +1146,15 @@
                         android:id="@+id/urgent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
+            </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:visibility="gone"
+                    android:layout_gravity="center_vertical"
+                    >
 
-                    <TextView
+                <TextView
                         style="@style/tv_16sp_black"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"

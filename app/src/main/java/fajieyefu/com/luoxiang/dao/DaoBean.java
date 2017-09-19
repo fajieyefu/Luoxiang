@@ -71,46 +71,57 @@ public class DaoBean {
                     break;
                 case "0308":
                     for (Inventory inventory : list) {
-                        String[] temp = inventory.getCInvStd().split("\\*");
-                        if (temp[temp.length - 1].equals(Integer.parseInt(width)-20+"")&&inventory.getCInvName().equals(text)) {
-                            result.add(inventory);
+                        if (inventory.getCInvStd()!=null){
+                            String[] temp = inventory.getCInvStd().split("\\*");
+                            if (temp.length>=1&&temp[temp.length - 1].equals(Integer.parseInt(width)-20+"")&&inventory.getCInvName().equals(text)) {
+                                result.add(inventory);
+                            }
                         }
+
                     }
                     break;
                 case "1505":
                     for (Inventory inventory : list) {
-                        if (inventory.getCInvStd().equals(width)&&inventory.getCInvName().equals(text)) {
+                        if (inventory.getCInvStd()!=null&&inventory.getCInvStd().equals(width)&&inventory.getCInvName().equals(text)) {
                             result.add(inventory);
                         }
                     }
                     break;
                 case "020105":
                     for (Inventory inventory : list) {
-                        String[] temp = inventory.getCInvStd().split("\\*");
-                        if (temp[temp.length - 1].equals(height) && inventory.getCInvStd().startsWith(ze)&& inventory.getCInvName().equals(text)) {
-                            result.add(inventory);
+                        if (inventory.getCInvStd()!=null){
+                            String[] temp = inventory.getCInvStd().split("\\*");
+                            if (temp.length>=1&&temp[temp.length - 1].equals(height) && inventory.getCInvStd().startsWith(ze)&& inventory.getCInvName().equals(text)) {
+                                result.add(inventory);
+                            }
                         }
+
                     }
                     break;
                 case "020106":
                     for (Inventory inventory : list) {
-                        if (inventory.getCInvStd().equals(height) && inventory.getCInvName().equals(text)) {
+                        if (inventory.getCInvStd()!=null&&inventory.getCInvStd().equals(height) && inventory.getCInvName().equals(text)) {
                             result.add(inventory);
                         }
                     }
                     break;
                 case "020107":
-                    for (Inventory inventory : list) {
-                        if (inventory.getCInvStd().equals(height) ) {
-                            result.add(inventory);
+                    Inventory inventoryCelanban = DaoBean.getSelectedInventoryLikeCCode("020105");
+                    if (inventoryCelanban!=null&&inventoryCelanban.getCInvDefine1()!=null){
+                        String celanBanCode = inventoryCelanban.getCInvDefine1();
+                        for (Inventory inventory : list) {
+                            if (inventory.getCInvDefine1().equals(celanBanCode) ) {
+                                result.add(inventory);
+                            }
                         }
                     }
+
                     break;
                 case "020104":
                     for (Inventory inventory : list) {
                         String[] temp = inventory.getCInvStd().split("\\-");
                         if (temp.length>1){
-                            if (temp[1].equals(height)&&inventory.getCInvStd().startsWith(ze)) {
+                            if (inventory.getCInvStd()!=null&&temp[1].equals(height)&&inventory.getCInvStd().startsWith(ze)) {
                                 result.add(inventory);
                             }
                         }
@@ -118,19 +129,29 @@ public class DaoBean {
                     }
                     break;
                 case "1511":
-                    for (Inventory inventory : list) {
-                        try {
-                            String temp = inventory.getCInvName();
-                            if (text.contains("下打") && temp.contains("下打") && temp.contains(ze)) {
-                                result.add(inventory);
-                            } else if (!text.contains("下打") && temp.contains("对开") && temp.contains(ze)) {
+                    if (height.equals("无栏板")){
+                        for (Inventory inventory : list){
+                            if (inventory.getCInvName().contains(ze)&&inventory.getCInvName().contains("平板车")){
                                 result.add(inventory);
                             }
-                        } catch (Exception e) {
-
                         }
 
+                    }else{
+                        for (Inventory inventory : list) {
+                            try {
+                                String temp = inventory.getCInvName();
+                                if (text.contains("下打") && temp.contains("下打") && temp.contains(ze)) {
+                                    result.add(inventory);
+                                } else if (!text.contains("下打") && temp.contains("对开") && temp.contains(ze)) {
+                                    result.add(inventory);
+                                }
+                            } catch (Exception e) {
+
+                            }
+
+                        }
                     }
+
                     break;
                 case "1506":
                     for (Inventory inventory : list) {
@@ -158,6 +179,121 @@ public class DaoBean {
         return result;
     }
 
+    //批量查询关联
+    public static List<Inventory> getInventoryLikeCCodeSkeleton(String code, String text, String ze,String width,String height) {
+        DaoSession daoSession = DaoManager.getInstance().getDaoSession();
+        InventoryDao inventoryDao = daoSession.getInventoryDao();
+        QueryBuilder<Inventory> queryBuilder = inventoryDao.queryBuilder().where(InventoryDao.Properties.CInvCode.like(code + "%"));
+        List<Inventory> list = queryBuilder.list();
+        List<Inventory> result = new ArrayList<>();
+        if (list.size() != 0) {
+            switch (code) {
+                case "0410":case "1512":case "1502":case "1507":
+                case "1503":case "1504":case "0411":case "0404":
+                case "0405":case "1513":
+                case "1518":case "1519":case "1520":
+                case "1521":case "1522":case "1523":
+                    for (Inventory inventory : list) {
+                        if (inventory.getCInvName().equals(text)) {
+                            result.add(inventory);
+                        }
+                    }
+                    break;
+                case "1511":
+                    for (Inventory inventory : list) {
+                        try {
+                            String temp = inventory.getCInvName();
+                            if (temp.contains(text) && temp.contains(ze)) {
+                                result.add(inventory);
+                            }
+                        } catch (Exception e) {
+
+                        }
+
+                    }
+                    break;
+                case "1506":
+                    for (Inventory inventory : list) {
+                        String temp = inventory.getCInvName();
+                        String tempInvstd =inventory.getCInvStd();
+                        if (tempInvstd!=null&&temp.contains(text)&&tempInvstd.equals(width)&&temp.contains(ze)) {
+                            result.add(inventory);
+                        }
+                    }
+                    break;
+                case "1517":
+                    for (Inventory inventory : list) {
+                        String temp = inventory.getCInvName();
+                        String tempInvstd =inventory.getCInvStd();
+                        if ( tempInvstd!=null&&temp.equals(text)&&tempInvstd.contains(width)&&tempInvstd.contains(ze)) {
+                            result.add(inventory);
+                        }
+                    }
+
+                    break;
+                case "1508":case "1509":case "1510":
+                    for (Inventory inventory:list){
+                        String tempInvstd =inventory.getCInvStd();
+                        if (tempInvstd!=null&&inventory.getCInvName().equals(text)&&tempInvstd.contains(ze)&&tempInvstd.contains(width)){
+                            result.add(inventory);
+                        }
+                    }
+                    break;
+
+                case "1514":
+                    if (width.contains("20尺")&&height.equals("2")){
+                        for (Inventory inventory : list) {
+                            String tempString = inventory.getCInvStd();
+                            if (tempString!=null&&inventory.getCInvName().equals(text)&&tempString.contains("2轴")&&tempString.contains("20尺")) {
+                                result.add(inventory);
+                            }
+                        }
+
+                    }else{
+                        for (Inventory inventory : list) {
+                            String tempString = inventory.getCInvStd();
+                            if (tempString!=null&&tempString.contains("3轴")&&inventory.getCInvName().equals(text)) {
+                                result.add(inventory);
+                            }
+                        }
+                    }
+
+                    break;
+
+                case "1516":
+                    if (text.equals("有")){
+                        for (Inventory inventory : list){
+                            inventory.setIsCurrent(1);
+                            inventoryDao.update(inventory);
+                            result.add(inventory);
+                        }
+                        return result;
+                    }else{
+                        for (Inventory inventory : list){
+                            inventory.setIsCurrent(0);
+                            inventoryDao.update(inventory);
+                            result.add(inventory);
+                        }
+                        return result;
+                    }
+
+            }
+
+            for (Inventory inventory : list) {
+                inventory.setIsCurrent(0);
+                inventoryDao.update(inventory);
+            }
+        }
+
+
+        if (result.size() != 0) {
+            Inventory inventory = result.get(0);
+            inventory.setIsCurrent(1);
+            inventoryDao.update(inventory);
+        }
+
+        return result;
+    }
 
     /**
      * 查询选中的某个值

@@ -14,10 +14,8 @@ public class InventoryClass {
     private String cInvCName;
     private String standardId;
     private String standardMoney;
-
-
-
     private List<Inventory> inventoryDetails;
+
     public List<Inventory> getInventoryDetails() {
         return inventoryDetails;
     }
