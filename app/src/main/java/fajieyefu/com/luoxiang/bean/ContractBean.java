@@ -22,6 +22,24 @@ public class ContractBean {
     private String cCusName;
     private long ordercreatetime;
     private int isSkeleton;
+    private int select_flag;
+    private String endCustomerName;
+
+    public String getEndCustomerName() {
+        return endCustomerName;
+    }
+
+    public void setEndCustomerName(String endCustomerName) {
+        this.endCustomerName = endCustomerName;
+    }
+
+    public int getSelect_flag() {
+        return select_flag;
+    }
+
+    public void setSelect_flag(int select_flag) {
+        this.select_flag = select_flag;
+    }
 
     public int getIsSkeleton() {
         return isSkeleton;

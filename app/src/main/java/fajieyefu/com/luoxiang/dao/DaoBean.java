@@ -109,11 +109,14 @@ public class DaoBean {
                     Inventory inventoryCelanban = DaoBean.getSelectedInventoryLikeCCode("020105");
                     if (inventoryCelanban!=null&&inventoryCelanban.getCInvDefine1()!=null){
                         String celanBanCode = inventoryCelanban.getCInvDefine1();
-                        for (Inventory inventory : list) {
-                            if (inventory.getCInvDefine1().equals(celanBanCode) ) {
-                                result.add(inventory);
+                        if (celanBanCode!=null){
+                            for (Inventory inventory : list) {
+                                if (inventory.getCInvDefine1()!=null&&inventory.getCInvDefine1().equals(celanBanCode) ) {
+                                    result.add(inventory);
+                                }
                             }
                         }
+
                     }
 
                     break;

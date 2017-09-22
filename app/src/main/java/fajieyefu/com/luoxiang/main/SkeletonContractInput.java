@@ -365,18 +365,17 @@ public class SkeletonContractInput extends BaseActivity implements View.OnClickL
                 isNew.setChecked(false);
             }
             lockType.setText(json.optString("lockType").trim());
-            productType.setText(json.optString("productType").trim());
+            productType.setText(json.optString("skeletonType").trim());
             axisCount.setText(json.optString("axisCount").trim());
 
             fender.setText(json.optString("fender").trim());
-            relayValve.setText(json.optString("relayValve").trim());
+            relayValve.setText(json.optString("relayValveType").trim());
             airCylinderType.setText(json.optString("airCylinderType").trim());
             brakeChamberType.setText(json.optString("brakeChamberType").trim());
             unloadingPlatform.setText(json.optString("unloadingPlatform").trim());
 
             suspensionType.setText(json.optString("suspensionType").trim());
             legType.setText(json.optString("legType").trim());
-            unloadingPlatform.setText(json.optString("unloadingPlatform").trim());
             unloadingPlatform.setText(json.optString("unloadingPlatform").trim());
 
             qianyinche.setText(json.optString("qianyinche").trim());
@@ -420,7 +419,7 @@ public class SkeletonContractInput extends BaseActivity implements View.OnClickL
             }
 
             amtDx.setText(json.optString("ordermoney_dx").trim());
-            applyDate.setText(json.optString("leaveTime").trim());
+            applyDate.setText(json.optString("leaveTime").trim().split(" ")[0]);
             obtainType.setText(json.optString("carstyle").trim());
             if (json.optInt("urgent_flag") == 1) {
                 urgent.setChecked(true);
@@ -986,7 +985,7 @@ public class SkeletonContractInput extends BaseActivity implements View.OnClickL
         }else if (productType.getText().contains("45")){
             tempString="45";
         }else if (productType.getText().contains("48")){
-            tempString="40";
+            tempString="48";
         }
         if (DaoBean.getInventoryLikeCCodeSkeleton("1511",tempString,ze_text,null,null).size()!=1&&!productType.getText().equals("不选")){
             Toast.makeText(this, "底盘数据有错误，请联系管理员", Toast.LENGTH_SHORT).show();

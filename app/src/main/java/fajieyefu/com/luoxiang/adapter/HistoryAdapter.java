@@ -57,19 +57,26 @@ public class HistoryAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        switch (contractBean.getWc()) {
-            case 1:
-                viewHolder.dot.setBackground(context.getResources().getDrawable(R.drawable.dot_5));
-                viewHolder.nqFlag.setText(context.getResources().getString(R.string.complete));
-                break;
-            case 0:
-                isDTC();
-                break;
-
+        if (contractBean.getNq_flag()==0){
+            viewHolder.dot.setBackground(context.getResources().getDrawable(R.drawable.dot_0));
+            viewHolder.nqFlag.setText(context.getResources().getString(R.string.wait_audit));
+        }else if (contractBean.getNq_flag()==2){
+            viewHolder.dot.setBackground(context.getResources().getDrawable(R.drawable.dot_2));
+            viewHolder.nqFlag.setText(context.getResources().getString(R.string.back_audit));
+        }else if (contractBean.getNq_flag()==1&&contractBean.getDdtc()==0){
+            viewHolder.dot.setBackground(context.getResources().getDrawable(R.drawable.dot_3));
+            viewHolder.nqFlag.setText(context.getResources().getString(R.string.ddpc));
+        }else if (contractBean.getDdtc()==1&&contractBean.getWc()==0){
+            viewHolder.dot.setBackground(context.getResources().getDrawable(R.drawable.dot_4));
+            viewHolder.nqFlag.setText(context.getResources().getString(R.string.dtc));
+        }else if (contractBean.getWc()==1){
+            viewHolder.dot.setBackground(context.getResources().getDrawable(R.drawable.dot_5));
+            viewHolder.nqFlag.setText(context.getResources().getString(R.string.complete));
         }
+
         viewHolder.contractId.setText(contractBean.getOrderNumber());
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        viewHolder.applyDate.setText(sdf.format(contractBean.getOrdercreatetime()));
+        viewHolder.endCustomerName.setText(contractBean.getEndCustomerName()==null?"未填写":contractBean.getEndCustomerName());
+
 
         viewHolder.customer.setText(contractBean.getcCusName());
         return convertView;
@@ -121,8 +128,8 @@ public class HistoryAdapter extends BaseAdapter {
         ImageView dot;
         @BindView(R.id.contractId)
         TextView contractId;
-        @BindView(R.id.apply_date)
-        TextView applyDate;
+        @BindView(R.id.endCustomerName)
+        TextView endCustomerName;
         @BindView(R.id.nq_flag)
         TextView nqFlag;
         @BindView(R.id.customer)
