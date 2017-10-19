@@ -25,16 +25,19 @@ import fajieyefu.com.luoxiang.R;
 import fajieyefu.com.luoxiang.bean.AuditCount;
 import fajieyefu.com.luoxiang.bean.ContractBean;
 import fajieyefu.com.luoxiang.bean.ContractDetail;
+import fajieyefu.com.luoxiang.bean.LastCheckInfo;
 import fajieyefu.com.luoxiang.bean.ReponseBean;
 import fajieyefu.com.luoxiang.bean.ResponseBean2;
 import fajieyefu.com.luoxiang.bean.UserInfo;
 import fajieyefu.com.luoxiang.dao.AuditCountDao;
 import fajieyefu.com.luoxiang.dao.DaoBean;
+import fajieyefu.com.luoxiang.dao.LastCheckInfoDao;
 import fajieyefu.com.luoxiang.data.CommonData;
 import fajieyefu.com.luoxiang.db.DaoSession;
 import fajieyefu.com.luoxiang.main.ContractAuditActivity;
 import fajieyefu.com.luoxiang.main.ContractAuditDetailsActivity;
 import fajieyefu.com.luoxiang.main.HistoryActivity;
+import fajieyefu.com.luoxiang.main.HistoryDetailsActivity;
 import fajieyefu.com.luoxiang.receiver.AutoUpdateReceiver;
 import fajieyefu.com.luoxiang.util.DaoManager;
 import fajieyefu.com.luoxiang.util.MyCallback;
@@ -50,8 +53,8 @@ public class UpdateCheckNews extends Service {
     private UserInfo userInfo;
     private String username;
     private String password;
-    private JSONObject content;
-    private int originalCount;//审批消息的数量
+    private JSONObject content  = new JSONObject();
+    private long lastCheckTime=0;//审批消息的数量
 
     @Nullable
     @Override
@@ -62,17 +65,7 @@ public class UpdateCheckNews extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        content = new JSONObject();
-        userInfo = DaoBean.getUseInfoById(1);
-        username = userInfo.getUsername();
-        password = userInfo.getPassword();
-        try {
-            content.put("username", username);
-            content.put("password", password);
-            content.put("crr", 1);
-        } catch (JSONException e) {
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
+
     }
 
     @Override
@@ -84,14 +77,24 @@ public class UpdateCheckNews extends Service {
 //                .mediaType(MediaType.parse("application/json;charset=utf-8"))
 //                .build()
 //                .execute(new ResponseCallBack());
+
+        userInfo = DaoBean.getUseInfoById(1);
+        username = userInfo.getUsername();
+        password = userInfo.getPassword();
+        try {
+            content.put("username", username);
+            content.put("password", password);
+        } catch (JSONException e) {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
         OkHttpUtils.postString()
-                .url(CommonData.historyContract)
+                .url(CommonData.getLastCheckInfo)
                 .content(content.toString())
                 .mediaType(MediaType.parse("application/json;charset=utf-8"))
                 .build()
                 .execute(new ResponseCallBack());
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        int anHour = 2 * 60 * 1000;//2分钟请求一次数据
+        int anHour = 5 * 60 * 1000;//10分钟请求一次数据
         long triggerAtTime = SystemClock.elapsedRealtime() + anHour;
         Intent i = new Intent(this, AutoUpdateReceiver.class);
         PendingIntent pi = PendingIntent.getBroadcast(this, 0, i, 0);
@@ -103,40 +106,37 @@ public class UpdateCheckNews extends Service {
     private class ResponseCallBack extends MyCallback2 {
         @Override
         public void onError(Call call, Exception e, int id) {
+            e.printStackTrace();
             Toast.makeText(UpdateCheckNews.this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onResponse(ResponseBean2 response, int id) {
             if (response.getCode() == 0) {
-                int counts = 0;
-                if (response.getData() != null) {
+                long currentCheckTime = 0;
+                if (response.getData() != null&&response.getData().size()>0) {
                     List<ContractBean> list = response.getData();
-                    for (ContractBean contractBean : list) {
-                        if (contractBean.getStatues() == 1 || contractBean.getStatues() == 2) {
-                            counts++;
-                        }
-                    }
+                    currentCheckTime=list.get(0).getSp_time();
+//                    if (list.get(0).getSp_time()>)
                 }
-                AuditCount auditCount = DaoBean.getAuditCountByUserName(username);
+                LastCheckInfo lastCheckInfo = DaoBean.getLastCheckInfoByUserName(username);
                 DaoSession daoSession = DaoManager.getInstance().getDaoSession();
-                AuditCountDao auditCountDao = daoSession.getAuditCountDao();
-                int originalCount = 0;
-                if (auditCount != null) {
-                    originalCount = auditCount.getCounts();
-                    if (counts > originalCount) {
+                LastCheckInfoDao lastCheckInfoDao = daoSession.getLastCheckInfoDao();
+                if (lastCheckInfo != null) {
+                    lastCheckTime = lastCheckInfo.getLastCheckTime();
+                    if (currentCheckTime > lastCheckTime) {
                         updateCounts();
-                        auditCount.setCounts(counts);
-                        auditCountDao.update(auditCount);
+                        lastCheckInfo.setLastCheckTime(currentCheckTime);
+                        lastCheckInfoDao.update(lastCheckInfo);
                     }
                 } else {
-                    auditCount = new AuditCount();
-                    auditCount.setUsername(username);
-                    auditCount.setCounts(originalCount);
-                    if (counts > originalCount) {
+                    lastCheckInfo = new LastCheckInfo();
+                    lastCheckInfo.setUsername(username);
+                    lastCheckInfo.setLastCheckTime(lastCheckTime);
+                    if (currentCheckTime > lastCheckTime) {
                         updateCounts();
-                        auditCount.setCounts(counts);
-                        auditCountDao.insert(auditCount);
+                        lastCheckInfo.setLastCheckTime(currentCheckTime);
+                        lastCheckInfoDao.insert(lastCheckInfo);
                     }
 
                 }

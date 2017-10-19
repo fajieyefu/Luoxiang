@@ -118,7 +118,8 @@
 
     <string-array name="power_type">
         <item>油</item>
-        <item>气</item>
+        <item>气罐体</item>
+        <item>气箱体</item>
     </string-array>
     <string-array name="len">
         <item>13000</item>
@@ -127,6 +128,7 @@
         <item>11500</item>
         <item>11000</item>
         <item>10500</item>
+        <item>10000</item>
     </string-array>
     <string-array name="wid">
         <item>2550</item>
@@ -135,6 +137,10 @@
     <string-array name="qyz">
         <item>自备</item>
         <item>厂配</item>
+    </string-array>
+    <string-array name="banhuangMark">
+        <item>厂配</item>
+        <item>自备</item>
     </string-array>
     <string-array name="obtaintype">
         <item>自提</item>
@@ -156,10 +162,12 @@
         <item>右中</item>
         <item>后二</item>
         <item>中二</item>
+        <item>后中</item>
     </string-array>
     <string-array name="fangshuicao">
         <item>内</item>
         <item>外</item>
+        <item>内外</item>
         <item>无</item>
     </string-array>
     <string-array name="model">
@@ -183,9 +191,12 @@
         <item>1700</item>
         <item>1800</item>
         <item>1900</item>
+        <item>1950</item>
         <item>2000</item>
         <item>2100</item>
+        <item>2160</item>
         <item>2200</item>
+        <item>2300</item>
         <item>2400</item>
         <item>无栏板</item>
     </string-array>

@@ -70,5 +70,17 @@
         android:layout_height="40dp"
         style="@style/tv_16sp_black"
         android:text="删除"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/Myorange"/>
+    <Button
+        android:visibility="gone"
+        android:id="@+id/queryProNum"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        style="@style/tv_16sp_black"
+        android:text="查询可出车日期"/>
+
 
 </LinearLayout>

@@ -5,54 +5,90 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Display;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
+import android.widget.AbsListView;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 import com.zhy.http.okhttp.OkHttpUtils;
+import com.zzti.fengyongge.imagepicker.PhotoPreviewActivity;
+import com.zzti.fengyongge.imagepicker.PhotoSelectorActivity;
+import com.zzti.fengyongge.imagepicker.model.PhotoModel;
+import com.zzti.fengyongge.imagepicker.util.CommonUtils;
+import com.zzti.fengyongge.imagepicker.util.FileUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fajieyefu.com.luoxiang.R;
+import fajieyefu.com.luoxiang.adapter.ProNumAdapter;
 import fajieyefu.com.luoxiang.bean.Area;
 import fajieyefu.com.luoxiang.bean.Inventory;
 import fajieyefu.com.luoxiang.bean.ObtainBean;
+import fajieyefu.com.luoxiang.bean.ProNumBean;
 import fajieyefu.com.luoxiang.bean.ReponseBean;
+import fajieyefu.com.luoxiang.bean.UploadGoodsBean;
 import fajieyefu.com.luoxiang.bean.UserInfo;
 import fajieyefu.com.luoxiang.dao.DaoBean;
 import fajieyefu.com.luoxiang.data.CommonData;
+import fajieyefu.com.luoxiang.layout.MyGridView;
 import fajieyefu.com.luoxiang.layout.MySpinnerForFree;
 import fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory;
 import fajieyefu.com.luoxiang.layout.TitleLayout;
+import fajieyefu.com.luoxiang.util.Config;
+import fajieyefu.com.luoxiang.util.DbTOPxUtils;
+import fajieyefu.com.luoxiang.util.ImageFactory;
 import fajieyefu.com.luoxiang.util.MyCallback;
 import fajieyefu.com.luoxiang.util.NumberToCN;
 import fajieyefu.com.luoxiang.util.ToolUtil;
@@ -192,6 +228,26 @@ public class SkeletonContractInput extends BaseActivity implements View.OnClickL
     MySpinnerForFreeInventory productType;
     @BindView(R.id.airCylinderType)
     MySpinnerForFreeInventory airCylinderType;
+    @BindView(R.id.sign_pic)
+    ImageView signPic;
+    @BindView(R.id.sign)
+    Button sign;
+    @BindView(R.id.sign_layout)
+    LinearLayout signLayout;
+    @BindView(R.id.shade_layout)
+    LinearLayout shadeLayout;
+    @BindView(R.id.proNumLv)
+    ListView proNumLv;
+    @BindView(R.id.queryNumLayout)
+    RelativeLayout queryNumLayout;
+    @BindView(R.id.queryLinear)
+    LinearLayout queryLinear;
+    @BindView(R.id.closeProNum)
+    Button closeProNum;
+    @BindView(R.id.my_goods_GV)
+    MyGridView myGoodsGV;
+    @BindView(R.id.file_layout)
+    LinearLayout fileLayout;
     private Button back;
     private int mYear;
     private int mMonth;
@@ -224,7 +280,7 @@ public class SkeletonContractInput extends BaseActivity implements View.OnClickL
     private List<String> list_suspensionType = new ArrayList<>();
     private List<String> list_fendar = new ArrayList<>();
     private List<String> list_airCylinderType = new ArrayList<>();
-    private List<String> list_relayValveType= new ArrayList<>();
+    private List<String> list_relayValveType = new ArrayList<>();
     private List<String> list_legType = new ArrayList<>();
     private List<String> list_brakeChamberType = new ArrayList<>();
     private List<String> list_powerType = new ArrayList<>();
@@ -241,6 +297,17 @@ public class SkeletonContractInput extends BaseActivity implements View.OnClickL
     private String eText;
     private String zlText;
     private String ejText;
+    private int screenWidth;
+    private int screenHeight;
+    private List<ProNumBean> ProNumData = new ArrayList<>();
+    private String image_path;
+    private File signatureFile;
+    private Bitmap bitmap;
+    private ImageView imageView;
+    private List<PhotoModel> single_photos = new ArrayList<PhotoModel>();
+    private ArrayList<UploadGoodsBean> img_uri = new ArrayList<UploadGoodsBean>();
+    private int screen_widthOffset;
+    GridImgAdapter gridImgsAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -248,9 +315,24 @@ public class SkeletonContractInput extends BaseActivity implements View.OnClickL
         setContentView(R.layout.skeleton_input_layout);
         ButterKnife.bind(this);
         initView();
+        initFile();
         addTextChangeListener();
         initSpinner();
 
+    }
+
+    private void initFile() {
+
+        //方法一
+        Config.ScreenMap = Config.getScreenSize(this, this);
+        WindowManager windowManager = getWindowManager();
+        Display display = windowManager.getDefaultDisplay();
+        screen_widthOffset = (display.getWidth() - (4* DbTOPxUtils.dip2px(this, 2)))/4;
+
+        gridImgsAdapter = new GridImgAdapter();
+        myGoodsGV.setAdapter(gridImgsAdapter);
+        img_uri.add(null);
+        gridImgsAdapter.notifyDataSetChanged();
     }
 
     private void initSpinner() {
@@ -319,13 +401,13 @@ public class SkeletonContractInput extends BaseActivity implements View.OnClickL
         airCylinderType.setData(list_airCylinderType);
 
         //制动气室
-        list_brakeChamberType= DaoBean.getInventoryNameByCCode("1521");
+        list_brakeChamberType = DaoBean.getInventoryNameByCCode("1521");
         brakeChamberType.setData(list_brakeChamberType);
         //继动阀
-        list_relayValveType= DaoBean.getInventoryNameByCCode("1522");
+        list_relayValveType = DaoBean.getInventoryNameByCCode("1522");
         relayValve.setData(list_relayValveType);
         //支腿
-        list_legType= DaoBean.getInventoryNameByCCode("1523");
+        list_legType = DaoBean.getInventoryNameByCCode("1523");
         legType.setData(list_legType);
         //备胎升降器
         list_btsjq = Arrays.asList(getResources().getStringArray(R.array.btsjq));
@@ -343,7 +425,6 @@ public class SkeletonContractInput extends BaseActivity implements View.OnClickL
 
         //判断是否为退回修改状态，填补内容
         executeModify();
-
 
 
     }
@@ -426,6 +507,32 @@ public class SkeletonContractInput extends BaseActivity implements View.OnClickL
             }
 
 
+            if (!TextUtils.isEmpty(json.optString("filePath"))) {
+                if (img_uri.size() > 0) {
+                    img_uri.remove(img_uri.size() - 1);
+                }
+                String[] fileArray = json.optString("filePath").split(",");
+                for (int i = 0; i < fileArray.length; i++) {
+                    String[] arr = fileArray[i].split("//");
+                    String fileName = arr[arr.length-1];
+                    download(fileArray[i], ImageFactory.PATH_PHOTOGRAPH,fileName,0);
+
+                }
+                img_uri.add(null);
+                gridImgsAdapter.notifyDataSetChanged();
+            }
+            if (!TextUtils.isEmpty(json.optString("signaturePath"))) {
+                SharedPreferences sps = getSharedPreferences("image_info",
+                        MODE_PRIVATE);
+                SharedPreferences.Editor editor = sps.edit();
+                image_path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getPath() + "/" + userInfo.getUsername() + ".jpg";
+                editor.putString("image_path", image_path);
+                editor.apply();
+                download(json.optString("signaturePath"), Environment
+                        .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getPath() + "/", userInfo.getUsername() + ".jpg",1);
+            }
+
+
         }
     }
 
@@ -436,6 +543,14 @@ public class SkeletonContractInput extends BaseActivity implements View.OnClickL
         zlText = this.getResources().getString(R.string.zl);
         ejText = this.getResources().getString(R.string.ej);
         title.setTitleText("骨架车合同录入");
+        int[] hm = new ToolUtil().getScreenWH(this);
+        screenWidth = hm[0];
+        screenHeight = hm[1];
+        RelativeLayout.LayoutParams linearParams = (RelativeLayout.LayoutParams) queryLinear.getLayoutParams();
+        linearParams.width = screenWidth / 10 * 9;
+        linearParams.height = screenHeight / 3 * 2;// 控件的高强制设成20
+        queryLinear.setLayoutParams(linearParams);
+        userInfo = DaoBean.getUseInfoById(1);
         standardId = DaoBean.getInventoryClassById(1).getStandardId();
         back = (Button) title.findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
@@ -454,6 +569,9 @@ public class SkeletonContractInput extends BaseActivity implements View.OnClickL
         mobile.setText(customer_bean.getcCusHand());
         address.setText(customer_bean.getcCusAddress());
         contactsMan.setText(customer_bean.getcCusLPerson());
+        sign.setOnClickListener(this);
+        signPic.setOnClickListener(this);
+        closeProNum.setOnClickListener(this);
         more = (Button) title.findViewById(R.id.more);
         more.setVisibility(View.VISIBLE);
         more.setOnClickListener(new View.OnClickListener() {
@@ -463,10 +581,13 @@ public class SkeletonContractInput extends BaseActivity implements View.OnClickL
                 View view = LayoutInflater.from(SkeletonContractInput.this).inflate(R.layout.more_layout, null);
                 TextView commit = (TextView) view.findViewById(R.id.commit);
                 Button preview = (Button) view.findViewById(R.id.preview);
+                Button queryProNum = (Button) view.findViewById(R.id.queryProNum);
+                queryProNum.setVisibility(View.VISIBLE);
                 commit.setVisibility(View.VISIBLE);
                 preview.setVisibility(View.VISIBLE);
                 preview.setOnClickListener(SkeletonContractInput.this);
                 commit.setOnClickListener(SkeletonContractInput.this);
+                queryProNum.setOnClickListener(SkeletonContractInput.this);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(view);
                 dialog.setContentView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -561,7 +682,56 @@ public class SkeletonContractInput extends BaseActivity implements View.OnClickL
 
     @Override
     public void onClick(final View v) {
+        switch (v.getId()) {
+            case R.id.queryProNum:
+                initQueryProNumView();
+                break;
+            case R.id.commit:
+                doConfirm();
+                break;
+            case R.id.preview:
+                Intent intent2 = new Intent(SkeletonContractInput.this, ContractPreviewActivity.class);
+                if (!createBaseJsonData()) {
+                    return;
+                }
+                String data = basic_info.toString();
+                intent2.putExtra("data", data);
+                startActivity(intent2);
+                break;
+            case R.id.shade_layout:
+                queryNumLayout.setVisibility(View.GONE);
+                break;
+            case R.id.closeProNum:
+                queryNumLayout.setVisibility(View.GONE);
+                break;
+            case R.id.sign:
+                Intent intent3 = new Intent(SkeletonContractInput.this, SignatureActivity.class);
+                startActivity(intent3);
+                break;
+            case R.id.sign_pic:
+                if (bitmap == null) {
+                    Toast.makeText(SkeletonContractInput.this, "没有签名，请添加", Toast.LENGTH_SHORT).show();
+                } else {
+                    Display display = SkeletonContractInput.this.getWindowManager().getDefaultDisplay();
+                    int screenWidth = display.getWidth();
+                    Dialog dialog = new Dialog(this);
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    imageView = new ImageView(this);
+                    imageView.setImageBitmap(bitmap);
+                    imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                    dialog.setContentView(imageView, new ViewGroup.LayoutParams(screenWidth / 3 * 2, screenWidth / 3 * 2));
+                    dialog.show();
+                }
+                break;
+        }
+        if (dialog != null) {
+            dialog.dismiss();
+        }
 
+
+    }
+
+    private void doConfirm() {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setMessage(this.getResources().getString(R.string.sureOperate));
         dialog.setNegativeButton(this.getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
@@ -573,31 +743,34 @@ public class SkeletonContractInput extends BaseActivity implements View.OnClickL
         dialog.setPositiveButton(this.getResources().getString(R.string.confirm), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                switch (v.getId()) {
-                    case R.id.commit:
-                        commitData("commit");
-                        break;
-                    case R.id.preview:
-                        Intent intent2 = new Intent(SkeletonContractInput.this, SkeletonPreviewActivity.class);
-                        if (!createBaseJsonData()) {
-                            return;
-                        }
-                        String data = basic_info.toString();
-                        intent2.putExtra("data", data);
-                        startActivity(intent2);
-                        break;
+                commitData("commit");
 
-
-                }
             }
         });
         dialog.show();
+    }
 
-
+    private void initQueryProNumView() {
+        JSONObject param = new JSONObject();
+        try {
+            param.put("username", userInfo.getUsername());
+            param.put("password", userInfo.getPassword());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        toolUtil = new ToolUtil();
+        toolUtil.showProgressDialog(this);
+        OkHttpUtils.postString()
+                .url(CommonData.getEnableNumOfDays)
+                .content(param.toString())
+                .mediaType(MediaType.parse("application/json;charset=utf-8"))
+                .build()
+                .execute(new EnableNumOfDaysResponCallBack());
     }
 
     /**
      * 提交订单
+     *
      * @param msg
      */
     private void commitData(String msg) {
@@ -623,7 +796,7 @@ public class SkeletonContractInput extends BaseActivity implements View.OnClickL
                 }
                 config_info.put(new JSONObject(gson.toJson(inventoryTemp, Inventory.class)));
                 String incstd = inventoryTemp.getCInvStd();
-                System.out.println(inventoryTemp.getCInvName()+"规格型号:"+(incstd == null ? "无规格型号" : incstd)+"数量:"+inventoryTemp.getCounts());
+                System.out.println(inventoryTemp.getCInvName() + "规格型号:" + (incstd == null ? "无规格型号" : incstd) + "数量:" + inventoryTemp.getCounts());
             }
             content.put("config_info", config_info);
         } catch (JSONException e) {
@@ -653,21 +826,37 @@ public class SkeletonContractInput extends BaseActivity implements View.OnClickL
 
         Log.i("传入数据", content.toString());
 
+        Map<String, File> map = new HashMap<>();
+        Map<String, File> signatureMap = new HashMap<>();
+        signatureMap.put("signature", signatureFile);
+
+        for (int i = 0; i < img_uri.size()-1; i++) {
+            File file = new File(img_uri.get(i).getUrl());
+            map.put(i + ".jpg", file);
+        }
+
         toolUtil = new ToolUtil();
         toolUtil.showProgressDialog(this);
-
-
-        OkHttpUtils.postString()
+        OkHttpUtils.post()
                 .url(CommonData.CommitContract)
-                .content(content.toString())
-                .mediaType(MediaType.parse("application/json;charset=utf-8"))
+                .files("file", map)
+                .files("signature", signatureMap)
+                .addParams("content", content.toString())
                 .build()
                 .execute(new ResponCallBack());
+
+//        OkHttpUtils.postString()
+//                .url(CommonData.CommitContract)
+//                .content(content.toString())
+//                .mediaType(MediaType.parse("application/json;charset=utf-8"))
+//                .build()
+//                .execute(new ResponCallBack());
 
     }
 
     /**
      * 获取所有basic_info
+     *
      * @return
      */
     public boolean createBaseJsonData() {
@@ -675,8 +864,8 @@ public class SkeletonContractInput extends BaseActivity implements View.OnClickL
             Toast.makeText(this, judgeEdit(), Toast.LENGTH_SHORT).show();
             return false;
         }
-        if (!dealWithData()){
-            return  false;
+        if (!dealWithData()) {
+            return false;
         }
         monitorEditNum();
         basic_info = new JSONObject();
@@ -703,9 +892,9 @@ public class SkeletonContractInput extends BaseActivity implements View.OnClickL
             basic_info.put("qianyinxiao", qianyinxiao.getText());
             basic_info.put("lidigao", lidigao.getText().toString());
             basic_info.put("houxuan", hzbj.getText().toString());
-            basic_info.put("front_space",qianhuizhuan.getText());
+            basic_info.put("front_space", qianhuizhuan.getText());
             basic_info.put("banhuang", banhuang.getText());
-            basic_info.put("fender",fender.getText());
+            basic_info.put("fender", fender.getText());
             basic_info.put("relayValveType", relayValve.getText());
             basic_info.put("airCylinderType", airCylinderType.getText());
             basic_info.put("brakeChamberType", brakeChamberType.getText());
@@ -782,6 +971,7 @@ public class SkeletonContractInput extends BaseActivity implements View.OnClickL
         }
         return true;
     }
+
     private String judgeEdit() {
         String toastInfo = "";
         if (TextUtils.isEmpty(qianyinche.getText().toString())) {
@@ -835,7 +1025,7 @@ public class SkeletonContractInput extends BaseActivity implements View.OnClickL
             toastInfo = SkeletonContractInput.this.getResources().getString(R.string.auditdleaveTime);
             return toastInfo;
         }
-        if (productType.getText().equals("不选")){
+        if (productType.getText().equals("不选")) {
             toastInfo = "产品型号不可以不选";
             return toastInfo;
         }
@@ -843,6 +1033,7 @@ public class SkeletonContractInput extends BaseActivity implements View.OnClickL
 
         return toastInfo;
     }
+
     public int getEditNum(EditText editText) {
         if (TextUtils.isEmpty(editText.getText().toString())) {
             return 0;
@@ -862,6 +1053,7 @@ public class SkeletonContractInput extends BaseActivity implements View.OnClickL
         }
         return super.dispatchKeyEvent(event);
     }
+
     private boolean dealWithData() {
         String ze;
         String ze_text;
@@ -875,134 +1067,131 @@ public class SkeletonContractInput extends BaseActivity implements View.OnClickL
 
 
         //确定车架上
-        if (DaoBean.getInventoryLikeCCodeSkeleton("1508",up.getText(),ze_text,productType.getText(),null).size()!=1&&!up.getText().equals("不选")){
+        if (DaoBean.getInventoryLikeCCodeSkeleton("1508", up.getText(), ze_text, productType.getText(), null).size() != 1 && !up.getText().equals("不选")) {
             Toast.makeText(this, "车架（上）有错误，请联系管理员", Toast.LENGTH_SHORT).show();
             return false;
         }
         //确定车架下
-        if (DaoBean.getInventoryLikeCCodeSkeleton("1509",down.getText(),ze_text,productType.getText(),null).size()!=1&&!down.getText().equals("不选")){
+        if (DaoBean.getInventoryLikeCCodeSkeleton("1509", down.getText(), ze_text, productType.getText(), null).size() != 1 && !down.getText().equals("不选")) {
             Toast.makeText(this, "车架（下）有错误，请联系管理员", Toast.LENGTH_SHORT).show();
             return false;
 
         }
         //确定车架立
-        if (DaoBean.getInventoryLikeCCodeSkeleton("1510",mid.getText(),ze_text,productType.getText(),null).size()!=1&&!mid.getText().equals("不选")){
+        if (DaoBean.getInventoryLikeCCodeSkeleton("1510", mid.getText(), ze_text, productType.getText(), null).size() != 1 && !mid.getText().equals("不选")) {
             Toast.makeText(this, "车架（立）有错误，请联系管理员", Toast.LENGTH_SHORT).show();
             return false;
         }
 
         //确定牵引销
-        if(DaoBean.getInventoryLikeCCodeSkeleton("0410",qianyinxiao.getText(),ze,null,null).size()!=1&&!qianyinxiao.getText().equals("不选")){
+        if (DaoBean.getInventoryLikeCCodeSkeleton("0410", qianyinxiao.getText(), ze, null, null).size() != 1 && !qianyinxiao.getText().equals("不选")) {
             Toast.makeText(this, "牵引销有错误，请联系管理员", Toast.LENGTH_SHORT).show();
             return false;
         }
         //确定板簧
-        if (DaoBean.getInventoryLikeCCodeSkeleton("1514",banhuang.getText(),ze,productType.getText(),axisCount.getText()).size()!=1&&!banhuang.getText().equals("不选")){
+        if (DaoBean.getInventoryLikeCCodeSkeleton("1514", banhuang.getText(), ze, productType.getText(), axisCount.getText()).size() != 1 && !banhuang.getText().equals("不选")) {
             Toast.makeText(this, "板簧有错误，请联系管理员", Toast.LENGTH_SHORT).show();
             return false;
         }
 
         //确定左工具箱
-        if (DaoBean.getInventoryLikeCCodeSkeleton("1503",gjxLeft.getText(),ze,null,null).size()!=1&&!gjxLeft.getText().equals("不选")){
+        if (DaoBean.getInventoryLikeCCodeSkeleton("1503", gjxLeft.getText(), ze, null, null).size() != 1 && !gjxLeft.getText().equals("不选")) {
             Toast.makeText(this, "左工具箱数据有错误，请联系管理员", Toast.LENGTH_SHORT).show();
             return false;
         }
         //确定右工具箱
-        if (DaoBean.getInventoryLikeCCodeSkeleton("1504",gjxRight.getText(),ze,null,null).size()!=1&&!gjxRight.getText().equals("不选")){
+        if (DaoBean.getInventoryLikeCCodeSkeleton("1504", gjxRight.getText(), ze, null, null).size() != 1 && !gjxRight.getText().equals("不选")) {
             Toast.makeText(this, "右工具箱数据有错误，请联系管理员", Toast.LENGTH_SHORT).show();
             return false;
         }
         //ABS
-        if (DaoBean.getInventoryLikeCCodeSkeleton("0411",abs.getText(),ze,null,null).size()!=1&&!abs.getText().equals("不选")){
+        if (DaoBean.getInventoryLikeCCodeSkeleton("0411", abs.getText(), ze, null, null).size() != 1 && !abs.getText().equals("不选")) {
             Toast.makeText(this, "ABS数据有错误，请联系管理员", Toast.LENGTH_SHORT).show();
             return false;
         }
         //确定钢圈
-        if (DaoBean.getInventoryLikeCCodeSkeleton("0405",gangquan.getText(),ze,null,null).size()!=1&&!gangquan.getText().equals("不选")){
+        if (DaoBean.getInventoryLikeCCodeSkeleton("0405", gangquan.getText(), ze, null, null).size() != 1 && !gangquan.getText().equals("不选")) {
             Toast.makeText(this, "钢圈数据有错误，请联系管理员", Toast.LENGTH_SHORT).show();
             return false;
         }
         //确定轮胎
-        if (DaoBean.getInventoryLikeCCodeSkeleton("0404",luntai.getText(),ze,null,null).size()!=1&&!luntai.getText().equals("不选")){
+        if (DaoBean.getInventoryLikeCCodeSkeleton("0404", luntai.getText(), ze, null, null).size() != 1 && !luntai.getText().equals("不选")) {
             Toast.makeText(this, "轮胎数据有错误，请联系管理员", Toast.LENGTH_SHORT).show();
             return false;
         }
         //确定车轴
-        if (DaoBean.getInventoryLikeCCodeSkeleton("1513",chezhou.getText(),ze,null,null).size()!=1&&!chezhou.getText().equals("不选")){
+        if (DaoBean.getInventoryLikeCCodeSkeleton("1513", chezhou.getText(), ze, null, null).size() != 1 && !chezhou.getText().equals("不选")) {
             Toast.makeText(this, "车轴数据有错误，请联系管理员", Toast.LENGTH_SHORT).show();
             return false;
         }
         //确定装卸平台
-        if (DaoBean.getInventoryLikeCCodeSkeleton("1516",unloadingPlatform.getText(),ze,null,null).size()!=1){
+        if (DaoBean.getInventoryLikeCCodeSkeleton("1516", unloadingPlatform.getText(), ze, null, null).size() != 1) {
             Toast.makeText(this, "装卸平台数据有错误，请联系管理员", Toast.LENGTH_SHORT).show();
             return false;
         }
         //确定悬挂
-        if (DaoBean.getInventoryLikeCCodeSkeleton("1517",suspensionType.getText(),ze_text,productType.getText(),null).size()!=1&&!suspensionType.getText().equals("不选")){
+        if (DaoBean.getInventoryLikeCCodeSkeleton("1517", suspensionType.getText(), ze_text, productType.getText(), null).size() != 1 && !suspensionType.getText().equals("不选")) {
             Toast.makeText(this, "悬挂数据有错误，请联系管理员", Toast.LENGTH_SHORT).show();
             return false;
         }
         //确定锁具
-        if (DaoBean.getInventoryLikeCCodeSkeleton("1518",lockType.getText(),ze,null,null).size()!=1&&!lockType.getText().equals("不选")){
+        if (DaoBean.getInventoryLikeCCodeSkeleton("1518", lockType.getText(), ze, null, null).size() != 1 && !lockType.getText().equals("不选")) {
             Toast.makeText(this, "锁具数据有错误，请联系管理员", Toast.LENGTH_SHORT).show();
             return false;
         }
         //确定挡泥板
-        if (DaoBean.getInventoryLikeCCodeSkeleton("1519",fender.getText(),ze,null,null).size()!=1&&!fender.getText().equals("不选")){
+        if (DaoBean.getInventoryLikeCCodeSkeleton("1519", fender.getText(), ze, null, null).size() != 1 && !fender.getText().equals("不选")) {
             Toast.makeText(this, "挡泥板数据有错误，请联系管理员", Toast.LENGTH_SHORT).show();
             return false;
         }
         //确定储气筒
-        if (DaoBean.getInventoryLikeCCodeSkeleton("1520",airCylinderType.getText(),ze,null,null).size()!=1&&!airCylinderType.getText().equals("不选")){
+        if (DaoBean.getInventoryLikeCCodeSkeleton("1520", airCylinderType.getText(), ze, null, null).size() != 1 && !airCylinderType.getText().equals("不选")) {
             Toast.makeText(this, "储气筒数据有错误，请联系管理员", Toast.LENGTH_SHORT).show();
             return false;
         }
         //确定制动气室
-        if (DaoBean.getInventoryLikeCCodeSkeleton("1521",brakeChamberType.getText(),ze,null,null).size()!=1&&!brakeChamberType.getText().equals("不选")){
+        if (DaoBean.getInventoryLikeCCodeSkeleton("1521", brakeChamberType.getText(), ze, null, null).size() != 1 && !brakeChamberType.getText().equals("不选")) {
             Toast.makeText(this, "制动气室数据有错误，请联系管理员", Toast.LENGTH_SHORT).show();
             return false;
         }
         //确定继动阀
-        if (DaoBean.getInventoryLikeCCodeSkeleton("1522",relayValve.getText(),ze,null,null).size()!=1&&!relayValve.getText().equals("不选")){
+        if (DaoBean.getInventoryLikeCCodeSkeleton("1522", relayValve.getText(), ze, null, null).size() != 1 && !relayValve.getText().equals("不选")) {
             Toast.makeText(this, "继动阀数据有错误，请联系管理员", Toast.LENGTH_SHORT).show();
             return false;
         }
         //确定支腿
-        if (DaoBean.getInventoryLikeCCodeSkeleton("1523",legType.getText(),ze,null,null).size()!=1&&!legType.getText().equals("不选")){
+        if (DaoBean.getInventoryLikeCCodeSkeleton("1523", legType.getText(), ze, null, null).size() != 1 && !legType.getText().equals("不选")) {
             Toast.makeText(this, "支腿数据有错误，请联系管理员", Toast.LENGTH_SHORT).show();
             return false;
         }
 
 
-
-
         //确定底盘
-         String tempString="20";
-        if (productType.getText().contains("20")){
-            tempString="20";
-        }else if (productType.getText().contains("40")){
-            tempString="40";
-        }else if (productType.getText().contains("45")){
-            tempString="45";
-        }else if (productType.getText().contains("48")){
-            tempString="48";
+        String tempString = "20";
+        if (productType.getText().contains("20")) {
+            tempString = "20";
+        } else if (productType.getText().contains("40")) {
+            tempString = "40";
+        } else if (productType.getText().contains("45")) {
+            tempString = "45";
+        } else if (productType.getText().contains("48")) {
+            tempString = "48";
         }
-        if (DaoBean.getInventoryLikeCCodeSkeleton("1511",tempString,ze_text,null,null).size()!=1&&!productType.getText().equals("不选")){
+        if (DaoBean.getInventoryLikeCCodeSkeleton("1511", tempString, ze_text, null, null).size() != 1 && !productType.getText().equals("不选")) {
             Toast.makeText(this, "底盘数据有错误，请联系管理员", Toast.LENGTH_SHORT).show();
             return false;
         }
         //确定行走机构
-        if (DaoBean.getInventoryLikeCCodeSkeleton("1506",tempString,ze_text,axisCount.getText()+"轴",null).size()!=1&&!productType.getText().equals("不选")){
+        if (DaoBean.getInventoryLikeCCodeSkeleton("1506", tempString, ze_text, axisCount.getText() + "轴", null).size() != 1 && !productType.getText().equals("不选")) {
             Toast.makeText(this, "行走机构数据有错误，请联系管理员", Toast.LENGTH_SHORT).show();
             return false;
         }
 
 
-
-
         return true;
 
     }
+
     private class ResponCallBack extends MyCallback {
         @Override
         public void onError(Call call, Exception e, int id) {
@@ -1021,6 +1210,7 @@ public class SkeletonContractInput extends BaseActivity implements View.OnClickL
             }
         }
     }
+
     /**
      * 监听数量变化
      */
@@ -1036,7 +1226,7 @@ public class SkeletonContractInput extends BaseActivity implements View.OnClickL
 
     @OnClick(R.id.caculator)
     public void onViewClicked() {
-        if (!dealWithData()){
+        if (!dealWithData()) {
             return;
         }
         monitorEditNum();
@@ -1067,6 +1257,255 @@ public class SkeletonContractInput extends BaseActivity implements View.OnClickL
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         dialog.show();
+
+    }
+
+    //查询出车计划回调
+    private class EnableNumOfDaysResponCallBack extends MyCallback {
+        @Override
+        public void onError(Call call, Exception e, int id) {
+            toolUtil.dismissProgressDialog();
+            Toast.makeText(SkeletonContractInput.this, SkeletonContractInput.this.getResources().getString(R.string.abnormal), Toast.LENGTH_SHORT).show();
+
+        }
+
+        @Override
+        public void onResponse(ReponseBean response, int id) {
+            toolUtil.dismissProgressDialog();
+            if (response.getCode() == 0) {
+                for (ProNumBean proNumBean : response.getData().proNum) {
+                    if ((proNumBean.getFirst_flag() >= proNumBean.getFirst_num())
+                            && (proNumBean.getUrgent_flag() >= proNumBean.getUrgent_num())
+                            && (proNumBean.getNormal_flag() >= proNumBean.getNormal_num())) {
+                        continue;
+                    }
+                    if (proNumBean.getEnable_flag() == 0) {
+                        continue;
+                    }
+                    ProNumData.add(proNumBean);
+                }
+                ProNumAdapter proNumAdapter = new ProNumAdapter(SkeletonContractInput.this, ProNumData);
+                proNumLv.setAdapter(proNumAdapter);
+                queryNumLayout.setVisibility(View.VISIBLE);
+            } else {
+                Toast.makeText(SkeletonContractInput.this, response.getMsg(), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    /**
+     * 重新onResume方法，实现保存手写签名后，显示在签名的ImageView上
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences sps = getSharedPreferences("image_info",
+                MODE_PRIVATE);
+        image_path = sps.getString("image_path", "");
+        signatureFile = new File(image_path);
+        if (!TextUtils.isEmpty(image_path)) {
+            InputStream is;
+            bitmap = null;
+            try {
+                is = new FileInputStream(image_path);
+                bitmap = BitmapFactory.decodeStream(is);
+            } catch (FileNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            if (bitmap != null) {
+                signPic.setImageBitmap(bitmap);
+            } else {
+                System.out.println("bitmap is null");
+            }
+        }
+
+    }
+    class GridImgAdapter extends BaseAdapter implements ListAdapter {
+        @Override
+        public int getCount() {
+            return img_uri.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            convertView = LayoutInflater.from(SkeletonContractInput.this).inflate(R.layout.activity_addstory_img_item,null);
+            ViewHolder holder;
+
+            if(convertView!=null){
+                holder = new ViewHolder();
+                convertView = LayoutInflater.from(SkeletonContractInput.this).inflate(R.layout.activity_addstory_img_item,null);
+                convertView.setTag(holder);
+                holder.add_IB = (ImageView) convertView.findViewById(R.id.add_IB);
+                holder.delete_IV = (ImageView) convertView.findViewById(R.id.delete_IV);
+            }else{
+                holder = (ViewHolder) convertView.getTag();
+            }
+
+
+            AbsListView.LayoutParams param = new AbsListView.LayoutParams(screen_widthOffset, screen_widthOffset);
+            convertView.setLayoutParams(param);
+            if (img_uri.get(position) == null) {
+                holder.delete_IV.setVisibility(View.GONE);
+
+                ImageLoader.getInstance().displayImage("drawable://" + R.drawable.iv_add_the_pic, holder.add_IB);
+
+                holder.add_IB.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View arg0) {
+                        Intent intent = new Intent(SkeletonContractInput.this, PhotoSelectorActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        intent.putExtra("limit", 9 - (img_uri.size() - 1));
+                        startActivityForResult(intent, 0);
+                    }
+                });
+
+            } else {
+                ImageLoader.getInstance().displayImage("file://" + img_uri.get(position).getUrl(), holder.add_IB);
+
+                holder.delete_IV.setOnClickListener(new View.OnClickListener() {
+                    private boolean is_addNull;
+                    @Override
+                    public void onClick(View arg0) {
+                        is_addNull = true;
+                        String img_url = img_uri.remove(position).getUrl();
+                        single_photos.remove(position);
+                        for (int i = 0; i < img_uri.size(); i++) {
+                            if (img_uri.get(i) == null) {
+                                is_addNull = false;
+                                continue;
+                            }
+                        }
+                        if (is_addNull) {
+                            img_uri.add(null);
+                        }
+
+                        FileUtils.DeleteFolder(img_url);//删除在emulate/0文件夹生成的图片
+
+                        gridImgsAdapter.notifyDataSetChanged();
+                    }
+                });
+
+                holder.add_IB.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("photos",(Serializable)single_photos);
+                        bundle.putInt("position", position);
+                        bundle.putBoolean("isSave",false);
+                        CommonUtils.launchActivity(SkeletonContractInput.this, PhotoPreviewActivity.class, bundle);
+                    }
+                });
+
+            }
+            return convertView;
+        }
+
+        class ViewHolder {
+            ImageView add_IB;
+            ImageView delete_IV;
+        }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case 0:
+                if (data != null) {
+                    List<String> paths = (List<String>) data.getExtras().getSerializable("photos");
+                    if (img_uri.size() > 0) {
+                        img_uri.remove(img_uri.size() - 1);
+                    }
+
+                    for (int i = 0; i < paths.size(); i++) {
+                        if (img_uri.size()>=9){
+                            Toast.makeText(this, "最多可以上传9张附件!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        img_uri.add(new UploadGoodsBean(paths.get(i), false));
+                        PhotoModel photoModel = new PhotoModel();
+                        photoModel.setOriginalPath(paths.get(i));
+                        photoModel.setChecked(true);
+                        single_photos.add(photoModel);
+                        //上传参数
+                    }
+
+                    if (img_uri.size() < 9) {
+                        img_uri.add(null);
+                    }
+                    gridImgsAdapter.notifyDataSetChanged();
+                }
+                break;
+        }
+
+
+
+    }
+    private void download(String fileUrl, String filePath, String imageName,int type) {
+
+
+        //Target
+        Target target = new Target() {
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                File dcimFile = ImageFactory.getDCIMFile(SkeletonContractInput.this, imageName);
+                FileOutputStream ostream = null;
+                try {
+                    ostream = new FileOutputStream(dcimFile);
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, ostream);
+                    ostream.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                Toast.makeText(SkeletonContractInput.this, "图片下载至:" + dcimFile, Toast.LENGTH_SHORT).show();
+//                FilesInfo fileInfo = new FilesInfo();
+//                fileInfo.setAdd_file_path(dcimFile.getPath());
+//                list.add(fileInfo);
+                if (type==0){
+                    img_uri.add(new UploadGoodsBean(dcimFile.getPath(),false));
+                    single_photos.add(new PhotoModel(dcimFile.getPath(),true));
+                }else{
+                    SharedPreferences.Editor editor = getSharedPreferences("image_info",
+                            MODE_PRIVATE).edit();
+                    editor.putString("image_path", dcimFile.getPath());
+                    editor.apply();
+                }
+
+            }
+
+            @Override
+            public void onBitmapFailed(Drawable errorDrawable) {
+                if (type==0){
+                    img_uri.add(new UploadGoodsBean("drawable://" + R.drawable.more_item_unpress,false));
+                    single_photos.add(new PhotoModel("drawable://" + R.drawable.more_item_unpress,true));
+                }
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+
+
+            }
+        };
+
+        //Picasso下载
+        fileUrl = CommonData.loadImageFile + "?fileName=" + fileUrl;
+        Picasso.with(this).load(fileUrl).into(target);
+        if (type==1){
+            Picasso.with(this).load(fileUrl).into(signPic);
+        }
 
     }
 }

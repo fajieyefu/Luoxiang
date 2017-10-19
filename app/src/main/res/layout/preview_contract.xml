@@ -702,7 +702,29 @@
 
                 </LinearLayout>
             </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                style="@style/CardViewLayout"
+                android:paddingBottom="10dp">
+            <ListView
+                android:id="@+id/lv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:divider="@null"
+                >
 
+            </ListView>
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                style="@style/CardViewLayout"
+                android:paddingBottom="10dp">
+                <ListView
+                    android:id="@+id/lv_sign"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:divider="@null"
+                    >
+                </ListView>
+    </android.support.v7.widget.CardView>
             <android.support.v7.widget.CardView
                 style="@style/CardViewLayout">
                 <LinearLayout
@@ -948,8 +970,54 @@
 
                 </LinearLayout>
             </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            style="@style/CardViewLayout">
+            <RelativeLayout
+                android:id="@+id/wordLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:gravity="center_vertical"
+                >
+                <Button
+                    android:id="@+id/downWord"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/btn_red"
+                    android:text="下载合同"
+                    />
+                <LinearLayout
+                    android:id="@+id/downingLayout"
+                    android:layout_toRightOf="@+id/downWord"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_toRightOf="@+id/downWord"
+                    android:id="@+id/wordPic"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/word"
+                        />
+                    <TextView
+                        android:id="@+id/docName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="201710140014.docx"/>
+
+                </LinearLayout>
 
 
+            </RelativeLayout>
+            </android.support.v7.widget.CardView>
             <fajieyefu.com.luoxiang.layout.LinearLayoutForListView
                 android:id="@+id/contract_change_lv"
                 android:layout_width="match_parent"

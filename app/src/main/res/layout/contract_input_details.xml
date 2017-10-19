@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -7,10 +7,12 @@
     <fajieyefu.com.luoxiang.layout.TitleLayout
         android:id="@+id/title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></fajieyefu.com.luoxiang.layout.TitleLayout>
+        android:layout_height="wrap_content">
+    </fajieyefu.com.luoxiang.layout.TitleLayout>
 
     <ScrollView
         android:id="@+id/parent"
+        android:layout_below="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white">
@@ -257,7 +259,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                android:layout_below="@+id/select_info">
+                android:layout_below="@+id/sign_layout">
 
                 <Button
                     android:id="@+id/caculator"
@@ -692,6 +694,15 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory>
+                    <fajieyefu.com.luoxiang.layout.MySpinnerForFree
+                        android:id="@+id/banhuang_mark"
+                        android:visibility="gone"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForFree>
+                </LinearLayout>
+                <LinearLayout style="@style/contratInputLayout_h">
+
 
                     <TextView
                         style="@style/contratInputLayoutTitle_h"
@@ -894,7 +905,8 @@
                             android:id="@+id/houmen"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory>
+                            android:layout_weight="1">
+                        </fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory>
 
                         <ImageView
                             android:layout_width="match_parent"
@@ -926,7 +938,8 @@
                         android:id="@+id/penggan"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory>
+                        android:layout_weight="1">
+                    </fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory>
 
                     <TextView
                         style="@style/contratInputLayoutTitle_h"
@@ -1164,7 +1177,13 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"></fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory>
-
+                    <fajieyefu.com.luoxiang.layout.MySpinnerForFree
+                        android:id="@+id/chezhou_mark"
+                        android:visibility="gone"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+                    </fajieyefu.com.luoxiang.layout.MySpinnerForFree>
                 </LinearLayout>
 
                 <LinearLayout
@@ -1422,8 +1441,73 @@
 
 
             </LinearLayout>
+
+
+            <LinearLayout
+
+                android:id="@+id/sign_layout"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_below="@+id/file_layout"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:padding="5dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:background="@drawable/more_item_unpress">
+
+                    <ImageView
+                        android:id="@+id/sign_pic"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/pic_none"/>
+                </LinearLayout>
+
+
+                <Button
+                    android:id="@+id/sign"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@color/headgreen"
+                    android:text="手写签名"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/file_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/select_info"
+                android:orientation="vertical"
+                android:paddingBottom="10dp" >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="添加附件"/>
+
+                <fajieyefu.com.luoxiang.layout.MyGridView
+                    android:id="@+id/my_goods_GV"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center"
+                    android:numColumns="4" />
+            </LinearLayout>
         </RelativeLayout>
 
 
     </ScrollView>
-</LinearLayout>
+    <include
+        android:id="@+id/queryNumLayout"
+        android:visibility="gone"
+        layout="@layout/query_pro_num_layout"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"/>
+</RelativeLayout>

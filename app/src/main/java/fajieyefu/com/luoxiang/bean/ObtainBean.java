@@ -17,6 +17,15 @@ public class ObtainBean implements Serializable{
     private String cCusAddress;
     private String cCusLPerson;
     private String cCusPerson;
+    private String cDCName;
+
+    public String getcDCName() {
+        return cDCName;
+    }
+
+    public void setcDCName(String cDCName) {
+        this.cDCName = cDCName;
+    }
 
     public String getcCusPerson() {
         return cCusPerson;

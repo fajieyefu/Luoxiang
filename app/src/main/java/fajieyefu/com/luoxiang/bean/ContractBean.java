@@ -24,6 +24,33 @@ public class ContractBean {
     private int isSkeleton;
     private int select_flag;
     private String endCustomerName;
+    private String endCustomerPhone;
+    private long sp_time;
+    private String sp_person;
+
+    public long getSp_time() {
+        return sp_time;
+    }
+
+    public void setSp_time(long sp_time) {
+        this.sp_time = sp_time;
+    }
+
+    public String getSp_person() {
+        return sp_person;
+    }
+
+    public void setSp_person(String sp_person) {
+        this.sp_person = sp_person;
+    }
+
+    public String getEndCustomerPhone() {
+        return endCustomerPhone;
+    }
+
+    public void setEndCustomerPhone(String endCustomerPhone) {
+        this.endCustomerPhone = endCustomerPhone;
+    }
 
     public String getEndCustomerName() {
         return endCustomerName;

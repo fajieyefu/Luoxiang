@@ -87,5 +87,4 @@
         android:button="@drawable/checkboxselector"
         android:text="记住密码"
         android:textColor="@color/Myorange"/>
-
 </RelativeLayout>

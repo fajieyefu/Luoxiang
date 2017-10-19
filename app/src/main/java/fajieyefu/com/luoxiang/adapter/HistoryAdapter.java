@@ -63,7 +63,11 @@ public class HistoryAdapter extends BaseAdapter {
         }else if (contractBean.getNq_flag()==2){
             viewHolder.dot.setBackground(context.getResources().getDrawable(R.drawable.dot_2));
             viewHolder.nqFlag.setText(context.getResources().getString(R.string.back_audit));
-        }else if (contractBean.getNq_flag()==1&&contractBean.getDdtc()==0){
+        }else if (contractBean.getNq_flag()==3){
+            viewHolder.dot.setBackground(context.getResources().getDrawable(R.drawable.dot_2));
+            viewHolder.nqFlag.setText("作废");
+        }
+        else if (contractBean.getNq_flag()==1&&contractBean.getDdtc()==0){
             viewHolder.dot.setBackground(context.getResources().getDrawable(R.drawable.dot_3));
             viewHolder.nqFlag.setText(context.getResources().getString(R.string.ddpc));
         }else if (contractBean.getDdtc()==1&&contractBean.getWc()==0){

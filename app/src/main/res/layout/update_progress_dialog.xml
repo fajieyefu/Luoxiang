@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:gravity="center"
-        android:text="最新版本正在下载..."/>
+        android:text="下载中......"/>
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="2dp"
@@ -22,7 +22,7 @@
         android:id="@+id/progress_bar"
         style="@style/myHorizontalProgress"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="5dp"
         android:max="100"
         />
     <Button

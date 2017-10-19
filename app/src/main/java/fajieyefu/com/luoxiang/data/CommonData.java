@@ -1,5 +1,7 @@
 package fajieyefu.com.luoxiang.data;
 
+import android.os.Environment;
+
 import java.net.URL;
 
 /**
@@ -26,13 +28,22 @@ public class CommonData {
     public static String getStockList=URL2+"/getStockCarInfo";
     public static String addCustomerUrl=URL2+"/addCustomerInfo";//维护客户信息
     public static String commitContractChange=URL2+"/contractChange";//增加合同变更
-
+    public static String getEnableNumOfDays=URL2+"/getEnableNumOfDays";//增加合同变更
+    public static String loadImageFile=URL2+"/downImageFile";//下载图片的地址
+    public static String getLastCheckInfo=URL2+"/getLastCheckInfo";//获取最新的审批信息，用于提示
+    public static final String myClueInfoURL=URL2+"/getMyClueInfo";//获取自己的线索
+    public static final String areaClueInfoURL=URL2+"/getAreaClueInfo";//获取自己的线索
+    public static final String clueInfoDetail=URL2+"/getClueInfoDetail";//获取线索详情
 
 
 
     public  static final  String PRO_FAIL="FAIL";//处理失败
+
+
     public  static final  String PRO_SUCCESS="SUCCESS";//成功
 
 
     public static final String LOAD_AREA=URL2+"/getAreaList";//加载区域
+
+//    public static final String PIC_TEMP = Environment.getExternalStorageDirectory().getPath() + "/luoxiang/pic_temp/";
 }

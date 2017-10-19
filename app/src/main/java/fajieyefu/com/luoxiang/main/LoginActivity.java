@@ -3,17 +3,25 @@ package fajieyefu.com.luoxiang.main;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.File;
+import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,7 +43,8 @@ import okhttp3.MediaType;
  * Created by Administrator on 2017/4/15.
  */
 
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends BaseActivity  {
+    private static final int IMAGE_PICKER = 1;
     @BindView(R.id.username)
     EditText username;
     @BindView(R.id.password)
@@ -46,9 +55,12 @@ public class LoginActivity extends BaseActivity {
     CheckBox checkbox;
     @BindView(R.id.test)
     TextView test;
+    @BindView(R.id.logo)
+    ImageView logo;
     private DaoSession daoSession;
     private UserInfoDao userInfoDao;
     private UserInfo userInfo;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,13 +68,32 @@ public class LoginActivity extends BaseActivity {
         setContentView(R.layout.login);
         ButterKnife.bind(this);
         initData();
+//        initNeedData();
+
     }
+
+//    private void initNeedData() {
+//        File file = new File(CommonData.PIC_TEMP);
+//        if (!file.exists()) {
+//            file.mkdirs();
+//        }
+//        for (int i = 1; i < 11; i++) {
+//            file = new File(CommonData.PIC_TEMP + i + ".jpg");
+//            if (!file.exists()) {
+//                try {
+//                    file.createNewFile();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//    }
 
     private void initData() {
         daoSession = DaoManager.getInstance().getDaoSession();
         userInfoDao = daoSession.getUserInfoDao();
         userInfo = getInfoById(1);
-        if ( userInfo!=null&&userInfo.getUsername() != null) {
+        if (userInfo != null && userInfo.getUsername() != null) {
             username.setText(userInfo.getUsername());
             if (userInfo.getRembPsw() == true) {
                 password.setText(userInfo.getPassword());
@@ -129,4 +160,6 @@ public class LoginActivity extends BaseActivity {
 
         }
     }
+
+
 }

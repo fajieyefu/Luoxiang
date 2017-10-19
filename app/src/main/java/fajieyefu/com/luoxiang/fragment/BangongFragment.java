@@ -16,10 +16,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import fajieyefu.com.luoxiang.R;
+import fajieyefu.com.luoxiang.main.ClueManageActivity;
 import fajieyefu.com.luoxiang.main.ContractAnlysisActivity;
-import fajieyefu.com.luoxiang.main.ContractAuditActivity;
 import fajieyefu.com.luoxiang.main.ContractInputPage1;
-import fajieyefu.com.luoxiang.main.HistoryActivity;
 import fajieyefu.com.luoxiang.main.HistorySelectedActivity;
 
 /**
@@ -36,7 +35,10 @@ public class BangongFragment extends Fragment {
     @BindView(R.id.all_contract)
     RadioButton allContract;
     Unbinder unbinder;
+    @BindView(R.id.clueResource)
+    RadioButton clueResource;
     private Context context;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -47,7 +49,7 @@ public class BangongFragment extends Fragment {
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        context= getActivity();
+        context = getActivity();
         super.onActivityCreated(savedInstanceState);
     }
 
@@ -57,7 +59,7 @@ public class BangongFragment extends Fragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.contract_input, R.id.contract_edit, R.id.contract_history, R.id.all_contract})
+    @OnClick({R.id.contract_input, R.id.contract_edit, R.id.contract_history, R.id.all_contract,R.id.clueResource})
     public void onViewClicked(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
@@ -75,11 +77,16 @@ public class BangongFragment extends Fragment {
                 startActivity(intent);
                 break;
             case R.id.all_contract:
-                intent.setClass(context,ContractAnlysisActivity.class);
+                intent.setClass(context, ContractAnlysisActivity.class);
                 startActivity(intent);
 //                Toast.makeText(context, "整改中，近期开放", Toast.LENGTH_SHORT).show();
-
                 break;
+            case R.id.clueResource:
+                intent.setClass(context,ClueManageActivity.class);
+                startActivity(intent);
+                break;
+
         }
     }
+
 }

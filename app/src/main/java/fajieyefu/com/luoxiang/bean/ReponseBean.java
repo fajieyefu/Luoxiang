@@ -47,5 +47,9 @@ public class ReponseBean {
             public List<ContractBean> stockList;
             public List<Area> area;
             public List<ContractChange> orderChange;
+            public List<ProNumBean> proNum;
+            public List<ClueBean> clueInfo;
+            public ClueBean clueInfoDetail;
+            public List<ClueFollowBean> clueFollow;
     }
 }

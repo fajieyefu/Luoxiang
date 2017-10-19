@@ -44,11 +44,16 @@ public class ExampleDaoGenerator {
 		inventory.addIntProperty("styleflag");//所属bom表示
 		inventory.addIntProperty("iSupplyType");//供应类型
 		inventory.addStringProperty("cInvDefine1");//u8中自定义项站柱和挡板匹配
-		//记录审批的次数
+		//记录审批的次数,作废
 		Entity auditCount = schema.addEntity("AuditCount") ;
 		auditCount.addIdProperty();
 		auditCount.addIntProperty("counts");
 		auditCount.addStringProperty("username");
+		//记录上一次审批时间
+		Entity lastCheckInfo = schema.addEntity("LastCheckInfo") ;
+		lastCheckInfo.addIdProperty();
+		lastCheckInfo.addLongProperty("lastCheckTime");
+		lastCheckInfo.addStringProperty("username");
 
 
 	}

@@ -69,6 +69,10 @@ public class HistoryActivity extends BaseActivity implements XListView.IXListVie
     LinearLayout filterLayout;
     @BindView(R.id.shade_layout)
     LinearLayout shadeLayout;
+    @BindView(R.id.customer_name)
+    EditText customerName;
+    @BindView(R.id.endCustomerPhone)
+    EditText endCustomerPhone;
     private int pagesCount = 1;
     private ArrayList<ContractBean> contracts = new ArrayList<>();
     private ArrayList<ContractBean> contractResult = new ArrayList<>();
@@ -99,6 +103,7 @@ public class HistoryActivity extends BaseActivity implements XListView.IXListVie
         ContractTypeBean contractTypeBean3 = new ContractTypeBean("待排产  ", 3, 0);
         ContractTypeBean contractTypeBean4 = new ContractTypeBean("待提车  ", 4, 0);
         ContractTypeBean contractTypeBean5 = new ContractTypeBean("已完成  ", 5, 0);
+        ContractTypeBean contractTypeBean6 = new ContractTypeBean("作废  ", 6, 0);
         contractTypes.clear();
         contractTypes.add(contractTypeBean);
         contractTypes.add(contractTypeBean1);
@@ -106,6 +111,7 @@ public class HistoryActivity extends BaseActivity implements XListView.IXListVie
         contractTypes.add(contractTypeBean3);
         contractTypes.add(contractTypeBean4);
         contractTypes.add(contractTypeBean5);
+        contractTypes.add(contractTypeBean6);
         historyLv.setPullRefreshEnable(true);
         historyLv.setPullLoadEnable(true);
         historyLv.setAutoLoadEnable(true);
@@ -219,25 +225,33 @@ public class HistoryActivity extends BaseActivity implements XListView.IXListVie
             case R.id.search:
                 String orderString = orderNumber.getText().toString().trim();
                 String endCustomer = endCustomerName.getText().toString().trim();
-                searchOrder(orderString, endCustomer);
+                String customer = customerName.getText().toString().trim();
+                String endphone =endCustomerPhone.getText().toString().trim();
+                searchOrder(orderString, endCustomer,endphone,customer);
                 break;
 
         }
     }
 
-    private void searchOrder(String orderString, String endCustomer) {
+    private void searchOrder(String orderString, String endCustomer, String endCustomerPhone, String customer) {
         contracts.clear();
-        if (!TextUtils.isEmpty(orderString) || !TextUtils.isEmpty(endCustomer)) {
+        if (!TextUtils.isEmpty(orderString) || !TextUtils.isEmpty(endCustomer) || !TextUtils.isEmpty(customer) || !TextUtils.isEmpty(endCustomerPhone)) {
             for (ContractBean contractBean : contractResult) {
                 if (!TextUtils.isEmpty(orderString) && !contractBean.getOrderNumber().contains(orderString)) {
                     continue;
                 }
-                if (!TextUtils.isEmpty(endCustomer) && (contractBean.getEndCustomerName()==null||!contractBean.getEndCustomerName().contains(endCustomer))) {
+                if (!TextUtils.isEmpty(endCustomer) && (contractBean.getEndCustomerName() == null || !contractBean.getEndCustomerName().contains(endCustomer))) {
+                    continue;
+                }
+                if (!TextUtils.isEmpty(customer) && !contractBean.getcCusName().contains(customer)) {
+                    continue;
+                }
+                if (!TextUtils.isEmpty(endCustomerPhone) && (contractBean.getEndCustomerPhone() == null || !contractBean.getEndCustomerPhone().contains(endCustomerPhone))) {
                     continue;
                 }
                 contracts.add(contractBean);
             }
-        }else{
+        } else {
             contracts.addAll(contractResult);
         }
         notifyThisPagesListView();
@@ -356,6 +370,13 @@ public class HistoryActivity extends BaseActivity implements XListView.IXListVie
             case 5:
                 for (ContractBean contractBean : contractResult) {
                     if (contractBean.getWc() == 1) {
+                        contracts.add(contractBean);
+                    }
+                }
+                break;
+            case 6:
+                for (ContractBean contractBean : contractResult) {
+                    if (contractBean.getNq_flag() == 3) {
                         contracts.add(contractBean);
                     }
                 }

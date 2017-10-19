@@ -12,6 +12,7 @@ import de.greenrobot.dao.query.QueryBuilder;
 import fajieyefu.com.luoxiang.bean.AuditCount;
 import fajieyefu.com.luoxiang.bean.Inventory;
 import fajieyefu.com.luoxiang.bean.InventoryClass;
+import fajieyefu.com.luoxiang.bean.LastCheckInfo;
 import fajieyefu.com.luoxiang.bean.UserInfo;
 import fajieyefu.com.luoxiang.db.DaoSession;
 import fajieyefu.com.luoxiang.util.DaoManager;
@@ -60,14 +61,34 @@ public class DaoBean {
         if (list.size() != 0) {
             switch (code) {
                 case "1508":case "1509":case "1510":case "0410":
-                case "1514":case "1512":case "1502":case "1507":
+                case "1512":case "1502":case "1507":
                 case "1503":case "1504":case "0411":case "0404":
-                case "0405":case "1513":
+                case "0405":
                     for (Inventory inventory : list) {
                         if (inventory.getCInvName().equals(text)) {
                             result.add(inventory);
                         }
                     }
+                    break;
+                case "1513":
+                    if (!ze.equals("自备")){
+                        for (Inventory inventory : list) {
+                            if (inventory.getCInvName().equals(text)) {
+                                result.add(inventory);
+                            }
+                        }
+                    }
+
+                    break;
+                case "1514":
+                    if (!ze.equals("自备")){
+                        for (Inventory inventory : list) {
+                            if (inventory.getCInvName().equals(text)) {
+                                result.add(inventory);
+                            }
+                        }
+                    }
+
                     break;
                 case "0308":
                     for (Inventory inventory : list) {
@@ -489,6 +510,16 @@ public class DaoBean {
         QueryBuilder<AuditCount> queryBuilder = auditCountDao.queryBuilder().where(UserInfoDao.Properties.Username.eq(username));
         Query query = queryBuilder.build();
         return (AuditCount) query.unique();
+
+    }
+
+    public static LastCheckInfo getLastCheckInfoByUserName(String username) {
+
+        DaoSession daoSession = DaoManager.getInstance().getDaoSession();
+        LastCheckInfoDao lastCheckInfoDao = daoSession.getLastCheckInfoDao();
+        QueryBuilder<LastCheckInfo> queryBuilder = lastCheckInfoDao.queryBuilder().where(LastCheckInfoDao.Properties.Username.eq(username));
+        Query query = queryBuilder.build();
+        return (LastCheckInfo) query.unique();
 
     }
 /*

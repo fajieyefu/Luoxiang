@@ -5,60 +5,96 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.BoolRes;
+import android.os.Environment;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Display;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
+import android.widget.AbsListView;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.utils.StorageUtils;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 import com.zhy.http.okhttp.OkHttpUtils;
+import com.zzti.fengyongge.imagepicker.PhotoPreviewActivity;
+import com.zzti.fengyongge.imagepicker.PhotoSelectorActivity;
+import com.zzti.fengyongge.imagepicker.model.PhotoModel;
+import com.zzti.fengyongge.imagepicker.util.CommonUtils;
+import com.zzti.fengyongge.imagepicker.util.FileUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fajieyefu.com.luoxiang.R;
-import fajieyefu.com.luoxiang.adapter.InventoryClassAdapter;
+import fajieyefu.com.luoxiang.adapter.AddFilesAdapter;
+import fajieyefu.com.luoxiang.adapter.ProNumAdapter;
 import fajieyefu.com.luoxiang.bean.Area;
+import fajieyefu.com.luoxiang.bean.FilesInfo;
 import fajieyefu.com.luoxiang.bean.Inventory;
-import fajieyefu.com.luoxiang.bean.InventoryClass;
 import fajieyefu.com.luoxiang.bean.ObtainBean;
+import fajieyefu.com.luoxiang.bean.ProNumBean;
 import fajieyefu.com.luoxiang.bean.ReponseBean;
+import fajieyefu.com.luoxiang.bean.UploadGoodsBean;
 import fajieyefu.com.luoxiang.bean.UserInfo;
 import fajieyefu.com.luoxiang.dao.DaoBean;
 import fajieyefu.com.luoxiang.data.CommonData;
-import fajieyefu.com.luoxiang.layout.MySpinnerForFree;
+import fajieyefu.com.luoxiang.layout.MyGridView;
 import fajieyefu.com.luoxiang.layout.MySpinnerForFree;
 import fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory;
 import fajieyefu.com.luoxiang.layout.TitleLayout;
+import fajieyefu.com.luoxiang.util.Config;
+import fajieyefu.com.luoxiang.util.DbTOPxUtils;
+import fajieyefu.com.luoxiang.util.ImageFactory;
 import fajieyefu.com.luoxiang.util.MyCallback;
 import fajieyefu.com.luoxiang.util.NumberToCN;
 import fajieyefu.com.luoxiang.util.ToolUtil;
@@ -236,6 +272,28 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
     EditText oldPrice;
     @BindView(R.id.oldPriceLayout)
     LinearLayout oldPriceLayout;
+    @BindView(R.id.proNumLv)
+    ListView proNumLv;
+    @BindView(R.id.queryNumLayout)
+    RelativeLayout queryNumLayout;
+    @BindView(R.id.shade_layout)
+    LinearLayout shadeLayout;
+    @BindView(R.id.queryLinear)
+    LinearLayout queryLinear;
+    @BindView(R.id.sign_pic)
+    ImageView signPic;
+    @BindView(R.id.sign)
+    Button sign;
+    @BindView(R.id.sign_layout)
+    LinearLayout signLayout;
+    @BindView(R.id.closeProNum)
+    Button closeProNum;
+    @BindView(R.id.file_layout)
+    LinearLayout fileLayout;
+    @BindView(R.id.banhuang_mark)
+    MySpinnerForFree banhuangMark;
+    @BindView(R.id.chezhou_mark)
+    MySpinnerForFree chezhouMark;
     private Button more;
     private int mYear;
     private int mMonth;
@@ -271,6 +329,7 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
     private List<String> list_axis;
     private List<String> list_penggan;
     private List<String> list_xiaokuang;
+    private List<String> list_banhuangMark;
     private ObtainBean customer_bean;
     private ToolUtil toolUtil;
     private UserInfo userInfo;
@@ -290,6 +349,19 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
     private String zlText;
     private String ejText;
     private String ordinaryContent;
+    private int screenWidth;
+    private int screenHeight;
+    private List<ProNumBean> ProNumData = new ArrayList<>();
+    private String image_path;
+    private File signaturefile;
+    private Bitmap bitmap;
+    private ImageView imageView;
+    private List<PhotoModel> single_photos = new ArrayList<PhotoModel>();
+    private ArrayList<UploadGoodsBean> img_uri = new ArrayList<UploadGoodsBean>();
+    private int screen_widthOffset;
+    private MyGridView my_imgs_GV;
+    GridImgAdapter gridImgsAdapter;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -299,10 +371,11 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
         toolUtil = new ToolUtil();
         toolUtil.showProgressDialog(this);
         initView();
+        initFiles();
         addTextChangeListener();
         initFreeSpinner();
-        toolUtil.dismissProgressDialog();
         standardId = DaoBean.getInventoryClassById(1).getStandardId();
+        toolUtil.dismissProgressDialog();
 
 
     }
@@ -319,7 +392,13 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
         eText = this.getResources().getString(R.string.e);
         zlText = this.getResources().getString(R.string.zl);
         ejText = this.getResources().getString(R.string.ej);
-
+        int[] hm = new ToolUtil().getScreenWH(this);
+        screenWidth = hm[0];
+        screenHeight = hm[1];
+        RelativeLayout.LayoutParams linearParams = (RelativeLayout.LayoutParams) queryLinear.getLayoutParams();
+        linearParams.width = screenWidth / 10 * 9;
+        linearParams.height = screenHeight / 3 * 2;// 控件的高强制设成20
+        queryLinear.setLayoutParams(linearParams);
         userInfo = DaoBean.getUseInfoById(1);
         title.setTitleText(this.getResources().getString(R.string.orderInput));
         back = (Button) title.findViewById(R.id.back);
@@ -340,6 +419,9 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
         mobile.setText(customer_bean.getcCusHand());
         address.setText(customer_bean.getcCusAddress());
         contactsMan.setText(customer_bean.getcCusPerson());
+        sign.setOnClickListener(this);
+        signPic.setOnClickListener(this);
+        closeProNum.setOnClickListener(this);
         more = (Button) title.findViewById(R.id.more);
         more.setVisibility(View.VISIBLE);
         more.setOnClickListener(new View.OnClickListener() {
@@ -349,10 +431,13 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
                 View view = LayoutInflater.from(ContractInputActivity.this).inflate(R.layout.more_layout, null);
                 TextView commit = (TextView) view.findViewById(R.id.commit);
                 Button preview = (Button) view.findViewById(R.id.preview);
+                Button queryProNum = (Button) view.findViewById(R.id.queryProNum);
                 commit.setVisibility(View.VISIBLE);
                 preview.setVisibility(View.VISIBLE);
+                queryProNum.setVisibility(View.VISIBLE);
                 preview.setOnClickListener(ContractInputActivity.this);
                 commit.setOnClickListener(ContractInputActivity.this);
+                queryProNum.setOnClickListener(ContractInputActivity.this);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(view);
                 dialog.setContentView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -372,7 +457,7 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
                 datePicker.show();
             }
         });
-
+        shadeLayout.setOnClickListener(this);
 
     }
 
@@ -384,7 +469,7 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
          * 获取下拉选项框固定值
          */
         //上
-        list_up= DaoBean.getInventoryNameByCCode("1508");
+        list_up = DaoBean.getInventoryNameByCCode("1508");
         up.setData(list_up);
         //下
         list_down = DaoBean.getInventoryNameByCCode("1509");
@@ -393,10 +478,10 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
         list_mid = DaoBean.getInventoryNameByCCode("1510");
         mid.setData(list_mid);
         //侧栏板
-        list_celanban= DaoBean.getInventoryNameByCCode("020105");
+        list_celanban = DaoBean.getInventoryNameByCCode("020105");
         celanban.setData(list_celanban);
-       //后门
-        list_houmen= DaoBean.getInventoryNameByCCode("020106");
+        //后门
+        list_houmen = DaoBean.getInventoryNameByCCode("020106");
         houmen.setData(list_houmen);
         //w称
         list_wcheng = DaoBean.getInventoryNameByCCode("0308");
@@ -405,38 +490,38 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
         list_diban = DaoBean.getInventoryNameByCCode("1505");
         diban.setData(list_diban);
         //牵引销
-        list_qianyinxiao =DaoBean.getInventoryNameByCCode("0410");
+        list_qianyinxiao = DaoBean.getInventoryNameByCCode("0410");
         qianyinxiao.setData(list_qianyinxiao);
         //板簧
-        list_banhuang =DaoBean.getInventoryNameByCCode("1514");
+        list_banhuang = DaoBean.getInventoryNameByCCode("1514");
         banhuang.setData(list_banhuang);
         //边梁
-        list_bianliang =DaoBean.getInventoryNameByCCode("1512");
+        list_bianliang = DaoBean.getInventoryNameByCCode("1512");
         bianliang.setData(list_bianliang);
 
         //工具箱左
-        list_boxLeft =DaoBean.getInventoryNameByCCode("1503");
+        list_boxLeft = DaoBean.getInventoryNameByCCode("1503");
         gjxLeft.setData(list_boxLeft);
         //工具箱右
-        list_boxRight =DaoBean.getInventoryNameByCCode("1504");
+        list_boxRight = DaoBean.getInventoryNameByCCode("1504");
         gjxRight.setData(list_boxRight);
         //ABS
-        list_abs =DaoBean.getInventoryNameByCCode("0411");
-       abs.setData(list_abs);
+        list_abs = DaoBean.getInventoryNameByCCode("0411");
+        abs.setData(list_abs);
         //钢圈
-        list_gangquan =DaoBean.getInventoryNameByCCode("0405");
+        list_gangquan = DaoBean.getInventoryNameByCCode("0405");
         gangquan.setData(list_gangquan);
         //轮胎
-        list_luntai =DaoBean.getInventoryNameByCCode("0404");
+        list_luntai = DaoBean.getInventoryNameByCCode("0404");
         luntai.setData(list_luntai);
         //车轴
-        list_axis =DaoBean.getInventoryNameByCCode("1513");
+        list_axis = DaoBean.getInventoryNameByCCode("1513");
         chezhou.setData(list_axis);
         //蓬杆
-        list_penggan =DaoBean.getInventoryNameByCCode("1502");
+        list_penggan = DaoBean.getInventoryNameByCCode("1502");
         penggan.setData(list_penggan);
         //篷布框
-        list_xiaokuang =DaoBean.getInventoryNameByCCode("1507");
+        list_xiaokuang = DaoBean.getInventoryNameByCCode("1507");
         xiaokuang.setData(list_xiaokuang);
 
 
@@ -451,6 +536,7 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
         list_beitaizhijia = Arrays.asList(getResources().getStringArray(R.array.beitaizhijia));
         list_model = Arrays.asList(getResources().getStringArray(R.array.model));
         list_btsjq = Arrays.asList(getResources().getStringArray(R.array.btsjq));
+        list_banhuangMark = Arrays.asList(getResources().getStringArray(R.array.banhuangMark));
         list_area = new ArrayList<>();
         for (Area area : areaList) {
             list_area.add(area.getcDCName());
@@ -463,6 +549,8 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
         wid.setData(list_wid);
         hit.setData(list_hgt);
         qianyinzuo.setData(list_qyz);
+        banhuangMark.setData(list_banhuangMark);
+        chezhouMark.setData(list_banhuangMark);
         obtainType.setData(list_obtaintype);
         fangshuicao.setData(list_fsc);
         pati.setData(list_pati);
@@ -470,19 +558,20 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
         carStyle.setData(list_model);
         btsjq.setData(list_btsjq);
         area.setData(list_area);
-        if (orderId!=0){
-            JSONArray ordinaryJson=null;
-             JSONObject json=null;
+        area.setText(customer_bean.getcDCName());
+        if (orderId != 0) {
+            JSONArray ordinaryJson = null;
+            JSONObject json = null;
             try {
-                 ordinaryJson = new JSONArray(ordinaryContent);
-                 json = (JSONObject) ordinaryJson.get(0);
+                ordinaryJson = new JSONArray(ordinaryContent);
+                json = (JSONObject) ordinaryJson.get(0);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
             endCustomerPhone.setText(json.optString("endCustomerPhone").trim());
             endCustomerName.setText(json.optString("endCustomerName").trim());
             area.setText(json.optString("cDCName").trim());
-            if (json.optInt("isNew")==0){
+            if (json.optInt("isNew") == 0) {
                 isNew.setChecked(false);
             }
             qianyinche.setText(json.optString("qianyinche").trim());
@@ -495,8 +584,8 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
             chexxiangColor.setText(json.optString("color").trim());
             daliangColor.setText(json.optString("liang_color").trim());
             num.setText(json.optString("booknum").trim());
-            if (!TextUtils.isEmpty(json.optString("singleprice"))){
-                price.setText((int)( Float.parseFloat(json.optString("singleprice".trim())))+"");
+            if (!TextUtils.isEmpty(json.optString("singleprice"))) {
+                price.setText((int) (Float.parseFloat(json.optString("singleprice".trim()))) + "");
             }
             len.setText(json.optString("car_long").trim());
             wid.setText(json.optString("car_width").trim());
@@ -504,6 +593,8 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
             lidigao.setText(json.optString("lidigao").trim());
             hzbj.setText(json.optString("houxuan").trim());
             huangyouzui.setText(json.optString("butterMouthHeight").trim());
+            chezhouMark.setText(json.optString("chezhouMark").trim());
+            banhuangMark.setText(json.optString("banhuangMark").trim());
             qianxuan.setText(json.optString("qianxuan").trim());
             zhongxinju.setText(json.optString("zhongxinju").trim());
             qianyinxiao.setText(json.optString("qianyinxiao").trim());
@@ -538,31 +629,54 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
             luntaiNum.setText(json.optString("luntai_num").trim());
             chezhou.setText(json.optString("chezhou").trim());
             remark.setText(json.optString("marks").trim());
-            if (json.optInt("bmustbook")==0){
+            if (json.optInt("bmustbook") == 0) {
                 dingjin.setChecked(false);
             }
-            if (json.optInt("cDefine1")==1){
+            if (json.optInt("cDefine1") == 1) {
                 yunfei.setChecked(true);
             }
-            if (!TextUtils.isEmpty(json.optString("payedmoney"))){
-                deposit.setText((int)Float.parseFloat(json.optString("payedmoney").trim())+"");
+            if (!TextUtils.isEmpty(json.optString("payedmoney"))) {
+                deposit.setText((int) Float.parseFloat(json.optString("payedmoney").trim()) + "");
             }
-            if (!TextUtils.isEmpty(json.optString("orderMoney"))){
-                amt.setText((int)Float.parseFloat(json.optString("orderMoney").trim())+"");
+            if (!TextUtils.isEmpty(json.optString("orderMoney"))) {
+                amt.setText((int) Float.parseFloat(json.optString("orderMoney").trim()) + "");
             }
 
             amtDx.setText(json.optString("ordermoney_dx").trim());
             applyDate.setText(json.optString("leaveTime").trim());
             obtainType.setText(json.optString("carstyle").trim());
-            if (!TextUtils.isEmpty(json.optString("oldPrice"))){
-                oldPrice.setText((int) Float.parseFloat(json.optString("oldPrice").trim())+"");
+            if (!TextUtils.isEmpty(json.optString("oldPrice"))) {
+                oldPrice.setText(json.optString("oldPrice").trim() + "");
             }
-            if (json.optInt("urgent_flag")==1){
+            if (json.optInt("urgent_flag") == 1) {
                 urgent.setChecked(true);
             }
 
 
+            if (!TextUtils.isEmpty(json.optString("filePath"))) {
+                if (img_uri.size() > 0) {
+                    img_uri.remove(img_uri.size() - 1);
+                }
+                String[] fileArray = json.optString("filePath").split(",");
+                for (int i = 0; i < fileArray.length; i++) {
+                    String[] arr = fileArray[i].split("//");
+                    String fileName = arr[arr.length-1];
+                    download(fileArray[i], ImageFactory.PATH_PHOTOGRAPH,fileName,0);
 
+                }
+                img_uri.add(null);
+                gridImgsAdapter.notifyDataSetChanged();
+            }
+            if (!TextUtils.isEmpty(json.optString("signaturePath"))) {
+                SharedPreferences sps = getSharedPreferences("image_info",
+                        MODE_PRIVATE);
+                SharedPreferences.Editor editor = sps.edit();
+                image_path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getPath() + "/" + userInfo.getUsername() + ".jpg";
+                editor.putString("image_path", image_path);
+                editor.apply();
+                download(json.optString("signaturePath"), Environment
+                        .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getPath() + "/", userInfo.getUsername() + ".jpg",1);
+            }
 
 
         }
@@ -571,7 +685,7 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
     @OnClick(R.id.caculator)
     public void onViewClicked() {
         isNewCar();
-        if (!dealWithData()){
+        if (!dealWithData()) {
             return;
         }
         monitorEditNum();
@@ -607,7 +721,56 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void onClick(final View v) {
+        switch (v.getId()) {
+            case R.id.queryProNum:
+                initQueryProNumView();
+                break;
+            case R.id.commit:
+                doConfirm();
+                break;
+            case R.id.preview:
+                Intent intent2 = new Intent(ContractInputActivity.this, ContractPreviewActivity.class);
+                if (!createBaseJsonData()) {
+                    return;
+                }
+                String data = basic_info.toString();
+                intent2.putExtra("data", data);
+                startActivity(intent2);
+                break;
+            case R.id.shade_layout:
+                queryNumLayout.setVisibility(View.GONE);
+                break;
+            case R.id.closeProNum:
+                queryNumLayout.setVisibility(View.GONE);
+                break;
+            case R.id.sign:
+                Intent intent3 = new Intent(ContractInputActivity.this, SignatureActivity.class);
+                startActivity(intent3);
+                break;
+            case R.id.sign_pic:
+                if (bitmap == null) {
+                    Toast.makeText(ContractInputActivity.this, "没有签名，请添加", Toast.LENGTH_SHORT).show();
+                } else {
+                    Display display = ContractInputActivity.this.getWindowManager().getDefaultDisplay();
+                    int screenWidth = display.getWidth();
+                    Dialog dialog = new Dialog(this);
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    imageView = new ImageView(this);
+                    imageView.setImageBitmap(bitmap);
+                    imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                    dialog.setContentView(imageView, new ViewGroup.LayoutParams(screenWidth / 2, screenWidth / 2));
+                    dialog.show();
+                }
+                break;
+        }
+        if (dialog != null) {
+            dialog.dismiss();
+        }
 
+
+    }
+
+    private void doConfirm() {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setMessage(this.getResources().getString(R.string.sureOperate));
         dialog.setNegativeButton(this.getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
@@ -619,27 +782,28 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
         dialog.setPositiveButton(this.getResources().getString(R.string.confirm), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                switch (v.getId()) {
-                    case R.id.commit:
-                        commitData("commit");
-                        break;
-                    case R.id.preview:
-                        Intent intent2 = new Intent(ContractInputActivity.this, ContractPreviewActivity.class);
-                        if (!createBaseJsonData()) {
-                            return;
-                        }
-                        String data = basic_info.toString();
-                        intent2.putExtra("data", data);
-                        startActivity(intent2);
-                        break;
+                commitData("commit");
 
-
-                }
             }
         });
         dialog.show();
+    }
 
-
+    private void initQueryProNumView() {
+        JSONObject param = new JSONObject();
+        try {
+            param.put("username", userInfo.getUsername());
+            param.put("password", userInfo.getPassword());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        toolUtil.showProgressDialog(this);
+        OkHttpUtils.postString()
+                .url(CommonData.getEnableNumOfDays)
+                .content(param.toString())
+                .mediaType(MediaType.parse("application/json;charset=utf-8"))
+                .build()
+                .execute(new EnableNumOfDaysResponCallBack());
     }
 
 
@@ -671,7 +835,7 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
                 }
                 config_info.put(new JSONObject(gson.toJson(inventoryTemp, Inventory.class)));
                 String incstd = inventoryTemp.getCInvStd();
-                System.out.println(inventoryTemp.getCInvName()+"规格型号:"+(incstd == null ? "无规格型号" : incstd)+"数量:"+inventoryTemp.getCounts());
+                System.out.println(inventoryTemp.getCInvName() + "规格型号:" + (incstd == null ? "无规格型号" : incstd) + "数量:" + inventoryTemp.getCounts());
             }
             content.put("config_info", config_info);
         } catch (JSONException e) {
@@ -700,17 +864,37 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
         }
 
         Log.i("传入数据", content.toString());
+        Map<String, File> map = new HashMap<>();
+        Map<String, File> signatureMap = new HashMap<>();
+        signatureMap.put("signature", signaturefile);
+//        Bitmap bitmap = null;
+        ImageFactory imageFactory = new ImageFactory();
+
+            for (int i = 0; i < img_uri.size()-1; i++) {
+                File file = new File(img_uri.get(i).getUrl());
+//                bitmap = imageFactory.getBitmap(img_uri.get(i).getUrl());
+//                ImageFactory.compressBmpToFile(bitmap, file);
+                map.put(i + ".jpg", file);
+            }
+
 
         toolUtil = new ToolUtil();
         toolUtil.showProgressDialog(this);
-
-
-        OkHttpUtils.postString()
+        OkHttpUtils.post()
                 .url(CommonData.CommitContract)
-                .content(content.toString())
-                .mediaType(MediaType.parse("application/json;charset=utf-8"))
+                .files("file", map)
+                .files("signature", signatureMap)
+                .addParams("content", content.toString())
                 .build()
                 .execute(new ResponCallBack());
+
+
+//        OkHttpUtils.postString()
+//                .url(CommonData.CommitContract)
+//                .content(content.toString())
+//                .mediaType(MediaType.parse("application/json;charset=utf-8"))
+//                .build()
+//                .execute(new ResponCallBack());
 
     }
 
@@ -727,44 +911,44 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
         String width = wid.getText();
         String height = hit.getText();
         //确定车架上
-        if (DaoBean.getInventoryLikeCCode("1508",up.getText(),ze,width,height).size()!=1&&!up.getText().equals("不选")){
+        if (DaoBean.getInventoryLikeCCode("1508", up.getText(), ze, width, height).size() != 1 && !up.getText().equals("不选")) {
             Toast.makeText(this, "车架（上）有错误，请联系管理员", Toast.LENGTH_SHORT).show();
             return false;
         }
         //确定车架下
-        if (DaoBean.getInventoryLikeCCode("1509",down.getText(),ze,width,height).size()!=1&&!down.getText().equals("不选")){
+        if (DaoBean.getInventoryLikeCCode("1509", down.getText(), ze, width, height).size() != 1 && !down.getText().equals("不选")) {
             Toast.makeText(this, "车架（下）有错误，请联系管理员", Toast.LENGTH_SHORT).show();
             return false;
 
         }
         //确定车架立
-        if (DaoBean.getInventoryLikeCCode("1510",mid.getText(),ze,width,height).size()!=1&&!mid.getText().equals("不选")){
+        if (DaoBean.getInventoryLikeCCode("1510", mid.getText(), ze, width, height).size() != 1 && !mid.getText().equals("不选")) {
             Toast.makeText(this, "车架（立）有错误，请联系管理员", Toast.LENGTH_SHORT).show();
             return false;
         }
 
         //确定牵引销
-        if(DaoBean.getInventoryLikeCCode("0410",qianyinxiao.getText(),ze,width,height).size()!=1&&!qianyinxiao.getText().equals("不选")){
+        if (DaoBean.getInventoryLikeCCode("0410", qianyinxiao.getText(), ze, width, height).size() != 1 && !qianyinxiao.getText().equals("不选")) {
             Toast.makeText(this, "牵引销有错误，请联系管理员", Toast.LENGTH_SHORT).show();
             return false;
         }
         //确定板簧
-        if (DaoBean.getInventoryLikeCCode("1514",banhuang.getText(),ze,width,height).size()!=1&&!banhuang.getText().equals("不选")){
+        if (DaoBean.getInventoryLikeCCode("1514", banhuang.getText(), banhuangMark.getText(), width, height).size() != 1 && !banhuang.getText().equals("不选") && !banhuangMark.getText().equals("自备")) {
             Toast.makeText(this, "板簧有错误，请联系管理员", Toast.LENGTH_SHORT).show();
             return false;
         }
 
         //确定边梁
-        if (DaoBean.getInventoryLikeCCode("1512",bianliang.getText(),ze,width,height).size()!=1&&!bianliang.getText().equals("不选")){
+        if (DaoBean.getInventoryLikeCCode("1512", bianliang.getText(), ze, width, height).size() != 1 && !bianliang.getText().equals("不选")) {
             Toast.makeText(this, "边梁有错误，请联系管理员", Toast.LENGTH_SHORT).show();
             return false;
         }
         //确定W称
-        int wcheng_size = DaoBean.getInventoryLikeCCode("0308",wcheng1.getText(),ze,width,height).size();
-        if (!wcheng1.getText().equals("不选")&&wcheng_size!=1){
-            if (wcheng_size==0){
+        int wcheng_size = DaoBean.getInventoryLikeCCode("0308", wcheng1.getText(), ze, width, height).size();
+        if (!wcheng1.getText().equals("不选") && wcheng_size != 1) {
+            if (wcheng_size == 0) {
                 Toast.makeText(this, "此宽度下没有该W称样式", Toast.LENGTH_SHORT).show();
-            }else{
+            } else {
 
                 Toast.makeText(this, "W称有错误，请联系管理员", Toast.LENGTH_SHORT).show();
             }
@@ -772,91 +956,86 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
         }
 
         //确定底板
-        int diban_size = DaoBean.getInventoryLikeCCode("1505",diban.getText(),ze,width,height).size();
-        if (!diban.getText().equals("不选")&&diban_size!=1){
-            if (diban_size==0){
+        int diban_size = DaoBean.getInventoryLikeCCode("1505", diban.getText(), ze, width, height).size();
+        if (!diban.getText().equals("不选") && diban_size != 1) {
+            if (diban_size == 0) {
                 Toast.makeText(this, "此宽度下没有该底板样式", Toast.LENGTH_SHORT).show();
-            }else{
+            } else {
                 Toast.makeText(this, "底板有错误，请联系管理员", Toast.LENGTH_SHORT).show();
             }
             return false;
         }
         //确定侧栏板
-        int celanban_size = DaoBean.getInventoryLikeCCode("020105",celanban.getText(),ze,width,height).size();
-        if (!celanban.getText().equals("不选")&&celanban_size!=1){
-            if (celanban_size==0){
+        int celanban_size = DaoBean.getInventoryLikeCCode("020105", celanban.getText(), ze, width, height).size();
+        if (!celanban.getText().equals("不选") && celanban_size != 1) {
+            if (celanban_size == 0) {
                 Toast.makeText(this, "此高度下没有该侧栏板样式", Toast.LENGTH_SHORT).show();
-            }else{
+            } else {
                 Toast.makeText(this, "侧栏板数据有错误，请联系管理员", Toast.LENGTH_SHORT).show();
             }
             return false;
         }
         //确定后门
-        int houmen_size = DaoBean.getInventoryLikeCCode("020106",houmen.getText(),ze,width,height).size();
-        if (!houmen.getText().equals("不选")&&houmen_size!=1){
-            if (houmen_size==0){
+        int houmen_size = DaoBean.getInventoryLikeCCode("020106", houmen.getText(), ze, width, height).size();
+        if (!houmen.getText().equals("不选") && houmen_size != 1) {
+            if (houmen_size == 0) {
                 Toast.makeText(this, "此高度下没有该后门样式", Toast.LENGTH_SHORT).show();
-            }else{
+            } else {
                 Toast.makeText(this, "后门数据有错误，请联系管理员", Toast.LENGTH_SHORT).show();
             }
             return false;
         }
         //确定蓬杆
-        if (DaoBean.getInventoryLikeCCode("1502",penggan.getText(),ze,width,height).size()!=1&&!penggan.getText().equals("不选")){
+        if (DaoBean.getInventoryLikeCCode("1502", penggan.getText(), ze, width, height).size() != 1 && !penggan.getText().equals("不选")) {
             Toast.makeText(this, "蓬杆数据有错误，请联系管理员", Toast.LENGTH_SHORT).show();
             return false;
         }
         //确定小框
-        if (DaoBean.getInventoryLikeCCode("1507",xiaokuang.getText(),ze,width,height).size()!=1&&!xiaokuang.getText().equals("不选")){
+        if (DaoBean.getInventoryLikeCCode("1507", xiaokuang.getText(), ze, width, height).size() != 1 && !xiaokuang.getText().equals("不选")) {
             Toast.makeText(this, "小框数据有错误，请联系管理员", Toast.LENGTH_SHORT).show();
             return false;
         }
         //确定左工具箱
-        if (DaoBean.getInventoryLikeCCode("1503",gjxLeft.getText(),ze,width,height).size()!=1&&!gjxLeft.getText().equals("不选")){
+        if (DaoBean.getInventoryLikeCCode("1503", gjxLeft.getText(), ze, width, height).size() != 1 && !gjxLeft.getText().equals("不选")) {
             Toast.makeText(this, "左工具箱数据有错误，请联系管理员", Toast.LENGTH_SHORT).show();
             return false;
         }
         //确定右工具箱
-        if (DaoBean.getInventoryLikeCCode("1504",gjxRight.getText(),ze,width,height).size()!=1&&!gjxRight.getText().equals("不选")){
+        if (DaoBean.getInventoryLikeCCode("1504", gjxRight.getText(), ze, width, height).size() != 1 && !gjxRight.getText().equals("不选")) {
             Toast.makeText(this, "右工具箱数据有错误，请联系管理员", Toast.LENGTH_SHORT).show();
             return false;
         }
         //ABS
-        if (DaoBean.getInventoryLikeCCode("0411",abs.getText(),ze,width,height).size()!=1&&!abs.getText().equals("不选")){
+        if (DaoBean.getInventoryLikeCCode("0411", abs.getText(), ze, width, height).size() != 1 && !abs.getText().equals("不选")) {
             Toast.makeText(this, "ABS数据有错误，请联系管理员", Toast.LENGTH_SHORT).show();
             return false;
         }
         //确定钢圈
-        if (DaoBean.getInventoryLikeCCode("0405",gangquan.getText(),ze,width,height).size()!=1&&!gangquan.getText().equals("不选")){
+        if (DaoBean.getInventoryLikeCCode("0405", gangquan.getText(), ze, width, height).size() != 1 && !gangquan.getText().equals("不选")) {
             Toast.makeText(this, "钢圈数据有错误，请联系管理员", Toast.LENGTH_SHORT).show();
             return false;
         }
         //确定轮胎
-        if (DaoBean.getInventoryLikeCCode("0404",luntai.getText(),ze,width,height).size()!=1&&!luntai.getText().equals("不选")){
+        if (DaoBean.getInventoryLikeCCode("0404", luntai.getText(), ze, width, height).size() != 1 && !luntai.getText().equals("不选")) {
             Toast.makeText(this, "轮胎数据有错误，请联系管理员", Toast.LENGTH_SHORT).show();
             return false;
         }
         //确定车轴
-        if (DaoBean.getInventoryLikeCCode("1513",chezhou.getText(),ze,width,height).size()!=1&&!chezhou.getText().equals("不选")){
+        if (DaoBean.getInventoryLikeCCode("1513", chezhou.getText(), chezhouMark.getText(), width, height).size() != 1 && !chezhou.getText().equals("不选") && !chezhouMark.getText().equals("自备")) {
             Toast.makeText(this, "车轴数据有错误，请联系管理员", Toast.LENGTH_SHORT).show();
             return false;
         }
         //确定底盘
-        if (DaoBean.getInventoryLikeCCode("1511",celanban.getText(),ze_text,width,height).size()!=1&&!celanban.getText().equals("不选")){
+        if (DaoBean.getInventoryLikeCCode("1511", celanban.getText(), ze_text, width, height).size() != 1 && !celanban.getText().equals("不选")) {
             Toast.makeText(this, "底盘数据有错误，请联系管理员", Toast.LENGTH_SHORT).show();
             return false;
         }
 
-        List<Inventory> lmjInventorys2 = DaoBean.getInventoryLikeCCode("020104", hit.getText(), ze,width,height);
+        List<Inventory> lmjInventorys2 = DaoBean.getInventoryLikeCCode("020104", hit.getText(), ze, width, height);
         if (lmjInventorys2 != null && lmjInventorys2.size() != 0) {
         }
         //确定站柱
-        if (DaoBean.getInventoryLikeCCode("020107",celanban.getText(),null,width,height).size()!=1&&!celanban.getText().equals("不选")){
-            Toast.makeText(this, "站柱数据有错误，请联系管理员", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        //确定站柱
-        if (DaoBean.getInventoryLikeCCode("020107",celanban.getText(),null,width,height).size()!=1&&!celanban.getText().equals("不选")){
+        if (DaoBean.getInventoryLikeCCode("020107", celanban.getText(), null, width, height).size() != 1 && !celanban.getText().equals("不选")) {
             Toast.makeText(this, "站柱数据有错误，请联系管理员", Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -880,7 +1059,7 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
     private void updateDateDisplay() {
         String expect_time = new StringBuilder().append(mYear).append("-")
                 .append((mMonth + 1) < 10 ? "0" + (mMonth + 1) : (mMonth + 1))
-                .append("-").append(mDay)
+                .append("-").append(mDay < 10 ? "0" + mDay : mDay)
                 .toString();
         applyDate.setText(expect_time);
     }
@@ -959,7 +1138,6 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
 //    };
 
 
-
     private TextWatcher watcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -990,7 +1168,8 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
                 houzhuanLayout.setVisibility(View.VISIBLE);
                 oldPriceLayout.setVisibility(View.GONE);
                 others.setVisibility(View.VISIBLE);
-
+                banhuangMark.setVisibility(View.GONE);
+                chezhouMark.setVisibility(View.GONE);
 
             } else {
                 outlinesizelayout.setVisibility(View.VISIBLE);
@@ -998,48 +1177,12 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
                 houzhuanLayout.setVisibility(View.GONE);
                 oldPriceLayout.setVisibility(View.VISIBLE);
                 others.setVisibility(View.GONE);
+                banhuangMark.setVisibility(View.VISIBLE);
+                chezhouMark.setVisibility(View.VISIBLE);
             }
         }
     };
 
-    /**
-     * 根据侧栏板样式确定站柱
-     *
-     * @param inventoryList
-     * @return
-     */
-    private Inventory getZhanZhuInventory(List<Inventory> inventoryList) {
-        String celanbanstyle = celanban.getText();
-        Inventory lmjInventoryResult = null;
-        if (inventoryList != null) {
-            for (Inventory in2 : inventoryList) {
-//                Log.i("龙门架", in2.getCInvName() + in2.getCInvStd());
-                if (celanbanstyle.contains(ContractInputActivity.this.getResources().getString(R.string.tianzhige)) && in2.getCInvName().contains(ContractInputActivity.this.getResources().getString(R.string.tianzhige))) {
-                    lmjInventoryResult = in2;
-                    break;
-                }
-                if (celanbanstyle.contains(ContractInputActivity.this.getResources().getString(R.string.fentiduikai)) && in2.getCInvName().contains(ContractInputActivity.this.getResources().getString(R.string.fentiduikai))) {
-                    lmjInventoryResult = in2;
-                    break;
-                }
-                if (celanbanstyle.contains(ContractInputActivity.this.getResources().getString(R.string.liantiduikai)) && in2.getCInvName().contains(ContractInputActivity.this.getResources().getString(R.string.liantiduikai))) {
-                    lmjInventoryResult = in2;
-                    break;
-                }
-                if (celanbanstyle.contains(ContractInputActivity.this.getResources().getString(R.string.neizhi)) && in2.getCInvName().contains(ContractInputActivity.this.getResources().getString(R.string.neizhi))) {
-                    lmjInventoryResult = in2;
-                    break;
-                }
-                if (celanbanstyle.contains(ContractInputActivity.this.getResources().getString(R.string.waizhi)) && in2.getCInvName().contains(ContractInputActivity.this.getResources().getString(R.string.waizhi))) {
-                    lmjInventoryResult = in2;
-                    break;
-                }
-
-            }
-
-        }
-        return lmjInventoryResult;
-    }
 
 
     /**
@@ -1051,8 +1194,8 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
         int gqCounts = getEditNum(gangquanNum);
         int ltCounts = getEditNum(luntaiNum);
         String celanbanString = celanban.getText();
-        if (!celanbanString.equals("不选")){
-            if (wcheng1.getText().contains("W称")){
+        if (!celanbanString.equals("不选")) {
+            if (wcheng1.getText().contains("W称")) {
                 if (carStyle.getText().contains(zText) && celanbanString.contains(ContractInputActivity.this.getResources().getString(R.string.duikai))) {
                     DaoBean.updateCounts("0308", wchengCounts - 5);
                 } else if (carStyle.getText().contains(zText) && celanbanString.contains(ContractInputActivity.this.getResources().getString(R.string.xaida))) {
@@ -1062,17 +1205,17 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
                 } else if (carStyle.getText().contains(eText) && celanbanString.contains(ContractInputActivity.this.getResources().getString(R.string.xaida))) {
                     DaoBean.updateCounts("0308", wchengCounts - 12);
                 }
-            }else if (wcheng1.getText().contains("槽钢")){
+            } else if (wcheng1.getText().contains("槽钢")) {
                 if (carStyle.getText().contains(zText) && celanbanString.contains(ContractInputActivity.this.getResources().getString(R.string.duikai))) {
-                    DaoBean.updateCounts("0308", wchengCounts );
+                    DaoBean.updateCounts("0308", wchengCounts);
                 } else if (carStyle.getText().contains(zText) && celanbanString.contains(ContractInputActivity.this.getResources().getString(R.string.xaida))) {
-                    DaoBean.updateCounts("0308", wchengCounts );
+                    DaoBean.updateCounts("0308", wchengCounts);
                 } else if (carStyle.getText().contains(eText) && celanbanString.contains(ContractInputActivity.this.getResources().getString(R.string.duikai))) {
                     DaoBean.updateCounts("0308", wchengCounts - 1);
                 } else if (carStyle.getText().contains(eText) && celanbanString.contains(ContractInputActivity.this.getResources().getString(R.string.xaida))) {
                     DaoBean.updateCounts("0308", wchengCounts - 1);
                 }
-            }else if (wcheng1.getText().contains("工字")){
+            } else if (wcheng1.getText().contains("工字")) {
                 if (carStyle.getText().contains(zText) && celanbanString.contains(ContractInputActivity.this.getResources().getString(R.string.duikai))) {
                     DaoBean.updateCounts("0308", wchengCounts - 3);
                 } else if (carStyle.getText().contains(zText) && celanbanString.contains(ContractInputActivity.this.getResources().getString(R.string.xaida))) {
@@ -1083,18 +1226,17 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
                     DaoBean.updateCounts("0308", wchengCounts - 7);
                 }
             }
-        }else{
+        } else {
             if (carStyle.getText().contains(zText) && celanbanString.contains(ContractInputActivity.this.getResources().getString(R.string.duikai))) {
-                DaoBean.updateCounts("0308", wchengCounts );
+                DaoBean.updateCounts("0308", wchengCounts);
             } else if (carStyle.getText().contains(zText) && celanbanString.contains(ContractInputActivity.this.getResources().getString(R.string.xaida))) {
-                DaoBean.updateCounts("0308", wchengCounts );
+                DaoBean.updateCounts("0308", wchengCounts);
             } else if (carStyle.getText().contains(eText) && celanbanString.contains(ContractInputActivity.this.getResources().getString(R.string.duikai))) {
                 DaoBean.updateCounts("0308", wchengCounts - 1);
             } else if (carStyle.getText().contains(eText) && celanbanString.contains(ContractInputActivity.this.getResources().getString(R.string.xaida))) {
                 DaoBean.updateCounts("0308", wchengCounts - 1);
             }
         }
-
 
 
         DaoBean.updateCounts("0413", jsqCounts);
@@ -1115,8 +1257,8 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
             Toast.makeText(this, judgeEdit(), Toast.LENGTH_SHORT).show();
             return false;
         }
-        if (!dealWithData()){
-            return  false;
+        if (!dealWithData()) {
+            return false;
         }
         monitorEditNum();
         isNewCar();
@@ -1191,12 +1333,14 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
             basic_info.put("butterMouthHeight", huangyouzui.getText().toString());
             basic_info.put("outlinesize", outlinesize.getText().toString());
             basic_info.put("oldPrice", oldPrice.getText().toString());
+            basic_info.put("banhuangMark", banhuangMark.getText());
+            basic_info.put("chezhouMark", chezhouMark.getText());
 
             if (carStyle.getText().contains("直")) {
-                basic_info.put("classCode", "0101");
+                basic_info.put("classCode", "0102");
 
             } else {
-                basic_info.put("classCode", "0102");
+                basic_info.put("classCode", "0101");
             }
             if (!TextUtils.isEmpty(orderNumberEdit.getText())) {
                 basic_info.put("order_type", 1);
@@ -1332,9 +1476,9 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
 
     private void isNewCar() {
         if (isNew.isChecked()) {
-            DaoBean.getInventoryLikeCCode("1506", this.getResources().getString(R.string.newCar), null,null,null);
+            DaoBean.getInventoryLikeCCode("1506", this.getResources().getString(R.string.newCar), null, null, null);
         } else {
-            DaoBean.getInventoryLikeCCode("1506", this.getResources().getString(R.string.zhihuan), null,null,null);
+            DaoBean.getInventoryLikeCCode("1506", this.getResources().getString(R.string.zhihuan), null, null, null);
         }
     }
 
@@ -1387,5 +1531,296 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
         dialog.show();
 
     }
+
+    private class EnableNumOfDaysResponCallBack extends MyCallback {
+        @Override
+        public void onError(Call call, Exception e, int id) {
+            toolUtil.dismissProgressDialog();
+            Toast.makeText(ContractInputActivity.this, ContractInputActivity.this.getResources().getString(R.string.abnormal), Toast.LENGTH_SHORT).show();
+
+        }
+
+        @Override
+        public void onResponse(ReponseBean response, int id) {
+            toolUtil.dismissProgressDialog();
+            if (response.getCode() == 0) {
+                for (ProNumBean proNumBean : response.getData().proNum) {
+                    if ((proNumBean.getFirst_flag() >= proNumBean.getFirst_num())
+                            && (proNumBean.getUrgent_flag() >= proNumBean.getUrgent_num())
+                            && (proNumBean.getNormal_flag() >= proNumBean.getNormal_num())) {
+                        continue;
+                    }
+                    if (proNumBean.getEnable_flag() == 0) {
+                        continue;
+                    }
+                    ProNumData.add(proNumBean);
+                }
+                ProNumAdapter proNumAdapter = new ProNumAdapter(ContractInputActivity.this, ProNumData);
+                proNumLv.setAdapter(proNumAdapter);
+                queryNumLayout.setVisibility(View.VISIBLE);
+            } else {
+                Toast.makeText(ContractInputActivity.this, response.getMsg(), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    /**
+     * 重新onResume方法，实现保存手写签名后，显示在签名的ImageView上
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences sps = getSharedPreferences("image_info",
+                MODE_PRIVATE);
+        image_path = sps.getString("image_path", "");
+        signaturefile = new File(image_path);
+        if (!TextUtils.isEmpty(image_path)) {
+            InputStream is;
+            bitmap = null;
+            try {
+                is = new FileInputStream(image_path);
+                bitmap = BitmapFactory.decodeStream(is);
+            } catch (FileNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            if (bitmap != null) {
+                signPic.setImageBitmap(bitmap);
+            } else {
+                System.out.println("bitmap is null");
+            }
+        }
+
+    }
+
+    private void initFiles() {
+        //方法一
+        Config.ScreenMap = Config.getScreenSize(this, this);
+        WindowManager windowManager = getWindowManager();
+        Display display = windowManager.getDefaultDisplay();
+        screen_widthOffset = (display.getWidth() - (4* DbTOPxUtils.dip2px(this, 2)))/4;
+
+        my_imgs_GV = (MyGridView) findViewById(R.id.my_goods_GV);
+        gridImgsAdapter = new GridImgAdapter();
+        my_imgs_GV.setAdapter(gridImgsAdapter);
+        img_uri.add(null);
+        gridImgsAdapter.notifyDataSetChanged();
+
+
+
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+//            case REQUEST_IMAGE:
+//                if (resultCode == RESULT_OK) {
+//                    list.clear();
+//                    list.add(new FilesInfo());
+//                    // 获取返回的图片列表
+//                    List<String> path = data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
+//                    // 处理你自己的逻辑 ....
+//                    if (path.size() != 0) {
+//                        for (int i = 0; i < path.size(); i++) {
+//                            FilesInfo fileInfo = new FilesInfo();
+//                            fileInfo.setAdd_file_path(path.get(i));
+//                            list.add(fileInfo);
+//                        }
+//
+//                    }
+//                    addFilesAdapter.notifyDataSetChanged();
+//                }
+//                break;
+            case 0:
+                if (data != null) {
+                    List<String> paths = (List<String>) data.getExtras().getSerializable("photos");
+                    if (img_uri.size() > 0) {
+                        img_uri.remove(img_uri.size() - 1);
+                    }
+
+                    for (int i = 0; i < paths.size(); i++) {
+                        if (img_uri.size()>=9){
+                            Toast.makeText(this, "最多可以上传9张附件!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        img_uri.add(new UploadGoodsBean(paths.get(i), false));
+                        PhotoModel photoModel = new PhotoModel();
+                        photoModel.setOriginalPath(paths.get(i));
+                        photoModel.setChecked(true);
+                        single_photos.add(photoModel);
+                        //上传参数
+                    }
+
+                    if (img_uri.size() < 9) {
+                        img_uri.add(null);
+                    }
+                    gridImgsAdapter.notifyDataSetChanged();
+                }
+                break;
+        }
+
+
+
+    }
+
+    private void download(String fileUrl, String filePath, String imageName,int type) {
+
+
+        //Target
+        Target target = new Target() {
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                File dcimFile = ImageFactory.getDCIMFile(ContractInputActivity.this, imageName);
+                FileOutputStream ostream = null;
+                try {
+                    ostream = new FileOutputStream(dcimFile);
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, ostream);
+                    ostream.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                Toast.makeText(ContractInputActivity.this, "图片下载至:" + dcimFile, Toast.LENGTH_SHORT).show();
+//                FilesInfo fileInfo = new FilesInfo();
+//                fileInfo.setAdd_file_path(dcimFile.getPath());
+//                list.add(fileInfo);
+                if (type==0){
+                    img_uri.add(new UploadGoodsBean(dcimFile.getPath(),false));
+                    single_photos.add(new PhotoModel(dcimFile.getPath(),true));
+                }else{
+                    SharedPreferences.Editor editor = getSharedPreferences("image_info",
+                            MODE_PRIVATE).edit();
+                    editor.putString("image_path", dcimFile.getPath());
+                    editor.apply();
+                }
+
+            }
+
+            @Override
+            public void onBitmapFailed(Drawable errorDrawable) {
+                if (type==0){
+                    img_uri.add(new UploadGoodsBean("drawable://" + R.drawable.more_item_unpress,false));
+                    single_photos.add(new PhotoModel("drawable://" + R.drawable.more_item_unpress,true));
+                }
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+
+
+            }
+        };
+
+        //Picasso下载
+        fileUrl = CommonData.loadImageFile + "?fileName=" + fileUrl;
+        Picasso.with(this).load(fileUrl).into(target);
+        if (type==1){
+            Picasso.with(this).load(fileUrl).into(signPic);
+        }
+
+    }
+
+    class GridImgAdapter extends BaseAdapter implements ListAdapter {
+        @Override
+        public int getCount() {
+            return img_uri.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            convertView = LayoutInflater.from(ContractInputActivity.this).inflate(R.layout.activity_addstory_img_item,null);
+            ViewHolder holder;
+
+            if(convertView!=null){
+                holder = new ViewHolder();
+                convertView = LayoutInflater.from(ContractInputActivity.this).inflate(R.layout.activity_addstory_img_item,null);
+                convertView.setTag(holder);
+                holder.add_IB = (ImageView) convertView.findViewById(R.id.add_IB);
+                holder.delete_IV = (ImageView) convertView.findViewById(R.id.delete_IV);
+            }else{
+                holder = (ViewHolder) convertView.getTag();
+            }
+
+
+            AbsListView.LayoutParams param = new AbsListView.LayoutParams(screen_widthOffset, screen_widthOffset);
+            convertView.setLayoutParams(param);
+            if (img_uri.get(position) == null) {
+                holder.delete_IV.setVisibility(View.GONE);
+
+                ImageLoader.getInstance().displayImage("drawable://" + R.drawable.iv_add_the_pic, holder.add_IB);
+
+                holder.add_IB.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View arg0) {
+                        Intent intent = new Intent(ContractInputActivity.this, PhotoSelectorActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        intent.putExtra("limit", 9 - (img_uri.size() - 1));
+                        startActivityForResult(intent, 0);
+                    }
+                });
+
+            } else {
+                ImageLoader.getInstance().displayImage("file://" + img_uri.get(position).getUrl(), holder.add_IB);
+
+                holder.delete_IV.setOnClickListener(new View.OnClickListener() {
+                    private boolean is_addNull;
+                    @Override
+                    public void onClick(View arg0) {
+                        is_addNull = true;
+                        String img_url = img_uri.remove(position).getUrl();
+                        single_photos.remove(position);
+                        for (int i = 0; i < img_uri.size(); i++) {
+                            if (img_uri.get(i) == null) {
+                                is_addNull = false;
+                                continue;
+                            }
+                        }
+                        if (is_addNull) {
+                            img_uri.add(null);
+                        }
+
+                        FileUtils.DeleteFolder(img_url);//删除在emulate/0文件夹生成的图片
+
+                        gridImgsAdapter.notifyDataSetChanged();
+                    }
+                });
+
+                holder.add_IB.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("photos",(Serializable)single_photos);
+                        bundle.putInt("position", position);
+                        bundle.putBoolean("isSave",false);
+                        CommonUtils.launchActivity(ContractInputActivity.this, PhotoPreviewActivity.class, bundle);
+                    }
+                });
+
+            }
+            return convertView;
+        }
+
+        class ViewHolder {
+            ImageView add_IB;
+            ImageView delete_IV;
+        }
+    }
+
+
+
+
 
 }
