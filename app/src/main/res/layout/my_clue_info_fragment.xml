@@ -5,9 +5,17 @@
     android:layout_height="match_parent"
     android:background="#eeeeee"
     >
+    <include
+        android:id="@+id/queryClue"
+        layout="@layout/choose_myclue_layout"
+        android:visibility="gone"
+        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        />
 
     <fajieyefu.com.luoxiang.widget.XListView
         android:id="@+id/my_clue_info_lv"
+        android:layout_below="@+id/queryClue"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingLeft="5dp"
@@ -21,5 +29,11 @@
         android:layout_height="90dp"
         android:background="@mipmap/empty_view"
         android:layout_centerInParent="true"/>
-
+    <include
+        android:id="@+id/filterLayout"
+        layout="@layout/myclue_filter_layout"
+        android:visibility="gone"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_below="@id/queryClue"/>
 </RelativeLayout>

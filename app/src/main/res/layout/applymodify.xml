@@ -5,74 +5,139 @@
     android:orientation="vertical"
     android:padding="16dp"
     >
-        <android.support.v7.widget.CardView
-            style="@style/CardViewLayout"
-            android:background="@drawable/card_white">
-            <EditText
-                android:id="@+id/sq_remark"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginTop="8dp"
-                android:gravity="start"
-                android:background="@null"
-                android:hint="请填写申请修改内容"
-                android:padding="3dp" />
-        </android.support.v7.widget.CardView>
-
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="38dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp">
-
-            <TextView
-                style="@style/tv_16sp_black"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="金额：" />
-
-            <EditText
-                android:id="@+id/amt"
-                style="@style/tv_12sp_MyOrange"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <android.support.v7.widget.CardView
+                style="@style/CardViewLayout"
+                android:background="@drawable/card_white">
+                <EditText
+                    android:id="@+id/sq_remark"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="start"
+                    android:background="@null"
+                    android:hint="请填写申请修改内容"
+                    android:padding="3dp" />
+            </android.support.v7.widget.CardView>
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="28dp"
-                android:background="@drawable/edit_input"
-                android:inputType="numberSigned"
-                android:maxLines="1"
-                android:padding="5dp" />
-        </LinearLayout>
+                android:layout_height="40dp"
+                android:gravity="center_vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="变更配送方式:"/>
+                <CheckBox
+                    android:id="@+id/changeObtainTypeBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:id="@+id/layout_changeObtain"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"
+                    android:gravity="center_vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="变更为:"/>
+                    <fajieyefu.com.luoxiang.layout.MySpinnerForFree
+                        android:id="@+id/changeObtainType"
+                        android:layout_height="38dp"
+                        style="@style/contratInputLayoutContent"
+                        >
+                    </fajieyefu.com.luoxiang.layout.MySpinnerForFree>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="38dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp">
+                </LinearLayout>
 
-            <TextView
-                style="@style/tv_16sp_black"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="(大写):" />
-
-            <EditText
-                android:id="@+id/amt_dx"
-                style="@style/tv_12sp_MyOrange"
+            </LinearLayout>
+             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="28dp"
-                android:background="@drawable/edit_input"
-                android:padding="5dp"
-                android:maxLines="1"
-                android:singleLine="true" />
-        </LinearLayout>
+                android:layout_height="38dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp">
 
-        <Button
-            android:id="@+id/applyButton"
-            android:layout_width="200dp"
-            android:layout_height="36dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/btn_red"
-            android:text="确认申请修改"
-            android:textColor="@color/white" />
+                 <TextView
+                     style="@style/tv_16sp_black"
+                     android:layout_width="wrap_content"
+                     android:layout_height="match_parent"
+                     android:text="变更金额："
+                     android:id="@+id/textView2"
+                     />
+
+                 <EditText
+                    android:id="@+id/amt"
+                    style="@style/tv_12sp_MyOrange"
+                    android:layout_width="match_parent"
+                    android:layout_height="28dp"
+                    android:background="@drawable/edit_input"
+                    android:inputType="numberSigned"
+                    android:maxLines="1"
+                    android:padding="5dp"
+                    android:hint="输入变更的金额，禁止输入总金额"/>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp">
+
+                <TextView
+                    style="@style/tv_16sp_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="(大     写)：" />
+
+                <EditText
+                    android:id="@+id/amt_dx"
+                    style="@style/tv_12sp_MyOrange"
+                    android:layout_width="match_parent"
+                    android:layout_height="28dp"
+                    android:background="@drawable/edit_input"
+                    android:padding="5dp"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="10dp"
+                android:gravity="center_vertical"
+                android:text="修改同样作用于以下合同："/>
+            <fajieyefu.com.luoxiang.layout.LinearLayoutForListView
+                android:id="@+id/otherContractLV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            </fajieyefu.com.luoxiang.layout.LinearLayoutForListView>
+
+
+            <Button
+                android:id="@+id/applyButton"
+                android:layout_width="200dp"
+                android:layout_height="36dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/btn_red"
+                android:text="确认申请修改"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </ScrollView>
+
+
+
+
+
+
+
     </LinearLayout>

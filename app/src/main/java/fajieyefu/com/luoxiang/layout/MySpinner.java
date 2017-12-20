@@ -54,8 +54,14 @@ public class MySpinner extends LinearLayout {
         screenWH=new ToolUtil().getScreenWH(context);
 
     }
+        public void setSpinnerCode(String text){
+        selected_code=text;
+    }
 
-
+        public void setSpinnerText(String text){
+            selected_name=text;
+            spinnerText.setText(text);
+        }
         public void setData(List<ObtainBean> data){
                 this.data= data;
             }

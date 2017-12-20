@@ -10,6 +10,7 @@ public class UserInfo {
     private String username;
     private String password;
     private Boolean rembPsw;
+    private Integer rId;
 
     public UserInfo() {
     }
@@ -18,11 +19,12 @@ public class UserInfo {
         this.id = id;
     }
 
-    public UserInfo(Long id, String username, String password, Boolean rembPsw) {
+    public UserInfo(Long id, String username, String password, Boolean rembPsw, Integer rId) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.rembPsw = rembPsw;
+        this.rId = rId;
     }
 
     public Long getId() {
@@ -55,6 +57,14 @@ public class UserInfo {
 
     public void setRembPsw(Boolean rembPsw) {
         this.rembPsw = rembPsw;
+    }
+
+    public Integer getRId() {
+        return rId;
+    }
+
+    public void setRId(Integer rId) {
+        this.rId = rId;
     }
 
 }

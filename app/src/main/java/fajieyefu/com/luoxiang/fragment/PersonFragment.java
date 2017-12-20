@@ -18,6 +18,7 @@ import fajieyefu.com.luoxiang.R;
 import fajieyefu.com.luoxiang.bean.UserInfo;
 import fajieyefu.com.luoxiang.dao.DaoBean;
 import fajieyefu.com.luoxiang.main.BaseActivity;
+import fajieyefu.com.luoxiang.main.LoginActivity;
 import fajieyefu.com.luoxiang.main.ModifyActivity;
 
 /**
@@ -69,7 +70,9 @@ public class PersonFragment extends Fragment {
                 startActivity(intent);
                 break;
             case R.id.exit:
-                System.exit(0);
+                Intent intentLogin = new Intent(getActivity(),LoginActivity.class);
+                startActivity(intentLogin);
+                getActivity().finish();
                 break;
         }
     }

@@ -51,5 +51,13 @@ public class ReponseBean {
             public List<ClueBean> clueInfo;
             public ClueBean clueInfoDetail;
             public List<ClueFollowBean> clueFollow;
+            public InitClueInfo initClueInfo;
+            public List<ContractTypeBean> client_level;
+            public List<ContractBean> sameOrders;
+            public List<Option> optionItems;
+            public PushBean pushBean;
+            public List<U8HrCt007> u8HrCt007;
+            public List<InvioceBean> invioces;
+            public UserInfo userInfo;
     }
 }

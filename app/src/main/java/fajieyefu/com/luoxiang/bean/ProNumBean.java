@@ -7,11 +7,29 @@ public class ProNumBean {
     private int normal_num=0;
     private int urgent_num=0;
     private int first_num=0;
+    private int skeleton_num=0;
     private int normal_flag=0;
     private int urgent_flag=0;
     private int first_flag=0;
+    private int skeleton_flag=0;
     private String pro_date;
     private int enable_flag;
+
+    public int getSkeleton_num() {
+        return skeleton_num;
+    }
+
+    public void setSkeleton_num(int skeleton_num) {
+        this.skeleton_num = skeleton_num;
+    }
+
+    public int getSkeleton_flag() {
+        return skeleton_flag;
+    }
+
+    public void setSkeleton_flag(int skeleton_flag) {
+        this.skeleton_flag = skeleton_flag;
+    }
 
     public int getEnable_flag() {
         return enable_flag;

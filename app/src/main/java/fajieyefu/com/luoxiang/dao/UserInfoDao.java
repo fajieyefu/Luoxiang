@@ -28,6 +28,7 @@ public class UserInfoDao extends AbstractDao<UserInfo, Long> {
         public final static Property Username = new Property(1, String.class, "username", false, "USERNAME");
         public final static Property Password = new Property(2, String.class, "password", false, "PASSWORD");
         public final static Property RembPsw = new Property(3, Boolean.class, "rembPsw", false, "REMB_PSW");
+        public final static Property RId = new Property(4, Integer.class, "rId", false, "R_ID");
     };
 
 
@@ -46,7 +47,8 @@ public class UserInfoDao extends AbstractDao<UserInfo, Long> {
                 "'_id' INTEGER PRIMARY KEY ," + // 0: id
                 "'USERNAME' TEXT," + // 1: username
                 "'PASSWORD' TEXT," + // 2: password
-                "'REMB_PSW' INTEGER);"); // 3: rembPsw
+                "'REMB_PSW' INTEGER," + // 3: rembPsw
+                "'R_ID' INTEGER);"); // 4: rId
     }
 
     /** Drops the underlying database table. */
@@ -79,6 +81,11 @@ public class UserInfoDao extends AbstractDao<UserInfo, Long> {
         if (rembPsw != null) {
             stmt.bindLong(4, rembPsw ? 1l: 0l);
         }
+ 
+        Integer rId = entity.getRId();
+        if (rId != null) {
+            stmt.bindLong(5, rId);
+        }
     }
 
     /** @inheritdoc */
@@ -94,7 +101,8 @@ public class UserInfoDao extends AbstractDao<UserInfo, Long> {
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // username
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // password
-            cursor.isNull(offset + 3) ? null : cursor.getShort(offset + 3) != 0 // rembPsw
+            cursor.isNull(offset + 3) ? null : cursor.getShort(offset + 3) != 0, // rembPsw
+            cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4) // rId
         );
         return entity;
     }
@@ -106,6 +114,7 @@ public class UserInfoDao extends AbstractDao<UserInfo, Long> {
         entity.setUsername(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setPassword(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setRembPsw(cursor.isNull(offset + 3) ? null : cursor.getShort(offset + 3) != 0);
+        entity.setRId(cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4));
      }
     
     /** @inheritdoc */

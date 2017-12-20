@@ -100,11 +100,11 @@
     </style>
     <style name="contratInputLayoutTitle_h">
         <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_width">70dp</item>
+        <item name="android:layout_width">60dp</item>
         <item name="android:background">@color/grey</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/white</item>
-
+        <item name="android:textSize">12sp</item>
 
     </style>
     <style name="contratInputLayout_h">
@@ -137,7 +137,7 @@
     </style>
     <style name="previewContract_black_h">
         <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:gravity">center_vertical</item>
@@ -147,7 +147,7 @@
     <style name="CardViewLayout">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginTop">2dp</item>
         <item name="android:background">@color/wheat</item>
     </style>
 
@@ -178,6 +178,26 @@
         <item name="android:gravity">center</item>
     </style>
 
-
+    <style name="clue_info_edit_layout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:background">@drawable/shape_rect_corner_white</item>
+    </style>
+    <style name="preview_text_filed">
+        <item name="android:layout_width">120dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">right</item>
+        <item name="android:paddingTop">2dp</item>
+        <item name="android:paddingBottom">2dp</item>
+        <item name="android:background">@color/wheat</item>
+    </style>
+    <style name="preview_text_filed_layout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@color/wheat</item>
+    </style>
 
 </resources>

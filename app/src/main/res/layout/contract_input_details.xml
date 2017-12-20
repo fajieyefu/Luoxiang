@@ -36,7 +36,8 @@
                     android:layout_height="24dp"
                     android:gravity="center_vertical"
                     android:text="客户信息"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:id="@+id/textView13" />
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -84,7 +85,7 @@
                         style="@style/tv_16sp_black"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="联系方式：" />
+                        android:text="联系方式:" />
 
                     <TextView
                         android:id="@+id/mobile"
@@ -98,7 +99,7 @@
                         style="@style/tv_16sp_black"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="地       址：" />
+                        android:text="地         址:" />
 
                     <TextView
                         android:id="@+id/address"
@@ -118,7 +119,7 @@
                         style="@style/tv_16sp_black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="*终端客户名称:" />
+                        android:text="*终端客户名称：" />
 
                     <EditText
                         android:id="@+id/endCustomerName"
@@ -144,7 +145,7 @@
                         style="@style/tv_16sp_black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="*终端联系方式:" />
+                        android:text="*终端联系方式：" />
 
                     <EditText
                         android:id="@+id/endCustomerPhone"
@@ -196,83 +197,17 @@
 
                 </LinearLayout>
 
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ql"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/customer_info">
-
-                <LinearLayout
-                    style="@style/contratInputLayout2"
-
-                    android:layout_weight="2">
-
-                    <TextView
-                        style="@style/contratInputLayoutTitle"
-                        android:text="*牵引车：" />
-
-                    <LinearLayout style="@style/contratInputLayoutContent">
-
-                        <!--<fajieyefu.com.luoxiang.layout.MySpinnerForFree
-                            android:id="@+id/qianyinche"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center" />-->
-                        <EditText
-                            android:id="@+id/qianyinche"
-                            android:layout_width="0dp"
-                            android:textSize="16sp"
-                            android:layout_weight="1"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"/>
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    style="@style/contratInputLayout2"
-                    android:layout_marginLeft="5dp">
-
-                    <TextView
-                        style="@style/contratInputLayoutTitle"
-                        android:text="*动力类型：" />
-
-                    <LinearLayout style="@style/contratInputLayoutContent">
-
-                        <fajieyefu.com.luoxiang.layout.MySpinnerForFree
-                            android:id="@+id/powerType"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center" />
-                    </LinearLayout>
-
-                </LinearLayout>
-
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/grey"
+                    android:layout_below="@+id/customer_info"/>
             </LinearLayout>
 
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_below="@+id/sign_layout">
 
-                <Button
-                    android:id="@+id/caculator"
-                    android:layout_width="200dp"
-                    android:layout_height="38dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:background="@drawable/btn_red"
-                    android:text="查看参考价格和重量"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
 
-            </RelativeLayout>
+
 
             <LinearLayout
                 android:id="@+id/select_info"
@@ -280,7 +215,7 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/ql"
+                android:layout_below="@+id/customer_info"
                 android:orientation="vertical"
                 android:paddingTop="6dp">
 
@@ -288,31 +223,87 @@
                     android:layout_width="match_parent"
                     android:layout_height="24dp"
                     android:text="一、订购标的的数量及价格"
+                    android:layout_marginLeft="10dp"
                     android:textSize="16sp" />
-
                 <LinearLayout
+                    android:id="@+id/ql"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/customer_info">
                     <LinearLayout style="@style/contratInputLayout2">
 
                         <TextView
                             style="@style/contratInputLayoutTitle"
-                            android:text="*挂车样式：" />
+                            android:text="*挂车样式" />
 
                         <fajieyefu.com.luoxiang.layout.MySpinnerForFree
                             android:id="@+id/carStyle"
                             style="@style/contratInputLayoutContent" />
                     </LinearLayout>
-
                     <LinearLayout
                         style="@style/contratInputLayout2"
-                        android:layout_marginLeft="5dp"
+
                         android:layout_weight="2">
 
                         <TextView
                             style="@style/contratInputLayoutTitle"
-                            android:text="*规格型号："
+                            android:text="*牵引车"
+                            android:id="@+id/textView11" />
+
+                        <LinearLayout style="@style/contratInputLayoutContent">
+
+                            <!--<fajieyefu.com.luoxiang.layout.MySpinnerForFree
+                                android:id="@+id/qianyinche"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center" />-->
+                            <EditText
+                                android:id="@+id/qianyinche"
+                                android:layout_width="0dp"
+                                android:textSize="16sp"
+                                android:layout_weight="1"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/contratInputLayout2"
+                        android:layout_marginLeft="5dp">
+
+                        <TextView
+                            style="@style/contratInputLayoutTitle"
+                            android:text="*动力类型" />
+
+                        <LinearLayout style="@style/contratInputLayoutContent">
+
+                            <fajieyefu.com.luoxiang.layout.MySpinnerForFree
+                                android:id="@+id/powerType"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+
+                    <LinearLayout
+                        style="@style/contratInputLayout2"
+                        android:layout_weight="2">
+
+                        <TextView
+                            style="@style/contratInputLayoutTitle"
+                            android:text="*规格型号"
                             android:id="@+id/textView" />
 
                         <LinearLayout style="@style/contratInputLayoutContent">
@@ -324,11 +315,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:gravity="center"
-                                android:text="*" />
+
 
                             <fajieyefu.com.luoxiang.layout.MySpinnerForFree
                                 android:id="@+id/wid"
@@ -337,14 +324,21 @@
                                 android:layout_weight="1"
                                 android:gravity="center" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:gravity="center"
-                                android:text="*" />
+
 
                             <fajieyefu.com.luoxiang.layout.MySpinnerForFree
                                 android:id="@+id/hit"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"
+                                android:text="上花栏:"/>
+                            <fajieyefu.com.luoxiang.layout.MySpinnerForFree
+                                android:id="@+id/cantrail"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -363,7 +357,7 @@
 
                         <TextView
                             style="@style/contratInputLayoutTitle"
-                            android:text="*颜色（车厢/大梁）：" />
+                            android:text="*颜色（车厢/大梁）" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -406,7 +400,8 @@
 
                         <TextView
                             style="@style/contratInputLayoutTitle"
-                            android:text="数量/单价：" />
+                            android:text="数量/单价"
+                            android:id="@+id/textView12" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -453,6 +448,7 @@
                     android:layout_height="24dp"
                     android:layout_marginTop="6dp"
                     android:text="二、上述车辆买受人选装以下配置（单位为mm）"
+                    android:layout_marginLeft="10dp"
                     android:textSize="16sp" />
                 <LinearLayout
                     android:id="@+id/outlinesizelayout"
@@ -931,7 +927,6 @@
 
                     <TextView
                         style="@style/contratInputLayoutTitle_h"
-                        android:layout_width="50dp"
                         android:text="*蓬杆" />
 
                     <fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory
@@ -1279,24 +1274,6 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:checked="true"/>
-
-                    <TextView
-                        style="@style/tv_16sp_black"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="包含运费：" />
-
-                    <CheckBox
-                        android:id="@+id/yunfei"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="38dp">
-
                     <TextView
                         style="@style/tv_16sp_black"
                         android:layout_width="wrap_content"
@@ -1315,10 +1292,80 @@
                         android:maxLines="1"
                         android:padding="5dp" />
 
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp">
+
                     <TextView
                         style="@style/tv_16sp_black"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:text="包含运费：" />
+
+                    <CheckBox
+                        android:id="@+id/yunfei"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        style="@style/tv_16sp_black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="*配送费用：" />
+
+                    <EditText
+                        android:id="@+id/carriage"
+                        style="@style/tv_12sp_MyOrange"
+                        android:layout_width="0dp"
+                        android:layout_height="28dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_input"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:padding="5dp"
+                        android:singleLine="true" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp">
+
+
+
+                    <TextView
+                        style="@style/tv_16sp_black"
+                        android:layout_width="120dp"
+                        android:layout_height="match_parent"
+                        android:gravity="left|center_vertical"
+                        android:textSize="12sp"
+                        android:text="*优惠费用：" />
+
+                    <EditText
+                        android:id="@+id/discountFee"
+                        style="@style/tv_12sp_MyOrange"
+                        android:layout_width="0dp"
+                        android:layout_height="28dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_input"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:padding="5dp"
+                        android:singleLine="true" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp">
+
+
+
+                    <TextView
+                        style="@style/tv_16sp_black"
+                        android:layout_width="120dp"
+                        android:layout_height="match_parent"
+                        android:gravity="left|center_vertical"
+                        android:textSize="12sp"
                         android:text="*总 金 额：" />
 
                     <EditText
@@ -1336,11 +1383,14 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="38dp">
+                    android:layout_height="38dp"
+                    >
 
                     <TextView
                         style="@style/tv_16sp_black"
-                        android:layout_width="wrap_content"
+                        android:layout_width="120dp"
+                        android:textSize="12sp"
+                        android:gravity="left|center_vertical"
                         android:layout_height="match_parent"
                         android:text="*总金额（大写）：" />
 
@@ -1349,7 +1399,6 @@
                         style="@style/tv_12sp_MyOrange"
                         android:layout_width="0dp"
                         android:layout_height="28dp"
-                        android:layout_marginRight="10dp"
                         android:layout_weight="1"
                         android:background="@drawable/edit_input"
                         android:maxLines="1"
@@ -1365,16 +1414,19 @@
 
                     <TextView
                         style="@style/tv_16sp_black"
-                        android:layout_width="wrap_content"
+                        android:layout_width="120dp"
                         android:layout_height="match_parent"
-                        android:text="*预计提车日期:" />
+                        android:textSize="12sp"
+                        android:gravity="left|center_vertical"
+                        android:text="*预计提车日期："
+                        android:id="@+id/textView10" />
 
                     <TextView
                         android:id="@+id/applyDate"
                         style="@style/tv_12sp_MyOrange"
                         android:layout_width="0dp"
                         android:layout_height="28dp"
-                        android:layout_marginRight="10dp"
+                        android:gravity="center"
                         android:layout_weight="1"
                         android:background="@drawable/edit_input"
                         android:padding="5dp" />
@@ -1394,28 +1446,31 @@
                         style="@style/tv_12sp_MyOrange"
                         android:layout_width="0dp"
                         android:layout_height="32dp"
+                        android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:padding="5dp" />
+                    <TextView
+                        style="@style/tv_16sp_black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="加急：" />
+
+                    <CheckBox
+                        android:id="@+id/urgent"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="38dp"
-                    android:layout_gravity="center_vertical">
+                    android:layout_gravity="center_vertical"
+                    android:visibility="gone">
 
-                    <TextView
-                        style="@style/tv_16sp_black"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="订单是否加急：" />
 
-                    <CheckBox
-                        android:id="@+id/urgent"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                         />
                     <LinearLayout
-                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
                         <TextView
@@ -1442,7 +1497,27 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/file_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/select_info"
+                android:orientation="vertical"
+                android:paddingBottom="10dp" >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="添加附件"/>
 
+                <fajieyefu.com.luoxiang.layout.MyGridView
+                    android:id="@+id/my_goods_GV"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center"
+                    android:numColumns="4" />
+            </LinearLayout>
             <LinearLayout
 
                 android:id="@+id/sign_layout"
@@ -1479,27 +1554,44 @@
                     android:textColor="@color/white"
                     android:textSize="20sp"/>
             </LinearLayout>
-            <LinearLayout
-                android:id="@+id/file_layout"
+
+            <RelativeLayout
+                android:id="@+id/caculator_layout"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_below="@+id/sign_layout">
+
+                <Button
+                    android:id="@+id/caculator"
+                    android:layout_width="200dp"
+                    android:layout_height="38dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/btn_red"
+                    android:text="查看参考价格和重量"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
+            </RelativeLayout>
+            <TextView
+                android:id="@+id/sameTextView"
+                android:visibility="gone"
+                android:layout_below="@+id/caculator_layout"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="20dp"
+                android:gravity="center_vertical"
+                android:text="修改同样作用于以下合同："/>
+            <fajieyefu.com.luoxiang.layout.LinearLayoutForListView
+                android:id="@+id/otherContractLV"
+                android:layout_below="@+id/sameTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/select_info"
-                android:orientation="vertical"
-                android:paddingBottom="10dp" >
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="添加附件"/>
+                android:orientation="vertical">
 
-                <fajieyefu.com.luoxiang.layout.MyGridView
-                    android:id="@+id/my_goods_GV"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:gravity="center"
-                    android:numColumns="4" />
-            </LinearLayout>
+            </fajieyefu.com.luoxiang.layout.LinearLayoutForListView>
+
+
         </RelativeLayout>
 
 

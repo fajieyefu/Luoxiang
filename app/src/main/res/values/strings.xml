@@ -38,7 +38,7 @@
     <string name="auditCustmoerPhone">请填写客户电话</string>
     <string name="auditCustmoerAddress">请填写客户地址</string>
     <string name="auditCustmoerPerson">请填写客户联系人</string>
-    <string name="auditCustmoercName">请填写客户所属地区</string>
+    <string name="auditCustmoercName">请填写客户所属大区</string>
     <string name="success">操作成功</string>
     <string name="abnormal">服务器异常</string>
     <string name="analysisByAddress">按地区分析月订单</string>
@@ -83,7 +83,7 @@
     <string name="mid">立板</string>
     <string name="daichulidingdan">待处理订单</string>
     <string name="lidigao">离地高:</string>
-    <string name="houxuan">\n后传半径:</string>
+    <string name="houxuan">\n后转半径:</string>
     <string name="qianxuan">前悬:</string>
     <string name="zhongxinju">\n中心距:</string>
     <string name="qianyinzuo">\n牵引座:</string>
@@ -129,10 +129,12 @@
         <item>11000</item>
         <item>10500</item>
         <item>10000</item>
+        <item>13750</item>
     </string-array>
     <string-array name="wid">
         <item>2550</item>
         <item>2500</item>
+        <item>3000</item>
     </string-array>
     <string-array name="qyz">
         <item>自备</item>
@@ -163,6 +165,9 @@
         <item>后二</item>
         <item>中二</item>
         <item>后中</item>
+        <item>左前</item>
+        <item>右前</item>
+        <item>前中</item>
     </string-array>
     <string-array name="fangshuicao">
         <item>内</item>
@@ -190,12 +195,14 @@
         <item>1600</item>
         <item>1700</item>
         <item>1800</item>
+        <item>1850</item>
         <item>1900</item>
         <item>1950</item>
         <item>2000</item>
         <item>2100</item>
         <item>2160</item>
         <item>2200</item>
+        <item>2250</item>
         <item>2300</item>
         <item>2400</item>
         <item>无栏板</item>
@@ -217,14 +224,16 @@
         <item>一体对开，外置锁杆</item>
     </string-array>
     <string-array name="productListArray">
-        <item>20尺</item>
-        <item>40尺</item>
-        <item>45尺</item>
-        <item>48尺</item>
+        <item>20英尺</item>
+        <item>30英尺</item>
+        <item>40英尺</item>
+        <item>45英尺</item>
+        <item>48英尺</item>
     </string-array>
     <string-array name="axisCounts">
         <item>2</item>
         <item>3</item>
+        <item>1</item>
     </string-array>
     <string-array name="carStyleArray">
         <item>直梁</item>

@@ -1,10 +1,12 @@
 package fajieyefu.com.luoxiang.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by Administrator on 2017-05-08.
  */
 
-public class ContractBean {
+public class ContractBean implements Serializable {
     private int  standardId;
     private long createtime;
     private int statues;
@@ -27,6 +29,15 @@ public class ContractBean {
     private String endCustomerPhone;
     private long sp_time;
     private String sp_person;
+    private int stop_flag;
+
+    public int getStop_flag() {
+        return stop_flag;
+    }
+
+    public void setStop_flag(int stop_flag) {
+        this.stop_flag = stop_flag;
+    }
 
     public long getSp_time() {
         return sp_time;

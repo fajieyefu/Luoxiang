@@ -5,17 +5,13 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,7 +19,6 @@ import butterknife.OnClick;
 import fajieyefu.com.luoxiang.R;
 import fajieyefu.com.luoxiang.fragment.BangongFragment;
 import fajieyefu.com.luoxiang.fragment.PersonFragment;
-import fajieyefu.com.luoxiang.service.UpdateCheckNews;
 
 public class MainActivity extends BaseActivity {
 
@@ -47,19 +42,14 @@ public class MainActivity extends BaseActivity {
         if (savedInstanceState == null) {
             setDefaultFragment();
         }
-        startService();
+        initxiaomiPush();
     }
 
-    private void startService() {
-        TimerTask task = new TimerTask() {
-            public void run() {
-                Intent intent = new Intent(MainActivity.this, UpdateCheckNews.class);
-                startService(intent);
-            }
-        };
-        Timer timer = new Timer();
-        timer.schedule(task, 5000);
+    private void initxiaomiPush() {
+
     }
+
+
 
     private void setDefaultFragment() {
         FragmentManager fragmentManager = getFragmentManager();
@@ -105,5 +95,25 @@ public class MainActivity extends BaseActivity {
                 break;
         }
         transaction.commit();
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Intent home = new Intent(Intent.ACTION_MAIN);
+            home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            home.addCategory(Intent.CATEGORY_HOME);
+            startActivity(home);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        startActivity(intent);
     }
 }

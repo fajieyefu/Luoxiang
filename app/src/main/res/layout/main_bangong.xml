@@ -36,6 +36,7 @@
         android:gravity="center"
         android:layout_below="@+id/rela">
         <LinearLayout
+            android:id="@+id/l1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
@@ -86,9 +87,10 @@
 
         <LinearLayout
             android:id="@+id/line2"
+            android:layout_below="@+id/l1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="20dp"
             android:gravity="center"
             android:orientation="horizontal"
             android:paddingLeft="20dp"
@@ -113,18 +115,27 @@
                 android:gravity="center"
                 android:layout_height="match_parent">
 
-            <RadioButton
-                android:id="@+id/all_contract"
-                style="@style/MyRadioButton"
-                android:drawableTop="@mipmap/fenxi"
-                android:text="图标分析"
-                />
+                <RadioButton
+                    android:id="@+id/all_contract"
+                    style="@style/MyRadioButton"
+                    android:drawableTop="@mipmap/fenxi"
+                    android:text="图标分析"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true" />
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:layout_height="match_parent">
+                <RadioButton
+                    android:id="@+id/queryOrderPc"
+                    style="@style/MyRadioButton"
+                    android:drawableTop="@mipmap/search"
+                    android:text="工期查询"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    />
             </RelativeLayout>
         </LinearLayout>
 

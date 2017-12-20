@@ -19,6 +19,7 @@ public class ExampleDaoGenerator {
 		entity.addStringProperty("username");
 		entity.addStringProperty("password");
 		entity.addBooleanProperty("rembPsw");
+		entity.addIntProperty("rId");
 		//物料分类表
 		Entity inventoryClass = schema.addEntity("InventoryClass");
 		inventoryClass.addIdProperty();
@@ -54,6 +55,23 @@ public class ExampleDaoGenerator {
 		lastCheckInfo.addIdProperty();
 		lastCheckInfo.addLongProperty("lastCheckTime");
 		lastCheckInfo.addStringProperty("username");
+		//全国地区省市县表
+		Entity region = schema.addEntity("Region") ;
+		region.addStringProperty("codeID");
+		region.addStringProperty("name");
+		region.addStringProperty("parentID");
+		//全国地区省市县表
+		Entity lastCheckClueInfo = schema.addEntity("LastCheckClueInfo") ;
+		lastCheckClueInfo.addIdProperty();
+		lastCheckClueInfo.addLongProperty("lastCreateTime");
+		lastCheckClueInfo.addStringProperty("username");
+		//	U8地区表
+		Entity u8HrCt007Info = schema.addEntity("U8HrCt007");
+		u8HrCt007Info.addStringProperty("ccodeID");
+		u8HrCt007Info.addStringProperty("vdescription");
+		u8HrCt007Info.addStringProperty("vsimpleName");
+		u8HrCt007Info.addIntProperty("ilevels");
+		u8HrCt007Info.addStringProperty("cpCodeID");
 
 
 	}

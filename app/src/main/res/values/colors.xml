@@ -163,5 +163,6 @@
     <color name="headgreen">#38c092</color>
     <color name="stroke_green">#eeeeee</color>
     <color name="green_l">#1cbd70</color>
+    <color name="deep_black">#333333</color><!--深黑-->
     <!--主题绿-->
 </resources>

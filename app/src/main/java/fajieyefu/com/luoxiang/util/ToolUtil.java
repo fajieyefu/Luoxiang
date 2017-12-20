@@ -1,8 +1,17 @@
 package fajieyefu.com.luoxiang.util;
 
-import android.app.Application;
+import android.Manifest;
+import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +20,13 @@ import android.widget.ListView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import fajieyefu.com.luoxiang.R;
-import fajieyefu.com.luoxiang.application.MyApplication;
+import fajieyefu.com.luoxiang.main.HistoryDetailsActivity;
 
 /**
  * Created by qiancheng on 2016/11/24.
@@ -153,8 +163,75 @@ public class ToolUtil {
     }
 
     public static String getTime() {
-        return new SimpleDateFormat("MM-dd HH:mm", Locale.CHINA).format(new Date());
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA).format(new Date());
+    }
+    //判断服务是否运行
+    public static boolean isServiceWork(Context mContext, String serviceName) {
+        boolean isWork = false;
+        ActivityManager myAM = (ActivityManager) mContext
+                .getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningServiceInfo> myList = myAM.getRunningServices(100);
+        if (myList.size() <= 0) {
+            return false;
+        }
+        for (int i = 0; i < myList.size(); i++) {
+            String mName = myList.get(i).service.getClassName().toString();
+            System.out.println(mName);
+            if (mName.equals(serviceName)) {
+                isWork = true;
+                break;
+            }
+        }
+        return isWork;
     }
 
+    public static boolean isAPPALive(Context applicationContext, Object packageName) {
+        ActivityManager activityManager = (ActivityManager) applicationContext.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> appProcesses = activityManager.getRunningAppProcesses();
+        for (ActivityManager.RunningAppProcessInfo appProcess : appProcesses) {
+            if (appProcess.processName.equals(packageName)) {
+                return appProcess.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND;
+            }
+        }
+        return false;
+
+    }
+
+    public static AlertDialog.Builder applyPermission(Context context, String title,String msg,String[] permissions, String appointPermission){
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+            // 检查该权限是否已经获取
+            int result = ContextCompat.checkSelfPermission(context, appointPermission);
+            // 权限是否已经 授权 GRANTED---授权  DINIED---拒绝
+            if (result != PackageManager.PERMISSION_GRANTED) {
+                // 如果没有授予该权限，就去提示用户请求
+                return showDialogTipUserRequestPermission(context,title,msg,permissions);
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+
+    }
+    private static AlertDialog.Builder showDialogTipUserRequestPermission(Context context, String title, String msg, String[] permissions) {
+
+        return new AlertDialog.Builder(context)
+                .setTitle(title)
+                .setMessage(msg)
+                .setPositiveButton("立即开启", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ActivityCompat.requestPermissions((Activity) context, permissions, 333);
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).setCancelable(false);
+    }
 
 }

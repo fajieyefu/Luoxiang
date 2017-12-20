@@ -77,7 +77,10 @@ public class HistoryAdapter extends BaseAdapter {
             viewHolder.dot.setBackground(context.getResources().getDrawable(R.drawable.dot_5));
             viewHolder.nqFlag.setText(context.getResources().getString(R.string.complete));
         }
-
+         if (contractBean.getStop_flag()==1){
+             viewHolder.dot.setBackground(context.getResources().getDrawable(R.drawable.dot_2));
+             viewHolder.nqFlag.setText("生产驳回");
+         }
         viewHolder.contractId.setText(contractBean.getOrderNumber());
         viewHolder.endCustomerName.setText(contractBean.getEndCustomerName()==null?"未填写":contractBean.getEndCustomerName());
 

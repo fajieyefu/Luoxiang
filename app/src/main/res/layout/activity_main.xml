@@ -28,6 +28,7 @@
                     android:background="@drawable/selector_top_btn1"
                     android:button="@null"
                     android:text="办公"
+                    android:textSize="20sp"
                     android:gravity="center"
                     android:textColor="@drawable/btn_text_color" />
 
@@ -40,6 +41,7 @@
                     android:button="@null"
                     android:focusable="true"
                     android:gravity="center"
+                    android:textSize="20sp"
                     android:text="个人"
                     android:textColor="@drawable/btn_text_color" />
             </RadioGroup>

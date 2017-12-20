@@ -9,9 +9,9 @@ import java.util.List;
  * Created by Administrator on 2017-05-07.
  */
 public class ObtainBean implements Serializable{
-    @SerializedName(value = "code", alternate = {"standardId","cCusCode"})
+    @SerializedName(value = "code", alternate = {"standardId","cCusCode","client_level_code","brand_code","car_type_code","areaCode"})
     private String code ;
-    @SerializedName(value = "name", alternate = {"standardName","cCusName"})
+    @SerializedName(value = "name", alternate = {"standardName","cCusName","client_level_name","brand_name","car_type_name","areaName"})
     private String name;
     private String cCusHand;
     private String cCusAddress;

@@ -179,6 +179,7 @@ public class HistoryActivity extends BaseActivity implements XListView.IXListVie
         type = 0;
         contracts.clear();
         contractResult.clear();
+        notifyThisPagesListView();
         loadData();
     }
 
@@ -272,17 +273,9 @@ public class HistoryActivity extends BaseActivity implements XListView.IXListVie
 
             if (response.getCode() == 0) {
                 if (response.getData() != null) {
-//                    if (flag == 1) {
-//                        for (ContractBean contractBean : response.getData()) {
-//                            if (contractBean.getWc() == 1) {
-//                                contracts.add(contractBean);
-//                            }
-//                        }
-//                    } else {
                     contracts.addAll(response.getData());
                     contractResult.addAll(response.getData());
                     chooseType.setText("全部  ");
-//                    }
                 }
             } else {
                 Toast.makeText(HistoryActivity.this, response.getMsg(), Toast.LENGTH_SHORT).show();
@@ -348,7 +341,7 @@ public class HistoryActivity extends BaseActivity implements XListView.IXListVie
                 break;
             case 2:
                 for (ContractBean contractBean : contractResult) {
-                    if (contractBean.getNq_flag() == 2) {
+                    if (contractBean.getNq_flag() == 2 || contractBean.getStop_flag()==1) {
                         contracts.add(contractBean);
                     }
                 }

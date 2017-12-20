@@ -20,6 +20,7 @@ import fajieyefu.com.luoxiang.main.ClueManageActivity;
 import fajieyefu.com.luoxiang.main.ContractAnlysisActivity;
 import fajieyefu.com.luoxiang.main.ContractInputPage1;
 import fajieyefu.com.luoxiang.main.HistorySelectedActivity;
+import fajieyefu.com.luoxiang.main.QueryOrderPcActivity;
 
 /**
  * Created by Administrator on 2017/4/14.
@@ -37,6 +38,8 @@ public class BangongFragment extends Fragment {
     Unbinder unbinder;
     @BindView(R.id.clueResource)
     RadioButton clueResource;
+    @BindView(R.id.queryOrderPc)
+    RadioButton queryOrderPc;
     private Context context;
 
     @Nullable
@@ -59,7 +62,7 @@ public class BangongFragment extends Fragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.contract_input, R.id.contract_edit, R.id.contract_history, R.id.all_contract,R.id.clueResource})
+    @OnClick({R.id.contract_input, R.id.contract_edit, R.id.contract_history, R.id.all_contract, R.id.clueResource,R.id.queryOrderPc})
     public void onViewClicked(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
@@ -82,7 +85,11 @@ public class BangongFragment extends Fragment {
 //                Toast.makeText(context, "整改中，近期开放", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.clueResource:
-                intent.setClass(context,ClueManageActivity.class);
+                intent.setClass(context, ClueManageActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.queryOrderPc:
+                intent.setClass(context, QueryOrderPcActivity.class);
                 startActivity(intent);
                 break;
 

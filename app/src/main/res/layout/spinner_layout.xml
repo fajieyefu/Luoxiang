@@ -6,8 +6,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="5dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/layout_white">
 
         <TextView
@@ -27,7 +26,7 @@
             android:layout_height="7dp"
             android:layout_alignRight="@+id/spinner_text"
             android:layout_marginRight="1dp"
-            android:layout_marginTop="12dp"
+            android:layout_centerVertical="true"
             android:background="@mipmap/down_arrow" />
         <LinearLayout
             android:id="@+id/num_layout"

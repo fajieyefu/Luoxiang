@@ -21,10 +21,11 @@
             android:paddingBottom="5dp"
             android:paddingLeft="5dp"
             android:paddingRight="5dp">
+
             <android.support.v7.widget.CardView
-                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -32,127 +33,106 @@
 
 
                     <LinearLayout
-                    android:paddingLeft="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:background="@color/white"
-                    android:gravity="center_vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
-                        android:text="客户:" />
-
-                    <TextView
-                        android:id="@+id/customer"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:text=""
-                        android:textColor="@color/black" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
-                        android:text="联系人:" />
-
-                    <TextView
-                        android:id="@+id/person"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=""
-                        android:textColor="@color/black" />
-
-
-                </LinearLayout>
-                    <LinearLayout
-                        android:paddingLeft="5dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:background="@color/white"
-                        android:gravity="center_vertical">
+                        style="@style/preview_text_filed_layout"
+                        android:paddingTop="5dp">
 
                         <TextView
+                            style="@style/preview_text_filed"
+                            android:text="客户：" />
+
+                        <TextView
+                            android:id="@+id/customer"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text=""
+                            android:textColor="@color/black" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/preview_text_filed_layout">
+
+                        <TextView
+                            style="@style/preview_text_filed"
+                            android:text="联系人：" />
+
+                        <TextView
+                            android:id="@+id/person"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:paddingLeft="5dp"
-                            android:paddingRight="5dp"
-                            android:text="地址:" />
+                            android:text=""
+                            android:textColor="@color/black" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/preview_text_filed_layout">
+
+                        <TextView
+                            style="@style/preview_text_filed"
+                            android:text="地址：" />
 
                         <TextView
                             android:id="@+id/address"
                             android:layout_width="0dp"
-                            android:layout_weight="1"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:text=""
                             android:textColor="@color/black" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/preview_text_filed_layout">
+
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="5dp"
-                            android:paddingRight="5dp"
-                            android:text="电话:" />
+                            style="@style/preview_text_filed"
+                            android:text="电话：" />
 
                         <TextView
                             android:id="@+id/phone"
                             android:layout_width="0dp"
-                            android:layout_weight="1"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:text=""
                             android:textColor="@color/black" />
 
 
                     </LinearLayout>
-                    <LinearLayout
-                        android:paddingLeft="5dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:background="@color/white"
-                        android:gravity="center_vertical">
+
+                    <LinearLayout style="@style/preview_text_filed_layout">
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingRight="5dp"
-                            android:text="终端联系人:" />
+                            style="@style/preview_text_filed"
+                            android:text="终端客戶：" />
 
                         <TextView
                             android:id="@+id/endCustomerName"
                             android:layout_width="0dp"
-                            android:layout_weight="1"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:text=""
                             android:textColor="@color/black" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/preview_text_filed_layout">
+
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="5dp"
-                            android:paddingRight="5dp"
-                            android:text="终端联系方式:" />
+                            style="@style/preview_text_filed"
+                            android:text="终端电话：" />
 
                         <TextView
                             android:id="@+id/endCustomerPhone"
                             android:layout_width="0dp"
-                            android:layout_weight="2"
                             android:layout_height="wrap_content"
+                            android:layout_weight="2"
                             android:text=""
                             android:textColor="@color/black" />
 
 
                     </LinearLayout>
-                    <LinearLayout
-                        android:paddingLeft="5dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:background="@color/white"
-                        android:gravity="center_vertical">
+
+                    <LinearLayout style="@style/preview_text_filed_layout">
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/preview_text_filed"
                             android:text="牵引车：" />
 
                         <TextView
@@ -167,30 +147,29 @@
                             android:layout_height="wrap_content"
                             android:text=""
                             android:textColor="@color/black" />
-
                     </LinearLayout>
-                    <LinearLayout
-                        android:paddingLeft="5dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:background="@color/white"
-                        android:gravity="center_vertical">
+
+
+                    <LinearLayout style="@style/preview_text_filed_layout">
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/preview_text_filed"
                             android:text="所属大区：" />
 
                         <TextView
                             android:id="@+id/area"
                             android:layout_width="0dp"
+                            android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:layout_height="wrap_content"
                             android:textColor="@color/black" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/preview_text_filed_layout">
+
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/preview_text_filed"
                             android:text="是否新车：" />
+
                         <TextView
                             android:id="@+id/isNew"
                             android:layout_width="0dp"
@@ -204,28 +183,29 @@
             </android.support.v7.widget.CardView>
 
 
-
-
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_marginTop="5dp"
+                android:layout_height="wrap_content"
 
-                android:layout_height="wrap_content">
+                android:layout_marginTop="5dp">
+
                 <LinearLayout
+                    android:background="@color/wheat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <TextView
-                        android:paddingLeft="5dp"
                         android:layout_width="match_parent"
-                        android:background="@color/white"
                         android:layout_height="24dp"
+                        android:paddingLeft="5dp"
                         android:text="一、订购标的的数量及价格"
-                        android:textSize="12sp" />
+                        android:textSize="16sp" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:background="@color/white"
-                        android:layout_height="25dp">
+                        android:layout_height="25dp"
+                        >
 
                         <TextView
                             style="@style/previewContract"
@@ -251,8 +231,8 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:background="@color/white"
-                        android:layout_height="40dp">
+                        android:layout_height="60dp"
+                        >
 
                         <TextView
                             android:id="@+id/carStyle"
@@ -285,537 +265,521 @@
             </android.support.v7.widget.CardView>
 
 
-
             <TextView
-                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:background="@color/white"
+                android:layout_marginTop="10dp"
+                android:background="@color/wheat"
                 android:gravity="center_vertical"
                 android:text="二、上述车辆买受人选装以下配置（单位为mm）"
-                android:textSize="12sp" />
+                android:textSize="16sp" />
+
+
             <android.support.v7.widget.CardView
-                style="@style/CardViewLayout"
-                android:layout_marginTop="0dp">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
                 <LinearLayout
-                    android:id="@+id/outlinesizelayout"
-                    style="@style/contratInputLayout_h"
-                    android:visibility="gone">
-                    <TextView
-                        style="@style/previewContract_h"
-                        android:text="*行车证\n外形尺寸" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/wheat"
+                    android:orientation="vertical">
 
                     <LinearLayout
-                        style="@style/contratInputLayoutContent"
-                        android:layout_height="match_parent">
-
-                        <TextView
-                            android:id="@+id/outlinesize"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:singleLine="true"
-                            android:gravity="center_vertical"
-                            />
-                    </LinearLayout>
-
-
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-            <android.support.v7.widget.CardView
-                style="@style/CardViewLayout"
-                android:layout_marginTop="0dp">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="65dp">
-
-                    <TextView
-                        style="@style/previewContract_h"
-                        android:text="车架" />
-
-                    <TextView
-                        android:id="@+id/chejia"
-                        style="@style/previewContract_black_h"
-                        android:text="" />
-                    <!-- <ImageView
-                         android:layout_width="1dp"
-                         android:layout_height="match_parent"
-                         android:background="@color/black"
-                         />-->
-                    <TextView
-
-                        style="@style/previewContract_h"
-                        android:text="栏板样式" />
-
-                    <TextView
-                        android:id="@+id/lanban"
-                        style="@style/previewContract_black_h"
-                        android:text="" />
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-            <android.support.v7.widget.CardView
-                style="@style/CardViewLayout">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="65dp"
-                    >
-
-                    <TextView
-                        style="@style/previewContract_h"
-                        android:text="牵引车" />
-
-                    <TextView
-                        android:id="@+id/lidigao"
-                        style="@style/previewContract_black_h"
-                        android:text="" />
-
-
-                    <TextView
-
-                        style="@style/previewContract_h"
-                        android:text="后门样式" />
-
-                    <TextView
-                        android:id="@+id/houmen"
-                        style="@style/previewContract_black_h"
-                        android:text="" />
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-            <android.support.v7.widget.CardView
-                style="@style/CardViewLayout">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="65dp">
-                    <TextView
-                        style="@style/previewContract_h"
-                        android:text="挂车" />
-
-                    <TextView
-                        android:id="@+id/qianxuan"
-                        style="@style/previewContract_black_h"
-                        android:text="" />
-
-
-                    <TextView
-
-                        style="@style/previewContract_h"
-                        android:text="蓬杆" />
-
-                    <TextView
-                        android:id="@+id/penggan"
-                        style="@style/previewContract_black_h"
-                        android:text="" />
-                </LinearLayout>
-
-            </android.support.v7.widget.CardView>
-            <android.support.v7.widget.CardView
-                style="@style/CardViewLayout">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="65dp">
-
-                    <TextView
-                        style="@style/previewContract_h"
-                        android:text="牵引销" />
-
-                    <TextView
-
-                        android:id="@+id/qianyinxiao"
-                        style="@style/previewContract_black_h"
-                        android:text="" />
-
-
-                    <TextView
-
-                        style="@style/previewContract_h"
-                        android:text="紧绳器" />
-
-                    <TextView
-                        android:id="@+id/jinshengqi"
-                        style="@style/previewContract_black_h"
-                        android:text="" />
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-               style="@style/CardViewLayout">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="65dp"
-                    >
-
-                    <TextView
-                        style="@style/previewContract_h"
-                        android:text="板簧" />
-
-                    <TextView
-                        android:id="@+id/banhuang"
-                        style="@style/previewContract_black_h"
-                        android:text="" />
-
-
-                    <TextView
-                        style="@style/previewContract_h"
-                        android:text="工具箱" />
-
-                    <TextView
-                        android:id="@+id/gongjuxiang"
-                        style="@style/previewContract_black_h"
-                        android:text="" />
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                style="@style/CardViewLayout">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="65dp"
-                    >
-
-                    <TextView
-                        style="@style/previewContract_h"
-                        android:text="贯穿梁" />
-
-                    <TextView
-                        android:id="@+id/wcheng"
-                        style="@style/previewContract_black_h"
-                        android:text="" />
-
-                    <TextView
-
-                        style="@style/previewContract_h"
-                        android:text="备胎支架" />
-
-                    <TextView
-                        android:id="@+id/btzj"
-                        style="@style/previewContract_black_h"
-                        android:text="" />
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-               style="@style/CardViewLayout">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="65dp"
-                    >
-
-                    <TextView
-                        style="@style/previewContract_h"
-                        android:text="边梁" />
-
-                    <TextView
-                        android:id="@+id/bianliang"
-                        style="@style/previewContract_black_h"
-                        android:text="" />
-
-
-                    <TextView
-
-                        style="@style/previewContract_h"
-                        android:text="备胎升降器" />
-
-                    <TextView
-                        android:id="@+id/btsjq"
-                        style="@style/previewContract_black_h"
-                        android:text="" />
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-               style="@style/CardViewLayout">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="65dp"
-                    >
-
-                    <TextView
-                        style="@style/previewContract_h"
-                        android:text="防水槽" />
-
-                    <TextView
-                        android:id="@+id/fangshuicao"
-                        style="@style/previewContract_black_h"
-                        android:text="" />
-
-
-                    <TextView
-
-                        style="@style/previewContract_h"
-                        android:text="ABS" />
-
-                    <TextView
-                        android:id="@+id/abs"
-                        style="@style/previewContract_black_h"
-                        android:text="" />
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-            <android.support.v7.widget.CardView
-                style="@style/CardViewLayout">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="65dp"
-                    >
-
-                    <TextView
-                        style="@style/previewContract_h"
-                        android:text="车厢尺寸" />
-
-                    <TextView
-                        android:id="@+id/chexiangchicun"
-                        style="@style/previewContract_black_h"
-                        android:text="" />
-
-
-                    <TextView
-
-                        style="@style/previewContract_h"
-                        android:text="钢圈" />
-
-                    <TextView
-                        android:id="@+id/gangquan"
-                        style="@style/previewContract_black_h"
-                        android:text="" />
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-
-
-            <android.support.v7.widget.CardView
-                style="@style/CardViewLayout">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="65dp"
-                    >
-
-                    <TextView
-                        style="@style/previewContract_h"
-                        android:text="车厢底板" />
-
-                    <TextView
-                        android:id="@+id/diban"
-                        style="@style/previewContract_black_h"
-                        android:text="" />
-
-
-                    <TextView
-
-                        style="@style/previewContract_h"
-                        android:text="轮胎" />
-
-                    <TextView
-                        android:id="@+id/luntai"
-                        style="@style/previewContract_black_h"
-                        android:text="" />
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                style="@style/CardViewLayout">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="65dp"
-                    >
-
-                    <TextView
-                        style="@style/previewContract_h"
-                        android:text="车轴" />
-
-                    <TextView
-                        android:id="@+id/chezhou"
-                        style="@style/previewContract_black_h"
-                        android:text="" />
-
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                style="@style/CardViewLayout">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="180dp"
-                    >
-
-                    <TextView
-                        style="@style/previewContract_h"
-                        android:text="其他选装项目" />
-
-                    <TextView
-                        android:id="@+id/mark"
-                        style="@style/previewContract_black_h"
-                        android:text="" />
-
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                style="@style/CardViewLayout">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    >
-
-                    <TextView
-                        style="@style/previewContract_h"
-                        android:text="备注" />
-
-                    <TextView
-                        android:id="@+id/others"
-                        style="@style/previewContract_black_h"
-                        android:text="@string/beizhu" />
-                    <LinearLayout
-                        android:id="@+id/oldPriceLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/outlinesizelayout"
+                        style="@style/preview_text_filed_layout"
                         android:visibility="gone"
-                        android:orientation="vertical"
                         >
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="2dp"
-                            android:text="不带前支腿、备胎升降器、刹车阀！" />
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:padding="2dp"
-                                android:text="旧车斗" />
-                            <TextView
-                                android:id="@+id/oldPrice"
-                                android:background="@drawable/edit_input"
-                                android:layout_width="80dp"
-                                android:singleLine="true"
-                                android:hint=""
-                                android:layout_height="wrap_content" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:padding="2dp"
-                                android:text="元/吨。去除200kg杂质" />
-                        </LinearLayout>
 
+                        <TextView
+                            style="@style/preview_text_filed"
+                            android:text="*行车证外形尺寸：" />
+
+
+
+                            <TextView
+                                android:id="@+id/outlinesize"
+                                style="@style/previewContract_black_h" />
 
 
 
                     </LinearLayout>
 
+                    <LinearLayout style="@style/preview_text_filed_layout">
+
+                        <TextView
+                            style="@style/preview_text_filed"
+                            android:text="车架：" />
+
+                        <TextView
+                            android:id="@+id/chejia"
+                            style="@style/previewContract_black_h"
+                            android:text="" />
+                    </LinearLayout>
+
                 </LinearLayout>
             </android.support.v7.widget.CardView>
-            <android.support.v7.widget.CardView
-                style="@style/CardViewLayout"
-                android:paddingBottom="10dp">
-            <ListView
-                android:id="@+id/lv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:divider="@null"
-                >
 
-            </ListView>
-            </android.support.v7.widget.CardView>
+
+            <LinearLayout style="@style/preview_text_filed_layout">
+
+                <TextView
+                    android:id="@+id/textView4"
+                    style="@style/preview_text_filed"
+                    android:text="栏板样式：" />
+
+                <TextView
+                    android:id="@+id/lanban"
+                    style="@style/previewContract_black_h"
+                    android:text="" />
+            </LinearLayout>
+
+
+            <LinearLayout style="@style/preview_text_filed_layout">
+
+                <TextView
+                    style="@style/preview_text_filed"
+                    android:text="牵引车：" />
+
+                <TextView
+                    android:id="@+id/lidigao"
+                    style="@style/previewContract_black_h"
+                    android:text="" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/preview_text_filed_layout">
+
+                <TextView
+                    style="@style/preview_text_filed"
+                    android:text="后门样式：" />
+
+                <TextView
+                    android:id="@+id/houmen"
+                    style="@style/previewContract_black_h"
+                    android:text="" />
+            </LinearLayout>
+
+
+            <LinearLayout style="@style/preview_text_filed_layout">
+
+                <TextView
+                    style="@style/preview_text_filed"
+                    android:text="挂车：" />
+
+                <TextView
+                    android:id="@+id/qianxuan"
+                    style="@style/previewContract_black_h"
+                    android:text="" />
+            </LinearLayout>
+
+
+            <LinearLayout style="@style/preview_text_filed_layout">
+
+                <TextView
+                    style="@style/preview_text_filed"
+                    android:text="蓬杆：" />
+
+                <TextView
+                    android:id="@+id/penggan"
+                    style="@style/previewContract_black_h"
+                    android:text="" />
+            </LinearLayout>
+
+
+            <LinearLayout style="@style/preview_text_filed_layout">
+
+                <TextView
+                    style="@style/preview_text_filed"
+                    android:text="牵引销：" />
+
+                <TextView
+
+                    android:id="@+id/qianyinxiao"
+                    style="@style/previewContract_black_h"
+                    android:text="" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/preview_text_filed_layout">
+
+                <TextView
+                    style="@style/preview_text_filed"
+                    android:text="紧绳器：" />
+
+                <TextView
+                    android:id="@+id/jinshengqi"
+                    style="@style/previewContract_black_h"
+                    android:text="" />
+            </LinearLayout>
+
+
+            <LinearLayout style="@style/preview_text_filed_layout">
+
+                <TextView
+                    style="@style/preview_text_filed"
+                    android:text="板簧：" />
+
+                <TextView
+                    android:id="@+id/banhuang"
+                    style="@style/previewContract_black_h"
+                    android:text="" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/preview_text_filed_layout">
+
+                <TextView
+                    style="@style/preview_text_filed"
+                    android:text="工具箱：" />
+
+                <TextView
+                    android:id="@+id/gongjuxiang"
+                    style="@style/previewContract_black_h"
+                    android:text="" />
+            </LinearLayout>
+
+
+            <LinearLayout style="@style/preview_text_filed_layout">
+
+                <TextView
+                    style="@style/preview_text_filed"
+                    android:text="贯穿梁：" />
+
+                <TextView
+                    android:id="@+id/wcheng"
+                    style="@style/previewContract_black_h"
+                    android:text="" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/preview_text_filed_layout">
+
+                <TextView
+                    style="@style/preview_text_filed"
+                    android:text="备胎支架：" />
+
+                <TextView
+                    android:id="@+id/btzj"
+                    style="@style/previewContract_black_h"
+                    android:text="" />
+            </LinearLayout>
+
+
+            <LinearLayout style="@style/preview_text_filed_layout">
+
+                <TextView
+                    style="@style/preview_text_filed"
+                    android:text="边梁：" />
+
+                <TextView
+                    android:id="@+id/bianliang"
+                    style="@style/previewContract_black_h"
+                    android:text="" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/preview_text_filed_layout">
+
+                <TextView
+                    style="@style/preview_text_filed"
+                    android:text="备胎升降器：" />
+
+                <TextView
+                    android:id="@+id/btsjq"
+                    style="@style/previewContract_black_h"
+                    android:text="" />
+            </LinearLayout>
+
+
+            <LinearLayout style="@style/preview_text_filed_layout">
+
+                <TextView
+                    style="@style/preview_text_filed"
+                    android:text="防水槽：" />
+
+                <TextView
+                    android:id="@+id/fangshuicao"
+                    style="@style/previewContract_black_h"
+                    android:text="" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/preview_text_filed_layout">
+
+                <TextView
+                    style="@style/preview_text_filed"
+                    android:text="ABS：" />
+
+                <TextView
+                    android:id="@+id/abs"
+                    style="@style/previewContract_black_h"
+                    android:text="" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/preview_text_filed_layout">
+
+                <TextView
+                    style="@style/preview_text_filed"
+                    android:text="水包空：" />
+
+                <TextView
+                    android:id="@+id/shuibaokong"
+                    style="@style/previewContract_black_h"
+                    android:text="" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/preview_text_filed_layout">
+
+                <TextView
+                    style="@style/preview_text_filed"
+                    android:text="车厢尺寸：" />
+
+                <TextView
+                    android:id="@+id/chexiangchicun"
+                    style="@style/previewContract_black_h"
+                     />
+            </LinearLayout>
+
+            <LinearLayout style="@style/preview_text_filed_layout">
+
+                <TextView
+                    style="@style/preview_text_filed"
+                    android:text="钢圈：" />
+
+                <TextView
+                    android:id="@+id/gangquan"
+                    style="@style/previewContract_black_h"
+                    android:text="" />
+            </LinearLayout>
+
+
+            <LinearLayout style="@style/preview_text_filed_layout">
+
+                <TextView
+                    style="@style/preview_text_filed"
+                    android:text="车厢底板：" />
+
+                <TextView
+                    android:id="@+id/diban"
+                    style="@style/previewContract_black_h"
+                    android:text="" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/preview_text_filed_layout">
+
+                <TextView
+                    style="@style/preview_text_filed"
+                    android:text="轮胎：" />
+
+                <TextView
+                    android:id="@+id/luntai"
+                    style="@style/previewContract_black_h"
+                    android:text="" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/preview_text_filed_layout">
+
+                <TextView
+                    style="@style/preview_text_filed"
+                    android:text="车轴：" />
+
+                <TextView
+                    android:id="@+id/chezhou"
+                    style="@style/previewContract_black_h"
+                    android:text="" />
+
+            </LinearLayout>
+
+
+            <LinearLayout style="@style/preview_text_filed_layout">
+
+                <TextView
+                    style="@style/preview_text_filed"
+                    android:text="其他选装项目：" />
+
+                <TextView
+                    android:id="@+id/mark"
+                    style="@style/previewContract_black_h"
+                    android:text="" />
+
+            </LinearLayout>
+
+
+            <LinearLayout style="@style/preview_text_filed_layout">
+
+                <TextView
+                    style="@style/preview_text_filed"
+                    android:text="备注：" />
+
+                <TextView
+                    android:id="@+id/others"
+                    style="@style/previewContract_black_h"
+                    android:text="@string/beizhu" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/oldPriceLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:orientation="vertical">
+                <LinearLayout style="@style/preview_text_filed_layout"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        android:text="不带前支腿、备胎升降器、刹车阀！旧车斗价格" />
+                </LinearLayout>
+                <LinearLayout style="@style/preview_text_filed_layout"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/oldPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint=""
+                        android:singleLine="true" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        android:text="元/吨。去除200kg杂质" />
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+
+
             <android.support.v7.widget.CardView
                 style="@style/CardViewLayout"
                 android:paddingBottom="10dp">
+
+                <ListView
+                    android:id="@+id/lv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:divider="@null">
+
+                </ListView>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                style="@style/CardViewLayout"
+                android:paddingBottom="10dp">
+
                 <ListView
                     android:id="@+id/lv_sign"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:divider="@null"
-                    >
-                </ListView>
-    </android.support.v7.widget.CardView>
-            <android.support.v7.widget.CardView
-                style="@style/CardViewLayout">
+                    android:divider="@null"></ListView>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView style="@style/CardViewLayout">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:orientation="vertical"
-                    android:padding="5dp">
+                    >
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="38dp"
-                        android:layout_gravity="center_vertical">
+                        style="@style/preview_text_filed_layout">
 
                         <TextView
-                            style="@style/tv_16sp_black"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            style="@style/preview_text_filed"
                             android:text="是否定金：" />
 
                         <CheckBox
                             android:id="@+id/dingjin"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:clickable="false"
-                            android:layout_weight="1" />
-
+                            android:layout_weight="1"
+                            android:clickable="false" />
+                        </LinearLayout>
+                    <LinearLayout
+                        style="@style/preview_text_filed_layout">
                         <TextView
-                            style="@style/tv_16sp_black"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            style="@style/preview_text_filed"
                             android:text="包含运费：" />
 
                         <CheckBox
                             android:id="@+id/yunfei"
-                            android:layout_width="0dp"
-                            android:clickable="false"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1" />
+                            android:clickable="false" />
+                        <TextView
+                            style="@style/preview_text_filed"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:id="@+id/carriage"
+                            />
+                    </LinearLayout>
+                    <LinearLayout
+                        style="@style/preview_text_filed_layout">
+
+                        <TextView
+                            style="@style/preview_text_filed"
+                            android:text="优惠费用：" />
+
+                        <TextView
+                            android:id="@+id/discountFee"
+                            style="@style/tv_12sp_MyOrange"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:layout_weight="1"
+                            android:maxLines="1"
+                            android:padding="5dp" />
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="38dp">
+                        style="@style/preview_text_filed_layout">
 
                         <TextView
-                            style="@style/tv_16sp_black"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            style="@style/preview_text_filed"
                             android:text="定        金：" />
 
                         <TextView
                             android:id="@+id/deposit"
                             style="@style/tv_12sp_MyOrange"
                             android:layout_width="0dp"
-                            android:layout_height="28dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
                             android:layout_weight="1"
                             android:maxLines="1"
                             android:padding="5dp" />
+                        </LinearLayout>
+                    <LinearLayout
+                        style="@style/preview_text_filed_layout">
 
                         <TextView
-                            style="@style/tv_16sp_black"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            style="@style/preview_text_filed"
                             android:text="总 金 额：" />
 
                         <TextView
                             android:id="@+id/amt"
                             style="@style/tv_12sp_MyOrange"
                             android:layout_width="0dp"
-                            android:layout_height="28dp"
+                            android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:padding="5dp" />
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="38dp">
+                        style="@style/preview_text_filed_layout">
 
                         <TextView
-                            style="@style/tv_16sp_black"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            style="@style/preview_text_filed"
                             android:text="总金额（大写）：" />
 
                         <TextView
                             android:id="@+id/amt_dx"
                             style="@style/tv_12sp_MyOrange"
                             android:layout_width="0dp"
-                            android:layout_height="28dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
                             android:layout_weight="1"
                             android:padding="5dp" />
@@ -824,70 +788,68 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="38dp">
+                        style="@style/preview_text_filed_layout">
 
                         <TextView
-                            style="@style/tv_16sp_black"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            style="@style/preview_text_filed"
                             android:text="预计提车日期：" />
 
                         <TextView
                             android:id="@+id/applyDate"
                             style="@style/tv_12sp_MyOrange"
                             android:layout_width="0dp"
-                            android:layout_height="28dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
                             android:layout_weight="1"
                             android:padding="5dp" />
 
                     </LinearLayout>
+
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="38dp">
+                        style="@style/preview_text_filed_layout">
 
 
                         <TextView
-                            style="@style/tv_16sp_black"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            style="@style/preview_text_filed"
                             android:text="提车方式：" />
 
                         <TextView
                             android:id="@+id/obtain_type"
                             style="@style/tv_12sp_MyOrange"
                             android:layout_width="wrap_content"
-                            android:layout_height="32dp"
+                            android:layout_height="wrap_content"
                             android:padding="5dp" />
+                        </LinearLayout>
+                    <LinearLayout
+                        style="@style/preview_text_filed_layout">
+
                         <TextView
-                            style="@style/tv_16sp_black"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            style="@style/preview_text_filed"
                             android:text="订单是否加急：" />
 
                         <CheckBox
                             android:id="@+id/urgent"
-                            android:clickable="false"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1" />
+                            android:layout_weight="1"
+                            android:clickable="false" />
 
                     </LinearLayout>
 
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
-            <android.support.v7.widget.CardView
-                style="@style/CardViewLayout">
+            <android.support.v7.widget.CardView style="@style/CardViewLayout">
+
                 <LinearLayout
+                    android:visibility="gone"
                     android:id="@+id/shenpixinxi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:background="@color/wheat"
                     android:orientation="vertical"
-                    android:padding="5dp"
-                    android:visibility="gone">
+                    >
 
                     <TextView
                         style="@style/tv_16sp_black"
@@ -900,43 +862,36 @@
                         android:textSize="20sp" />
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="38dp">
+                        style="@style/preview_text_filed_layout">
 
                         <TextView
-                            style="@style/tv_16sp_black"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:text="申请时间：" />
+                            style="@style/preview_text_filed"
+                            android:text="审批时间：" />
 
                         <TextView
                             android:id="@+id/createTime"
                             style="@style/tv_12sp_MyOrange"
                             android:layout_width="0dp"
-                            android:layout_height="28dp"
-                            android:layout_marginRight="10dp"
+                            android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:maxLines="1"
                             android:padding="5dp" />
 
                     </LinearLayout>
 
+
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="38dp">
+                        style="@style/preview_text_filed_layout">
 
                         <TextView
-                            style="@style/tv_16sp_black"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:text="审批状态：" />
+                            style="@style/preview_text_filed"
+                            android:text="审批状态（订单）：" />
 
                         <TextView
                             android:id="@+id/audit_result"
                             style="@style/tv_12sp_MyOrange"
                             android:layout_width="0dp"
-                            android:layout_height="28dp"
-                            android:layout_marginRight="10dp"
+                            android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:maxLines="1"
                             android:padding="5dp" />
@@ -944,80 +899,114 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:layout_marginTop="10dp">
+                        style="@style/preview_text_filed_layout">
 
                         <TextView
-                            style="@style/tv_16sp_black"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:text="审批意见:"
-                            android:textSize="16sp" />
+                            style="@style/preview_text_filed"
+                            android:text="审批备注："
+                            android:id="@+id/textView5" />
 
                         <EditText
                             android:id="@+id/audit_msg"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"
-                            android:gravity="start"
                             android:background="@null"
-                            android:text="无"
-                            android:paddingLeft="5dp" />
+                            android:gravity="start"
+                            />
+                    </LinearLayout>
+                    <LinearLayout
+                        style="@style/preview_text_filed_layout">
+
+                        <TextView
+                            style="@style/preview_text_filed"
+                            android:text="生产审核状态：" />
+
+                        <TextView
+                            android:id="@+id/stopFlag"
+                            style="@style/tv_12sp_MyOrange"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:layout_weight="1"
+                            android:maxLines="1"
+                            android:padding="5dp" />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/pabhyj_layout"
+                        style="@style/preview_text_filed_layout">
+
+                        <TextView
+                            style="@style/preview_text_filed"
+                            android:text="生产驳回意见：" />
+
+                        <TextView
+                            android:id="@+id/pabhyj"
+                            style="@style/tv_12sp_MyOrange"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:layout_weight="1"
+                            android:maxLines="1"
+                            android:padding="5dp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView style="@style/CardViewLayout">
+
+                <RelativeLayout
+                    android:id="@+id/wordLayout"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:padding="10dp">
+
+                    <Button
+                        android:id="@+id/downWord"
+                        android:layout_width="100dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/btn_red"
+                        android:text="下载合同" />
+
+                    <LinearLayout
+                        android:id="@+id/downingLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_toRightOf="@+id/downWord"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/wordPic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/downWord"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@mipmap/word" />
+
+                        <TextView
+                            android:id="@+id/docName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center" />
+
                     </LinearLayout>
 
 
-                </LinearLayout>
+                </RelativeLayout>
             </android.support.v7.widget.CardView>
-        <android.support.v7.widget.CardView
-            style="@style/CardViewLayout">
-            <RelativeLayout
-                android:id="@+id/wordLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:gravity="center_vertical"
-                >
-                <Button
-                    android:id="@+id/downWord"
-                    android:layout_width="100dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/btn_red"
-                    android:text="下载合同"
-                    />
-                <LinearLayout
-                    android:id="@+id/downingLayout"
-                    android:layout_toRightOf="@+id/downWord"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:padding="5dp">
 
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_toRightOf="@+id/downWord"
-                    android:id="@+id/wordPic"
-                    android:visibility="gone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@mipmap/word"
-                        />
-                    <TextView
-                        android:id="@+id/docName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="201710140014.docx"/>
-
-                </LinearLayout>
-
-
-            </RelativeLayout>
-            </android.support.v7.widget.CardView>
             <fajieyefu.com.luoxiang.layout.LinearLayoutForListView
                 android:id="@+id/contract_change_lv"
                 android:layout_width="match_parent"

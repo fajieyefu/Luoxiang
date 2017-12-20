@@ -12,8 +12,11 @@ import de.greenrobot.dao.query.QueryBuilder;
 import fajieyefu.com.luoxiang.bean.AuditCount;
 import fajieyefu.com.luoxiang.bean.Inventory;
 import fajieyefu.com.luoxiang.bean.InventoryClass;
+import fajieyefu.com.luoxiang.bean.LastCheckClueInfo;
 import fajieyefu.com.luoxiang.bean.LastCheckInfo;
+import fajieyefu.com.luoxiang.bean.Region;
 import fajieyefu.com.luoxiang.bean.UserInfo;
+import fajieyefu.com.luoxiang.bean.U8HrCt007;
 import fajieyefu.com.luoxiang.db.DaoSession;
 import fajieyefu.com.luoxiang.util.DaoManager;
 
@@ -63,7 +66,7 @@ public class DaoBean {
                 case "1508":case "1509":case "1510":case "0410":
                 case "1512":case "1502":case "1507":
                 case "1503":case "1504":case "0411":case "0404":
-                case "0405":
+                case "0405":case "1524":
                     for (Inventory inventory : list) {
                         if (inventory.getCInvName().equals(text)) {
                             result.add(inventory);
@@ -214,7 +217,7 @@ public class DaoBean {
             switch (code) {
                 case "0410":case "1512":case "1502":case "1507":
                 case "1503":case "1504":case "0411":case "0404":
-                case "0405":case "1513":
+                case "0405":case "1513":case "1516":
                 case "1518":case "1519":case "1520":
                 case "1521":case "1522":case "1523":
                     for (Inventory inventory : list) {
@@ -265,10 +268,10 @@ public class DaoBean {
                     break;
 
                 case "1514":
-                    if (width.contains("20尺")&&height.equals("2")){
+                    if (width.contains("20英尺")&&height.equals("2")){
                         for (Inventory inventory : list) {
                             String tempString = inventory.getCInvStd();
-                            if (tempString!=null&&inventory.getCInvName().equals(text)&&tempString.contains("2轴")&&tempString.contains("20尺")) {
+                            if (tempString!=null&&inventory.getCInvName().equals(text)&&tempString.contains("2轴")&&tempString.contains("20英尺")) {
                                 result.add(inventory);
                             }
                         }
@@ -284,7 +287,7 @@ public class DaoBean {
 
                     break;
 
-                case "1516":
+                /*case "1516":
                     if (text.equals("有")){
                         for (Inventory inventory : list){
                             inventory.setIsCurrent(1);
@@ -299,7 +302,7 @@ public class DaoBean {
                             result.add(inventory);
                         }
                         return result;
-                    }
+                    }*/
 
             }
 
@@ -561,7 +564,102 @@ public class DaoBean {
                 result.add(inventory.getCInvName());
             }
         }
-        Collections.sort(result);
         return result;
+    }
+
+    public static List<Region> getRegionByParentCode(String parentCode) {
+
+        DaoSession daoSession = DaoManager.getInstance().getDaoSession();
+        RegionDao regionDao = daoSession.getRegionDao();
+        QueryBuilder<Region> queryBuilder = regionDao.queryBuilder().where(RegionDao.Properties.ParentID.eq(parentCode));
+        return queryBuilder.list();
+
+    }
+
+    /**
+     * 批量插入地区表数据
+     *
+     * @param list
+     */
+    public static void insertRegionList(final List<Region> list) {
+
+        if (list == null || list.isEmpty()) {
+            return;
+        }
+        DaoSession daoSession = DaoManager.getInstance().getDaoSession();
+        final RegionDao regionDao = daoSession.getRegionDao();
+        regionDao.getSession().runInTx(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < list.size(); i++) {
+                    Region region = list.get(i);
+                    regionDao.insertOrReplace(region);
+                }
+            }
+        });
+
+    }
+    /**
+     * 删除地区表所有数据
+     */
+    public static void deleteRegionAll() {
+        DaoSession daoSession = DaoManager.getInstance().getDaoSession();
+        RegionDao regionDao = daoSession.getRegionDao();
+        regionDao.deleteAll();
+    }
+    public static LastCheckClueInfo getLastCheckClueInfoByUserName(String username) {
+
+        DaoSession daoSession = DaoManager.getInstance().getDaoSession();
+        LastCheckClueInfoDao lastCheckClueInfoDao = daoSession.getLastCheckClueInfoDao();
+        QueryBuilder<LastCheckClueInfo> queryBuilder = lastCheckClueInfoDao.queryBuilder().where(LastCheckClueInfoDao.Properties.Username.eq(username));
+        Query query = queryBuilder.build();
+        return (LastCheckClueInfo) query.unique();
+
+    }
+
+    /**
+     * 批量插入U8的行政区域表
+     * @param list
+     */
+    public static void insertU8HrCt007List(final List<U8HrCt007> list) {
+
+        if (list == null || list.isEmpty()) {
+            return;
+        }
+        DaoSession daoSession = DaoManager.getInstance().getDaoSession();
+        final U8HrCt007Dao dao = daoSession.getu8HrCt007Dao();
+        dao.getSession().runInTx(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < list.size(); i++) {
+                    U8HrCt007 bean = list.get(i);
+                    dao.insertOrReplace(bean);
+                }
+            }
+        });
+
+    }
+
+    /**
+     * 删除U8行政区域表所有数据
+     */
+    public static void deleteU8HrCt007All() {
+        DaoSession daoSession = DaoManager.getInstance().getDaoSession();
+        U8HrCt007Dao dao = daoSession.getu8HrCt007Dao();
+        dao.deleteAll();
+    }
+
+    public static List<U8HrCt007> getU8HrCt007ListByIlevels(int iLevels) {
+        DaoSession daoSession = DaoManager.getInstance().getDaoSession();
+        U8HrCt007Dao dao = daoSession.getu8HrCt007Dao();
+        QueryBuilder<U8HrCt007> queryBuilder = dao.queryBuilder().where(U8HrCt007Dao.Properties.Ilevels.eq(iLevels));
+        return queryBuilder.list();
+    }
+
+    public static List<U8HrCt007> getU8HrCt007ListByParentCode(String province_code) {
+        DaoSession daoSession = DaoManager.getInstance().getDaoSession();
+        U8HrCt007Dao dao = daoSession.getu8HrCt007Dao();
+        QueryBuilder<U8HrCt007> queryBuilder = dao.queryBuilder().where(U8HrCt007Dao.Properties.CpCodeID.eq(province_code));
+        return queryBuilder.list();
     }
 }

@@ -17,6 +17,69 @@ public class ContractChange {
     private int pro_flag;
     private double amt;
     private String amt_dx;
+    private int zp_flag;//装配车间标记
+    private int final_flag;//最终标记
+    private int remark;//备注
+    private String obtain_type;//提车方式
+    private String nq_mark;
+    private String pro_mark;
+    private String zp_mark;
+
+    public String getNq_mark() {
+        return nq_mark;
+    }
+
+    public void setNq_mark(String nq_mark) {
+        this.nq_mark = nq_mark;
+    }
+
+    public String getPro_mark() {
+        return pro_mark;
+    }
+
+    public void setPro_mark(String pro_mark) {
+        this.pro_mark = pro_mark;
+    }
+
+    public String getZp_mark() {
+        return zp_mark;
+    }
+
+    public void setZp_mark(String zp_mark) {
+        this.zp_mark = zp_mark;
+    }
+
+    public String getObtain_type() {
+        return obtain_type;
+    }
+
+    public void setObtain_type(String obtain_type) {
+        this.obtain_type = obtain_type;
+    }
+
+    public int getRemark() {
+        return remark;
+    }
+
+    public void setRemark(int remark) {
+        this.remark = remark;
+    }
+
+    public int getZp_flag() {
+        return zp_flag;
+    }
+
+    public void setZp_flag(int zp_flag) {
+        this.zp_flag = zp_flag;
+    }
+
+    public int getFinal_flag() {
+        return final_flag;
+    }
+
+    public void setFinal_flag(int final_flag) {
+        this.final_flag = final_flag;
+    }
 
     public String getCreate_time() {
         return create_time;

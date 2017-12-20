@@ -22,7 +22,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="选择地区:"
+                android:text="*选择大区:"
                 style="@style/tv_16sp_black"
                 />
             <fajieyefu.com.luoxiang.layout.MySpinnerForFree
@@ -97,6 +97,58 @@
                 android:background="@drawable/edit_input"
                 />
         </LinearLayout>
+        <RelativeLayout
+            style="@style/clue_info_edit_layout"
+            android:paddingRight="0dp"
+            android:background="@null"
+            >
+
+            <TextView
+                android:id="@+id/t7"
+                android:layout_width="85dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="*客户地址:"
+                android:textColor="@color/deep_black"
+                style="@style/tv_16sp_black"
+                />
+            <LinearLayout
+                android:layout_toRightOf="@id/t7"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <fajieyefu.com.luoxiang.layout.MySpinnerForU8HrCt007
+                    android:id="@+id/province"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@null"
+                    android:hint="省"
+                    android:textSize="15sp"
+                    />
+                <fajieyefu.com.luoxiang.layout.MySpinnerForU8HrCt007
+                    android:id="@+id/city"
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"                        android:background="@null"
+                    android:hint="市"
+                    android:textSize="15sp"
+                    />
+                <fajieyefu.com.luoxiang.layout.MySpinnerForU8HrCt007
+                    android:id="@+id/country"
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:layout_gravity="center_vertical"
+                    android:hint="县"
+                    android:textSize="15sp"
+                    />
+            </LinearLayout>
+
+
+        </RelativeLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -104,7 +156,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="*客户地址:"
+                android:text="*详细地址:"
                 style="@style/tv_16sp_black"
                 />
             <EditText
