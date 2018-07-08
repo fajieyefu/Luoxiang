@@ -11,7 +11,7 @@ import de.greenrobot.daogenerator.Schema;
  */
 
 public class ExampleDaoGenerator {
-	public static String OUT_DIR = "G:\\Yundiandao\\luoxiang\\luoxiang\\app\\src\\main\\java-gen";
+	public static String OUT_DIR = "F:\\app\\changeOrderChange\\luoxiang\\app\\src\\main\\java-gen";
 	private static void addTaskDetails(Schema schema){
 		//用户信息类
 		Entity entity=schema.addEntity("UserInfo");
@@ -20,6 +20,9 @@ public class ExampleDaoGenerator {
 		entity.addStringProperty("password");
 		entity.addBooleanProperty("rembPsw");
 		entity.addIntProperty("rId");
+		entity.addStringProperty("cDepName");
+		entity.addStringProperty("cDepCode");
+		entity.addIntProperty("enable_flag");// 标识用户状态，0为正常，1为有电话信息需要处理，此时不可以下订单。
 		//物料分类表
 		Entity inventoryClass = schema.addEntity("InventoryClass");
 		inventoryClass.addIdProperty();
@@ -72,13 +75,18 @@ public class ExampleDaoGenerator {
 		u8HrCt007Info.addStringProperty("vsimpleName");
 		u8HrCt007Info.addIntProperty("ilevels");
 		u8HrCt007Info.addStringProperty("cpCodeID");
+		//通知消息表
+		Entity pushInfo = schema.addEntity("PushNewsInfo");
+		pushInfo.addStringProperty("pushId");
+		pushInfo.addIntProperty("pushType");
+		pushInfo.addIntProperty("enableFlag");
 
 
 	}
 	public static void main(String[] args)throws Exception{
 		//生成数据库文件的目标包名
 		//第一个参数是数据库版本号，第二个参数是包的根目录的包
-		Schema schema = new Schema(1,"fajieyefu.com.luoxiang");
+		Schema schema = new Schema(3,"fajieyefu.com.luoxiang");
 		addTaskDetails(schema);
 		try{
 			new DaoGenerator().generateAll(schema,OUT_DIR);

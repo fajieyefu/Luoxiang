@@ -29,6 +29,9 @@ public class UserInfoDao extends AbstractDao<UserInfo, Long> {
         public final static Property Password = new Property(2, String.class, "password", false, "PASSWORD");
         public final static Property RembPsw = new Property(3, Boolean.class, "rembPsw", false, "REMB_PSW");
         public final static Property RId = new Property(4, Integer.class, "rId", false, "R_ID");
+        public final static Property CDepName = new Property(5, String.class, "cDepName", false, "C_DEP_NAME");
+        public final static Property CDepCode = new Property(6, String.class, "cDepCode", false, "C_DEP_CODE");
+        public final static Property Enable_flag = new Property(7, Integer.class, "enable_flag", false, "ENABLE_FLAG");
     };
 
 
@@ -48,7 +51,10 @@ public class UserInfoDao extends AbstractDao<UserInfo, Long> {
                 "'USERNAME' TEXT," + // 1: username
                 "'PASSWORD' TEXT," + // 2: password
                 "'REMB_PSW' INTEGER," + // 3: rembPsw
-                "'R_ID' INTEGER);"); // 4: rId
+                "'R_ID' INTEGER," + // 4: rId
+                "'C_DEP_NAME' TEXT," + // 5: cDepName
+                "'C_DEP_CODE' TEXT," + // 6: cDepCode
+                "'ENABLE_FLAG' INTEGER);"); // 7: enable_flag
     }
 
     /** Drops the underlying database table. */
@@ -86,6 +92,21 @@ public class UserInfoDao extends AbstractDao<UserInfo, Long> {
         if (rId != null) {
             stmt.bindLong(5, rId);
         }
+ 
+        String cDepName = entity.getCDepName();
+        if (cDepName != null) {
+            stmt.bindString(6, cDepName);
+        }
+ 
+        String cDepCode = entity.getCDepCode();
+        if (cDepCode != null) {
+            stmt.bindString(7, cDepCode);
+        }
+ 
+        Integer enable_flag = entity.getEnable_flag();
+        if (enable_flag != null) {
+            stmt.bindLong(8, enable_flag);
+        }
     }
 
     /** @inheritdoc */
@@ -102,7 +123,10 @@ public class UserInfoDao extends AbstractDao<UserInfo, Long> {
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // username
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // password
             cursor.isNull(offset + 3) ? null : cursor.getShort(offset + 3) != 0, // rembPsw
-            cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4) // rId
+            cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4), // rId
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // cDepName
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // cDepCode
+            cursor.isNull(offset + 7) ? null : cursor.getInt(offset + 7) // enable_flag
         );
         return entity;
     }
@@ -115,6 +139,9 @@ public class UserInfoDao extends AbstractDao<UserInfo, Long> {
         entity.setPassword(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setRembPsw(cursor.isNull(offset + 3) ? null : cursor.getShort(offset + 3) != 0);
         entity.setRId(cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4));
+        entity.setCDepName(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setCDepCode(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
+        entity.setEnable_flag(cursor.isNull(offset + 7) ? null : cursor.getInt(offset + 7));
      }
     
     /** @inheritdoc */

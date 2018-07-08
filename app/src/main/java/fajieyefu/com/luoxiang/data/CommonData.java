@@ -8,8 +8,8 @@ import java.net.URL;
  */
 
 public class CommonData {
-//    public final static String URL2 = "http://192.168.1.3:9891/mobile";
-    public final static String URL2="http://221.2.89.146:9891/mobile";
+    public final static String URL2 = "http://192.168.1.3:9891/mobile";
+//    public final static String URL2 = "http://dd.luoxiangcheliang.com:9891/mobile";
     public final static String modifyURL = URL2 + "/modify";
     public final static String loginURL = URL2 + "/login";
     public static final String HISTORYCONTRACTURL = "/getHistory";//历史订单接口
@@ -43,10 +43,11 @@ public class CommonData {
     public static final String initFreeSpinnerUrl=URL2+"/getInitFreeSpinnerData";//初始化录入合同自由选项
     public static final String newClueInfo = URL2 + "/newClueInfo";
     public static final String initRegid=URL2+"/initRegid";//初始化regid
+    public static final String initHWToken = URL2+"/initHWToken";//初始化华为Token
     public static final String invioceInfoURL= URL2+"/getInvioceInfoByOrderId";
     public static final String addInvioceInfo = URL2+"/addInvioceInfo";
     public static final String deleteInvioceUrl =URL2+"/deleteInvioceInfo";
-    public static String applyChangeContract =URL2+"/applyContractChange";//合同变更接口（新版）
+    public static final String applyChangeContract =URL2+"/applyContractChange";//合同变更接口（新版）
 
 
     public static final String searchOrderUrl=URL2+"/searchOrder";
@@ -65,4 +66,11 @@ public class CommonData {
 
     //申请权限常量
     public static final int PERMISSION_CODE = 1204;
+
+
+    public  static  final int  modifyFlag = 1;
+    public static final int changeFlag =2;
+
+    public static  String getClueDataByArea = URL2+"/getClueDataByArea";
+    public static  String getClueDataByPerson = URL2+"/getClueDataByPerson";
 }

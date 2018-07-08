@@ -19,12 +19,12 @@
     <string name="tuihui">退回</string>
     <string name="dsh">待审核</string>
     <string name="dpc">待排产</string>
-    <string name="dtc">待提车</string>
+    <string name="dtc">可提车</string>
     <string name="wc">已完成</string>
     <string name="stockCar">查看库存车</string>
     <string name="kucunche">该库存车配置信息为以下信息\n提示：库存车的车身部分已经生产完成，只能对行走机构进行选配</string>
     <string name="addCustomer">维护客户</string>
-    <string name="beizhu">车厢尺寸按客户要求制作、查车、过户、挂牌等与本公司无关！（为保证客户订购车辆生产的准确性及交货日期，在车辆订购完毕后24小时内如有配置变更请及时通知，超期不予变更或由客户承担相应费用。）</string>
+    <string name="beizhu">青藏线及特殊路况不适合标准车型，请订购时根据使用工况特殊定制！（为保证客户订购车辆生产的准确性及交货日期，在车辆订购完毕后24小时内如有配置变更请及时通知，超期不予变更或由客户承担相应费用。未经公司同意，严禁对车辆进行私自改装，拆卸、焊接等操作，因私自改装、拆卸、焊接等操作造成车辆损坏、故障的（产生不良后果的），我司将不予保修，（不享受我公司售后保障）。</string>
     <string name="s1">本合同范围内车款总价值为人民币¥</string>
     <string name="selectStand">选择标准类型和客户</string>
     <string name="complete">完成</string>
@@ -83,6 +83,7 @@
     <string name="mid">立板</string>
     <string name="daichulidingdan">待处理订单</string>
     <string name="lidigao">离地高:</string>
+    <string name="front_space">前转弯半径:</string>
     <string name="houxuan">\n后转半径:</string>
     <string name="qianxuan">前悬:</string>
     <string name="zhongxinju">\n中心距:</string>
@@ -245,4 +246,103 @@
         <item>无</item>
     </string-array>
 
+    <string name="rationale_camera">我们需要访问您的相机才可以采集照片。</string>
+    <string name="write">我们需要访问您的照片、媒体内容和文件才可以展示照片。</string>
+    <string name="rationale_ask_again">如果没有请求的权限，这个应用程序可能无法正常工作。打开应用程序设置界面修改应用程序权限。</string>
+    <string name="title_settings_dialog">权限要求</string>
+    <string name="setting">设置</string>
+
+    <string name="macthJson">{
+
+
+            \"customer\":\"客户名称\",
+            \"endCustomerName\":\"终端客户\",
+            \"endCustomerPhone\":\"终端联系方式\",
+            \"cPersonName\":\"业务员\",
+            \"cDCName\":\"所属大区\",
+            \"qianyinche\":\"牵引车\",
+            \"powerType\":\"动力类型\",
+            \"model\":\"挂车样式\",
+            \"car_long\":\"车长\",
+            \"car_width\":\"车宽\",
+            \"car_height\":\"车高\",
+            \"orderNumber\":\"合同号\",
+            \"color\":\"车厢颜色\",
+            \"liang_color\":\"车架颜色\",
+            \"booknum\":\"数量\",
+            \"singleprice\":\"单价\",
+            \"up\":\"上翼板\",
+            \"down\":\"下翼板\",
+            \"mid\":\"立板\",
+            \"celanban\":\"侧栏板样式\",
+            \"lidigao\":\"离地高\",
+            \"houxuan\":\"后转半径\",
+            \"celanban_mark\":\"侧栏板备注\",
+            \"qianxuan\":\"前悬\",
+            \"zhongxinju\":\"中心距\",
+            \"houmen\":\"后门样式\",
+            \"houmen_mark\":\"后门备注\",
+            \"qianyinxiao\":\"牵引销\",
+            \"qianyinzuo\":\"牵引座\",
+            \"penggan\":\"棚杆\",
+            \"pati\":\"爬梯\",
+            \"xiaokuang\":\"小框\",
+            \"banhuang\":\"板簧\",
+            \"jinshengqi\":\"紧绳器\",
+            \"jinshengqi_mark\":\"紧绳器备注\",
+            \"wcheng_type\":\"贯穿梁类型\",
+            \"wcheng_num\":\"贯穿梁数量\",
+            \"wcheng_mark\":\"贯穿梁备注\",
+            \"box_left\":\"左工具箱\",
+            \"box_right\":\"右工具箱\",
+            \"box_mark\":\"工具箱备注\",
+            \"bianliang\":\"边梁\",
+            \"btzj\":\"备胎支架\",
+            \"btsjq\":\"备胎升降器\",
+            \"fangshuicao\":\"防水槽\",
+            \"abs\":\"ABS\",
+            \"shuibaokong\":\"水包空\",
+            \"liangbaojiao\":\"量包角\",
+            \"fangguan\":\"方管\",
+            \"gangquan\":\"钢圈品牌\",
+            \"gangquan_num\":\"钢圈数量\",
+            \"luntai\":\"轮胎品牌\",
+            \"luntai_num\":\"轮胎数量\",
+            \"diban\":\"底板\",
+            \"chezhou\":\"车轴\",
+            \"change_content\":\"变更内容\",
+            \"cDefine1\":\"包含运费\",
+            \"carriage\":\"运费\",
+            \"discountFee\":\"优惠\",
+            \"payedmoney\":\"定金\",
+            \"ordermoney\":\"总金额\",
+            \"ordermoney_dx\":\"总金额大写\",
+            \"leaveTime\":\"出车时间\",
+            \"carstyle\":\"提车方式\",
+            \"outlinesize\":\"行车证外形尺寸\",
+            \"butterMouthHeight\":\"黄油嘴到地面高度\",
+            \"skeletonType\":\"产品型号\",
+            \"axisCount\":\"轴数\",
+            \"lockType\":\"锁具\",
+            \"lock_mark\":\"锁具备注\",
+            \"front_space\":\"前转弯半径\",
+            \"unloadingPlatform\":\"后卸货平台\",
+            \"suspensionType\":\"悬挂\",
+            \"fender\":\"挡泥板\",
+            \"relayValveType\":\"继动阀\",
+            \"airCylinderType\":\"储气筒\",
+            \"legType\":\"支腿\",
+            \"brakeChamberType\":\"制动气室\",
+            \"absMark\":\"ABS备注\",
+            \"isNew\":\"是否新车\",
+            \"urgent_flag\":\"是否加急\",
+             \"standard_pro_text\":\"上户标准\",
+            \"areaStanName\":\"上户地区\",
+        \"banhuangMark\":\"板簧\",
+         \"chezhouMark\":\"车轴\",
+         \"luntai_mark\":\"轮胎\",
+        \"isQingZang\":\"是否跑青藏线\",
+         \"gangquan_mark\":\"钢圈\"
+
+}</string>
 </resources>

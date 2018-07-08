@@ -101,6 +101,7 @@ public class ApplyModifyManageActivity extends BaseActivity implements View.OnCl
                     intent.setClass(ApplyModifyManageActivity.this, HistoryDetailsActivity.class);
                 }
                 intent.putExtra("orderId", orderId);
+                intent.putExtra("type",1);
                 intent.putExtra("dpc", contracts.get(position).getDpc());
                 intent.putExtra("dtc", contracts.get(position).getDdtc());
                 intent.putExtra("wc", contracts.get(position).getWc());

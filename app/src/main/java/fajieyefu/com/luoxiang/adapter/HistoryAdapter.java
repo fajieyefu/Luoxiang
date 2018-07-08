@@ -67,15 +67,17 @@ public class HistoryAdapter extends BaseAdapter {
             viewHolder.dot.setBackground(context.getResources().getDrawable(R.drawable.dot_2));
             viewHolder.nqFlag.setText("作废");
         }
+        else if (contractBean.getWc()==1){
+            viewHolder.dot.setBackground(context.getResources().getDrawable(R.drawable.dot_5));
+            viewHolder.nqFlag.setText(context.getResources().getString(R.string.complete));
+        }
+        else if (contractBean.getDdtc()==1&&contractBean.getWc()==0){
+            viewHolder.dot.setBackground(context.getResources().getDrawable(R.drawable.dot_4));
+            viewHolder.nqFlag.setText(context.getResources().getString(R.string.dtc));
+        }
         else if (contractBean.getNq_flag()==1&&contractBean.getDdtc()==0){
             viewHolder.dot.setBackground(context.getResources().getDrawable(R.drawable.dot_3));
             viewHolder.nqFlag.setText(context.getResources().getString(R.string.ddpc));
-        }else if (contractBean.getDdtc()==1&&contractBean.getWc()==0){
-            viewHolder.dot.setBackground(context.getResources().getDrawable(R.drawable.dot_4));
-            viewHolder.nqFlag.setText(context.getResources().getString(R.string.dtc));
-        }else if (contractBean.getWc()==1){
-            viewHolder.dot.setBackground(context.getResources().getDrawable(R.drawable.dot_5));
-            viewHolder.nqFlag.setText(context.getResources().getString(R.string.complete));
         }
          if (contractBean.getStop_flag()==1){
              viewHolder.dot.setBackground(context.getResources().getDrawable(R.drawable.dot_2));

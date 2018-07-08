@@ -5,13 +5,19 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.NotificationCompat;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +33,8 @@ import java.util.regex.Pattern;
 
 import fajieyefu.com.luoxiang.R;
 import fajieyefu.com.luoxiang.main.HistoryDetailsActivity;
+
+import static android.content.Context.NOTIFICATION_SERVICE;
 
 /**
  * Created by qiancheng on 2016/11/24.
@@ -233,5 +241,32 @@ public class ToolUtil {
                     }
                 }).setCancelable(false);
     }
+
+
+
+    public static void showNotification(Context context, String title, String content, Intent intent, int flag){
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
+        PendingIntent contentIntent = PendingIntent.getActivity(context, flag, intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setTicker(context.getString(R.string.newAction));
+        builder.setContentTitle(title);
+        builder.setContentText(content);
+        builder.setSmallIcon(R.mipmap.logo);
+        builder.setContentIntent(contentIntent);
+        Notification notification = builder.build();
+        notification.flags = Notification.FLAG_AUTO_CANCEL;
+        notification.ledARGB = Color.BLUE;
+        notification.ledOnMS = 1000;
+        notification.ledOffMS = 1000;
+        notification.flags |= Notification.FLAG_SHOW_LIGHTS;
+        notification.defaults = Notification.DEFAULT_SOUND;
+        long[] vibrates = {0, 500, 500, 500};
+        notification.vibrate = vibrates;
+        notificationManager.notify(flag, notification);
+
+    }
+
+
 
 }

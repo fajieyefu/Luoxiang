@@ -275,9 +275,7 @@
                 android:textSize="16sp" />
 
 
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -318,7 +316,7 @@
                     </LinearLayout>
 
                 </LinearLayout>
-            </android.support.v7.widget.CardView>
+
 
 
             <LinearLayout style="@style/preview_text_filed_layout">
@@ -586,6 +584,30 @@
                     android:text="" />
 
             </LinearLayout>
+            <LinearLayout style="@style/preview_text_filed_layout">
+
+                <TextView
+                    style="@style/preview_text_filed"
+                    android:text="上户地区：" />
+
+                <TextView
+                    android:id="@+id/areaStanName"
+                    style="@style/previewContract_black_h"
+                    android:text="" />
+
+            </LinearLayout>
+            <LinearLayout style="@style/preview_text_filed_layout">
+
+                <TextView
+                    style="@style/preview_text_filed"
+                    android:text="上户标准：" />
+
+                <TextView
+                    android:id="@+id/standard_pro_text"
+                    style="@style/previewContract_black_h"
+                    android:text="" />
+
+            </LinearLayout>
 
 
             <LinearLayout style="@style/preview_text_filed_layout">
@@ -600,6 +622,7 @@
                     android:text="" />
 
             </LinearLayout>
+
 
 
             <LinearLayout style="@style/preview_text_filed_layout">
@@ -644,6 +667,36 @@
                         android:padding="2dp"
                         android:text="元/吨。去除200kg杂质" />
 
+
+                </LinearLayout>
+                <LinearLayout
+                    style="@style/preview_text_filed_layout"
+                    >
+
+                    <TextView
+                        style="@style/preview_text_filed"
+                        android:text="变更信息："
+                        />
+
+                    <TextView
+                        android:id="@+id/change_content"
+                        style="@style/previewContract_black_h"
+                        android:text="" />
+
+                </LinearLayout>
+                <LinearLayout
+                    style="@style/preview_text_filed_layout"
+                    >
+
+                    <TextView
+                        style="@style/preview_text_filed"
+                        android:text="变更备注："
+                        />
+
+                    <TextView
+                        android:id="@+id/extra_change_content"
+                        style="@style/previewContract_black_h"
+                        android:text="" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -835,14 +888,31 @@
                             android:clickable="false" />
 
                     </LinearLayout>
+                    <LinearLayout
+                        style="@style/preview_text_filed_layout">
+
+                        <TextView
+                            style="@style/preview_text_filed"
+                            android:text="是否跑青藏线：" />
+
+                        <CheckBox
+                            android:id="@+id/isQingZang"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:clickable="false" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
+            <include layout="@layout/contract_history_change"
+                />
+
             <android.support.v7.widget.CardView style="@style/CardViewLayout">
 
                 <LinearLayout
-                    android:visibility="gone"
                     android:id="@+id/shenpixinxi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -879,7 +949,40 @@
 
                     </LinearLayout>
 
+                    <LinearLayout
+                        style="@style/preview_text_filed_layout">
 
+                        <TextView
+                            style="@style/preview_text_filed"
+                            android:text="定金状态：" />
+
+                        <TextView
+                            android:id="@+id/dingjin_state"
+                            style="@style/tv_12sp_MyOrange"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:maxLines="1"
+                            android:padding="5dp" />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        style="@style/preview_text_filed_layout">
+
+                        <TextView
+                            style="@style/preview_text_filed"
+                            android:text="合格证状态：" />
+
+                        <TextView
+                            android:id="@+id/certificate_flag"
+                            style="@style/tv_12sp_MyOrange"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:maxLines="1"
+                            android:padding="5dp" />
+
+                    </LinearLayout>
                     <LinearLayout
                         style="@style/preview_text_filed_layout">
 
@@ -909,10 +1012,9 @@
                         <EditText
                             android:id="@+id/audit_msg"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:background="@null"
-                            android:gravity="start"
                             />
                     </LinearLayout>
                     <LinearLayout

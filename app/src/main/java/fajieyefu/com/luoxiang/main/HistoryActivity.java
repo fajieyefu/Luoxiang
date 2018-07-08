@@ -101,7 +101,7 @@ public class HistoryActivity extends BaseActivity implements XListView.IXListVie
         ContractTypeBean contractTypeBean1 = new ContractTypeBean("待审核  ", 1, 0);
         ContractTypeBean contractTypeBean2 = new ContractTypeBean("驳回  ", 2, 0);
         ContractTypeBean contractTypeBean3 = new ContractTypeBean("待排产  ", 3, 0);
-        ContractTypeBean contractTypeBean4 = new ContractTypeBean("待提车  ", 4, 0);
+        ContractTypeBean contractTypeBean4 = new ContractTypeBean("可提车  ", 4, 0);
         ContractTypeBean contractTypeBean5 = new ContractTypeBean("已完成  ", 5, 0);
         ContractTypeBean contractTypeBean6 = new ContractTypeBean("作废  ", 6, 0);
         contractTypes.clear();
@@ -244,7 +244,7 @@ public class HistoryActivity extends BaseActivity implements XListView.IXListVie
                 if (!TextUtils.isEmpty(endCustomer) && (contractBean.getEndCustomerName() == null || !contractBean.getEndCustomerName().contains(endCustomer))) {
                     continue;
                 }
-                if (!TextUtils.isEmpty(customer) && !contractBean.getcCusName().contains(customer)) {
+                if (!TextUtils.isEmpty(customer) && (contractBean.getcCusName() == null || !contractBean.getcCusName().contains(customer))) {
                     continue;
                 }
                 if (!TextUtils.isEmpty(endCustomerPhone) && (contractBean.getEndCustomerPhone() == null || !contractBean.getEndCustomerPhone().contains(endCustomerPhone))) {
@@ -348,7 +348,7 @@ public class HistoryActivity extends BaseActivity implements XListView.IXListVie
                 break;
             case 3:
                 for (ContractBean contractBean : contractResult) {
-                    if (contractBean.getNq_flag() == 1 && contractBean.getDdtc() == 0) {
+                    if (contractBean.getNq_flag() == 1 && contractBean.getDdtc() == 0&&contractBean.getWc()==0) {
                         contracts.add(contractBean);
                     }
                 }

@@ -70,6 +70,7 @@ public class PersonFragment extends Fragment {
                 startActivity(intent);
                 break;
             case R.id.exit:
+                DaoBean.deleteUserInfo();
                 Intent intentLogin = new Intent(getActivity(),LoginActivity.class);
                 startActivity(intentLogin);
                 getActivity().finish();

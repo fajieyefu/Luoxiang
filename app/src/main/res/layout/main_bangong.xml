@@ -80,7 +80,14 @@
                 style="@style/MyRadioButton"
                 android:drawableTop="@mipmap/shenhe"
                 android:text="订单审核"
+                android:visibility="gone"
                 />
+                <RadioButton
+                    android:id="@+id/check_stock"
+                    style="@style/MyRadioButton"
+                    android:drawableTop="@mipmap/shenhe"
+                    android:text="库存盘点"
+                    />
             </RelativeLayout>
 
         </LinearLayout>

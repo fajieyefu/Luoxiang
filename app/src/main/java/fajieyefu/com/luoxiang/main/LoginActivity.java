@@ -180,6 +180,7 @@ public class LoginActivity extends BaseActivity  {
         @Override
         public void onError(Call call, Exception e, int id) {
             Log.i("数据请求出现错误", e.getMessage());
+            Toast.makeText(LoginActivity.this, "网络连接出现错误", Toast.LENGTH_SHORT).show();
             login.setClickable(true);
         }
 
@@ -196,8 +197,8 @@ public class LoginActivity extends BaseActivity  {
                     userInfo.setRembPsw(false);
                 }
                 int rId = response.getData().userInfo.getRId();
-                userInfo.setRId(rId);
                 userInfoDao.deleteAll();
+                userInfo.setRId(rId);
                 userInfoDao.insert(userInfo);
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);

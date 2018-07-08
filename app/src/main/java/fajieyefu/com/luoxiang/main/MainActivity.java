@@ -1,16 +1,26 @@
 package fajieyefu.com.luoxiang.main;
 
+import android.Manifest;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
+import android.widget.Toast;
+
+import com.huawei.android.hms.agent.HMSAgent;
+import com.huawei.android.hms.agent.common.handler.ConnectHandler;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -19,8 +29,9 @@ import butterknife.OnClick;
 import fajieyefu.com.luoxiang.R;
 import fajieyefu.com.luoxiang.fragment.BangongFragment;
 import fajieyefu.com.luoxiang.fragment.PersonFragment;
+import pub.devrel.easypermissions.EasyPermissions;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity  implements EasyPermissions.PermissionCallbacks{
 
 
     @BindView(R.id.content)
@@ -43,6 +54,26 @@ public class MainActivity extends BaseActivity {
             setDefaultFragment();
         }
         initxiaomiPush();
+//        initHuaWeiPush();
+        String[] perms = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        if (EasyPermissions.hasPermissions(this, perms)) {
+
+            // 已经申请过权限，做想做的事
+        } else {
+            // 没有申请过权限，现在去申请
+            EasyPermissions.requestPermissions(this, "申请读写权限，部分功能受限",
+                    0, perms);
+        }
+
+    }
+
+    private void initHuaWeiPush() {
+        HMSAgent.connect(this, new ConnectHandler() {
+            @Override
+            public void onConnect(int rst) {
+
+            }
+        });
     }
 
     private void initxiaomiPush() {
@@ -96,24 +127,27 @@ public class MainActivity extends BaseActivity {
         }
         transaction.commit();
     }
+
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            Intent home = new Intent(Intent.ACTION_MAIN);
-            home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            home.addCategory(Intent.CATEGORY_HOME);
-            startActivity(home);
-            return true;
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+    @Override //申请成功时调用
+    public void onPermissionsGranted(int requestCode, List<String> list) {
+        //请求成功执行相应的操作
+
+        switch (requestCode){
+            case 0:
+                Toast.makeText(this, "已获取WRITE_EXTERNAL_STORAGE权限", Toast.LENGTH_SHORT).show();
+                break;
+
         }
-        return super.onKeyDown(keyCode, event);
     }
 
     @Override
-    public void onBackPressed() {
-//        super.onBackPressed();
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        startActivity(intent);
+    public void onPermissionsDenied(int requestCode, List<String> perms) {
+
     }
 }

@@ -2,6 +2,7 @@ package fajieyefu.com.luoxiang.bean;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2017/4/30.
@@ -59,5 +60,10 @@ public class ReponseBean {
             public List<U8HrCt007> u8HrCt007;
             public List<InvioceBean> invioces;
             public UserInfo userInfo;
+            public List<ContractDetail> orderHistory;
+            public List<AreaStan> areaStans;
+            public List<ClueAnalysisBean> clue_analysis_data;
+
+
     }
 }

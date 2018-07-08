@@ -18,9 +18,11 @@ import butterknife.Unbinder;
 import fajieyefu.com.luoxiang.R;
 import fajieyefu.com.luoxiang.main.ClueManageActivity;
 import fajieyefu.com.luoxiang.main.ContractAnlysisActivity;
-import fajieyefu.com.luoxiang.main.ContractInputPage1;
 import fajieyefu.com.luoxiang.main.HistorySelectedActivity;
 import fajieyefu.com.luoxiang.main.QueryOrderPcActivity;
+import fajieyefu.com.luoxiang.main.ReportFormActivity;
+import fajieyefu.com.luoxiang.nfc.ReadMUNfcActivity;
+import fajieyefu.com.luoxiang.test.ContractInputPage1Test;
 
 /**
  * Created by Administrator on 2017/4/14.
@@ -40,6 +42,8 @@ public class BangongFragment extends Fragment {
     RadioButton clueResource;
     @BindView(R.id.queryOrderPc)
     RadioButton queryOrderPc;
+    @BindView(R.id.check_stock)
+    RadioButton checkStock;
     private Context context;
 
     @Nullable
@@ -62,12 +66,12 @@ public class BangongFragment extends Fragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.contract_input, R.id.contract_edit, R.id.contract_history, R.id.all_contract, R.id.clueResource,R.id.queryOrderPc})
+    @OnClick({R.id.contract_input, R.id.contract_edit, R.id.contract_history, R.id.all_contract, R.id.clueResource, R.id.queryOrderPc,R.id.check_stock})
     public void onViewClicked(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
             case R.id.contract_input:
-                intent.setClass(context, ContractInputPage1.class);
+                intent.setClass(context, ContractInputPage1Test.class);
                 startActivity(intent);
                 break;
             case R.id.contract_edit:
@@ -80,7 +84,7 @@ public class BangongFragment extends Fragment {
                 startActivity(intent);
                 break;
             case R.id.all_contract:
-                intent.setClass(context, ContractAnlysisActivity.class);
+                intent.setClass(context, ReportFormActivity.class);
                 startActivity(intent);
 //                Toast.makeText(context, "整改中，近期开放", Toast.LENGTH_SHORT).show();
                 break;
@@ -90,6 +94,10 @@ public class BangongFragment extends Fragment {
                 break;
             case R.id.queryOrderPc:
                 intent.setClass(context, QueryOrderPcActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.check_stock:
+                intent.setClass(context, ReadMUNfcActivity.class);
                 startActivity(intent);
                 break;
 

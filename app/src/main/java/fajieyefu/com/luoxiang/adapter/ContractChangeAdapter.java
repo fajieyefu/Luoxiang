@@ -63,8 +63,8 @@ public class ContractChangeAdapter extends BaseAdapter {
         long createTime = Long.parseLong(contractChange.getCreate_time());
         String time = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(createTime);
         String nq_mark = TextUtils.isEmpty(contractChange.getNq_mark())?"":" "+contractChange.getNq_mark();
-        String pro_mark = TextUtils.isEmpty(contractChange.getNq_mark())?"":" "+contractChange.getPro_mark();
-        String zp_mark = TextUtils.isEmpty(contractChange.getNq_mark())?"":" "+contractChange.getZp_mark();
+        String pro_mark = TextUtils.isEmpty(contractChange.getPro_mark())?"":" "+contractChange.getPro_mark();
+        String zp_mark = TextUtils.isEmpty(contractChange.getZp_mark())?"":" "+contractChange.getZp_mark();
 
 
         viewHolder.createTime.setText(time);

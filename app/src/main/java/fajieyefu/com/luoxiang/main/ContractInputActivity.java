@@ -45,11 +45,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.zhy.http.okhttp.OkHttpUtils;
-import com.zzti.fengyongge.imagepicker.PhotoPreviewActivity;
-import com.zzti.fengyongge.imagepicker.PhotoSelectorActivity;
-import com.zzti.fengyongge.imagepicker.model.PhotoModel;
-import com.zzti.fengyongge.imagepicker.util.CommonUtils;
-import com.zzti.fengyongge.imagepicker.util.FileUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -91,8 +86,11 @@ import fajieyefu.com.luoxiang.layout.MyGridView;
 import fajieyefu.com.luoxiang.layout.MySpinnerForFree;
 import fajieyefu.com.luoxiang.layout.MySpinnerForFreeInventory;
 import fajieyefu.com.luoxiang.layout.TitleLayout;
+import fajieyefu.com.luoxiang.model.PhotoModel;
+import fajieyefu.com.luoxiang.util.CommonUtils;
 import fajieyefu.com.luoxiang.util.Config;
 import fajieyefu.com.luoxiang.util.DbTOPxUtils;
+import fajieyefu.com.luoxiang.util.FileUtils;
 import fajieyefu.com.luoxiang.util.ImageFactory;
 import fajieyefu.com.luoxiang.util.MyCallback;
 import fajieyefu.com.luoxiang.util.NumberToCN;
@@ -355,10 +353,10 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
     private Button back;
     private ArrayList<Area> areaList = new ArrayList<>();
     private String cDCCode;
-    private String zText = this.getResources().getString(R.string.z);
-    private String eText = this.getResources().getString(R.string.e);
-    private String zlText = this.getResources().getString(R.string.zl);
-    private String ejText = this.getResources().getString(R.string.ej);
+    private String zText = "直";
+    private String eText = "鹅";
+    private String zlText = "直梁";
+    private String ejText = "鹅颈";
     private String ordinaryContent;
     private int screenWidth;
     private int screenHeight;
@@ -469,7 +467,7 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
      * 初始化标题
      */
     private void initTitleView() {
-        title.setTitleText(this.getResources().getString(R.string.orderInput));
+        title.setTitleText("新增合同信息");
         back = (Button) title.findViewById(R.id.back);
         more = (Button) title.findViewById(R.id.more);
         more.setVisibility(View.VISIBLE);
@@ -1055,7 +1053,7 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
             return false;
         }
         //确定板簧
-        if (DaoBean.getInventoryLikeCCode("1514", banhuang.getText(), banhuangMark.getText(), width, height).size() != 1 && !banhuang.getText().equals("不选") && !banhuangMark.getText().equals("自备")) {
+        if (DaoBean.getInventoryLikeCCode("1514", banhuang.getText(), banhuangMark.getText(), width, height).size() != 1 && !banhuang.getText().equals("不选") && banhuangMark.getText().equals("厂配")) {
             showToastOnUi("板簧有错误，请联系管理员");
             return false;
         }
@@ -1142,7 +1140,7 @@ public class ContractInputActivity extends BaseActivity implements View.OnClickL
             return false;
         }
         //确定车轴
-        if (DaoBean.getInventoryLikeCCode("1513", chezhou.getText(), chezhouMark.getText(), width, height).size() != 1 && !chezhou.getText().equals("不选") && !chezhouMark.getText().equals("自备")) {
+        if (DaoBean.getInventoryLikeCCode("1513", chezhou.getText(), chezhouMark.getText(), width, height).size() != 1 && !chezhou.getText().equals("不选") && chezhouMark.getText().equals("厂配")) {
             showToastOnUi("车轴数据有错误，请联系管理员");
             return false;
         }

@@ -48,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_gravity="center_horizontal"
-            android:text="申请变更合同"
+            android:text="库存调车"
             android:visibility="gone"
             android:textColor="@color/white"
             android:background="@drawable/btn_red"/>

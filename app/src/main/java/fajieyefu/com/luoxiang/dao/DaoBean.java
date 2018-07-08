@@ -3,6 +3,7 @@ package fajieyefu.com.luoxiang.dao;
 import android.database.sqlite.SQLiteException;
 import android.util.Log;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -14,6 +15,7 @@ import fajieyefu.com.luoxiang.bean.Inventory;
 import fajieyefu.com.luoxiang.bean.InventoryClass;
 import fajieyefu.com.luoxiang.bean.LastCheckClueInfo;
 import fajieyefu.com.luoxiang.bean.LastCheckInfo;
+import fajieyefu.com.luoxiang.bean.PushNewsInfo;
 import fajieyefu.com.luoxiang.bean.Region;
 import fajieyefu.com.luoxiang.bean.UserInfo;
 import fajieyefu.com.luoxiang.bean.U8HrCt007;
@@ -25,6 +27,15 @@ import fajieyefu.com.luoxiang.util.DaoManager;
  */
 
 public class DaoBean {
+    /**
+     * 删除用户信息，密码
+     */
+    public static void deleteUserInfo() {
+        DaoSession daoSession = DaoManager.getInstance().getDaoSession();
+        UserInfoDao userInfoDao = daoSession.getUserInfoDao();
+        userInfoDao.deleteAll();
+
+    }
     /**
      * 获取用户信息实体类
      *
@@ -64,27 +75,17 @@ public class DaoBean {
         if (list.size() != 0) {
             switch (code) {
                 case "1508":case "1509":case "1510":case "0410":
-                case "1512":case "1502":case "1507":
-                case "1503":case "1504":case "0411":case "0404":
-                case "0405":case "1524":
+                case "1512":case "1507":
+                case "1503":case "1504":case "0411":
                     for (Inventory inventory : list) {
                         if (inventory.getCInvName().equals(text)) {
                             result.add(inventory);
                         }
                     }
                     break;
-                case "1513":
-                    if (!ze.equals("自备")){
-                        for (Inventory inventory : list) {
-                            if (inventory.getCInvName().equals(text)) {
-                                result.add(inventory);
-                            }
-                        }
-                    }
 
-                    break;
-                case "1514":
-                    if (!ze.equals("自备")){
+                case "1514": case "1513":case "0404":case "0405":
+                    if (ze.equals("厂配")){
                         for (Inventory inventory : list) {
                             if (inventory.getCInvName().equals(text)) {
                                 result.add(inventory);
@@ -188,6 +189,26 @@ public class DaoBean {
                         }
                     }
                     break;
+                case "1502":
+                    if (!text.equals("无")){
+                        for (Inventory inventory : list) {
+                            if (inventory.getCInvName().equals(text)) {
+                                result.add(inventory);
+                            }
+                        }
+                    }
+
+                    break;
+                case "1524":
+                    if (!text.equals("0")){
+                        for (Inventory inventory : list) {
+                            if (inventory.getCInvName().equals(text)) {
+                                result.add(inventory);
+                            }
+                        }
+                    }
+
+                    break;
             }
 
             for (Inventory inventory : list) {
@@ -216,8 +237,8 @@ public class DaoBean {
         if (list.size() != 0) {
             switch (code) {
                 case "0410":case "1512":case "1502":case "1507":
-                case "1503":case "1504":case "0411":case "0404":
-                case "0405":case "1513":case "1516":
+                case "1503":case "1504":case "0411":
+                case "1513":case "1516":
                 case "1518":case "1519":case "1520":
                 case "1521":case "1522":case "1523":
                     for (Inventory inventory : list) {
@@ -225,6 +246,17 @@ public class DaoBean {
                             result.add(inventory);
                         }
                     }
+                    break;
+
+               case "0404":case "0405":
+                    if (ze.equals("厂配")){
+                        for (Inventory inventory : list) {
+                            if (inventory.getCInvName().equals(text)) {
+                                result.add(inventory);
+                            }
+                        }
+                    }
+
                     break;
                 case "1511":
                     for (Inventory inventory : list) {
@@ -268,7 +300,16 @@ public class DaoBean {
                     break;
 
                 case "1514":
-                    if (width.contains("20英尺")&&height.equals("2")){
+                    if (width.equals("48英尺（可抽拉至53英尺）")){
+                        for (Inventory inventory : list) {
+                            String tempString = inventory.getCInvStd();
+                            if (tempString!=null&&tempString.contains("4轴")&&inventory.getCInvName().equals(text)) {
+                                result.add(inventory);
+                            }
+                        }
+
+                    }
+                    else if (width.contains("20英尺")&&height.equals("2")){
                         for (Inventory inventory : list) {
                             String tempString = inventory.getCInvStd();
                             if (tempString!=null&&inventory.getCInvName().equals(text)&&tempString.contains("2轴")&&tempString.contains("20英尺")) {
@@ -627,7 +668,7 @@ public class DaoBean {
             return;
         }
         DaoSession daoSession = DaoManager.getInstance().getDaoSession();
-        final U8HrCt007Dao dao = daoSession.getu8HrCt007Dao();
+        final U8HrCt007Dao dao = daoSession.getU8HrCt007Dao();
         dao.getSession().runInTx(new Runnable() {
             @Override
             public void run() {
@@ -645,21 +686,66 @@ public class DaoBean {
      */
     public static void deleteU8HrCt007All() {
         DaoSession daoSession = DaoManager.getInstance().getDaoSession();
-        U8HrCt007Dao dao = daoSession.getu8HrCt007Dao();
+        U8HrCt007Dao dao = daoSession.getU8HrCt007Dao();
         dao.deleteAll();
     }
 
     public static List<U8HrCt007> getU8HrCt007ListByIlevels(int iLevels) {
         DaoSession daoSession = DaoManager.getInstance().getDaoSession();
-        U8HrCt007Dao dao = daoSession.getu8HrCt007Dao();
+        U8HrCt007Dao dao = daoSession.getU8HrCt007Dao();
         QueryBuilder<U8HrCt007> queryBuilder = dao.queryBuilder().where(U8HrCt007Dao.Properties.Ilevels.eq(iLevels));
         return queryBuilder.list();
     }
 
     public static List<U8HrCt007> getU8HrCt007ListByParentCode(String province_code) {
         DaoSession daoSession = DaoManager.getInstance().getDaoSession();
-        U8HrCt007Dao dao = daoSession.getu8HrCt007Dao();
+        U8HrCt007Dao dao = daoSession.getU8HrCt007Dao();
         QueryBuilder<U8HrCt007> queryBuilder = dao.queryBuilder().where(U8HrCt007Dao.Properties.CpCodeID.eq(province_code));
         return queryBuilder.list();
+    }
+
+    public static List<Inventory>  getTargetInventory(String code ,String name){
+        DaoSession daoSession = DaoManager.getInstance().getDaoSession();
+        InventoryDao inventoryDao = daoSession.getInventoryDao();
+        QueryBuilder<Inventory> queryBuilder = inventoryDao.queryBuilder().where(InventoryDao.Properties.CInvCode.like(code + "%"));
+        List<Inventory> list = queryBuilder.list();
+        List<Inventory> result = new ArrayList<>();
+        if (list.size() != 0) {
+
+                for (Inventory inventory : list) {
+                    if (inventory.getCInvName().equals(name)) {
+                        result.add(inventory);
+                    }
+                }
+
+        }
+        return result;
+    }
+    /**
+     * 插入推送消息
+     * @param pushNewsInfo
+     */
+    public static void insertPushNewsInfo(final PushNewsInfo pushNewsInfo) {
+
+
+        DaoSession daoSession = DaoManager.getInstance().getDaoSession();
+        final PushNewsInfoDao dao = daoSession.getPushNewsInfoDao();
+        dao.getSession().runInTx(new Runnable() {
+            @Override
+            public void run() {
+
+                    dao.insertOrReplace(pushNewsInfo);
+
+            }
+        });
+
+    }
+    public static List<PushNewsInfo>  getTargetPushNewsInfo(String pushId){
+        DaoSession daoSession = DaoManager.getInstance().getDaoSession();
+        PushNewsInfoDao dao = daoSession.getPushNewsInfoDao();
+        QueryBuilder<PushNewsInfo> queryBuilder = dao.queryBuilder().where(PushNewsInfoDao.Properties.PushId.eq(pushId));
+        List<PushNewsInfo> list = queryBuilder.list();
+
+        return list;
     }
 }

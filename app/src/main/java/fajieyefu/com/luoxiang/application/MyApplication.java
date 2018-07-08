@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
+import com.huawei.android.hms.agent.HMSAgent;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -41,10 +42,16 @@ public class MyApplication extends Application{
 
         ImageLoader.getInstance().init(config);
         context=this;
-        //初始化push推送服务
+        //初始化小米push推送服务
         if(shouldInit()) {
             MiPushClient.registerPush(this, CommonData.APP_ID, CommonData.APP_KEY);
         }
+
+
+        // 初始化华为PUSH
+        HMSAgent.init(this);
+
+
         //打开Log
         LoggerInterface newLogger = new LoggerInterface() {
 

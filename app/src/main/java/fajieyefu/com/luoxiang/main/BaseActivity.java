@@ -15,10 +15,15 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.Window;
 import android.widget.Toast;
 
+import com.igexin.sdk.PushManager;
+
 import fajieyefu.com.luoxiang.data.CommonData;
+import fajieyefu.com.luoxiang.service.SingleIntentService;
+import fajieyefu.com.luoxiang.service.SinglePushService;
 
 /**
  * Created by Administrator on 2017/4/15.
@@ -29,6 +34,8 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
+        PushManager.getInstance().initialize(this.getApplicationContext(), SinglePushService.class);//初始话个推SDK
+        PushManager.getInstance().registerPushIntentService(this.getApplicationContext(), SingleIntentService.class);
     }
     public  AlertDialog.Builder applyPermission(Context context, String title, String msg, String[] permissions, String appointPermission){
 
@@ -117,4 +124,24 @@ public class BaseActivity extends AppCompatActivity {
         startActivityForResult(intent, CommonData.PERMISSION_CODE);
     }
 
+    /*@Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Intent home = new Intent(Intent.ACTION_MAIN);
+            home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            home.addCategory(Intent.CATEGORY_HOME);
+            startActivity(home);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        startActivity(intent);
+    }*/
 }

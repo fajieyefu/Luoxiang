@@ -1,22 +1,42 @@
 apply plugin: 'com.android.application'
+apply plugin:'com.jakewharton.butterknife'
+
 android {
+    signingConfigs {
+        release {
+            keyAlias 'fajieyefu'
+            keyPassword '100120414'
+            storeFile file('F:/keystore/newKey.jks')
+            storePassword '100120414'
+        }
+    }
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "fajieyefu.com.luoxiang"
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
-        versionName "1.50"
+        versionName "2.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        jackOptions {
+        /*jackOptions {
             enabled true
-        }
+        }*/
+        manifestPlaceholders = [
+                GETUI_APP_ID    : "2YUjiVNy0F819ag9WebZK6",
+                GETUI_APP_KEY   : "tnA3Y5BhiH9rC1K4CEhJv6",
+                GETUI_APP_SECRET: "eYfaCIIHF497vfBDGysOl9"
+        ]
+
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig  signingConfigs.release
+        }
+        debug{
+            signingConfig  signingConfigs.release
         }
     }
     compileOptions {
@@ -26,29 +46,35 @@ android {
 }
 
 dependencies {
+    ext {
+        supportLibVersion = '25.1.1'
+    }
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile project(path: ':imagepicker')
-    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile "com.android.support:appcompat-v7:${supportLibVersion}"
     testCompile 'junit:junit:4.12'
-    compile 'com.jakewharton:butterknife:8.4.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+    compile 'com.jakewharton:butterknife:8.5.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     compile 'com.zhy:okhttputils:2.6.2'
-
     compile 'com.squareup.okhttp:okhttp-urlconnection:2.2.0'
     compile files('libs/gson-2.8.0.jar')
-    compile 'de.greenrobot:greendao:1.3.7'
-    compile 'de.greenrobot:greendao-generator:1.3.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile files('libs/universal-image-loader-1.9.5 .jar')
     compile 'com.github.lecho:hellocharts-library:1.5.8@aar'
-    compile 'com.android.support:cardview-v7:21.0.+'
+    compile "com.android.support:cardview-v7:${supportLibVersion}"
     compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
     compile 'com.tbruyelle.rxpermissions:rxpermissions:0.8.0@aar'
-    compile 'com.android.support:recyclerview-v7:21.0.3'
+    compile "com.android.support:recyclerview-v7:${supportLibVersion}"
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.nhaarman.listviewanimations:lib-core:3.1.0@aar'
-    compile files('libs/MiPush_SDK_Client_3_5_1.jar')
+    compile 'pub.devrel:easypermissions:0.2.1'
+    compile 'com.github.zzz40500:android-shapeLoadingView:1.0.3.2'
+    compile 'de.greenrobot:greendao:1.3.7'
+    compile 'de.greenrobot:greendao-generator:1.3.1'
+    implementation files('libs/MiPush_SDK_Client_3_6_2.jar')
+    implementation files('libs/GetuiSDK2.12.3.0.jar')
+    compile 'com.huawei.android.hms:push:2.6.0.301'
+    compile 'com.github.yuweiguocn:GreenDaoUpgradeHelper:v0.0.5'
 }

@@ -30,6 +30,15 @@ public class ContractBean implements Serializable {
     private long sp_time;
     private String sp_person;
     private int stop_flag;
+    private int isNew;
+
+    public int getIsNew() {
+        return isNew;
+    }
+
+    public void setIsNew(int isNew) {
+        this.isNew = isNew;
+    }
 
     public int getStop_flag() {
         return stop_flag;

@@ -8,9 +8,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.zzti.fengyongge.imagepicker.PhotoPreviewActivity;
-import com.zzti.fengyongge.imagepicker.model.PhotoModel;
-import com.zzti.fengyongge.imagepicker.util.CommonUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +16,9 @@ import fajieyefu.com.luoxiang.R;
 import fajieyefu.com.luoxiang.bean.PictureBean;
 import fajieyefu.com.luoxiang.layout.CustomImageView;
 import fajieyefu.com.luoxiang.layout.NineGridlayout;
+import fajieyefu.com.luoxiang.main.PhotoPreviewActivity;
+import fajieyefu.com.luoxiang.model.PhotoModel;
+import fajieyefu.com.luoxiang.util.CommonUtils;
 
 /**
  * Created by Administrator on 2017-10-14.

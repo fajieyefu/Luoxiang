@@ -11,6 +11,9 @@ public class UserInfo {
     private String password;
     private Boolean rembPsw;
     private Integer rId;
+    private String cDepName;
+    private String cDepCode;
+    private Integer enable_flag;
 
     public UserInfo() {
     }
@@ -19,12 +22,15 @@ public class UserInfo {
         this.id = id;
     }
 
-    public UserInfo(Long id, String username, String password, Boolean rembPsw, Integer rId) {
+    public UserInfo(Long id, String username, String password, Boolean rembPsw, Integer rId, String cDepName, String cDepCode, Integer enable_flag) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.rembPsw = rembPsw;
         this.rId = rId;
+        this.cDepName = cDepName;
+        this.cDepCode = cDepCode;
+        this.enable_flag = enable_flag;
     }
 
     public Long getId() {
@@ -65,6 +71,30 @@ public class UserInfo {
 
     public void setRId(Integer rId) {
         this.rId = rId;
+    }
+
+    public String getCDepName() {
+        return cDepName;
+    }
+
+    public void setCDepName(String cDepName) {
+        this.cDepName = cDepName;
+    }
+
+    public String getCDepCode() {
+        return cDepCode;
+    }
+
+    public void setCDepCode(String cDepCode) {
+        this.cDepCode = cDepCode;
+    }
+
+    public Integer getEnable_flag() {
+        return enable_flag;
+    }
+
+    public void setEnable_flag(Integer enable_flag) {
+        this.enable_flag = enable_flag;
     }
 
 }

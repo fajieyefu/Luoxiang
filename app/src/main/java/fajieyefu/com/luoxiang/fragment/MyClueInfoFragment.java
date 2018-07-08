@@ -126,6 +126,7 @@ public class MyClueInfoFragment extends Fragment implements XListView.IXListView
 				startActivity(intent);
 			}
 		});
+		initData();
 		return view;
 
 
@@ -219,6 +220,7 @@ public class MyClueInfoFragment extends Fragment implements XListView.IXListView
 				if (contractTypes.size()==0){
 					contractTypes.add(new ContractTypeBean("全部  ",0,1));
 					contractTypes.addAll(response.getData().client_level);
+					contractTypes.add(new ContractTypeBean("待跟进",-1,0));
 				}
 				list.addAll(response.getData().clueInfo);
 				adapter.notifyDataSetChanged();
@@ -262,7 +264,6 @@ public class MyClueInfoFragment extends Fragment implements XListView.IXListView
 	@Override
 	public void onResume() {
 		super.onResume();
-		onRefresh();
 	}
 
 	private void initTypeDialog() {
