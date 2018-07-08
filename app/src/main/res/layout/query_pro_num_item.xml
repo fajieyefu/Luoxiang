@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/item_layout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <TextView
+            style="@style/tv_12sp_black"
+            android:id="@+id/pro_date"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="match_parent"
+            android:text="2017-09-25"
+            />
+
+        <TextView
+            style="@style/tv_12sp_black"
+            android:id="@+id/normal_num"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="match_parent"
+            android:text="12"/>
+        <TextView
+            style="@style/tv_12sp_black"
+            android:id="@+id/skeleton_num"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="match_parent"
+            android:text="12"/>
+        <TextView
+            style="@style/tv_12sp_black"
+            android:id="@+id/urgent_num"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="match_parent"
+            android:text="11"/>
+        <TextView
+            style="@style/tv_12sp_black"
+            android:id="@+id/first_num"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="match_parent"
+            android:text="1"/>
+    </LinearLayout>
+
+
+
+</LinearLayout>

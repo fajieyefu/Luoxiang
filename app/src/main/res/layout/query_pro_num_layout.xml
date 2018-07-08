@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#e0000000"
+    >
+
+   <LinearLayout
+       android:id="@+id/shade_layout"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:orientation="vertical"
+       android:clickable="true"
+       >
+
+   </LinearLayout>
+    <LinearLayout
+        android:id="@+id/queryLinear"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:background="@color/white">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:text="显示数量为可下订单数量！"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_vertical">
+            <TextView
+                style="@style/tv_16sp_black"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="wrap_content"
+                android:text="出车日期"
+                />
+            <TextView
+                style="@style/tv_16sp_black"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:text="栏板"
+                />
+            <TextView
+                style="@style/tv_16sp_black"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:text="骨架"
+                />
+            <TextView
+                style="@style/tv_16sp_black"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:text="加急"
+                />
+
+            <TextView
+                style="@style/tv_16sp_black"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:text="优先"
+                 />
+        </LinearLayout>
+        <ListView
+            android:id="@+id/proNumLv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+        </ListView>
+
+        <Button
+            android:id="@+id/closeProNum"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:textColor="@color/white"
+            android:text="关闭"
+            android:background="@drawable/btn_red"/>
+    </LinearLayout>
+
+
+</RelativeLayout>

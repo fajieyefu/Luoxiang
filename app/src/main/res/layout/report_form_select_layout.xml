@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <fajieyefu.com.luoxiang.layout.TitleLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </fajieyefu.com.luoxiang.layout.TitleLayout>
+
+
+    <Button
+        android:id="@+id/clue_area"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_below="@+id/password"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/btn_red"
+        android:text="大区电话资源跟进情况分析"
+        android:textColor="@color/white"
+        android:textSize="12dp" />
+    <Button
+        android:id="@+id/clue_person"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_below="@+id/password"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/btn_red"
+        android:text="业务员电话资源跟进情况分析"
+        android:textColor="@color/white"
+        android:textSize="12dp" />
+    <Button
+        android:visibility="gone"
+        android:id="@+id/clue_data"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/btn_red"
+        android:text="电话咨询量走势分析"
+        android:textColor="@color/white"
+        android:textSize="16dp" />
+</LinearLayout>
+
+

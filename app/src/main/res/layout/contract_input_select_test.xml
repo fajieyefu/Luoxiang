@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <fajieyefu.com.luoxiang.layout.TitleLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </fajieyefu.com.luoxiang.layout.TitleLayout>
+
+
+    <Button
+        android:id="@+id/newContract"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_below="@+id/password"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/btn_red"
+        android:text="新增订单"
+        android:textColor="@color/white"
+        android:textSize="16dp" />
+    <Button
+        android:id="@+id/stockCar"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_below="@+id/password"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/btn_red"
+        android:text="@string/stockCar"
+        android:textColor="@color/white"
+        android:textSize="16dp" />
+    <Button
+        android:id="@+id/addCustomer"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_below="@+id/password"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/btn_red"
+        android:text="@string/addCustomer"
+        android:textColor="@color/white"
+        android:textSize="16dp" />
+</LinearLayout>
+
+

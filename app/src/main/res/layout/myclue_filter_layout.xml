@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#e0000000"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:background="@color/white">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:gravity="center_vertical">
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textSize="20sp"
+            android:text="客户姓名:"
+            />
+        <EditText
+            android:id="@+id/clientName"
+            android:layout_width="200dp"
+            android:layout_height="30dp"
+            android:background="@drawable/edit_input"/>
+    </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textSize="20sp"
+                android:text="联系方式:"
+                android:id="@+id/textView3" />
+
+            <EditText
+                android:id="@+id/clientPhone"
+                android:inputType="number"
+                android:layout_width="200dp"
+                android:layout_height="30dp"
+                android:background="@drawable/edit_input"/>
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/search"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:textColor="@color/white"
+            android:text="完成"
+            android:background="@drawable/btn_red"/>
+    </LinearLayout>
+   <LinearLayout
+       android:id="@+id/shade_layout"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:orientation="vertical"
+       android:clickable="true"
+       >
+
+   </LinearLayout>
+
+
+</LinearLayout>

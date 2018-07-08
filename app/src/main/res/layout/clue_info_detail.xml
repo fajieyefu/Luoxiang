@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <fajieyefu.com.luoxiang.layout.TitleLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </fajieyefu.com.luoxiang.layout.TitleLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:layout_above="@+id/bottom_layout">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <TextView
+                android:id="@+id/base_content"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:text="基本信息"
+                android:paddingLeft="10dp"
+                android:textSize="20sp"
+                android:gravity="center_vertical"
+                android:background="@color/lightgrey"/>
+
+            <LinearLayout
+                android:id="@+id/l1"
+                android:layout_below="@id/base_content"
+                style="@style/clue_detail_item_layout">
+                <TextView
+                    style="@style/clue_column_name"
+                    android:text="客户姓名："
+                    />
+                <TextView
+                    style="@style/clue_filed"
+                    android:id="@+id/clientName"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/l2"
+                android:layout_below="@id/l1"
+                style="@style/clue_detail_item_layout">
+
+
+                <TextView
+                    style="@style/clue_column_name"
+                    android:text="联系方式："
+                    />
+
+                <TextView
+                    android:id="@+id/clientPhone"
+                    style="@style/clue_filed"
+                    />
+                <ImageView
+                    android:id="@+id/phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/phone"
+                    android:layout_gravity="center"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll3"
+                android:layout_below="@id/l2"
+                style="@style/clue_detail_item_layout">
+
+                <TextView
+                    style="@style/clue_column_name"
+                    android:text="客户地区："
+                    android:layout_height="32dp" />
+
+                <TextView
+                    android:id="@+id/clientArea"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll4"
+                android:layout_below="@id/ll3"
+                style="@style/clue_detail_item_layout">
+
+                <TextView
+                    style="@style/clue_column_name"
+                    android:text="级        别："/>
+
+                <TextView
+                    android:id="@+id/client_level_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll5"
+                android:layout_below="@id/ll4"
+                style="@style/clue_detail_item_layout">
+
+                <TextView
+                    style="@style/clue_column_name"
+                    android:text="意向车型："/>
+
+                <TextView
+                    android:id="@+id/car_type_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ss1"
+                android:layout_below="@id/ll4"
+                style="@style/clue_detail_item_layout">
+
+                <TextView
+                    style="@style/clue_column_name"
+                    android:text="所属大区："/>
+
+                <TextView
+                    android:id="@+id/cDCName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll7"
+                style="@style/clue_detail_item_layout"
+                android:layout_below="@id/ll5"
+                >
+
+                <TextView
+                    style="@style/clue_column_name"
+                    android:text="发布日期："
+                    />
+
+                <TextView
+                    android:id="@+id/create_time"
+                    style="@style/clue_filed"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll8"
+                android:layout_below="@id/ll7"
+                style="@style/clue_detail_item_layout">
+
+                <TextView
+                    style="@style/clue_column_name"
+                    android:text="线索标题："
+                    />
+
+                <TextView
+                    android:id="@+id/clue_title"
+                    style="@style/clue_filed"/>
+            </LinearLayout>
+
+
+
+
+            <LinearLayout
+                android:id="@+id/L2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ll8"
+                android:layout_marginTop="1dp"
+                android:paddingTop="2dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    style="@style/clue_column_name"
+                    android:text="线索详情："
+                    />
+
+                <TextView
+                    android:id="@+id/clue_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="无申请内容"
+                    android:textSize="16sp"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/follow_info"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="跟进记录"
+                android:paddingLeft="10dp"
+                android:textSize="20sp"
+                android:gravity="center_vertical"
+                android:background="@color/lightgrey"
+                android:layout_below="@+id/L2"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <fajieyefu.com.luoxiang.layout.LinearLayoutForListView
+                android:id="@+id/follow_lv"
+                android:layout_below="@+id/follow_info"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+
+            </fajieyefu.com.luoxiang.layout.LinearLayoutForListView>
+
+        </RelativeLayout>
+    </ScrollView>
+    <LinearLayout
+        android:id="@+id/bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true">
+        <Button
+            android:id="@+id/edit"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:background="@color/green_l"
+            android:textColor="@color/white"
+            android:text="编辑"
+            />
+        <Button
+            android:id="@+id/addFollow"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="添加跟进"
+            android:background="@color/orange"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/bottom_layout_2"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true">
+        <Button
+            android:id="@+id/doFollow"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:background="@color/Myorange"
+            android:textColor="@color/white"
+            android:text="跟进"
+            />
+    </LinearLayout>
+
+    <include
+        android:id="@+id/editRelayout"
+        android:visibility="gone"
+        layout="@layout/edit_clue_info"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"/>
+
+    <include
+        android:id="@+id/editFollowRelLayout"
+        android:visibility="gone"
+        layout="@layout/follow_clue_info"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"/>
+
+</RelativeLayout>

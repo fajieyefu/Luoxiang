@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#e0000000"
+    >
+    <LinearLayout
+        android:id="@+id/shade_layout_follow"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:clickable="true"
+        >
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/editFollowLayout"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="40dp"
+            android:gravity="center"
+            android:background="@drawable/shape_rect_corner_white"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="编辑跟进信息"
+                android:gravity="center"/>
+            <LinearLayout
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:padding="2dp"
+                >
+
+                <TextView
+                    android:id="@+id/cl1"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:text="*跟进信息："
+                    android:layout_alignParentLeft="true"
+                    android:textColor="@color/Myorange"
+                    />
+
+                <EditText
+                    android:id="@+id/follow_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="start"
+                    android:background="@drawable/shape_rect_corner_white"
+                    android:layout_toRightOf="@id/cl1"
+                    />
+
+            </LinearLayout>
+            <RelativeLayout
+                style="@style/clue_info_edit_layout"
+                android:background="@null"
+                >
+
+                <TextView
+                    android:id="@+id/ft1"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="级        别："
+                    android:textColor="@color/deep_black"
+                    />
+
+                <fajieyefu.com.luoxiang.layout.MySpinner
+                    android:id="@+id/clientLevel_edit_follow"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/ft1"
+                    android:textSize="15sp"
+                    />
+            </RelativeLayout>
+            <RelativeLayout
+                style="@style/clue_info_edit_layout"
+                android:background="@null"
+                >
+
+                <TextView
+                    android:id="@+id/ft2"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="最终品牌："
+                    android:textColor="@color/deep_black"
+                    />
+
+                <fajieyefu.com.luoxiang.layout.MySpinner
+                    android:id="@+id/endBrandType_follow"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/ft2"
+                    android:textSize="15sp"
+                    />
+            </RelativeLayout>
+
+
+            <Button
+                android:id="@+id/commitFollowClueInfo"
+                android:layout_width="200dp"
+                android:layout_height="45dp"
+                android:textColor="@color/white"
+                android:text="提交"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/btn_red"/>
+        </LinearLayout>
+
+
+
+    </ScrollView>
+        </LinearLayout>
+
+
+
+
+
+</RelativeLayout>

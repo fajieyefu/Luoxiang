@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:background="@color/wheat">
+
+    <Button
+        android:id="@+id/queryClueBtn"
+        style="?attr/borderlessButtonStyle"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:text="查询"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:background="@drawable/btn_red"
+        />
+
+    <Button
+        style="?attr/borderlessButtonStyle"
+        android:id="@+id/choose_client_level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:drawableRight="@mipmap/icon_xiala"
+        android:text="全部  "
+
+        android:textSize="16sp"
+        />
+    <ImageView
+
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/cadetblue"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

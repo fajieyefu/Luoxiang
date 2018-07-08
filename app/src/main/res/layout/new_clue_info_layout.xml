@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <fajieyefu.com.luoxiang.layout.TitleLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </fajieyefu.com.luoxiang.layout.TitleLayout>
+
+    <ScrollView
+        android:layout_below="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:background="@drawable/shape_rect_corner_white">
+            <RelativeLayout
+                style="@style/clue_info_edit_layout"
+                >
+
+                <TextView
+                    android:id="@+id/xs"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="线索标题："
+                    android:textColor="@color/deep_black"
+                    />
+
+                <EditText
+                    android:id="@+id/clue_title_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:layout_toRightOf="@id/xs"
+                    android:background="@null"
+                    android:layout_centerInParent="true"
+                    />
+            </RelativeLayout>
+            <RelativeLayout
+                style="@style/clue_info_edit_layout"
+                >
+
+                <TextView
+                    android:id="@+id/cl2"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="线索内容："
+                    android:textColor="@color/deep_black"
+                    />
+
+                <EditText
+                    android:id="@+id/clue_content_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:background="@null"
+                    android:layout_toRightOf="@+id/cl2"
+                    android:layout_centerInParent="true"/>
+            </RelativeLayout>
+            <RelativeLayout
+                style="@style/clue_info_edit_layout"
+                >
+
+                <TextView
+                    android:id="@+id/t1"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="客户姓名："
+                    android:textColor="@color/deep_black"
+                    />
+
+                <EditText
+                    android:id="@+id/clientName_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:layout_toRightOf="@+id/t1"
+                    android:background="@null"
+                    android:layout_centerInParent="true"
+                    />
+            </RelativeLayout>
+            <RelativeLayout
+                style="@style/clue_info_edit_layout"
+                >
+
+                <TextView
+                    android:id="@+id/t2"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="*联系方式："
+                    android:textColor="@color/deep_black"
+                    />
+
+                <EditText
+                    android:id="@+id/clientPhone_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:background="@null"
+                    android:layout_toRightOf="@id/t2"
+                    android:textSize="15sp"
+                    />
+            </RelativeLayout>
+            <RelativeLayout
+                style="@style/clue_info_edit_layout"
+
+                >
+
+                <TextView
+                    android:id="@+id/t3"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="级        别："
+                    android:textColor="@color/deep_black"
+                    />
+
+                <fajieyefu.com.luoxiang.layout.MySpinner
+                    android:id="@+id/clientLevel_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/t3"
+                    android:hint="请选择客户级别"
+                    android:textSize="15sp"
+                    />
+            </RelativeLayout>
+            <RelativeLayout
+                style="@style/clue_info_edit_layout"
+
+                >
+
+                <TextView
+                    android:id="@+id/t5"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="*意向车型："
+                    android:textColor="@color/deep_black"
+                    />
+
+                <fajieyefu.com.luoxiang.layout.MySpinner
+                    android:id="@+id/car_type_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:background="@null"
+                    android:hint="请选择意向车型"
+                    android:textSize="15sp"
+                    android:layout_toRightOf="@+id/t5"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                style="@style/clue_info_edit_layout"
+
+                >
+
+                <TextView
+                    android:id="@+id/t6"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="*所属大区："
+                    android:textColor="@color/deep_black"
+                    />
+                <fajieyefu.com.luoxiang.layout.MySpinner
+                    android:id="@+id/area_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/t6"
+                    android:background="@null"
+                    android:hint="请选择所属大区"
+                    android:textSize="15sp"
+                    />
+
+            </RelativeLayout>
+            <RelativeLayout
+                style="@style/clue_info_edit_layout"
+
+                >
+
+                <TextView
+                    android:id="@+id/t7"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="客户地址："
+                    android:textColor="@color/deep_black"
+                    />
+                <LinearLayout
+                    android:layout_toRightOf="@id/t7"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <fajieyefu.com.luoxiang.layout.MySpinnerForRegion
+                        android:id="@+id/province"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="35dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@null"
+                        android:hint="省"
+                        android:textSize="15sp"
+                        />
+                    <fajieyefu.com.luoxiang.layout.MySpinnerForRegion
+                        android:id="@+id/city"
+                        android:layout_width="0dp"
+                        android:layout_height="35dp"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_vertical"                        android:background="@null"
+                        android:hint="市"
+                        android:textSize="15sp"
+                        />
+                    <fajieyefu.com.luoxiang.layout.MySpinnerForRegion
+                        android:id="@+id/country"
+                        android:layout_width="0dp"
+                        android:layout_height="35dp"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:layout_gravity="center_vertical"
+                        android:hint="县"
+                        android:textSize="15sp"
+                        />
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/commitEditClueInfo"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:textColor="@color/white"
+                android:text="确认"
+                android:textSize="16sp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/btn_red"/>
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</RelativeLayout>
