@@ -420,6 +420,12 @@ public class ShanpingActivity extends BaseActivity {
         @Override
         public void onResponse(ReponseBean response, int id) {
             if (response.getCode() == 0) {
+
+                //更新actionIds
+                DaoBean.clearActionIds();
+                DaoBean.insertActionIds(response.getData().userInfo.getActionIds());
+
+
                 Intent intent = new Intent(ShanpingActivity.this, MainActivity.class);
                 startActivity(intent);
                 initxiaomiPush();

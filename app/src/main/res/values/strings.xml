@@ -345,4 +345,5 @@
          \"gangquan_mark\":\"钢圈\"
 
 }</string>
+    <string name="tractionForceTips" >请填写牵引力！</string>
 </resources>

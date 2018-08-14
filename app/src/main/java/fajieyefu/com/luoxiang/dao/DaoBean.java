@@ -10,6 +10,7 @@ import java.util.List;
 
 import de.greenrobot.dao.query.Query;
 import de.greenrobot.dao.query.QueryBuilder;
+import fajieyefu.com.luoxiang.bean.ActionId;
 import fajieyefu.com.luoxiang.bean.AuditCount;
 import fajieyefu.com.luoxiang.bean.Inventory;
 import fajieyefu.com.luoxiang.bean.InventoryClass;
@@ -75,8 +76,8 @@ public class DaoBean {
         if (list.size() != 0) {
             switch (code) {
                 case "1508":case "1509":case "1510":case "0410":
-                case "1512":case "1507":
-                case "1503":case "1504":case "0411":
+                case "1512":case "1507":case "1528":
+                case "1503":case "1504":case "0411":case "1522":
                     for (Inventory inventory : list) {
                         if (inventory.getCInvName().equals(text)) {
                             result.add(inventory);
@@ -241,6 +242,7 @@ public class DaoBean {
                 case "1513":case "1516":
                 case "1518":case "1519":case "1520":
                 case "1521":case "1522":case "1523":
+                case "1528":
                     for (Inventory inventory : list) {
                         if (inventory.getCInvName().equals(text)) {
                             result.add(inventory);
@@ -747,5 +749,40 @@ public class DaoBean {
         List<PushNewsInfo> list = queryBuilder.list();
 
         return list;
+    }
+
+    public static void insertActionIds(List<Integer> aIds){
+        if (aIds == null || aIds.isEmpty()) {
+            return;
+        }
+        DaoSession daoSession = DaoManager.getInstance().getDaoSession();
+        final ActionIdDao dao = daoSession.getActionIdDao();
+        dao.getSession().runInTx(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < aIds.size(); i++) {
+                    ActionId bean = new ActionId();
+                    bean.setAId(aIds.get(i));
+                    dao.insertOrReplace(bean);
+                }
+            }
+        });
+    }
+    /**
+     * 删除所有功能列表（权限）
+     */
+    public static void clearActionIds() {
+        DaoSession daoSession = DaoManager.getInstance().getDaoSession();
+        ActionIdDao actionIdDao = daoSession.getActionIdDao();
+        actionIdDao.deleteAll();
+    }
+
+    public static List<ActionId> getActionsById(int actionId) {
+
+        DaoSession daoSession = DaoManager.getInstance().getDaoSession();
+        ActionIdDao actionIdDao = daoSession.getActionIdDao();
+        QueryBuilder<ActionId> queryBuilder = actionIdDao.queryBuilder().where(ActionIdDao.Properties.AId.eq(actionId));
+        return queryBuilder.list();
+
     }
 }

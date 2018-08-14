@@ -880,6 +880,7 @@
                 </LinearLayout>
             </android.support.v7.widget.CardView>
             <include layout="@layout/contract_history_change"/>
+            <include layout="@layout/certificate_content_layout"/>
 
             <android.support.v7.widget.CardView style="@style/CardViewLayout">
 

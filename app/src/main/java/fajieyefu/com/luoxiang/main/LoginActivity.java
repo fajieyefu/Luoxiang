@@ -50,6 +50,7 @@ import de.greenrobot.dao.query.QueryBuilder;
 import fajieyefu.com.luoxiang.R;
 import fajieyefu.com.luoxiang.bean.ReponseBean;
 import fajieyefu.com.luoxiang.bean.UserInfo;
+import fajieyefu.com.luoxiang.dao.DaoBean;
 import fajieyefu.com.luoxiang.dao.UserInfoDao;
 import fajieyefu.com.luoxiang.data.CommonData;
 import fajieyefu.com.luoxiang.db.DaoSession;
@@ -199,7 +200,15 @@ public class LoginActivity extends BaseActivity  {
                 int rId = response.getData().userInfo.getRId();
                 userInfoDao.deleteAll();
                 userInfo.setRId(rId);
+                userInfo.setCDepName(response.getData().userInfo.getCDepName());
+                userInfo.setCDepCode(response.getData().userInfo.getCDepCode());
                 userInfoDao.insert(userInfo);
+
+                //更新actionIds
+                DaoBean.clearActionIds();
+                DaoBean.insertActionIds(response.getData().userInfo.getActionIds());
+
+
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
                 initxiaomiPush();

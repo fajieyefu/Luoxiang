@@ -80,13 +80,16 @@ public class ExampleDaoGenerator {
 		pushInfo.addStringProperty("pushId");
 		pushInfo.addIntProperty("pushType");
 		pushInfo.addIntProperty("enableFlag");
-
+		//用户功能列表aId
+		Entity actionId = schema.addEntity("ActionId");
+		actionId.addIdProperty();
+		actionId.addIntProperty("aId");
 
 	}
 	public static void main(String[] args)throws Exception{
 		//生成数据库文件的目标包名
 		//第一个参数是数据库版本号，第二个参数是包的根目录的包
-		Schema schema = new Schema(3,"fajieyefu.com.luoxiang");
+		Schema schema = new Schema(4,"fajieyefu.com.luoxiang");
 		addTaskDetails(schema);
 		try{
 			new DaoGenerator().generateAll(schema,OUT_DIR);

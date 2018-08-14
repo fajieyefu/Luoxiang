@@ -41,6 +41,7 @@
         <item name="android:textColor">@color/title_color</item>
         <item name="android:textSize">16sp</item>
         <item name="android:gravity">center</item>
+        <item name="android:background"></item>
     </style>
     <style name="tv_12sp_black">
         <item name="android:textColor">@color/title_color</item>
@@ -107,7 +108,7 @@
     </style>
     <style name="contratInputLayout_h">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">55dp</item>
+        <item name="android:layout_height">48dp</item>
         <item name="android:background">@drawable/layout_grey</item>
         <item name="android:paddingLeft">1dp</item>
         <item name="android:paddingRight">1dp</item>

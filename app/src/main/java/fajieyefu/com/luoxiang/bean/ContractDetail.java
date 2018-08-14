@@ -148,6 +148,33 @@ public class ContractDetail {
     private String luntai_mark;
     private int isQingZang;
     private int certificate_flag;
+    private String certificate_approve_time;
+    private String certificate_number;
+    private String frame_number;
+
+    public String getCertificate_approve_time() {
+        return certificate_approve_time;
+    }
+
+    public void setCertificate_approve_time(String certificate_approve_time) {
+        this.certificate_approve_time = certificate_approve_time;
+    }
+
+    public String getCertificate_number() {
+        return certificate_number;
+    }
+
+    public void setCertificate_number(String certificate_number) {
+        this.certificate_number = certificate_number;
+    }
+
+    public String getFrame_number() {
+        return frame_number;
+    }
+
+    public void setFrame_number(String frame_number) {
+        this.frame_number = frame_number;
+    }
 
     public int getCertificate_flag() {
         return certificate_flag;

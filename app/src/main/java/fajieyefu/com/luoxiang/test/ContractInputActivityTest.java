@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -46,7 +47,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.builder.PostFormBuilder;
 import com.zhy.http.okhttp.request.RequestCall;
 
 import org.json.JSONArray;
@@ -424,6 +424,28 @@ public class ContractInputActivityTest extends BaseActivity implements View.OnCl
     EditText areaStanMarkSkeleton;
     @BindView(R.id.isQingZang)
     CheckBox isQingZang;
+    @BindView(R.id.traction_force_skeleton)
+    EditText tractionForceSkeleton;
+    @BindView(R.id.isLiveSkeleton)
+    MySpinnerForFreeInventory isLiveSkeleton;
+    @BindView(R.id.forkIsOnSkeleton)
+    MySpinnerForFreeInventory forkIsOnSkeleton;
+    @BindView(R.id.beamTypeSkeleton)
+    MySpinnerForFreeInventory beamTypeSkeleton;
+    @BindView(R.id.beamNumSkeleton)
+    EditText beamNumSkeleton;
+    @BindView(R.id.traction_force)
+    EditText tractionForce;
+    @BindView(R.id.isLive)
+    MySpinnerForFreeInventory isLive;
+    @BindView(R.id.forkIsOn)
+    MySpinnerForFreeInventory forkIsOn;
+    @BindView(R.id.beamType)
+    MySpinnerForFreeInventory beamType;
+    @BindView(R.id.beamNum)
+    EditText beamNum;
+    @BindView(R.id.relayValve)
+    MySpinnerForFreeInventory relayValve;
 
     private Button more;
     private int mYear;
@@ -475,6 +497,9 @@ public class ContractInputActivityTest extends BaseActivity implements View.OnCl
     private List<String> list_relayValveType;
     private List<String> list_legType;
     private List<String> list_area_stan;
+    private List<String> list_beam;
+    private List<String> list_isLive;
+    private List<String> list_forkIsOn;
     private ObtainBean customer_bean;
     private ToolUtil toolUtil;
     private UserInfo userInfo;
@@ -526,6 +551,9 @@ public class ContractInputActivityTest extends BaseActivity implements View.OnCl
     private List<AreaStan> areaStans;
 
     private String areaStanCode;
+    private int[] location = new int[2];
+    private int titleHeight;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -745,6 +773,14 @@ public class ContractInputActivityTest extends BaseActivity implements View.OnCl
         list_cantrail = DaoBean.getInventoryNameByCCode("1524");
         cantrail.setData(list_cantrail);
         cantrail.setText("0");
+
+        //顺梁
+        list_beam = DaoBean.getInventoryNameByCCode("1528");
+        beamType.setData(list_beam);
+
+        //继动阀
+        list_relayValveType = DaoBean.getInventoryNameByCCode("1522");
+        relayValve.setData(list_relayValveType);
         //大区列表
         list_area = new ArrayList<>();
         list_area_stan = new ArrayList<>();
@@ -775,6 +811,8 @@ public class ContractInputActivityTest extends BaseActivity implements View.OnCl
         carStyle.setData(list_model);
         btsjq.setData(list_btsjq);
         area.setData(list_area);
+        isLive.setData(list_isLive);
+        forkIsOn.setData(list_forkIsOn);
 
         area.setText(customer_bean.getcDCName());
         areaStan.setData(list_area_stan);
@@ -803,6 +841,8 @@ public class ContractInputActivityTest extends BaseActivity implements View.OnCl
         btsjqSkeleton.setData(list_btsjq);
         btzjSkeleton.setData(list_beitaizhijia);
         absMarkSkeleton.setData(list_absMark);
+        isLiveSkeleton.setData(list_isLive);
+        forkIsOnSkeleton.setData(list_forkIsOn);
 
         //装卸平台
         list_xiehuo = DaoBean.getInventoryNameByCCode("1516");
@@ -867,6 +907,11 @@ public class ContractInputActivityTest extends BaseActivity implements View.OnCl
         list_legType = DaoBean.getInventoryNameByCCode("1523");
         legType.setData(list_legType);
 
+        //顺梁
+        list_beam = DaoBean.getInventoryNameByCCode("1528");
+        beamTypeSkeleton.setData(list_beam);
+
+
 
         list_area = new ArrayList<>();
         list_area_stan = new ArrayList<>();
@@ -895,12 +940,20 @@ public class ContractInputActivityTest extends BaseActivity implements View.OnCl
 
     @OnClick(R.id.caculator)
     public void onViewClicked() {
+        caculator.setClickable(false);
         new Thread(new Runnable() {
             @Override
             public void run() {
                 caculator();
             }
         }).start();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                caculator.setClickable(true);
+            }
+        }, 3000);
 
 
     }
@@ -995,6 +1048,7 @@ public class ContractInputActivityTest extends BaseActivity implements View.OnCl
 
             @Override
             public void run() {
+
                 //更新UI
                 View view = LayoutInflater.from(ContractInputActivityTest.this).inflate(R.layout.price_weight_layout, null);
                 TextView price = (TextView) view.findViewById(R.id.price);
@@ -1022,8 +1076,8 @@ public class ContractInputActivityTest extends BaseActivity implements View.OnCl
             case R.id.preview:
                 Intent intent2 = new Intent(ContractInputActivityTest.this, ContractPreviewActivity.class);
 
-                if (isSkeleton != 1 ) {
-                    if (!createBaseJsonData()){
+                if (isSkeleton != 1) {
+                    if (!createBaseJsonData()) {
                         return;
                     }
 
@@ -1202,14 +1256,13 @@ public class ContractInputActivityTest extends BaseActivity implements View.OnCl
         }
 
 
-        RequestCall requestCall= OkHttpUtils.post()
+        RequestCall requestCall = OkHttpUtils.post()
                 .url(commitUrl)
                 .files("file", map)
                 .files("signature", signatureMap)
                 .addParams("content", content.toString()).build();
 
         requestCall.execute(new ResponCallBack());
-
 
 
     }
@@ -1378,6 +1431,17 @@ public class ContractInputActivityTest extends BaseActivity implements View.OnCl
         } else {
             DaoBean.getInventoryLikeCCode("1506", this.getResources().getString(R.string.zhihuan), null, null, null);
         }
+        //确定继动阀
+        if (DaoBean.getInventoryLikeCCode("1522", relayValve.getText(), ze, null, null).size() != 1 && !relayValve.getText().equals("不选")) {
+            showToastOnUi("继动阀数据有错误，请联系管理员");
+            return false;
+        }
+        //确定顺梁
+        if (DaoBean.getInventoryLikeCCode("1528", beamType.getText(), ze, null, null).size() != 1 && !beamType.getText().equals("不选")) {
+            showToastOnUi("顺梁数据有错误，请联系管理员");
+            return false;
+        }
+
         return true;
 
     }
@@ -1500,6 +1564,11 @@ public class ContractInputActivityTest extends BaseActivity implements View.OnCl
         //确定支腿
         if (DaoBean.getInventoryLikeCCodeSkeleton("1523", legType.getText(), ze, null, null).size() != 1 && !legType.getText().equals("不选")) {
             showToastOnUi("支腿数据有错误，请联系管理员");
+            return false;
+        }
+        //确定顺梁
+        if (DaoBean.getInventoryLikeCCodeSkeleton("1528", beamTypeSkeleton.getText(), ze, null, null).size() != 1 && !beamTypeSkeleton.getText().equals("不选")) {
+            showToastOnUi("顺梁数据有错误，请联系管理员");
             return false;
         }
 
@@ -1686,6 +1755,8 @@ public class ContractInputActivityTest extends BaseActivity implements View.OnCl
         DaoBean.updateCounts("0405", gqCounts);
         DaoBean.updateCounts("0404", ltCounts);
         DaoBean.updateCounts("0402", Integer.parseInt(btsjq.getText().equals("") ? "0" : btsjq.getText()));
+        int beamCounts = getEditNum(beamNum);
+        DaoBean.updateCounts("1528",beamCounts);
 
     }
 
@@ -1700,6 +1771,8 @@ public class ContractInputActivityTest extends BaseActivity implements View.OnCl
         DaoBean.updateCounts("0404", ltCounts);
         DaoBean.updateCounts("0402", Integer.parseInt(btsjqSkeleton.getText().equals("") ? "0" : btsjqSkeleton.getText()));
         DaoBean.updateCounts("1513", Integer.parseInt(axisCount.getText().equals("") ? "0" : axisCount.getText()));
+        int beamCounts = getEditNum(beamNumSkeleton);
+        DaoBean.updateCounts("1528",beamCounts);
     }
 
     /**
@@ -1708,8 +1781,9 @@ public class ContractInputActivityTest extends BaseActivity implements View.OnCl
      * @return
      */
     public boolean createBaseJsonData() {
-        if (!TextUtils.isEmpty(judgeEdit())) {
-            showToastOnUi(judgeEdit());
+        String toastString = judgeEdit();
+        if (!TextUtils.isEmpty(toastString)) {
+            showToastOnUi(toastString);
             return false;
         }
         if (!dealWithData()) {
@@ -1799,6 +1873,12 @@ public class ContractInputActivityTest extends BaseActivity implements View.OnCl
             basic_info.put("discountFee", TextUtils.isEmpty(discountFeeString) ? 0 : discountFeeString);
             basic_info.put("standard_pro_code", areaStanCode);
             basic_info.put("standard_pro_text", areaStanMark.getText());
+            basic_info.put("beam_type",beamType.getText());
+            basic_info.put("beam_num",beamNum.getText());
+            basic_info.put("forkIsOn",forkIsOn.getText());
+            basic_info.put("isLive",isLive.getText());
+            basic_info.put("traction_force",tractionForce.getText());
+
             if (carStyle.getText().contains("直")) {
                 basic_info.put("classCode", "0102");
 
@@ -1842,10 +1922,10 @@ public class ContractInputActivityTest extends BaseActivity implements View.OnCl
                 basic_info.put("isNew", 0);
             }
             // 是否跑青藏线
-            if (isQingZang.isChecked()){
-                basic_info.put("isQingZang",1);
-            }else{
-                basic_info.put("isQingZang",0);
+            if (isQingZang.isChecked()) {
+                basic_info.put("isQingZang", 1);
+            } else {
+                basic_info.put("isQingZang", 0);
 
             }
 
@@ -1861,8 +1941,10 @@ public class ContractInputActivityTest extends BaseActivity implements View.OnCl
      * @return
      */
     public boolean createBaseJsonDataSkeleton() {
-        if (!TextUtils.isEmpty(judgeEditSkeleton())) {
-            showToastOnUi(judgeEditSkeleton());
+
+        String toastStringSkeleton = judgeEditSkeleton();
+        if (!TextUtils.isEmpty(toastStringSkeleton)) {
+            showToastOnUi(toastStringSkeleton);
             return false;
         }
         if (!dealWithDataSkeleton()) {
@@ -1937,6 +2019,11 @@ public class ContractInputActivityTest extends BaseActivity implements View.OnCl
             basic_info.put("carriage", TextUtils.isEmpty(carriageString) ? 0 : carriageString);
             basic_info.put("standard_pro_code", areaStanCode);
             basic_info.put("standard_pro_text", areaStanMarkSkeleton.getText());
+            basic_info.put("beam_type",beamTypeSkeleton.getText());
+            basic_info.put("beam_num",beamNumSkeleton.getText());
+            basic_info.put("forkIsOn",forkIsOnSkeleton.getText());
+            basic_info.put("isLive",isLiveSkeleton.getText());
+            basic_info.put("traction_force",tractionForceSkeleton.getText());
             if (!TextUtils.isEmpty(orderNumberEdit.getText())) {
                 basic_info.put("order_type", 1);
             } else {
@@ -1975,10 +2062,10 @@ public class ContractInputActivityTest extends BaseActivity implements View.OnCl
                 basic_info.put("isNew", 0);
             }
             // 是否跑青藏线
-            if (isQingZang.isChecked()){
-                basic_info.put("isQingZang",1);
-            }else{
-                basic_info.put("isQingZang",0);
+            if (isQingZang.isChecked()) {
+                basic_info.put("isQingZang", 1);
+            } else {
+                basic_info.put("isQingZang", 0);
 
             }
 
@@ -2058,23 +2145,54 @@ public class ContractInputActivityTest extends BaseActivity implements View.OnCl
             toastInfo = ContractInputActivityTest.this.getResources().getString(R.string.auditdleaveTime);
             return toastInfo;
         }
-        if (TextUtils.isEmpty(outlinesize.getText().toString())) {
-            if (!isNew.isChecked()) {
+        if (!isNew.isChecked()) {
+            if (TextUtils.isEmpty(outlinesize.getText().toString())) {
+
                 toastInfo = ContractInputActivityTest.this.getResources().getString(R.string.outlinesize);
+                return toastInfo;
             }
-        }
-        if (TextUtils.isEmpty(huangyouzui.getText().toString())) {
-            if (!isNew.isChecked()) {
+
+
+            if (TextUtils.isEmpty(huangyouzui.getText().toString())) {
+
                 toastInfo = ContractInputActivityTest.this.getResources().getString(R.string.huangyouzuiTips);
+                return toastInfo;
             }
-        }
-        if (TextUtils.isEmpty(oldPrice.getText().toString())) {
-            if (!isNew.isChecked()) {
+
+            if (TextUtils.isEmpty(oldPrice.getText().toString())) {
+
                 toastInfo = ContractInputActivityTest.this.getResources().getString(R.string.oldWeightTips);
+                return toastInfo;
             }
+
+        }
+        if (TextUtils.isEmpty(tractionForce.getText().toString())) {
+            toastInfo = ContractInputActivityTest.this.getResources().getString(R.string.tractionForceTips);
+            screenMove(tractionForce);
+
+            return toastInfo;
         }
 
+
         return toastInfo;
+    }
+
+    void screenMove(View view) {
+//        view.getLocationOnScreen(location);
+        int[] location1 = new int[2] ;
+        view.getLocationInWindow(location1); //获取在当前窗口内的绝对坐标
+        Log.i("在当前窗口的绝对坐标","x："+location1[0]+"  y："+location1[1]);
+        int[] location2 = new int[2] ;
+        view.getLocationOnScreen(location2);//获取在整个屏幕内的绝对坐标
+        Log.i("在整个屏幕的绝对坐标","x："+location2[0]+"  y："+location2[1]);
+
+        view.getLocationOnScreen(location);
+        parent.scrollBy(0,  -2*titleHeight+location[1]);
+
+
+
+
+
     }
 
     /**
@@ -2137,6 +2255,12 @@ public class ContractInputActivityTest extends BaseActivity implements View.OnCl
         }
         if (productType.getText().equals("不选")) {
             toastInfo = "产品型号不可以不选";
+            return toastInfo;
+        }
+        if (TextUtils.isEmpty(tractionForceSkeleton.getText().toString())) {
+            toastInfo = ContractInputActivityTest.this.getResources().getString(R.string.tractionForceTips);
+            screenMove(tractionForceSkeleton);
+
             return toastInfo;
         }
 
@@ -2648,6 +2772,14 @@ public class ContractInputActivityTest extends BaseActivity implements View.OnCl
                     list_absMark = new ArrayList<>();
                     addList(option.getOptionItems(), list_absMark);
                     break;
+                case 20:
+                    list_isLive = new ArrayList<>();
+                    addList(option.getOptionItems(), list_isLive);
+                    break;
+                case 21:
+                    list_forkIsOn = new ArrayList<>();
+                    addList(option.getOptionItems(), list_forkIsOn);
+                    break;
 
             }
 
@@ -2754,5 +2886,9 @@ public class ContractInputActivityTest extends BaseActivity implements View.OnCl
         }
     }
 
-
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+         titleHeight =  title.getBottom()- title.getTop();
+    }
 }

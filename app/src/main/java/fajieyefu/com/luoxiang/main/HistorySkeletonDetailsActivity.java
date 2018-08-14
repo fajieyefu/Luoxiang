@@ -333,7 +333,7 @@ public class HistorySkeletonDetailsActivity extends BaseActivity implements View
                 Intent i = new Intent("android.intent.action.VIEW");
                 i.addCategory("android.intent.category.DEFAULT");
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                File dir = StorageUtils.getCacheDirectory(HistorySkeletonDetailsActivity.this);
+//                File dir = StorageUtils.getCacheDirectory(ContractCheckSkeletonActivity.this);
                 String fileName = contractDetail.getOrderNumber() + ".docx";
                 File wordFile = new File(dir, fileName);
                 if (!wordFile.exists()) {
@@ -642,7 +642,7 @@ public class HistorySkeletonDetailsActivity extends BaseActivity implements View
                     pabhyj.setText(contractDetail.getPgbhyj());
                     pabhyjLayout.setVisibility(View.VISIBLE);
                 }
-//                File dir = StorageUtils.getCacheDirectory(HistorySkeletonDetailsActivity.this);
+//                File dir = StorageUtils.getCacheDirectory(ContractCheckSkeletonActivity.this);
                 String fileName = contractDetail.getOrderNumber() + ".docx";
                 File wordFile = new File(dir, fileName);
                 if (wordFile.exists()) {

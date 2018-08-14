@@ -347,7 +347,7 @@ public class HistoryDetailsActivity extends BaseActivity implements View.OnClick
                 Intent i = new Intent("android.intent.action.VIEW");
                 i.addCategory("android.intent.category.DEFAULT");
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                File dir = StorageUtils.getCacheDirectory(HistoryDetailsActivity.this);
+//                File dir = StorageUtils.getCacheDirectory(ContractCheckActivity.this);
 
                 String fileName = contractDetail.getOrderNumber() + ".docx";
                 File wordFile = new File(dir, fileName);

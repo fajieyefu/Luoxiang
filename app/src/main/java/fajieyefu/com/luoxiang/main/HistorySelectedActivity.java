@@ -6,13 +6,17 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fajieyefu.com.luoxiang.R;
+import fajieyefu.com.luoxiang.bean.ActionId;
 import fajieyefu.com.luoxiang.bean.UserInfo;
 import fajieyefu.com.luoxiang.dao.DaoBean;
 import fajieyefu.com.luoxiang.layout.TitleLayout;
+import fajieyefu.com.luoxiang.main.query.ContractQueryListActivity;
 
 /**
  * Created by Administrator on 2017-05-13.
@@ -30,6 +34,8 @@ public class HistorySelectedActivity extends BaseActivity {
     public int flag = 0;
     @BindView(R.id.applyModify)
     Button applyModify;
+    @BindView(R.id.contractQuery)
+    Button contractQuery;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,16 +57,31 @@ public class HistorySelectedActivity extends BaseActivity {
         });
         UserInfo userInfo = DaoBean.getUseInfoById(1);
         int rId = userInfo.getRId();
-       /* if (rId==13||(rId==3)||rId==8){*/
+        if (DaoBean.getActionsById(51).size()>0){
             applyModify.setVisibility(View.VISIBLE);
-        /*}*/
-        applyModify.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HistorySelectedActivity.this,ApplyModifyManageActivity.class);
-                startActivity(intent);
-            }
-        });
+            applyModify.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(HistorySelectedActivity.this, ApplyModifyManageActivity.class);
+                    startActivity(intent);
+                }
+            });
+        }
+
+        /**
+         * 是否有合同查询功能
+         */
+        if (DaoBean.getActionsById(29).size()>0){
+            contractQuery.setVisibility(View.VISIBLE);
+            contractQuery.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(HistorySelectedActivity.this, ContractQueryListActivity.class);
+                    startActivity(intent);
+                }
+            });
+        }
+
     }
 
     @OnClick({R.id.inProcessContract, R.id.historyContract})
