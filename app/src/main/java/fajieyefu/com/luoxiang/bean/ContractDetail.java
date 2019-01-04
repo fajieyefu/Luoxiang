@@ -152,6 +152,61 @@ public class ContractDetail {
     private String certificate_number;
     private String frame_number;
 
+    private String  forkIsOn;
+    private String  isLive;
+    private String beam_type;
+    private int beam_num;
+    private String traction_force;
+    private int isElect;
+
+    public int getIsElect() {
+        return isElect;
+    }
+
+    public void setIsElect(int isElect) {
+        this.isElect = isElect;
+    }
+
+    public int getBeam_num() {
+        return beam_num;
+    }
+
+    public void setBeam_num(int beam_num) {
+        this.beam_num = beam_num;
+    }
+
+    public String getForkIsOn() {
+        return forkIsOn;
+    }
+
+    public void setForkIsOn(String forkIsOn) {
+        this.forkIsOn = forkIsOn;
+    }
+
+    public String getIsLive() {
+        return isLive;
+    }
+
+    public void setIsLive(String isLive) {
+        this.isLive = isLive;
+    }
+
+    public String getBeam_type() {
+        return beam_type;
+    }
+
+    public void setBeam_type(String beam_type) {
+        this.beam_type = beam_type;
+    }
+
+    public String getTraction_force() {
+        return traction_force;
+    }
+
+    public void setTraction_force(String traction_force) {
+        this.traction_force = traction_force;
+    }
+
     public String getCertificate_approve_time() {
         return certificate_approve_time;
     }

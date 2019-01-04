@@ -18,6 +18,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
+import android.support.v7.widget.CardView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -254,6 +255,30 @@ public class HistoryDetailsActivity extends BaseActivity implements View.OnClick
     TextView dingjinState;
     @BindView(R.id.certificate_flag)
     TextView certificateFlag;
+    @BindView(R.id.certificateNumber2)
+    TextView certificateNumber2;
+    @BindView(R.id.isElect)
+    TextView isElect;
+    @BindView(R.id.beamNum)
+    TextView beamNum;
+    @BindView(R.id.isLive)
+    TextView isLive;
+    @BindView(R.id.forkIsOn)
+    TextView forkIsOn;
+    @BindView(R.id.realValue)
+    TextView realValue;
+    @BindView(R.id.certificateNumber)
+    TextView certificateNumber;
+    @BindView(R.id.frameNumber)
+    TextView frameNumber;
+    @BindView(R.id.certificate_process_flag)
+    TextView certificateProcessFlag;
+    @BindView(R.id.certificate_content_layout)
+    LinearLayout certificateContentLayout;
+    @BindView(R.id.traction_force)
+    TextView tractionForce;
+    @BindView(R.id.signature_layout)
+    CardView signatureLayout;
     private String username;
     private String password;
     private int orderId;
@@ -326,6 +351,22 @@ public class HistoryDetailsActivity extends BaseActivity implements View.OnClick
             more.setVisibility(View.GONE);
         } else {
             more.setVisibility(View.VISIBLE);
+        }
+        if (!TextUtils.isEmpty(last_activity) && last_activity.equals("ApplyModifyManageActivity")) {
+            customer.setVisibility(View.GONE);
+            person.setVisibility(View.GONE);
+            address.setVisibility(View.GONE);
+            phone.setVisibility(View.GONE);
+            endCustomerName.setVisibility(View.GONE);
+            endCustomerPhone.setVisibility(View.GONE);
+            signatureLayout.setVisibility(View.GONE);
+            price.setVisibility(View.GONE);
+            amt.setVisibility(View.GONE);
+            amtDx.setVisibility(View.GONE);
+
+
+
+
         }
 
         more.setOnClickListener(new View.OnClickListener() {
@@ -597,6 +638,24 @@ public class HistoryDetailsActivity extends BaseActivity implements View.OnClick
                 setTextView(standardProText, contractDetail.getStandard_pro_text());
                 setTextView(extraChangeContent, contractDetail.getExtra_change_content());
 
+
+                setTextView(realValue, contractDetail.getRelayValveType());
+                setTextView(beamNum, contractDetail.getBeam_type() + "  " + contractDetail.getBeam_num());
+                setTextView(tractionForce, contractDetail.getTraction_force());
+                setTextView(forkIsOn, contractDetail.getForkIsOn());
+                setTextView(isLive, contractDetail.getIsLive());
+                setTextView(certificateNumber2, contractDetail.getCertificate_number());
+
+                //是否电泳
+                if (contractDetail.getIsElect() == 0) {
+                    isElect.setText("否");
+                } else if (contractDetail.getIsElect() == 1) {
+                    isElect.setText("是");
+                } else {
+                    isElect.setText("根据备注");
+                }
+
+
                 if (contractDetail.getIsQingZang() == 0) {
                     isQingZang.setChecked(false);
                 } else {
@@ -689,9 +748,9 @@ public class HistoryDetailsActivity extends BaseActivity implements View.OnClick
                     wordPic.setVisibility(View.GONE);
                 }
                 judgeWordDownAble();
-                if (contractDetail.getCertificate_flag()==1){
+                if (contractDetail.getCertificate_flag() == 1) {
                     certificateFlag.setText("合格");
-                }else{
+                } else {
                     certificateFlag.setText("不合格");
                 }
 
@@ -789,6 +848,10 @@ public class HistoryDetailsActivity extends BaseActivity implements View.OnClick
                 dingjinState.setText("合格");
             }
 
+        }
+        if (!TextUtils.isEmpty(last_activity)){
+            downWord.setVisibility(View.GONE);
+            wordPic.setVisibility(View.GONE);
         }
 
 

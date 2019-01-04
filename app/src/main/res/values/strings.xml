@@ -342,7 +342,17 @@
          \"chezhouMark\":\"车轴\",
          \"luntai_mark\":\"轮胎\",
         \"isQingZang\":\"是否跑青藏线\",
-         \"gangquan_mark\":\"钢圈\"
+         \"gangquan_mark\":\"钢圈\",
+        \"beam_num\":\"顺梁数量\",
+        \"beam_type\":\"顺梁类型\",
+        \"isLive\":\"是否活运\",
+        \"forkIsOn\":\"是否上叉车\",
+        \"traction_force\":\"牵引总质量\",
+        \"certificate_number\":\"公告型号\",
+        \"isElect\":\"是否电泳\",
+        \"cantrail\":\"上花栏\",
+        \"oldPrice\":\"旧车斗价格\"
+
 
 }</string>
     <string name="tractionForceTips" >请填写牵引力！</string>

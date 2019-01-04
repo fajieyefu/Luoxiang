@@ -179,6 +179,36 @@
                             android:textColor="@color/black" />
 
                     </LinearLayout>
+                    <LinearLayout style="@style/preview_text_filed_layout">
+
+                        <TextView
+                            style="@style/preview_text_filed"
+                            android:text="公告型号：" />
+
+                        <TextView
+                            android:id="@+id/certificateNumber2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text=""
+                            android:textColor="@color/black" />
+
+                    </LinearLayout>
+                    <LinearLayout style="@style/preview_text_filed_layout">
+
+                        <TextView
+                            style="@style/preview_text_filed"
+                            android:text="是否电泳：" />
+
+                        <TextView
+                            android:id="@+id/isElect"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text=""
+                            android:textColor="@color/black" />
+
+                    </LinearLayout>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
@@ -268,7 +298,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:background="@color/wheat"
                 android:gravity="center_vertical"
                 android:text="二、上述车辆买受人选装以下配置（单位为mm）"
@@ -341,6 +371,17 @@
 
                 <TextView
                     android:id="@+id/lidigao"
+                    style="@style/previewContract_black_h"
+                    android:text="" />
+            </LinearLayout>
+            <LinearLayout style="@style/preview_text_filed_layout">
+
+                <TextView
+                    style="@style/preview_text_filed"
+                    android:text="牵引总质量：" />
+
+                <TextView
+                    android:id="@+id/traction_force"
                     style="@style/previewContract_black_h"
                     android:text="" />
             </LinearLayout>
@@ -588,6 +629,54 @@
 
                 <TextView
                     style="@style/preview_text_filed"
+                    android:text="顺梁：" />
+
+                <TextView
+                    android:id="@+id/beamNum"
+                    style="@style/previewContract_black_h"
+                    android:text="" />
+
+            </LinearLayout>
+            <LinearLayout style="@style/preview_text_filed_layout">
+
+                <TextView
+                    style="@style/preview_text_filed"
+                    android:text="活运：" />
+
+                <TextView
+                    android:id="@+id/isLive"
+                    style="@style/previewContract_black_h"
+                    android:text="" />
+
+            </LinearLayout>
+            <LinearLayout style="@style/preview_text_filed_layout">
+
+                <TextView
+                    style="@style/preview_text_filed"
+                    android:text="上叉车：" />
+
+                <TextView
+                    android:id="@+id/forkIsOn"
+                    style="@style/previewContract_black_h"
+                    android:text="" />
+
+            </LinearLayout>
+            <LinearLayout style="@style/preview_text_filed_layout">
+
+                <TextView
+                    style="@style/preview_text_filed"
+                    android:text="继动阀：" />
+
+                <TextView
+                    android:id="@+id/realValue"
+                    style="@style/previewContract_black_h"
+                    android:text="" />
+
+            </LinearLayout>
+            <LinearLayout style="@style/preview_text_filed_layout">
+
+                <TextView
+                    style="@style/preview_text_filed"
                     android:text="上户地区：" />
 
                 <TextView
@@ -718,6 +807,7 @@
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
+                android:id="@+id/signature_layout"
                 style="@style/CardViewLayout"
                 android:paddingBottom="10dp">
 
@@ -907,8 +997,7 @@
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
-            <include layout="@layout/contract_history_change"
-                />
+            <include layout="@layout/contract_history_change"/>
             <include layout="@layout/certificate_content_layout"/>
 
             <android.support.v7.widget.CardView style="@style/CardViewLayout">

@@ -27,6 +27,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fajieyefu.com.luoxiang.R;
 import fajieyefu.com.luoxiang.adapter.HistoryAdapter;
+import fajieyefu.com.luoxiang.adapter.HistoryHideCustomerAdapter;
 import fajieyefu.com.luoxiang.bean.ContractBean;
 import fajieyefu.com.luoxiang.bean.ReponseBean;
 import fajieyefu.com.luoxiang.bean.ResponseBean2;
@@ -68,7 +69,7 @@ public class ApplyModifyManageActivity extends BaseActivity implements View.OnCl
     @BindView(R.id.shade_layout)
     LinearLayout shadeLayout;
     private ArrayList<ContractBean> contracts = new ArrayList<>();
-    private HistoryAdapter contractAdapter;
+    private HistoryHideCustomerAdapter contractAdapter;
     private ToolUtil toolUtil = new ToolUtil();
     private Button more;
 
@@ -84,7 +85,7 @@ public class ApplyModifyManageActivity extends BaseActivity implements View.OnCl
 
     private void initView() {
         title.setTitleText("到厂变更申请");
-        contractAdapter = new HistoryAdapter(contracts,this);
+        contractAdapter = new HistoryHideCustomerAdapter(contracts,this);
         more = (Button) title.findViewById(R.id.more);
         more.setVisibility(View.VISIBLE);
         more.setOnClickListener(this);
@@ -100,6 +101,7 @@ public class ApplyModifyManageActivity extends BaseActivity implements View.OnCl
                 } else {
                     intent.setClass(ApplyModifyManageActivity.this, HistoryDetailsActivity.class);
                 }
+                intent.putExtra("last_activity","ApplyModifyManageActivity");
                 intent.putExtra("orderId", orderId);
                 intent.putExtra("type",1);
                 intent.putExtra("dpc", contracts.get(position).getDpc());

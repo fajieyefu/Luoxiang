@@ -12,6 +12,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -426,6 +427,28 @@ public class ContractModifyActivity extends BaseActivity implements View.OnClick
     EditText areaStanMarkSkeleton;
     @BindView(R.id.isQingZang)
     CheckBox isQingZang;
+    @BindView(R.id.certificateNumber)
+    MySpinnerForFree certificateNumber;
+    @BindView(R.id.isElect)
+    CheckBox isElect;
+    @BindView(R.id.traction_force_skeleton)
+    EditText tractionForceSkeleton;
+    @BindView(R.id.isLiveSkeleton)
+    MySpinnerForFreeInventory isLiveSkeleton;
+    @BindView(R.id.forkIsOnSkeleton)
+    MySpinnerForFreeInventory forkIsOnSkeleton;
+    @BindView(R.id.traction_force)
+    EditText tractionForce;
+    @BindView(R.id.isLive)
+    MySpinnerForFreeInventory isLive;
+    @BindView(R.id.forkIsOn)
+    MySpinnerForFreeInventory forkIsOn;
+    @BindView(R.id.beamType)
+    MySpinnerForFreeInventory beamType;
+    @BindView(R.id.beamNum)
+    EditText beamNum;
+    @BindView(R.id.relayValve)
+    MySpinnerForFreeInventory relayValve;
 
     private Button more;
     private int mYear;
@@ -477,6 +500,10 @@ public class ContractModifyActivity extends BaseActivity implements View.OnClick
     private List<String> list_relayValveType;
     private List<String> list_legType;
     private List<String> list_area_stan;
+    private List<String> list_beam;
+    private List<String> list_isLive;
+    private List<String> list_forkIsOn;
+    private List<String> list_certificate_number;
     private ObtainBean customer_bean;
     private ToolUtil toolUtil;
     private UserInfo userInfo;
@@ -530,6 +557,10 @@ public class ContractModifyActivity extends BaseActivity implements View.OnClick
     private List<AreaStan> areaStans;
 
     private String areaStanCode;
+
+    private int[] location = new int[2];
+    private int titleHeight;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -811,6 +842,12 @@ public class ContractModifyActivity extends BaseActivity implements View.OnClick
         list_cantrail = DaoBean.getInventoryNameByCCode("1524");
         cantrail.setData(list_cantrail);
         cantrail.setText("0");
+        //继动阀
+        list_relayValveType = DaoBean.getInventoryNameByCCode("1522");
+        relayValve.setData(list_relayValveType);
+        //顺梁
+        list_beam = DaoBean.getInventoryNameByCCode("1528");
+        beamType.setData(list_beam);
         //大区列表
         list_area = new ArrayList<>();
         list_area_stan = new ArrayList<>();
@@ -843,6 +880,8 @@ public class ContractModifyActivity extends BaseActivity implements View.OnClick
         area.setData(list_area);
         area.setText(customer_bean.getcDCName());
         areaStan.setData(list_area_stan);
+        isLive.setData(list_isLive);
+        forkIsOn.setData(list_forkIsOn);
         areaStan.removeNoSelect();
         if (areaStans.get(0) != null) {
             areaStanMark.setText(areaStans.get(0).getAreaDetail());
@@ -870,6 +909,8 @@ public class ContractModifyActivity extends BaseActivity implements View.OnClick
         btsjqSkeleton.setData(list_btsjq);
         btzjSkeleton.setData(list_beitaizhijia);
         absMarkSkeleton.setData(list_absMark);
+        isLiveSkeleton.setData(list_isLive);
+        forkIsOnSkeleton.setData(list_forkIsOn);
 
         //装卸平台
         list_xiehuo = DaoBean.getInventoryNameByCCode("1516");
@@ -1042,8 +1083,18 @@ public class ContractModifyActivity extends BaseActivity implements View.OnClick
         }*/
         areaStanSkeleton.setText(json.optString("areaStanName"));
         areaStanMarkSkeleton.setText(json.optString("standard_pro_text"));
-
         extraChangeContent.setText(json.optString("extra_change_content").trim());
+
+
+        forkIsOnSkeleton.setText(json.optString("forkIsOn").trim());
+        isLiveSkeleton.setText(json.optString("isLive").trim());
+        tractionForceSkeleton.setText(json.optString("traction_force").trim());
+        certificateNumber.setText(json.optString("certificate_number").trim());
+        if (json.optInt("isElect") == 0) {
+            isElect.setChecked(false);
+        }
+
+
         if (json.optInt("bmustbook") == 0) {
             dingjin.setChecked(false);
         }
@@ -1057,7 +1108,7 @@ public class ContractModifyActivity extends BaseActivity implements View.OnClick
             amt.setText((int) Float.parseFloat(json.optString("orderMoney").trim()) + "");
         }
 
-        if (json.optInt("isQingZang")==1){
+        if (json.optInt("isQingZang") == 1) {
             isQingZang.setChecked(true);
         }
         amtDx.setText(json.optString("ordermoney_dx").trim());
@@ -1191,6 +1242,23 @@ public class ContractModifyActivity extends BaseActivity implements View.OnClick
         areaStanCode = json.optString("standard_pro_code");
         areaStan.setText(json.optString("areaStanName"));
         areaStanMark.setText(json.optString("standard_pro_text"));
+
+
+        beamType.setText(json.optString("beam_type").trim());
+        beamNum.setText(json.optString("beam_num").trim());
+        forkIsOn.setText(json.optString("forkIsOn").trim());
+        isLive.setText(json.optString("isLive").trim());
+        tractionForce.setText(json.optString("traction_force").trim());
+        certificateNumber.setText(json.optString("certificate_number").trim());
+        relayValve.setText(json.optString("relayValveType").trim());
+        if (json.optInt("isElect") == 0) {
+            isElect.setChecked(false);
+        }
+
+
+
+
+
         if (json.optInt("bmustbook") == 0) {
             dingjin.setChecked(false);
         }
@@ -1203,7 +1271,7 @@ public class ContractModifyActivity extends BaseActivity implements View.OnClick
         if (!TextUtils.isEmpty(json.optString("orderMoney"))) {
             amt.setText((int) Float.parseFloat(json.optString("orderMoney").trim()) + "");
         }
-        if (json.optInt("isQingZang")==1){
+        if (json.optInt("isQingZang") == 1) {
             isQingZang.setChecked(true);
         }
 
@@ -1255,7 +1323,13 @@ public class ContractModifyActivity extends BaseActivity implements View.OnClick
                 caculator();
             }
         }).start();
-
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                caculator.setClickable(true);
+            }
+        }, 3000);
 
     }
 
@@ -1367,8 +1441,8 @@ public class ContractModifyActivity extends BaseActivity implements View.OnClick
                 break;
             case R.id.preview:
                 Intent intent2 = new Intent(ContractModifyActivity.this, ContractPreviewActivity.class);
-                if (isSkeleton != 1 ) {
-                    if(!createBaseJsonData()){
+                if (isSkeleton != 1) {
+                    if (!createBaseJsonData()) {
                         return;
                     }
 
@@ -1586,6 +1660,7 @@ public class ContractModifyActivity extends BaseActivity implements View.OnClick
                     case "cDefine1":
                     case "urgent_flag":
                     case "isQingZang":
+                    case "isElect":
                         if (value.equals("0")) {
                             value = "否";
                         } else {
@@ -1806,6 +1881,16 @@ public class ContractModifyActivity extends BaseActivity implements View.OnClick
             DaoBean.getInventoryLikeCCode("1506", this.getResources().getString(R.string.newCar), null, null, null);
         } else {
             DaoBean.getInventoryLikeCCode("1506", this.getResources().getString(R.string.zhihuan), null, null, null);
+        }
+        //确定继动阀
+        if (DaoBean.getInventoryLikeCCode("1522", relayValve.getText(), ze, null, null).size() != 1 && !relayValve.getText().equals("不选")) {
+            showToastOnUi("继动阀数据有错误，请联系管理员");
+            return false;
+        }
+        //确定顺梁
+        if (DaoBean.getInventoryLikeCCode("1528", beamType.getText(), ze, null, null).size() != 1 && !beamType.getText().equals("不选")) {
+            showToastOnUi("顺梁数据有错误，请联系管理员");
+            return false;
         }
         return true;
 
@@ -2091,7 +2176,8 @@ public class ContractModifyActivity extends BaseActivity implements View.OnClick
         DaoBean.updateCounts("0405", gqCounts);
         DaoBean.updateCounts("0404", ltCounts);
         DaoBean.updateCounts("0402", Integer.parseInt(btsjq.getText().equals("") ? "0" : btsjq.getText()));
-
+        int beamCounts = getEditNum(beamNum);
+        DaoBean.updateCounts("1528", beamCounts);
     }
 
 
@@ -2211,6 +2297,14 @@ public class ContractModifyActivity extends BaseActivity implements View.OnClick
             basic_info.put("standard_pro_code", areaStanCode);
             basic_info.put("areaStanName", areaStan.getText());
             basic_info.put("standard_pro_text", areaStanMark.getText());
+
+            basic_info.put("forkIsOn", forkIsOn.getText());
+            basic_info.put("isLive", isLive.getText());
+            basic_info.put("traction_force", tractionForce.getText());
+            basic_info.put("certificate_number",certificateNumber.getText());
+            basic_info.put("relayValveType",relayValve.getText());
+            basic_info.put("beam_type",beamType.getText());
+            basic_info.put("beam_num",beamNum.getText());
             if (carStyle.getText().contains("直")) {
                 basic_info.put("classCode", "0102");
 
@@ -2260,6 +2354,12 @@ public class ContractModifyActivity extends BaseActivity implements View.OnClick
                 basic_info.put("isQingZang", 0);
 
             }
+            if (isElect.isChecked()) {
+                basic_info.put("isElect", 1);
+            } else {
+                basic_info.put("isElect", 0);
+            }
+
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -2357,6 +2457,13 @@ public class ContractModifyActivity extends BaseActivity implements View.OnClick
             basic_info.put("standard_pro_text", areaStanMarkSkeleton.getText());
             String carriageString = carriage.getText().toString();
             basic_info.put("carriage", TextUtils.isEmpty(carriageString) ? 0 : carriageString);
+
+            basic_info.put("forkIsOn", forkIsOnSkeleton.getText());
+            basic_info.put("isLive", isLiveSkeleton.getText());
+            basic_info.put("traction_force", tractionForceSkeleton.getText());
+            basic_info.put("certificate_number",certificateNumber.getText());
+
+
             if (!TextUtils.isEmpty(orderNumberEdit.getText())) {
                 basic_info.put("order_type", 1);
             } else {
@@ -2400,6 +2507,11 @@ public class ContractModifyActivity extends BaseActivity implements View.OnClick
             } else {
                 basic_info.put("isQingZang", 0);
 
+            }
+            if (isElect.isChecked()) {
+                basic_info.put("isElect", 1);
+            } else {
+                basic_info.put("isElect", 0);
             }
 
         } catch (JSONException e) {
@@ -2479,30 +2591,35 @@ public class ContractModifyActivity extends BaseActivity implements View.OnClick
             toastInfo = ContractModifyActivity.this.getResources().getString(R.string.auditdleaveTime);
             return toastInfo;
         }
-        if (TextUtils.isEmpty(outlinesize.getText().toString())) {
-            if (!isNew.isChecked()) {
+        if (!isNew.isChecked()) {
+            if (TextUtils.isEmpty(outlinesize.getText().toString())) {
+
                 toastInfo = ContractModifyActivity.this.getResources().getString(R.string.outlinesize);
+                return toastInfo;
             }
-        }
-        if (TextUtils.isEmpty(huangyouzui.getText().toString())) {
-            if (!isNew.isChecked()) {
+
+
+            if (TextUtils.isEmpty(huangyouzui.getText().toString())) {
+
                 toastInfo = ContractModifyActivity.this.getResources().getString(R.string.huangyouzuiTips);
+                return toastInfo;
             }
-        }
-        if (TextUtils.isEmpty(oldPrice.getText().toString())) {
-            if (!isNew.isChecked()) {
+
+            if (TextUtils.isEmpty(oldPrice.getText().toString())) {
+
                 toastInfo = ContractModifyActivity.this.getResources().getString(R.string.oldWeightTips);
+                return toastInfo;
             }
+
         }
-        for (Area ar : areaList) {
-            if (ar.getcDCName().equals(area.getText())) {
-                cDCCode = ar.getcDCCode();
-                break;
-            }
+        if (TextUtils.isEmpty(tractionForce.getText().toString())) {
+            toastInfo = ContractModifyActivity.this.getResources().getString(R.string.tractionForceTips);
+            screenMove(tractionForce);
+
+            return toastInfo;
         }
-        if (cDCCode == null) {
-            toastInfo = "没有该大区选项!";
-        }
+
+
         return toastInfo;
     }
 
@@ -2568,19 +2685,31 @@ public class ContractModifyActivity extends BaseActivity implements View.OnClick
             toastInfo = "产品型号不可以不选";
             return toastInfo;
         }
-        for (Area ar : areaList) {
-            if (ar.getcDCName().equals(area.getText())) {
-                cDCCode = ar.getcDCCode();
-                break;
-            }
+        if (TextUtils.isEmpty(tractionForceSkeleton.getText().toString())) {
+            toastInfo = ContractModifyActivity.this.getResources().getString(R.string.tractionForceTips);
+            screenMove(tractionForceSkeleton);
+
+            return toastInfo;
         }
-        if (cDCCode == null) {
-            toastInfo = "没有该大区选项!";
-        }
+
 
         return toastInfo;
     }
 
+    void screenMove(View view) {
+//        view.getLocationOnScreen(location);
+        int[] location1 = new int[2];
+        view.getLocationInWindow(location1); //获取在当前窗口内的绝对坐标
+        Log.i("在当前窗口的绝对坐标", "x：" + location1[0] + "  y：" + location1[1]);
+        int[] location2 = new int[2];
+        view.getLocationOnScreen(location2);//获取在整个屏幕内的绝对坐标
+        Log.i("在整个屏幕的绝对坐标", "x：" + location2[0] + "  y：" + location2[1]);
+
+        view.getLocationOnScreen(location);
+        parent.scrollBy(0, -2 * titleHeight + location[1]);
+
+
+    }
     /**
      * 获取某个输入框的输入值，没有输入时赋值为0
      *
@@ -3082,11 +3211,23 @@ public class ContractModifyActivity extends BaseActivity implements View.OnClick
                     list_absMark = new ArrayList<>();
                     addList(option.getOptionItems(), list_absMark);
                     break;
+                case 20:
+                    list_isLive = new ArrayList<>();
+                    addList(option.getOptionItems(), list_isLive);
+                    break;
+                case 21:
+                    list_forkIsOn = new ArrayList<>();
+                    addList(option.getOptionItems(), list_forkIsOn);
+                    break;
+                case 22:
+                    list_certificate_number = new ArrayList<>();
+                    addList(option.getOptionItems(),list_certificate_number);
+                    break;
 
             }
 
         }
-
+        certificateNumber.setData(list_certificate_number);
         standardId = DaoBean.getInventoryClassById(1).getStandardId();
         if (isSkeleton == 1) {
             initSkeletonSpinner();
@@ -3308,4 +3449,9 @@ public class ContractModifyActivity extends BaseActivity implements View.OnClick
 
         }
     };
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        titleHeight = title.getBottom() - title.getTop();
+    }
 }

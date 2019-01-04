@@ -430,10 +430,6 @@ public class ContractInputActivityTest extends BaseActivity implements View.OnCl
     MySpinnerForFreeInventory isLiveSkeleton;
     @BindView(R.id.forkIsOnSkeleton)
     MySpinnerForFreeInventory forkIsOnSkeleton;
-    @BindView(R.id.beamTypeSkeleton)
-    MySpinnerForFreeInventory beamTypeSkeleton;
-    @BindView(R.id.beamNumSkeleton)
-    EditText beamNumSkeleton;
     @BindView(R.id.traction_force)
     EditText tractionForce;
     @BindView(R.id.isLive)
@@ -446,6 +442,10 @@ public class ContractInputActivityTest extends BaseActivity implements View.OnCl
     EditText beamNum;
     @BindView(R.id.relayValve)
     MySpinnerForFreeInventory relayValve;
+    @BindView(R.id.certificateNumber)
+    MySpinnerForFree certificateNumber;
+    @BindView(R.id.isElect)
+    CheckBox isElect;
 
     private Button more;
     private int mYear;
@@ -500,6 +500,7 @@ public class ContractInputActivityTest extends BaseActivity implements View.OnCl
     private List<String> list_beam;
     private List<String> list_isLive;
     private List<String> list_forkIsOn;
+    private List<String> list_certificate_number;
     private ObtainBean customer_bean;
     private ToolUtil toolUtil;
     private UserInfo userInfo;
@@ -553,7 +554,8 @@ public class ContractInputActivityTest extends BaseActivity implements View.OnCl
     private String areaStanCode;
     private int[] location = new int[2];
     private int titleHeight;
-
+    private static String[] permissions = {"android.permission.READ_EXTERNAL_STORAGE",
+            "android.permission.WRITE_EXTERNAL_STORAGE"};
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -635,14 +637,13 @@ public class ContractInputActivityTest extends BaseActivity implements View.OnCl
                 Button preview = (Button) view.findViewById(R.id.preview);
                 Button queryProNum = (Button) view.findViewById(R.id.queryProNum);
                 commit.setVisibility(View.VISIBLE);
-                preview.setVisibility(View.VISIBLE);
+                preview.setVisibility(View.GONE);
                 queryProNum.setVisibility(View.VISIBLE);
                 preview.setOnClickListener(ContractInputActivityTest.this);
                 commit.setOnClickListener(ContractInputActivityTest.this);
                 queryProNum.setOnClickListener(ContractInputActivityTest.this);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setContentView(view);
-                dialog.setContentView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                dialog.setContentView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                 dialog.show();
             }
         });
@@ -811,7 +812,11 @@ public class ContractInputActivityTest extends BaseActivity implements View.OnCl
         carStyle.setData(list_model);
         btsjq.setData(list_btsjq);
         area.setData(list_area);
+
+        isLive.removeNoSelect();
         isLive.setData(list_isLive);
+
+        forkIsOn.removeNoSelect();
         forkIsOn.setData(list_forkIsOn);
 
         area.setText(customer_bean.getcDCName());
@@ -841,7 +846,11 @@ public class ContractInputActivityTest extends BaseActivity implements View.OnCl
         btsjqSkeleton.setData(list_btsjq);
         btzjSkeleton.setData(list_beitaizhijia);
         absMarkSkeleton.setData(list_absMark);
+
+        isLiveSkeleton.removeNoSelect();
         isLiveSkeleton.setData(list_isLive);
+
+        forkIsOnSkeleton.removeNoSelect();
         forkIsOnSkeleton.setData(list_forkIsOn);
 
         //装卸平台
@@ -906,11 +915,6 @@ public class ContractInputActivityTest extends BaseActivity implements View.OnCl
         //支腿
         list_legType = DaoBean.getInventoryNameByCCode("1523");
         legType.setData(list_legType);
-
-        //顺梁
-        list_beam = DaoBean.getInventoryNameByCCode("1528");
-        beamTypeSkeleton.setData(list_beam);
-
 
 
         list_area = new ArrayList<>();
@@ -1095,8 +1099,14 @@ public class ContractInputActivityTest extends BaseActivity implements View.OnCl
                 queryNumLayout.setVisibility(View.GONE);
                 break;
             case R.id.sign:
-                Intent intent3 = new Intent(ContractInputActivityTest.this, SignatureActivity.class);
-                startActivity(intent3);
+                AlertDialog.Builder permission_dialog = applyPermission(this, "权限提示", "请允许使用存储权限，否则不能正常使用", permissions, "android.permission.WRITE_EXTERNAL_STORAGE");
+                if (permission_dialog != null) {
+                    permission_dialog.show();
+                } else {
+                    Intent intent3 = new Intent(ContractInputActivityTest.this, SignatureActivity.class);
+                    startActivity(intent3);
+
+                }
                 break;
             case R.id.sign_pic:
                 if (bitmap == null) {
@@ -1566,11 +1576,6 @@ public class ContractInputActivityTest extends BaseActivity implements View.OnCl
             showToastOnUi("支腿数据有错误，请联系管理员");
             return false;
         }
-        //确定顺梁
-        if (DaoBean.getInventoryLikeCCodeSkeleton("1528", beamTypeSkeleton.getText(), ze, null, null).size() != 1 && !beamTypeSkeleton.getText().equals("不选")) {
-            showToastOnUi("顺梁数据有错误，请联系管理员");
-            return false;
-        }
 
 
         //确定底盘
@@ -1756,7 +1761,7 @@ public class ContractInputActivityTest extends BaseActivity implements View.OnCl
         DaoBean.updateCounts("0404", ltCounts);
         DaoBean.updateCounts("0402", Integer.parseInt(btsjq.getText().equals("") ? "0" : btsjq.getText()));
         int beamCounts = getEditNum(beamNum);
-        DaoBean.updateCounts("1528",beamCounts);
+        DaoBean.updateCounts("1528", beamCounts);
 
     }
 
@@ -1771,8 +1776,6 @@ public class ContractInputActivityTest extends BaseActivity implements View.OnCl
         DaoBean.updateCounts("0404", ltCounts);
         DaoBean.updateCounts("0402", Integer.parseInt(btsjqSkeleton.getText().equals("") ? "0" : btsjqSkeleton.getText()));
         DaoBean.updateCounts("1513", Integer.parseInt(axisCount.getText().equals("") ? "0" : axisCount.getText()));
-        int beamCounts = getEditNum(beamNumSkeleton);
-        DaoBean.updateCounts("1528",beamCounts);
     }
 
     /**
@@ -1873,11 +1876,14 @@ public class ContractInputActivityTest extends BaseActivity implements View.OnCl
             basic_info.put("discountFee", TextUtils.isEmpty(discountFeeString) ? 0 : discountFeeString);
             basic_info.put("standard_pro_code", areaStanCode);
             basic_info.put("standard_pro_text", areaStanMark.getText());
-            basic_info.put("beam_type",beamType.getText());
-            basic_info.put("beam_num",beamNum.getText());
-            basic_info.put("forkIsOn",forkIsOn.getText());
-            basic_info.put("isLive",isLive.getText());
-            basic_info.put("traction_force",tractionForce.getText());
+            basic_info.put("beam_type", beamType.getText());
+            basic_info.put("beam_num", beamNum.getText());
+            basic_info.put("forkIsOn", forkIsOn.getText());
+            basic_info.put("isLive", isLive.getText());
+            basic_info.put("traction_force", tractionForce.getText());
+            basic_info.put("certificate_number", certificateNumber.getText());
+            basic_info.put("relayValveType", relayValve.getText());
+
 
             if (carStyle.getText().contains("直")) {
                 basic_info.put("classCode", "0102");
@@ -1920,6 +1926,11 @@ public class ContractInputActivityTest extends BaseActivity implements View.OnCl
                 basic_info.put("isNew", 1);
             } else {
                 basic_info.put("isNew", 0);
+            }
+            if (isElect.isChecked()) {
+                basic_info.put("isElect", 1);
+            } else {
+                basic_info.put("isElect", 0);
             }
             // 是否跑青藏线
             if (isQingZang.isChecked()) {
@@ -1999,6 +2010,8 @@ public class ContractInputActivityTest extends BaseActivity implements View.OnCl
             basic_info.put("btsjq", btsjqSkeleton.getText());
             basic_info.put("btsjq", btsjqSkeleton.getText());
             basic_info.put("chezhou", chezhouSkeleton.getText());
+            basic_info.put("chezhouMark", chezhouMark.getText());
+            basic_info.put("banhuangMark", banhuangMark.getText());
             basic_info.put("remark", remarkSkeleton.getText().toString());
             basic_info.put("ordermoney", amt.getText().toString());
             basic_info.put("ordermoney_dx", amtDx.getText().toString());
@@ -2019,11 +2032,14 @@ public class ContractInputActivityTest extends BaseActivity implements View.OnCl
             basic_info.put("carriage", TextUtils.isEmpty(carriageString) ? 0 : carriageString);
             basic_info.put("standard_pro_code", areaStanCode);
             basic_info.put("standard_pro_text", areaStanMarkSkeleton.getText());
-            basic_info.put("beam_type",beamTypeSkeleton.getText());
-            basic_info.put("beam_num",beamNumSkeleton.getText());
-            basic_info.put("forkIsOn",forkIsOnSkeleton.getText());
-            basic_info.put("isLive",isLiveSkeleton.getText());
-            basic_info.put("traction_force",tractionForceSkeleton.getText());
+
+
+            basic_info.put("forkIsOn", forkIsOnSkeleton.getText());
+            basic_info.put("isLive", isLiveSkeleton.getText());
+            basic_info.put("traction_force", tractionForceSkeleton.getText());
+            basic_info.put("certificate_number", certificateNumber.getText());
+
+
             if (!TextUtils.isEmpty(orderNumberEdit.getText())) {
                 basic_info.put("order_type", 1);
             } else {
@@ -2067,6 +2083,11 @@ public class ContractInputActivityTest extends BaseActivity implements View.OnCl
             } else {
                 basic_info.put("isQingZang", 0);
 
+            }
+            if (isElect.isChecked()) {
+                basic_info.put("isElect", 1);
+            } else {
+                basic_info.put("isElect", 0);
             }
 
         } catch (JSONException e) {
@@ -2179,18 +2200,15 @@ public class ContractInputActivityTest extends BaseActivity implements View.OnCl
 
     void screenMove(View view) {
 //        view.getLocationOnScreen(location);
-        int[] location1 = new int[2] ;
+        int[] location1 = new int[2];
         view.getLocationInWindow(location1); //获取在当前窗口内的绝对坐标
-        Log.i("在当前窗口的绝对坐标","x："+location1[0]+"  y："+location1[1]);
-        int[] location2 = new int[2] ;
+        Log.i("在当前窗口的绝对坐标", "x：" + location1[0] + "  y：" + location1[1]);
+        int[] location2 = new int[2];
         view.getLocationOnScreen(location2);//获取在整个屏幕内的绝对坐标
-        Log.i("在整个屏幕的绝对坐标","x："+location2[0]+"  y："+location2[1]);
+        Log.i("在整个屏幕的绝对坐标", "x：" + location2[0] + "  y：" + location2[1]);
 
         view.getLocationOnScreen(location);
-        parent.scrollBy(0,  -2*titleHeight+location[1]);
-
-
-
+        parent.scrollBy(0, -2 * titleHeight + location[1]);
 
 
     }
@@ -2780,11 +2798,16 @@ public class ContractInputActivityTest extends BaseActivity implements View.OnCl
                     list_forkIsOn = new ArrayList<>();
                     addList(option.getOptionItems(), list_forkIsOn);
                     break;
+                case 22:
+                    list_certificate_number = new ArrayList<>();
+                    addList(option.getOptionItems(), list_certificate_number);
+                    break;
 
             }
 
         }
 
+        certificateNumber.setData(list_certificate_number);
         if (isSkeleton == 1) {
             initSkeletonSpinner();
         } else {
@@ -2889,6 +2912,6 @@ public class ContractInputActivityTest extends BaseActivity implements View.OnCl
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-         titleHeight =  title.getBottom()- title.getTop();
+        titleHeight = title.getBottom() - title.getTop();
     }
 }

@@ -91,7 +91,7 @@ public class HistoryAdapter extends BaseAdapter {
         return convertView;
     }
 
-    private void isDDPC() {
+    /*private void isDDPC() {
         switch (contractBean.getDpc()) {
             case 0:
                 isRefuse();
@@ -101,9 +101,9 @@ public class HistoryAdapter extends BaseAdapter {
                 viewHolder.nqFlag.setText(context.getResources().getString(R.string.ddpc));
                 break;
         }
-    }
+    }*/
 
-    private void isRefuse() {
+    /*private void isRefuse() {
         switch (contractBean.getNq_flag()) {
             case 2:
                 viewHolder.dot.setBackground(context.getResources().getDrawable(R.drawable.dot_2));
@@ -118,9 +118,9 @@ public class HistoryAdapter extends BaseAdapter {
                 viewHolder.nqFlag.setText(context.getResources().getString(R.string.wait_audit));
                 break;
         }
-    }
+    }*/
 
-    private void isDTC() {
+    /*private void isDTC() {
         switch (contractBean.getDdtc()) {
             case 0:
                 isDDPC();
@@ -130,7 +130,7 @@ public class HistoryAdapter extends BaseAdapter {
                 viewHolder.nqFlag.setText(context.getResources().getString(R.string.dtc));
                 break;
         }
-    }
+    }*/
 
     static class ViewHolder {
         @BindView(R.id.dot)
